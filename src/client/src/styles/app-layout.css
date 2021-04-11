@@ -2,6 +2,7 @@
   --color-primary: rgb(93, 182, 42);
   --color-primary-dark: rgb(73, 150, 29);
 
+  --font-xs: 1rem;
   --font-sm: 1.25rem;
   --font-md: 1.75rem;
   --font-lg: 2.5rem;
@@ -10,6 +11,19 @@
 body {
   font-size: var(--font-sm);
   font-family: 'Magra';
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+.font-xs {
+  font-size: var(--font-xs);
+}
+
+.font-sm {
+  font-size: var(--font-sm);
 }
 
 .page-header {

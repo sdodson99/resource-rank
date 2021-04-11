@@ -1,48 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { Link } from 'gatsby';
 
 import Layout from '../components/layout/layout';
 import TopicListing from '../components/topic-listing/topic-listing';
-import useTopicProvider from '../hooks/use-topic-provider';
+import getTopicsQuery from '../gql-requests/get-topics-query';
 
 export default function Home() {
-  const topicProvider = useTopicProvider();
+  const { loading: isLoadingTopics, data } = useQuery(getTopicsQuery);
 
-  const [isLoadingTopics, setIsLoadingTopics] = useState(false);
-  const [topics, setTopics] = useState([]);
-  useEffect(async () => {
-    setIsLoadingTopics(true);
-
-    try {
-      const topics = await topicProvider.getTopics();
-      setTopics(topics);
-
-      console.log(topics);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoadingTopics(false);
+  const getTopics = () => {
+    if (!data) {
+      return [];
     }
-  }, []);
 
-  const createTopic = () => {
-    console.log('create');
+    return data.topics;
   };
 
   return (
     <Layout>
-      <div className="row align-items-center justify-content-between">
-        <div className="col-auto">
+      <div className="row align-items-center justify-content-between text-center text-sm-start">
+        <div className="col-sm-auto">
           <div className="page-header">Topics</div>
         </div>
-        <div className="col-auto">
-          <button className="btn btn-primary" onClick={createTopic}>
+        <div className="col-sm-auto mt-2 mt-sm-0">
+          <Link className="btn btn-primary font-sm" to="/topics/create">
             Create
-          </button>
+          </Link>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="mt-4">
         {isLoadingTopics && <div>Loading...</div>}
-        {!isLoadingTopics && <TopicListing topics={topics} />}
+        {!isLoadingTopics && <TopicListing topics={getTopics()} />}
       </div>
     </Layout>
   );

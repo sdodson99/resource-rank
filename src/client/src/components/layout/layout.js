@@ -13,7 +13,7 @@ function Layout({ children }) {
           className={`container ${layoutStyle.container} text-center text-sm-start`}
         >
           <Link to="/" className={layoutStyle.title}>
-            Res Rank
+            Resource Rank
           </Link>
         </div>
       </header>

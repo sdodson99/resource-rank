@@ -4,7 +4,9 @@ import TopicListingItem from '../topic-listing-item/topic-listing-item';
 
 function TopicListing({ topics }) {
   const topicListingItems = topics.map((t) => (
-    <TopicListingItem key={t.id} id={t.id} name={t.name} />
+    <div key={t.id} className="mb-2">
+      <TopicListingItem id={t.id} name={t.name} />
+    </div>
   ));
 
   return <div>{topicListingItems}</div>;
