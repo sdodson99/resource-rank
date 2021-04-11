@@ -1,0 +1,31 @@
+{
+  "name": "res-rank-client",
+  "description": "",
+  "version": "1.0.0",
+  "license": "",
+  "scripts": {
+    "dev": "npm run develop",
+    "lint:eslint": "eslint \"src/**/*.js\"",
+    "lint:prettier": "prettier \"src/**/*.js\"",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "fix:eslint": "eslint --fix \"src/**/*.js\"",
+    "fix:prettier": "prettier --write \"src/**/*.js\"",
+    "fix": "npm run fix:eslint && npm run fix:prettier",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "dependencies": {
+    "gatsby": "^3.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "2.2.1"
+  }
+}
