@@ -1,0 +1,38 @@
+{
+  "name": "res-rank-api",
+  "version": "1.0.0",
+  "description": "A GraphQL API for ResRank data.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "lint:eslint": "eslint \"src/**/*.js\"",
+    "lint:prettier": "prettier \"src/**/*.js\"",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "fix:eslint": "eslint --fix \"src/**/*.js\"",
+    "fix:prettier": "prettier --write \"src/**/*.js\"",
+    "fix": "npm run fix:eslint && npm run fix:prettier",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "res",
+    "rank",
+    "topic",
+    "resource",
+    "help",
+    "learn"
+  ],
+  "author": "Sean Dodson",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.22.2",
+    "graphql": "^15.5.0",
+    "uuid": "^8.3.2"
+  }
+}
