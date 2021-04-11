@@ -1,0 +1,18 @@
+.container {
+  max-width: 600px;
+}
+
+header {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+header a,
+header a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.title {
+  font-size: var(--font-md);
+}

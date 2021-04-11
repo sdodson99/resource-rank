@@ -1,0 +1,30 @@
+:root {
+  --color-primary: rgb(93, 182, 42);
+  --color-primary-dark: rgb(73, 150, 29);
+
+  --font-sm: 1.25rem;
+  --font-md: 1.75rem;
+  --font-lg: 2.5rem;
+}
+
+body {
+  font-size: var(--font-sm);
+  font-family: 'Magra';
+}
+
+.page-header {
+  font-size: var(--font-lg);
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: none !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
