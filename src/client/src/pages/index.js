@@ -7,15 +7,11 @@ import TopicListing from '../components/topic-listing/topic-listing';
 import getTopicsQuery from '../gql-requests/get-topics-query';
 
 export default function Home() {
-  const { loading: isLoadingTopics, data } = useQuery(getTopicsQuery);
+  const { loading: isLoadingTopics, data } = useQuery(getTopicsQuery, {
+    fetchPolicy: 'no-cache',
+  });
 
-  const getTopics = () => {
-    if (!data) {
-      return [];
-    }
-
-    return data.topics;
-  };
+  const topics = data?.topics ?? [];
 
   return (
     <Layout>
@@ -31,7 +27,7 @@ export default function Home() {
       </div>
       <div className="mt-4">
         {isLoadingTopics && <div>Loading...</div>}
-        {!isLoadingTopics && <TopicListing topics={getTopics()} />}
+        {!isLoadingTopics && <TopicListing topics={topics} />}
       </div>
     </Layout>
   );

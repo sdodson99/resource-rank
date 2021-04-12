@@ -4,8 +4,8 @@
 
   --font-xs: 1rem;
   --font-sm: 1.25rem;
-  --font-md: 1.75rem;
-  --font-lg: 2.5rem;
+  --font-md: 2.25rem;
+  --font-lg: 3rem;
 }
 
 body {
@@ -24,6 +24,10 @@ li {
 
 .font-sm {
   font-size: var(--font-sm);
+}
+
+.font-md {
+  font-size: var(--font-md);
 }
 
 .page-header {

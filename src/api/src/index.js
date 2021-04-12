@@ -8,8 +8,8 @@ const topics = [
     resources: [
       {
         id: createUUID(),
-        name: 'GOF Book',
-        link: 'www.gof.com',
+        name: 'GOF Book Wikipedia',
+        link: 'https://en.wikipedia.org/wiki/Design_Patterns',
         ratings: [
           {
             id: createUUID(),
@@ -50,6 +50,7 @@ const typeDefs = gql`
 
   type Query {
     topics: [Topic]
+    topic(id: ID!): Topic
     resources: [Resource]
   }
 
@@ -63,6 +64,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     topics: () => topics,
+    topic: (_, { id }) => topics.find((t) => t.id === id),
     resources: () => topics.flatMap((t) => t.resources),
   },
   Mutation: {

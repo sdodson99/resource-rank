@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
+import ListingItem from '../listing-item/listing-item';
 
 function TopicListingItem({ id, name }) {
-  const resourcesLink = `/topics/details/${id}`;
+  const resourcesLink = `/topics/${id}`;
 
   return (
-    <div className="border border-1 p-3">
+    <ListingItem>
       <div className="row align-items-center justify-content-between">
         <div className="col-sm-auto">{name}</div>
         <div className="col-sm-auto font-xs">
           <Link to={resourcesLink}>Resources</Link>
         </div>
       </div>
-    </div>
+    </ListingItem>
   );
 }
 
