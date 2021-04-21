@@ -11,24 +11,6 @@ const users = [
   },
 ];
 
-const topics = [
-  {
-    id: createUUID(),
-    name: 'Design Patterns',
-    creatorId: users.find((u) => u.username === 'sdodson99').id,
-  },
-  {
-    id: createUUID(),
-    name: 'Algorithms',
-    creatorId: users.find((u) => u.username === 'res-rank-admin').id,
-  },
-  {
-    id: createUUID(),
-    name: 'JavaScript',
-    creatorId: users.find((u) => u.username === 'sdodson99').id,
-  },
-];
-
 const resources = [
   {
     id: createUUID(),
@@ -56,26 +38,28 @@ const resources = [
   },
 ];
 
-const topicResources = [
+const topics = [
   {
     id: createUUID(),
-    topicId: topics.find((t) => t.name === 'Design Patterns').id,
-    resourceId: resources.find((r) => r.name === 'GOF Book Wikipedia').id,
+    name: 'Design Patterns',
+    creatorId: users.find((u) => u.username === 'sdodson99').id,
+    resources: [
+      resources.find((r) => r.name === 'GOF Book Wikipedia').id,
+      resources.find((r) => r.name === 'Refactoring Guru').id,
+      resources.find((r) => r.name === 'Geeks For Geeks').id,
+    ],
   },
   {
     id: createUUID(),
-    topicId: topics.find((t) => t.name === 'Design Patterns').id,
-    resourceId: resources.find((r) => r.name === 'Refactoring Guru').id,
+    name: 'Algorithms',
+    creatorId: users.find((u) => u.username === 'res-rank-admin').id,
+    resources: [resources.find((r) => r.name === 'Geeks For Geeks').id],
   },
   {
     id: createUUID(),
-    topicId: topics.find((t) => t.name === 'Design Patterns').id,
-    resourceId: resources.find((r) => r.name === 'Geeks For Geeks').id,
-  },
-  {
-    id: createUUID(),
-    topicId: topics.find((t) => t.name === 'Algorithms').id,
-    resourceId: resources.find((r) => r.name === 'Geeks For Geeks').id,
+    name: 'JavaScript',
+    creatorId: users.find((u) => u.username === 'sdodson99').id,
+    resources: [],
   },
 ];
 
@@ -85,12 +69,9 @@ const resolvers = {
   },
   Topic: {
     resources: (parent) =>
-      topicResources
-        .filter((tr) => tr.topicId === parent.id)
-        .map((tr) => ({
-          id: tr.id,
-          resource: resources.find((r) => r.id === tr.resourceId),
-        })),
+      parent.resources.map((id) => ({
+        resource: resources.find((r) => r.id === id),
+      })),
   },
   //   Mutation: {
   //     createTopic: (_, { name }) => {
