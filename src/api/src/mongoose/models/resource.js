@@ -5,6 +5,7 @@ const resourceSchema = new Schema({
     type: String,
     required: true,
   },
+  link: String,
   dateCreated: { type: Date, default: Date.now },
   createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
 });

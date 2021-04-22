@@ -25,15 +25,13 @@ const typeDefs = gql`
 
   type Query {
     topics: [Topic]
-    #  topic(id: ID!): Topic
-    #  resources: [Resource]
+    resources: [Resource]
   }
 
-  # type Mutation {
-  #  createTopic(name: String!): Topic
-  #  createResource(topicId: ID!, name: String!, link: String): Resource
-  #  createRating(topicId: ID!, resourceId: ID!, value: Int!): Rating
-  # }
+  type Mutation {
+    createTopic(name: String!): Topic
+    createResource(name: String!, link: String): Resource
+  }
 `;
 
 module.exports = typeDefs;
