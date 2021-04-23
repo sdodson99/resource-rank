@@ -34,6 +34,14 @@ const resolvers = {
   Mutation: {
     createTopic: (_, { name }) => Topic.create({ name }),
     createResource: (_, { name, link }) => Resource.create({ name, link }),
+    createTopicResource: async (_, { topicId, resourceId }) => {
+      const result = await Topic.updateOne(
+        { _id: topicId },
+        { $addToSet: { resources: resourceId } }
+      );
+
+      return result.nModified;
+    },
   },
 };
 

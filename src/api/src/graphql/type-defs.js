@@ -31,6 +31,7 @@ const typeDefs = gql`
   type Mutation {
     createTopic(name: String!): Topic
     createResource(name: String!, link: String): Resource
+    createTopicResource(topicId: ID!, resourceId: ID!): Boolean
   }
 `;
 
