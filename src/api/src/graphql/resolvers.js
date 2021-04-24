@@ -1,3 +1,4 @@
+const { ApolloError } = require('apollo-server');
 const { Topic } = require('../mongoose/models/topic');
 const { Resource } = require('../mongoose/models/resource');
 const { Rating } = require('../mongoose/models/rating');
@@ -7,13 +8,11 @@ const resolvers = {
     topics: async () => {
       const topics = await Topic.find({});
 
-      return topics.map((t) => {
-        return {
-          id: t._id,
-          name: t.name,
-          resources: t.resources,
-        };
-      });
+      return topics.map((t) => ({
+        id: t._id,
+        name: t.name,
+        resources: t.resources,
+      }));
     },
     resources: () => Resource.find({}),
   },
@@ -33,13 +32,11 @@ const resolvers = {
     },
   },
   TopicResource: {
-    resource: ({ topicId, resource }) => {
-      return {
-        id: resource._id,
-        name: resource.name,
-        link: resource.link,
-      };
-    },
+    resource: ({ topicId, resource }) => ({
+      id: resource._id,
+      name: resource.name,
+      link: resource.link,
+    }),
     ratings: async ({ topicId, resource }, _, { ratingDataLoader }) => {
       const ratings = await ratingDataLoader.load({
         topic: topicId,
@@ -63,12 +60,20 @@ const resolvers = {
 
       return result.nModified;
     },
-    createRating: async (_, { value, topicId, resourceId }) =>
-      Rating.create({
+    createRating: async (_, { value, topicId, resourceId }) => {
+      if (value < 0 || value > 5) {
+        throw new ApolloError(
+          'Rating must be between 0 and 5.',
+          'INVALID_RATING'
+        );
+      }
+
+      return Rating.create({
         value,
         topic: topicId,
         resource: resourceId,
-      }),
+      });
+    },
   },
 };
 
