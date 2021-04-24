@@ -1,5 +1,5 @@
-const { Resource } = require('../../mongoose/models/resource');
 const DataLoader = require('dataloader');
+const { Resource } = require('../../mongoose/models/resource');
 
 /**
  * Load resources in a batch.
@@ -7,7 +7,14 @@ const DataLoader = require('dataloader');
  * @return {Array} The loaded resources.
  */
 async function loadResources(resourceIds) {
-  return await Resource.find({ _id: { $in: resourceIds } });
+  const resources = await Resource.find({ _id: { $in: resourceIds } });
+
+  const resourceMap = {};
+  resources.forEach((r) => {
+    resourceMap[r._id] = r;
+  });
+
+  return resourceIds.map((id) => resourceMap[id]);
 }
 
 module.exports = () => new DataLoader((ids) => loadResources(ids));

@@ -1,5 +1,6 @@
 const { Topic } = require('../mongoose/models/topic');
 const { Resource } = require('../mongoose/models/resource');
+const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
@@ -17,18 +18,38 @@ const resolvers = {
     resources: () => Resource.find({}),
   },
   Topic: {
-    resources: async (parent, args, { resourceDataLoader }) => {
-      const resources = await resourceDataLoader.loadMany(parent.resources);
+    resources: async (
+      { id, resources: resourceIds },
+      _,
+      { resourceDataLoader }
+    ) => {
+      const resources = await resourceDataLoader.loadMany(resourceIds);
+      const topicResources = resources.map((r) => ({
+        topicId: id,
+        resource: r,
+      }));
 
-      return resources.map((r) => {
-        return {
-          resource: {
-            id: r._id,
-            name: r.name,
-            link: r.link,
-          },
-        };
+      return topicResources;
+    },
+  },
+  TopicResource: {
+    resource: ({ topicId, resource }) => {
+      return {
+        id: resource._id,
+        name: resource.name,
+        link: resource.link,
+      };
+    },
+    ratings: async ({ topicId, resource }, _, { ratingDataLoader }) => {
+      const ratings = await ratingDataLoader.load({
+        topic: topicId,
+        resource: resource._id,
       });
+
+      return ratings.map((r) => ({
+        id: r._id,
+        value: r.value,
+      }));
     },
   },
   Mutation: {
@@ -42,6 +63,12 @@ const resolvers = {
 
       return result.nModified;
     },
+    createRating: async (_, { value, topicId, resourceId }) =>
+      Rating.create({
+        value,
+        topic: topicId,
+        resource: resourceId,
+      }),
   },
 };
 
