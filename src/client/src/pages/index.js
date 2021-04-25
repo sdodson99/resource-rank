@@ -11,8 +11,6 @@ export default function Home() {
     fetchPolicy: 'no-cache',
   });
 
-  console.log(data);
-
   const topics = data?.topics ?? [];
 
   return (

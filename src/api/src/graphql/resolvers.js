@@ -14,6 +14,15 @@ const resolvers = {
         resources: t.resources,
       }));
     },
+    topic: async (_, { id }) => {
+      const topic = await Topic.findOne({ _id: id });
+
+      return {
+        id: topic._id,
+        name: topic.name,
+        resources: topic.resources,
+      };
+    },
     resources: () => Resource.find({}),
   },
   Topic: {

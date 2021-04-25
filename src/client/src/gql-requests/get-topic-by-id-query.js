@@ -6,9 +6,11 @@ export default gql`
       id
       name
       resources {
-        id
-        name
-        link
+        resourceInfo {
+          id
+          name
+          link
+        }
         ratings {
           value
         }

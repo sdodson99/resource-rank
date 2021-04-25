@@ -25,6 +25,7 @@ const typeDefs = gql`
 
   type Query {
     topics: [Topic]
+    topic(id: ID!): Topic
     resources: [Resource]
   }
 

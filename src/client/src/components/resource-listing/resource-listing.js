@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import ResourceListingItem from '../resource-listing-item/resource-listing-item';
 
 function ResourceListing({ resources }) {
+  console.log(resources);
+
   const resourceListingItems = resources.map((r) => (
     <div key={r.id}>
       <ResourceListingItem
-        id={r.id}
-        name={r.name}
+        id={r.resourceInfo.id}
+        name={r.resourceInfo.name}
         ratings={r.ratings}
-        link={r.link}
+        link={r.resourceInfo.link}
       />
     </div>
   ));
