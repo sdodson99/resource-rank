@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 
 import * as layoutStyle from './layout.module.css';
+import logo from '../../assets/logo.svg';
 
 function Layout({ children }) {
   return (
@@ -13,7 +14,11 @@ function Layout({ children }) {
           <div className="row align-items-center justify-content-center justify-content-sm-between">
             <div className="col-sm-auto text-center text-sm-start">
               <Link to="/" className={layoutStyle.title}>
-                Resource Rank
+                <img
+                  className={layoutStyle.logo}
+                  src={logo}
+                  alt="Resource Rank Logo"
+                />
               </Link>
             </div>
 

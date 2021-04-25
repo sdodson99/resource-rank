@@ -32,7 +32,7 @@ const resolvers = {
     },
   },
   TopicResource: {
-    resource: ({ topicId, resource }) => ({
+    resourceInfo: ({ topicId, resource }) => ({
       id: resource._id,
       name: resource.name,
       link: resource.link,
@@ -60,7 +60,7 @@ const resolvers = {
 
       return result.nModified;
     },
-    createRating: async (_, { value, topicId, resourceId }) => {
+    createRating: (_, { value, topicId, resourceId }) => {
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',

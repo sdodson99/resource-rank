@@ -13,8 +13,13 @@ header a:hover {
   text-decoration: none;
 }
 
+img.logo {
+  height: 50px;
+}
+
 .link {
   color: rgb(238, 238, 238);
+  font-size: var(--font-xs);
 }
 
 .link:hover {
