@@ -23,6 +23,7 @@ const resolvers = {
         resources: topic.resources,
       };
     },
+    topicExists: (_, { name }) => Topic.exists({ name }),
     resources: () => Resource.find({}),
   },
   Topic: {
