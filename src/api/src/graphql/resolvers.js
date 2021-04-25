@@ -60,7 +60,13 @@ const resolvers = {
     },
   },
   Mutation: {
-    createTopic: (_, { name }) => Topic.create({ name }),
+    createTopic: async (_, { name }) => {
+      if (await Topic.exists({ name })) {
+        throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
+      }
+
+      return await Topic.create({ name });
+    },
     createResource: (_, { name, link }) => Resource.create({ name, link }),
     createTopicResource: async (_, { topicId, resourceId }) => {
       const result = await Topic.updateOne(
