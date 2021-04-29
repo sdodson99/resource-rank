@@ -1,0 +1,6 @@
+{
+    "presets": [
+        // Used for testing.
+        "@babel/preset-env"
+    ]
+}
