@@ -7,9 +7,9 @@ const MAX_RATING = 5;
 const isHalfStar = (rating) => rating >= 0.3 && rating <= 0.7;
 const isFullStar = (rating) => rating > 0.7;
 
-const StarHalfFilled = () => <StarHalf fill="#e38100" />;
-const StarFullFilled = () => <StarFill fill="#e38100" />;
-const StarEmpty = () => <StarFill fill="#d6d6d6" />;
+const StarHalfFilled = () => <StarHalf aria-label="star-half" fill="#e38100" />;
+const StarFullFilled = () => <StarFill aria-label="star-full" fill="#e38100" />;
+const StarEmpty = () => <StarFill aria-label="star-empty" fill="#d6d6d6" />;
 
 const getStar = (rating) => {
   if (isHalfStar(rating)) {
