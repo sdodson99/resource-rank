@@ -36,7 +36,8 @@ li {
 
 .btn-primary,
 .btn-primary:active,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-primary:disabled {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   box-shadow: none !important;
