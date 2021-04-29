@@ -1,3 +1,4 @@
+import 'regenerator-runtime';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';

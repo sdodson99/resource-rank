@@ -10,18 +10,27 @@ import { debounceTime, switchMap, map } from 'rxjs/operators';
 function CreateTopic() {
   const [name, setName] = useState('');
   const [nameExists, setNameExists] = useState(false);
+  const [nameExistsLoading, setNameExistsLoading] = useState(false);
 
   const { current: nameInputSubject } = useRef(new Subject());
   const apolloClient = useApolloClient();
 
   const doesTopicNameExist = async (nameInput) => {
-    return await apolloClient.query({
-      query: topicExistsQuery,
-      variables: {
-        name: nameInput,
-      },
-      fetchPolicy: 'no-cache',
-    });
+    setNameExistsLoading(true);
+
+    try {
+      const result = await apolloClient.query({
+        query: topicExistsQuery,
+        variables: {
+          name: nameInput,
+        },
+        fetchPolicy: 'no-cache',
+      });
+
+      return result;
+    } finally {
+      setNameExistsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -32,7 +41,6 @@ function CreateTopic() {
         map((result) => result.data?.topicExists)
       )
       .subscribe((topicExistsResult) => {
-        console.log(topicExistsResult);
         setNameExists(topicExistsResult);
       });
 
@@ -72,6 +80,19 @@ function CreateTopic() {
             className="mt-1 form-control"
             type="text"
           />
+          {nameExistsLoading && (
+            <div className="d-flex align-items-center mt-2">
+              <div
+                className="spinner-border spinner-border-sm text-dark"
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+
+              <div className="fs-6 ms-2">Validating... </div>
+            </div>
+          )}
+
           {nameExists && (
             <div className="mt-2 fs-6 text-danger">
               Topic name already exists.
@@ -84,7 +105,7 @@ function CreateTopic() {
             <button
               className="btn btn-primary w-100"
               type="submit"
-              disabled={nameExists}
+              disabled={nameExists || nameExistsLoading}
             >
               Submit
             </button>
