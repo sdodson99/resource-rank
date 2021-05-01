@@ -23,11 +23,23 @@ const typeDefs = gql`
     resources: [TopicResource]
   }
 
+  type AvailableResource {
+    id: ID!
+    name: String!
+    link: String
+    alreadyAdded: Boolean
+  }
+
   type Query {
     topics: [Topic]
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
     resources: [Resource]
+    availableResources(
+      topicId: ID!
+      offset: Int
+      limit: Int
+    ): [AvailableResource]
   }
 
   type Mutation {

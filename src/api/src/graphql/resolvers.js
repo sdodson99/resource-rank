@@ -25,6 +25,29 @@ const resolvers = {
     },
     topicExists: (_, { name }) => Topic.exists({ name }),
     resources: () => Resource.find({}),
+    availableResources: async (_, { topicId, offset = 0, limit = 20 }) => {
+      const resourceDTOs = await Resource.find({}).skip(offset).limit(limit);
+      const availableResources = resourceDTOs.map((r) => ({
+        id: r._id,
+        name: r.name,
+        link: r.link,
+        alreadyAdded: false,
+      }));
+
+      const resourceMap = {};
+      availableResources.forEach((r) => {
+        resourceMap[r.id] = r;
+      });
+
+      const topic = await Topic.findOne({ _id: topicId });
+      topic.resources.forEach((resourceId) => {
+        if (resourceMap[resourceId]) {
+          resourceMap[resourceId].alreadyAdded = true;
+        }
+      });
+
+      return availableResources;
+    },
   },
   Topic: {
     resources: async (
