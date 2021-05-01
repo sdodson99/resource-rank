@@ -1,5 +1,4 @@
 import { useMutation } from '@apollo/client';
-import { useCallback } from 'react';
 import getTopicsQuery from '../gql-requests/get-topics-query';
 import createTopicMutation from '../gql-requests/create-topic-mutation';
 
@@ -20,9 +19,7 @@ export default () => {
     },
   });
 
-  const createTopic = useCallback(async (name) => {
-    await executeCreateTopic({ variables: { name } });
-  });
+  const createTopic = (name) => executeCreateTopic({ variables: { name } });
 
   return createTopic;
 };

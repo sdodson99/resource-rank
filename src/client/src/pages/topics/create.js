@@ -3,7 +3,7 @@ import { Link, navigate } from 'gatsby';
 import Layout from '../../components/layout/layout';
 import topicExistsQuery from '../../gql-requests/topic-exists-query';
 import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
-import { useApolloClient } from '@apollo/client';
+import { ApolloError, useApolloClient } from '@apollo/client';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 
@@ -57,12 +57,22 @@ function CreateTopic() {
   };
 
   const createTopic = useCreateTopicMutation();
+
   const submit = async (e) => {
     e.preventDefault();
 
-    await createTopic(name);
+    try {
+      await createTopic(name);
+      navigate('/');
+    } catch (error) {
+      if (error instanceof ApolloError) {
+        const errorCode = error.graphQLErrors[0].extensions.code;
 
-    navigate('/');
+        if (errorCode === 'TOPIC_ALREADY_EXISTS') {
+          setNameExists(true);
+        }
+      }
+    }
   };
 
   return (
