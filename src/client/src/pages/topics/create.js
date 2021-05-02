@@ -5,7 +5,7 @@ import topicExistsQuery from '../../gql-requests/topic-exists-query';
 import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
 import { ApolloError, useApolloClient } from '@apollo/client';
 import { Subject } from 'rxjs';
-import { debounceTime, switchMap, map } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 function CreateTopic() {
   const [name, setName] = useState('');
@@ -27,7 +27,9 @@ function CreateTopic() {
         fetchPolicy: 'no-cache',
       });
 
-      return result;
+      return result.data?.topicExists ?? false;
+    } catch {
+      return false;
     } finally {
       setNameExistsLoading(false);
     }
@@ -35,11 +37,7 @@ function CreateTopic() {
 
   useEffect(() => {
     const subscription = nameInputSubject
-      .pipe(
-        debounceTime(1000),
-        switchMap(doesTopicNameExist),
-        map((result) => result.data?.topicExists)
-      )
+      .pipe(debounceTime(1000), switchMap(doesTopicNameExist))
       .subscribe((topicExistsResult) => {
         setNameExists(topicExistsResult);
       });

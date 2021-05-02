@@ -1,10 +1,10 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { Link } from 'gatsby';
 
 import Layout from '../components/layout/layout';
 import TopicListing from '../components/topic-listing/topic-listing';
 import getTopicsQuery from '../gql-requests/get-topics-query';
+import HeaderButton from '../components/header-button/header-button';
 
 export default function Home() {
   const { loading: isLoadingTopics, data } = useQuery(getTopicsQuery, {
@@ -15,16 +15,11 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="row align-items-center justify-content-between text-center text-sm-start">
-        <div className="col-sm-auto">
-          <div className="page-header">Topics</div>
-        </div>
-        <div className="col-sm-auto mt-2 mt-sm-0">
-          <Link className="btn btn-primary font-sm" to="/topics/create">
-            Create
-          </Link>
-        </div>
-      </div>
+      <HeaderButton
+        title="Topics"
+        linkTo="/topics/create"
+        buttonContent="Create"
+      />
       <div className="mt-4">
         {isLoadingTopics && <div>Loading...</div>}
         {!isLoadingTopics && <TopicListing topics={topics} />}

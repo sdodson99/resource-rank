@@ -18,16 +18,20 @@ function TopicDetails({ topicId }) {
   const resources = data?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
-  console.log(error);
-
   return (
     <Layout>
       <div>
-        {isLoadingTopic && <div>Loading...</div>}
+        {isLoadingTopic && (
+          <div className="text-center text-sm-start">Loading...</div>
+        )}
 
         {!isLoadingTopic && (
           <div>
-            {error && <div>Failed to load resources.</div>}
+            {error && (
+              <div className="text-center text-sm-start">
+                Failed to load resources.
+              </div>
+            )}
 
             {!error && (
               <div>
@@ -42,7 +46,7 @@ function TopicDetails({ topicId }) {
                   <div className="col-sm-auto mt-2 mt-sm-0">
                     <Link
                       className="btn btn-primary font-sm"
-                      to={`/topics/${id}/resources/create`}
+                      to={`/topics/${id}/resources/add`}
                     >
                       Add
                     </Link>
