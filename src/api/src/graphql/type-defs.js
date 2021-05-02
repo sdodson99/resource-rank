@@ -39,6 +39,7 @@ const typeDefs = gql`
       topicId: ID!
       offset: Int
       limit: Int
+      search: String
     ): [AvailableResource]
   }
 

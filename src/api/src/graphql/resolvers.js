@@ -25,8 +25,21 @@ const resolvers = {
     },
     topicExists: (_, { name }) => Topic.exists({ name }),
     resources: () => Resource.find({}),
-    availableResources: async (_, { topicId, offset = 0, limit = 20 }) => {
-      const resourceDTOs = await Resource.find({}).skip(offset).limit(limit);
+    availableResources: async (
+      _,
+      { topicId, search = null, offset = 0, limit = 20 }
+    ) => {
+      let resourceQuery;
+
+      if (search) {
+        resourceQuery = Resource.find({
+          name: { $regex: search, $options: 'i' },
+        });
+      } else {
+        resourceQuery = Resource.find({});
+      }
+
+      const resourceDTOs = await resourceQuery.skip(offset).limit(limit);
       const availableResources = resourceDTOs.map((r) => ({
         id: r._id,
         name: r.name,
