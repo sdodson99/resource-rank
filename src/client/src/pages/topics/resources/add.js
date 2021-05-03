@@ -6,6 +6,7 @@ import { useApolloClient } from '@apollo/client';
 import getAvailableResourcesQuery from '../../../gql-requests/get-available-resources-query';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
@@ -59,6 +60,10 @@ function AddTopicResource({ topicId }) {
     searchInputSubject.next(searchInput);
   };
 
+  const onAddResource = (resourceId) => {
+    console.log(resourceId);
+  };
+
   return (
     <Layout>
       <HeaderButton
@@ -86,7 +91,12 @@ function AddTopicResource({ topicId }) {
           </div>
         )}
 
-        {!searchLoading && <div>{availableResources.length}</div>}
+        {!searchLoading && (
+          <AddResourceListing
+            availableResources={availableResources}
+            onAddResource={onAddResource}
+          />
+        )}
       </div>
     </Layout>
   );
