@@ -15,11 +15,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <HeaderButton
-        title="Topics"
-        linkTo="/topics/create"
-        buttonContent="Create"
-      />
+      <HeaderButton title="Topics" linkTo="/topics/new" buttonContent="New" />
       <div className="mt-4">
         {isLoadingTopics && <div>Loading...</div>}
         {!isLoadingTopics && <TopicListing topics={topics} />}

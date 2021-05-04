@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import Layout from '../../components/layout/layout';
 import topicExistsQuery from '../../gql-requests/topic-exists-query';
-import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
-import { ApolloError, useApolloClient } from '@apollo/client';
+import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import createTopicMutation from '../../gql-requests/create-topic-mutation';
 
 function CreateTopic() {
   const [name, setName] = useState('');
@@ -24,7 +24,6 @@ function CreateTopic() {
         variables: {
           name: nameInput,
         },
-        fetchPolicy: 'no-cache',
       });
 
       return result.data?.topicExists ?? false;
@@ -54,13 +53,13 @@ function CreateTopic() {
     nameInputSubject.next(nameInput);
   };
 
-  const createTopic = useCreateTopicMutation();
+  const [createTopic] = useMutation(createTopicMutation);
 
   const submit = async (e) => {
     e.preventDefault();
 
     try {
-      await createTopic(name);
+      await createTopic({ variables: { name } });
       navigate('/');
     } catch (error) {
       if (error instanceof ApolloError) {
@@ -75,7 +74,7 @@ function CreateTopic() {
 
   return (
     <Layout>
-      <div className="page-header text-center text-sm-start">Create Topic</div>
+      <div className="page-header text-center text-sm-start">New Topic</div>
 
       <form onSubmit={submit}>
         <div className="mt-4">

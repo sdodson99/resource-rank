@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../../components/layout/layout';
 import HeaderButton from '../../../components/header-button/header-button';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import getAvailableResourcesQuery from '../../../gql-requests/get-available-resources-query';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
+import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
+import { navigate } from 'gatsby';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
@@ -22,7 +24,6 @@ function AddTopicResource({ topicId }) {
     try {
       const response = await client.query({
         query: getAvailableResourcesQuery,
-        fetchPolicy: 'no-cache',
         variables: {
           topicId,
           search: searchInput,
@@ -60,16 +61,28 @@ function AddTopicResource({ topicId }) {
     searchInputSubject.next(searchInput);
   };
 
-  const onAddResource = (resourceId) => {
-    console.log(resourceId);
+  const [createTopicResource, { loading: creatingTopicResource }] = useMutation(
+    createTopicResourceMutation
+  );
+  const onAddResource = async (resourceId) => {
+    await createTopicResource({
+      variables: {
+        topicId,
+        resourceId,
+      },
+    });
+
+    navigate(`/topics/${topicId}`);
   };
+
+  const isLoading = creatingTopicResource || searchLoading;
 
   return (
     <Layout>
       <HeaderButton
         title="Add Resource"
         buttonContent="New"
-        linkTo={`/topics/${topicId}/resources/add`}
+        linkTo={`/topics/${topicId}/resources/new`}
       />
 
       <div className="mt-4">
@@ -83,7 +96,7 @@ function AddTopicResource({ topicId }) {
       </div>
 
       <div className="mt-4">
-        {searchLoading && (
+        {isLoading && (
           <div className="text-center">
             <div className="spinner-border text-dark" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -91,7 +104,7 @@ function AddTopicResource({ topicId }) {
           </div>
         )}
 
-        {!searchLoading && (
+        {!isLoading && (
           <AddResourceListing
             availableResources={availableResources}
             onAddResource={onAddResource}

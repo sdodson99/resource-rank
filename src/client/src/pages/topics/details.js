@@ -10,7 +10,6 @@ import { Link } from 'gatsby';
 function TopicDetails({ topicId }) {
   const { loading: isLoadingTopic, data, error } = useQuery(getTopicByIdQuery, {
     variables: { id: topicId },
-    fetchPolicy: 'no-cache',
   });
 
   const id = data?.topic?.id;
