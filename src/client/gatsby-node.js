@@ -12,4 +12,10 @@ exports.createPages = ({ actions }) => {
     matchPath: `/topics/:topicId/resources/add`,
     component: path.resolve('./src/pages/topics/resources/add.js'),
   });
+
+  actions.createPage({
+    path: `/topics/:topicId/resources/new`,
+    matchPath: `/topics/:topicId/resources/new`,
+    component: path.resolve('./src/pages/topics/resources/new.js'),
+  });
 };
