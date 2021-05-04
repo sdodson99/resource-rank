@@ -1,56 +1,44 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import Layout from '../../components/layout/layout';
 import topicExistsQuery from '../../gql-requests/topic-exists-query';
 import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
-import { Subject } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
 import createTopicMutation from '../../gql-requests/create-topic-mutation';
+import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
+import useLiveValidation from '../../hooks/use-live-validation';
 
 function CreateTopic() {
   const [name, setName] = useState('');
-  const [nameExists, setNameExists] = useState(false);
-  const [nameExistsLoading, setNameExistsLoading] = useState(false);
 
-  const { current: nameInputSubject } = useRef(new Subject());
   const apolloClient = useApolloClient();
 
-  const doesTopicNameExist = async (nameInput) => {
-    setNameExistsLoading(true);
+  const isAvailableTopicName = async (nameInput) => {
+    const result = await apolloClient.query({
+      query: topicExistsQuery,
+      variables: {
+        name: nameInput,
+      },
+    });
 
-    try {
-      const result = await apolloClient.query({
-        query: topicExistsQuery,
-        variables: {
-          name: nameInput,
-        },
-      });
+    const topicNameExists = result.data?.topicExists ?? false;
 
-      return result.data?.topicExists ?? false;
-    } catch {
-      return false;
-    } finally {
-      setNameExistsLoading(false);
-    }
+    return !topicNameExists;
   };
 
-  useEffect(() => {
-    const subscription = nameInputSubject
-      .pipe(debounceTime(1000), switchMap(doesTopicNameExist))
-      .subscribe((topicExistsResult) => {
-        setNameExists(topicExistsResult);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const {
+    isValid: isNameAvailable,
+    isValidating: isValidatingName,
+    validateValue: validateName,
+    setIsValid: setIsValidName,
+  } = useLiveValidation(isAvailableTopicName);
 
   const handleNameInput = (e) => {
-    setNameExists(false);
+    setIsValidName(true);
 
     const nameInput = e.target.value;
 
     setName(nameInput);
-    nameInputSubject.next(nameInput);
+    validateName(nameInput);
   };
 
   const [createTopic] = useMutation(createTopicMutation);
@@ -66,7 +54,7 @@ function CreateTopic() {
         const errorCode = error.graphQLErrors[0].extensions.code;
 
         if (errorCode === 'TOPIC_ALREADY_EXISTS') {
-          setNameExists(true);
+          setIsValidName(false);
         }
       }
     }
@@ -79,32 +67,15 @@ function CreateTopic() {
       <form onSubmit={submit}>
         <div className="mt-4">
           <label htmlFor="name">Name</label>
-          <input
-            required
+          <LiveValidatingInput
             id="name"
             value={name}
             onChange={handleNameInput}
-            className="mt-1 form-control"
-            type="text"
+            isValidating={isValidatingName}
+            hasValidationError={!isNameAvailable}
+            required={true}
+            validationErrorMessage="Topic name already exists."
           />
-          {nameExistsLoading && (
-            <div className="d-flex align-items-center mt-2">
-              <div
-                className="spinner-border spinner-border-sm text-dark"
-                role="status"
-              >
-                <span className="visually-hidden">Loading...</span>
-              </div>
-
-              <div className="fs-6 ms-2">Validating... </div>
-            </div>
-          )}
-
-          {nameExists && (
-            <div className="mt-2 fs-6 text-danger">
-              Topic name already exists.
-            </div>
-          )}
         </div>
 
         <div className="mt-4 row align-items-center">
@@ -112,7 +83,7 @@ function CreateTopic() {
             <button
               className="btn btn-primary w-100"
               type="submit"
-              disabled={nameExists || nameExistsLoading}
+              disabled={isValidatingName || !isNameAvailable}
             >
               Submit
             </button>
