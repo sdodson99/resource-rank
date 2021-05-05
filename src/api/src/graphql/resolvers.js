@@ -53,7 +53,9 @@ const resolvers = {
       });
 
       const topic = await Topic.findOne({ _id: topicId });
-      topic.resources.forEach((resourceId) => {
+      topic.resources.forEach((resource) => {
+        const { resource: resourceId } = resource;
+
         if (resourceMap[resourceId]) {
           resourceMap[resourceId].alreadyAdded = true;
         }
@@ -64,20 +66,25 @@ const resolvers = {
   },
   Topic: {
     resources: async (
-      { id, resources: resourceIds },
+      { id, resources: topicResources },
       _,
       { resourceDataLoader }
     ) => {
+      const resourceIds = topicResources
+        .filter((r) => r.resource)
+        .map((r) => r.resource);
+
       const resources = await resourceDataLoader.loadMany(resourceIds);
-      const topicResources = resources.map((r) => ({
+      const loadedTopicResources = resources.map((r) => ({
         topicId: id,
         resource: r,
       }));
 
-      return topicResources;
+      return loadedTopicResources;
     },
   },
   TopicResource: {
+    // Resource data loader should probably be used here instead.
     resourceInfo: ({ topicId, resource }) => ({
       id: resource._id,
       name: resource.name,
@@ -105,9 +112,25 @@ const resolvers = {
     },
     createResource: (_, { name, link }) => Resource.create({ name, link }),
     createTopicResource: async (_, { topicId, resourceId }) => {
+      const topic = await Topic.findOne({ _id: topicId });
+      const existingTopicResource = topic.resources.find(
+        (r) => r.resource == resourceId
+      );
+
+      if (existingTopicResource) {
+        throw new ApolloError(
+          'Topic resource already exists.',
+          'TOPIC_RESOURCE_ALREADY_EXISTS'
+        );
+      }
+
+      const topicResource = {
+        resource: resourceId,
+      };
+
       const result = await Topic.updateOne(
         { _id: topicId },
-        { $addToSet: { resources: resourceId } }
+        { $addToSet: { resources: topicResource } }
       );
 
       return result.nModified;
