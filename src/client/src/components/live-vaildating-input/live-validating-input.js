@@ -35,7 +35,7 @@ function LiveValidatingInput({
       )}
 
       {hasValidationError && (
-        <div className="mt-2 fs-6 text-danger">Topic name already exists.</div>
+        <div className="mt-2 fs-6 text-danger">{validationErrorMessage}</div>
       )}
     </div>
   );
