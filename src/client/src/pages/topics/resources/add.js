@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../../components/layout/layout';
 import HeaderButton from '../../../components/header-button/header-button';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import getAvailableResourcesQuery from '../../../gql-requests/get-available-resources-query';
 import { concat, from, of, Subject } from 'rxjs';
 import { debounceTime, map, mergeMap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import AddResourceListing from '../../../components/add-resource-listing/add-res
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import { navigate } from 'gatsby';
 import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
+import getTopicNameByIdQuery from '../../../gql-requests/get-topic-name-by-id-query';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
@@ -90,6 +91,13 @@ function AddTopicResource({ topicId }) {
 
   const isLoading = creatingTopicResource || searchLoading;
 
+  const { data: topicNameData } = useQuery(getTopicNameByIdQuery, {
+    fetchPolicy: 'cache-first',
+    variables: {
+      id: topicId,
+    },
+  });
+
   const breadcrumbs = [
     {
       to: '/',
@@ -97,7 +105,7 @@ function AddTopicResource({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: 'Topic Resources',
+      title: topicNameData?.topic?.name ?? 'Topic Resources',
     },
     {
       to: `/topics/${topicId}/resources/add`,

@@ -2,15 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Layout from '../../components/layout/layout';
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import getTopicByIdQuery from '../../gql-requests/get-topic-by-id-query';
 import ResourceListing from '../../components/resource-listing/resource-listing';
 import { Link } from 'gatsby';
 import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
+import getTopicNameByIdQuery from '../../gql-requests/get-topic-name-by-id-query';
 
 function TopicDetails({ topicId }) {
+  const apolloClient = useApolloClient();
   const { loading: isLoadingTopic, data, error } = useQuery(getTopicByIdQuery, {
     variables: { id: topicId },
+    onCompleted: (data) => {
+      const topicName = data?.topic?.name;
+
+      if (topicName) {
+        apolloClient.writeQuery({
+          query: getTopicNameByIdQuery,
+          variables: { id: topicId },
+          data: {
+            topic: {
+              name: topicName,
+            },
+          },
+        });
+      }
+    },
   });
 
   const id = data?.topic?.id;
