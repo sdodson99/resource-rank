@@ -1,6 +1,6 @@
 import React from 'react';
-import AppLayout from './src/app-layout';
+import App from './src/app';
 
 export function wrapRootElement({ element }) {
-  return <AppLayout>{element}</AppLayout>;
+  return <App>{element}</App>;
 }

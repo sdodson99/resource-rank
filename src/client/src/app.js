@@ -6,7 +6,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import '@fontsource/magra';
-import './styles/app-layout.css';
+import './styles/app.css';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
@@ -21,7 +21,7 @@ const client = new ApolloClient({
   },
 });
 
-function AppLayout({ children }) {
+function App({ children }) {
   return (
     <ApolloProvider client={client}>
       <div>{children}</div>
@@ -29,8 +29,8 @@ function AppLayout({ children }) {
   );
 }
 
-AppLayout.propTypes = {
+App.propTypes = {
   children: PropTypes.node,
 };
 
-export default AppLayout;
+export default App;

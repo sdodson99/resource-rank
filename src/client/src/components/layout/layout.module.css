@@ -3,13 +3,13 @@
 }
 
 header {
-  background-color: var(--color-primary);
-  color: white;
+  background-color: rgb(250, 250, 250);
+  color: black;
 }
 
 header a,
 header a:hover {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
@@ -18,16 +18,16 @@ img.logo {
 }
 
 .link {
-  color: rgb(238, 238, 238);
-  font-size: var(--font-xs);
+  color: rgb(105, 105, 105);
+  font-size: var(--font-sm);
 }
 
 .link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .active {
-  color: white;
+  color: black;
 }
 
 .title {
