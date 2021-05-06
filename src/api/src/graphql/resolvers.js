@@ -67,35 +67,35 @@ const resolvers = {
     },
   },
   Topic: {
-    resources: async (
-      { id, resources: topicResources },
-      _,
-      { resourceDataLoader }
-    ) => {
-      const resourceIds = topicResources
+    resources: async ({ id, resources }, _, { resourceDataLoader }) => {
+      const topicResources = resources
         .filter((r) => r.resource)
-        .map((r) => r.resource);
+        .map((r) => ({
+          topicId: id,
+          resourceId: r.resource,
+        }));
 
-      const resources = await resourceDataLoader.loadMany(resourceIds);
-      const loadedTopicResources = resources.map((r) => ({
-        topicId: id,
-        resource: r,
-      }));
-
-      return loadedTopicResources;
+      return topicResources;
     },
   },
   TopicResource: {
-    // Resource data loader should probably be used here instead.
-    resourceInfo: ({ topicId, resource }) => ({
-      id: resource._id,
-      name: resource.name,
-      link: resource.link,
-    }),
-    ratings: async ({ topicId, resource }, _, { ratingDataLoader }) => {
+    resourceInfo: async (
+      { topicId, resourceId },
+      _,
+      { resourceDataLoader }
+    ) => {
+      const resource = await resourceDataLoader.load(resourceId);
+
+      return {
+        id: resource._id,
+        name: resource.name,
+        link: resource.link,
+      };
+    },
+    ratings: async ({ topicId, resourceId }, _, { ratingDataLoader }) => {
       const ratings = await ratingDataLoader.load({
         topic: topicId,
-        resource: resource._id,
+        resource: resourceId,
       });
 
       return ratings.map((r) => ({
