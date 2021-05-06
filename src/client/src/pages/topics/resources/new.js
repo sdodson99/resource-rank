@@ -8,6 +8,7 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import createResourceMutation from '../../../gql-requests/create-resource-mutation';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
+import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
@@ -70,9 +71,32 @@ function NewTopicResource({ topicId }) {
 
   const canSubmit = isValidName;
 
+  const breadcrumbs = [
+    {
+      to: '/',
+      title: 'Topics',
+    },
+    {
+      to: `/topics/${topicId}`,
+      title: 'Topic Resources',
+    },
+    {
+      to: `/topics/${topicId}/resources/add`,
+      title: 'Add',
+    },
+    {
+      to: `/topics/${topicId}/resources/new`,
+      title: 'New',
+    },
+  ];
+
   return (
     <Layout>
-      <div className="page-header text-center text-sm-start">New Resource</div>
+      <BreadcrumbListing breadcrumbs={breadcrumbs} />
+
+      <div className="page-header text-center text-sm-start mt-4">
+        New Resource
+      </div>
 
       <form onSubmit={submit}>
         <div className="mt-4">

@@ -9,6 +9,7 @@ import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import { navigate } from 'gatsby';
+import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
@@ -89,12 +90,30 @@ function AddTopicResource({ topicId }) {
 
   const isLoading = creatingTopicResource || searchLoading;
 
+  const breadcrumbs = [
+    {
+      to: '/',
+      title: 'Topics',
+    },
+    {
+      to: `/topics/${topicId}`,
+      title: 'Topic Resources',
+    },
+    {
+      to: `/topics/${topicId}/resources/add`,
+      title: 'Add',
+    },
+  ];
+
   return (
     <Layout>
+      <BreadcrumbListing breadcrumbs={breadcrumbs} />
+
       <HeaderButton
         title="Add Resource"
         buttonContent="New"
         linkTo={`/topics/${topicId}/resources/new`}
+        className="mt-4"
       />
 
       <div className="mt-4">

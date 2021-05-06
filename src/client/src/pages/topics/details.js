@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import getTopicByIdQuery from '../../gql-requests/get-topic-by-id-query';
 import ResourceListing from '../../components/resource-listing/resource-listing';
 import { Link } from 'gatsby';
+import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
 
 function TopicDetails({ topicId }) {
   const { loading: isLoadingTopic, data, error } = useQuery(getTopicByIdQuery, {
@@ -13,13 +14,26 @@ function TopicDetails({ topicId }) {
   });
 
   const id = data?.topic?.id;
-  const name = data?.topic?.name;
+  const name = data?.topic?.name ?? 'Loading...';
   const resources = data?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
+  const breadcrumbs = [
+    {
+      to: '/',
+      title: 'Topics',
+    },
+    {
+      to: `/topics/${topicId}`,
+      title: name,
+    },
+  ];
+
   return (
     <Layout>
-      <div>
+      <BreadcrumbListing breadcrumbs={breadcrumbs} />
+
+      <div className="mt-4">
         {isLoadingTopic && (
           <div className="text-center text-sm-start">Loading...</div>
         )}

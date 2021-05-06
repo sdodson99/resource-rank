@@ -6,6 +6,7 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import createTopicMutation from '../../gql-requests/create-topic-mutation';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
 import useLiveValidation from '../../hooks/use-live-validation';
+import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
 
 function CreateTopic() {
   const [name, setName] = useState('');
@@ -60,9 +61,24 @@ function CreateTopic() {
     }
   };
 
+  const breadcrumbs = [
+    {
+      to: '/',
+      title: 'Topics',
+    },
+    {
+      to: '/topics/new',
+      title: 'New',
+    },
+  ];
+
   return (
     <Layout>
-      <div className="page-header text-center text-sm-start">New Topic</div>
+      <BreadcrumbListing breadcrumbs={breadcrumbs} />
+
+      <div className="page-header text-center text-sm-start mt-4">
+        New Topic
+      </div>
 
       <form onSubmit={submit}>
         <div className="mt-4">
