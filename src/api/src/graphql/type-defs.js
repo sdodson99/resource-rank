@@ -13,6 +13,7 @@ const typeDefs = gql`
   }
 
   type TopicResource {
+    topic: Topic!
     resource: Resource!
     ratings: [Rating]
   }
@@ -34,6 +35,7 @@ const typeDefs = gql`
     topics: [Topic]
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
+    topicResource(topicId: ID!, resourceId: ID!): TopicResource
     resources: [Resource]
     resource(id: ID!): Resource
     resourceExists(name: String!): Boolean

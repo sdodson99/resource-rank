@@ -5,25 +5,13 @@ const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
-    topics: async () => {
-      const topics = await Topic.find({});
-
-      return topics.map((t) => ({
-        id: t._id,
-        name: t.name,
-        resources: t.resources,
-      }));
-    },
-    topic: async (_, { id }) => {
-      const topic = await Topic.findOne({ _id: id });
-
-      return {
-        id: topic._id,
-        name: topic.name,
-        resources: topic.resources,
-      };
-    },
+    topics: () => Topic.find({}),
+    topic: (_, { id }) => Topic.findOne({ _id: id }),
     topicExists: (_, { name }) => Topic.exists({ name }),
+    topicResource: (_, { topicId, resourceId }) => ({
+      topicId,
+      resourceId,
+    }),
     resources: () => Resource.find({}),
     resource: (_, { id }) => Resource.findOne({ _id: id }),
     resourceExists: (_, { name }) => Resource.exists({ name }),
@@ -79,6 +67,7 @@ const resolvers = {
     },
   },
   TopicResource: {
+    topic: ({ topicId }) => Topic.findOne({ _id: topicId }),
     resource: async ({ topicId, resourceId }, _, { resourceDataLoader }) => {
       const resource = await resourceDataLoader.load(resourceId);
 
@@ -94,10 +83,7 @@ const resolvers = {
         resource: resourceId,
       });
 
-      return ratings.map((r) => ({
-        id: r._id,
-        value: r.value,
-      }));
+      return ratings;
     },
   },
   Mutation: {
