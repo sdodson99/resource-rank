@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Layout from '../../components/layout/layout';
 import { useApolloClient, useQuery } from '@apollo/client';
 import getTopicByIdQuery from '../../gql-requests/get-topic-by-id-query';
-import ResourceListing from '../../components/resource-listing/resource-listing';
+import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
 import { Link } from 'gatsby';
 import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
 import getTopicNameByIdQuery from '../../gql-requests/get-topic-name-by-id-query';
@@ -84,7 +84,12 @@ function TopicDetails({ topicId }) {
                 </div>
 
                 <div className="mt-4">
-                  {hasResources && <ResourceListing resources={resources} />}
+                  {hasResources && (
+                    <TopicResourceListing
+                      topicId={topicId}
+                      topicResources={resources}
+                    />
+                  )}
                   {!hasResources && (
                     <div className="font-xs">
                       No resources have been created.
