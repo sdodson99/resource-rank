@@ -4,17 +4,12 @@ import Layout from '../../../components/layout/layout';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import { Link, navigate } from 'gatsby';
 import useLiveValidation from '../../../hooks/use-live-validation';
-import {
-  ApolloError,
-  useApolloClient,
-  useMutation,
-  useQuery,
-} from '@apollo/client';
+import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import createResourceMutation from '../../../gql-requests/create-resource-mutation';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
-import getTopicNameByIdQuery from '../../../gql-requests/get-topic-name-by-id-query';
+import useTopicName from '../../../hooks/use-topic-name';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
@@ -77,12 +72,7 @@ function NewTopicResource({ topicId }) {
 
   const canSubmit = isValidName;
 
-  const { data: topicNameData } = useQuery(getTopicNameByIdQuery, {
-    fetchPolicy: 'cache-first',
-    variables: {
-      id: topicId,
-    },
-  });
+  const topicName = useTopicName(topicId);
 
   const breadcrumbs = [
     {
@@ -91,7 +81,7 @@ function NewTopicResource({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: topicNameData?.topic?.name ?? 'Topic Resources',
+      title: topicName ?? 'Topic Details',
     },
     {
       to: `/topics/${topicId}/resources/add`,
