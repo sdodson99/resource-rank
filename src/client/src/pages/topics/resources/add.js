@@ -4,8 +4,8 @@ import Layout from '../../../components/layout/layout';
 import HeaderButton from '../../../components/header-button/header-button';
 import { useApolloClient, useMutation } from '@apollo/client';
 import getAvailableResourcesQuery from '../../../gql-requests/get-available-resources-query';
-import { Subject } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { concat, from, of, Subject } from 'rxjs';
+import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import { navigate } from 'gatsby';
@@ -18,9 +18,6 @@ function AddTopicResource({ topicId }) {
   const searchInputSubject = useRef(new Subject()).current;
   const client = useApolloClient();
   const getAvailableResources = async (searchInput) => {
-    // TODO: Make this function more pure.
-    setSearchLoading(true);
-
     try {
       const response = await client.query({
         query: getAvailableResourcesQuery,
@@ -32,17 +29,30 @@ function AddTopicResource({ topicId }) {
       });
 
       return response?.data?.availableResources ?? [];
-    } catch (error) {
+    } catch {
       return [];
-    } finally {
-      setSearchLoading(false);
     }
   };
 
   useEffect(() => {
     const subscription = searchInputSubject
-      .pipe(debounceTime(1000), switchMap(getAvailableResources))
-      .subscribe((data) => {
+      .pipe(
+        debounceTime(1000),
+        mergeMap((searchInput) =>
+          concat(
+            of({ loading: true }),
+            from(getAvailableResources(searchInput)).pipe(
+              map((data) => ({ data }))
+            )
+          )
+        )
+      )
+      .subscribe(({ data, loading }) => {
+        if (loading) {
+          return setSearchLoading(true);
+        }
+
+        setSearchLoading(false);
         setAvailableResources(data);
       });
 
@@ -50,8 +60,10 @@ function AddTopicResource({ topicId }) {
   }, []);
 
   useEffect(async () => {
-    const availableResources = await getAvailableResources();
+    const availableResources = await getAvailableResources(search);
+
     setAvailableResources(availableResources);
+    setSearchLoading(false);
   }, []);
 
   const onSearchInput = (e) => {
