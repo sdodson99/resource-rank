@@ -25,6 +25,7 @@ const resolvers = {
     },
     topicExists: (_, { name }) => Topic.exists({ name }),
     resources: () => Resource.find({}),
+    resource: (_, { id }) => Resource.findOne({ _id: id }),
     resourceExists: (_, { name }) => Resource.exists({ name }),
     availableResources: async (
       _,

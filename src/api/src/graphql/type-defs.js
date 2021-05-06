@@ -35,6 +35,7 @@ const typeDefs = gql`
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
     resources: [Resource]
+    resource(id: ID!): Resource
     resourceExists(name: String!): Boolean
     availableResources(
       topicId: ID!
