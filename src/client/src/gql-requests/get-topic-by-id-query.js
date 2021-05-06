@@ -6,7 +6,7 @@ export default gql`
       id
       name
       resources {
-        resourceInfo {
+        resource {
           id
           name
           link

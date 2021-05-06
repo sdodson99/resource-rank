@@ -79,11 +79,7 @@ const resolvers = {
     },
   },
   TopicResource: {
-    resourceInfo: async (
-      { topicId, resourceId },
-      _,
-      { resourceDataLoader }
-    ) => {
+    resource: async ({ topicId, resourceId }, _, { resourceDataLoader }) => {
       const resource = await resourceDataLoader.load(resourceId);
 
       return {

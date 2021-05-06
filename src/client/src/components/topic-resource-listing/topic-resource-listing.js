@@ -4,13 +4,13 @@ import TopicResourceListingItem from '../topic-resource-listing-item/topic-resou
 
 function TopicResourceListing({ topicId, topicResources }) {
   const topicResourcesListingItems = topicResources.map((r) => (
-    <div key={r.resourceInfo.id}>
+    <div key={r.resource.id}>
       <TopicResourceListingItem
         topicId={topicId}
-        resourceId={r.resourceInfo.id}
-        name={r.resourceInfo.name}
+        resourceId={r.resource.id}
+        name={r.resource.name}
         ratings={r.ratings}
-        link={r.resourceInfo.link}
+        link={r.resource.link}
       />
     </div>
   ));

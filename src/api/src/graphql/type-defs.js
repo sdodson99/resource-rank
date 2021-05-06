@@ -13,7 +13,7 @@ const typeDefs = gql`
   }
 
   type TopicResource {
-    resourceInfo: Resource!
+    resource: Resource!
     ratings: [Rating]
   }
 
