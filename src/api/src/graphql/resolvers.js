@@ -25,6 +25,7 @@ const resolvers = {
     },
     topicExists: (_, { name }) => Topic.exists({ name }),
     resources: () => Resource.find({}),
+    resourceExists: (_, { name }) => Resource.exists({ name }),
     availableResources: async (
       _,
       { topicId, search = null, offset = 0, limit = 20 }
@@ -110,7 +111,16 @@ const resolvers = {
 
       return await Topic.create({ name });
     },
-    createResource: (_, { name, link }) => Resource.create({ name, link }),
+    createResource: async (_, { name, link }) => {
+      if (await Resource.exists({ name })) {
+        throw new ApolloError(
+          'Resource already exists.',
+          'RESOURCE_ALREADY_EXISTS'
+        );
+      }
+
+      return await Resource.create({ name, link });
+    },
     createTopicResource: async (_, { topicId, resourceId }) => {
       const topic = await Topic.findOne({ _id: topicId });
       const existingTopicResource = topic.resources.find(

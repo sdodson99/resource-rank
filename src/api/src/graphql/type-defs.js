@@ -35,6 +35,7 @@ const typeDefs = gql`
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
     resources: [Resource]
+    resourceExists(name: String!): Boolean
     availableResources(
       topicId: ID!
       offset: Int
@@ -45,7 +46,7 @@ const typeDefs = gql`
 
   type Mutation {
     createTopic(name: String!): Topic
-    createResource(name: String!, link: String): Resource
+    createResource(name: String!, link: String!): Resource
     createTopicResource(topicId: ID!, resourceId: ID!): Boolean
     createRating(topicId: ID!, resourceId: ID!, value: Int!): Rating
   }
