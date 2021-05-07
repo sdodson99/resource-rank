@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListingItem from '../listing-item/listing-item';
-import AverageRatingStars from '../average-rating-stars/average-rating-stars';
+import RatingStars from '../rating-stars/rating-stars';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { Link } from 'gatsby';
 
-function TopicResourceListingItem({
-  topicId,
-  resourceId,
-  name,
-  link,
-  ratings,
-}) {
+function TopicResourceListingItem({ topicId, resourceId, name, link, rating }) {
   const topicResourceLink = `/topics/${topicId}/resources/${resourceId}`;
 
   return (
@@ -21,7 +15,7 @@ function TopicResourceListingItem({
           <div className="col-sm-auto">
             <div>{name}</div>
             <div className="mt-1">
-              <AverageRatingStars ratings={ratings} />
+              <RatingStars rating={rating} />
             </div>
           </div>
           <div className="col-sm-auto mt-3 mt-sm-0">
@@ -38,7 +32,7 @@ TopicResourceListingItem.propTypes = {
   resourceId: PropTypes.string,
   name: PropTypes.string,
   link: PropTypes.string,
-  ratings: PropTypes.array,
+  rating: PropTypes.number,
 };
 
 export default TopicResourceListingItem;

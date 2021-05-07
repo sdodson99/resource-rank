@@ -68,23 +68,29 @@ const resolvers = {
   },
   TopicResource: {
     topic: ({ topicId }) => Topic.findOne({ _id: topicId }),
-    resource: async ({ topicId, resourceId }, _, { resourceDataLoader }) => {
-      const resource = await resourceDataLoader.load(resourceId);
-
-      return {
-        id: resource._id,
-        name: resource.name,
-        link: resource.link,
-      };
-    },
-    ratings: async ({ topicId, resourceId }, _, { ratingDataLoader }) => {
-      const ratings = await ratingDataLoader.load({
+    resource: ({ topicId, resourceId }, _, { resourceDataLoader }) =>
+      resourceDataLoader.load(resourceId),
+    ratingList: ({ topicId, resourceId }, _, { ratingDataLoader }) =>
+      ratingDataLoader.load({
         topic: topicId,
         resource: resourceId,
-      });
+      }),
+  },
+  RatingList: {
+    average: (ratings) => {
+      const hasRatings = ratings && ratings.length > 0;
+      if (!hasRatings) {
+        return 0;
+      }
 
-      return ratings;
+      const ratingTotal = ratings
+        .map((r) => r.value)
+        .filter((r) => r >= 0 && r <= 5)
+        .reduce((total, value) => (total += value), 0);
+
+      return ratingTotal / ratings.length;
     },
+    ratings: (ratings) => ratings,
   },
   Mutation: {
     createTopic: async (_, { name }) => {

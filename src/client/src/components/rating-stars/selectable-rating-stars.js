@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RatingStars from '../rating-stars/rating-stars';
+import RatingStars from './rating-stars';
 
 function SelectableRatingStars({
   starWidth,

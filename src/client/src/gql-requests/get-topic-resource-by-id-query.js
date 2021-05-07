@@ -7,8 +7,8 @@ export default gql`
         name
         link
       }
-      ratings {
-        value
+      ratingList {
+        average
       }
     }
   }

@@ -5,8 +5,8 @@ import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb
 import useTopicName from '../../../hooks/use-topic-name';
 import { useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
-import AverageRatingStars from '../../../components/average-rating-stars/average-rating-stars';
-import SelectableRatingStars from '../../../components/selectable-rating-stars/selectable-rating-stars';
+import RatingStars from '../../../components/rating-stars/rating-stars';
+import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const {
@@ -23,7 +23,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
   const resourceName =
     topicResourceData?.topicResource?.resource?.name ?? 'Resource Details';
   const resourceLink = topicResourceData?.topicResource?.resource?.link;
-  const ratings = topicResourceData?.topicResource?.ratings;
+  const averageRating = topicResourceData?.topicResource?.ratingList?.average;
 
   const [selectedRating, setSelectedRating] = useState(0);
   const validRating = selectedRating > 0;
@@ -69,7 +69,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                     <div className="page-header">{resourceName}</div>
                   </div>
                   <div className="col-sm-auto">
-                    <AverageRatingStars ratings={ratings} />
+                    <RatingStars rating={averageRating} />
                   </div>
                 </div>
 

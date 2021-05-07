@@ -9,7 +9,7 @@ function TopicResourceListing({ topicId, topicResources }) {
         topicId={topicId}
         resourceId={r.resource.id}
         name={r.resource.name}
-        ratings={r.ratings}
+        rating={r.ratingList.average}
         link={r.resource.link}
       />
     </div>

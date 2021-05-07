@@ -12,10 +12,15 @@ const typeDefs = gql`
     link: String
   }
 
+  type RatingList {
+    average: Float
+    ratings: [Rating]
+  }
+
   type TopicResource {
     topic: Topic!
     resource: Resource!
-    ratings: [Rating]
+    ratingList: RatingList
   }
 
   type Topic {
