@@ -1,36 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StarFill, StarHalf } from 'react-bootstrap-icons';
+import RatingStar from './rating-star';
 
 const MAX_RATING = 5;
 
-const isHalfStar = (rating) => rating >= 0.3 && rating <= 0.7;
-const isFullStar = (rating) => rating > 0.7;
-
-const StarHalfFilled = () => <StarHalf aria-label="star-half" fill="#e38100" />;
-const StarFullFilled = () => <StarFill aria-label="star-full" fill="#e38100" />;
-const StarEmpty = () => <StarFill aria-label="star-empty" fill="#d6d6d6" />;
-
-const getStar = (rating) => {
-  if (isHalfStar(rating)) {
-    return <StarHalfFilled />;
-  }
-
-  if (isFullStar(rating)) {
-    return <StarFullFilled />;
-  }
-
-  return <StarEmpty />;
-};
-
-function RatingStars({ rating }) {
+function RatingStars({ rating, starWidth, onStarMouseOver, onStarClick }) {
   const stars = [];
+
+  const onStarMouseOverHandler = (starIndex) => {
+    if (onStarMouseOver) {
+      onStarMouseOver(starIndex);
+    }
+  };
+
+  const onStarClickHandler = (starIndex) => {
+    if (onStarClick) {
+      onStarClick(starIndex);
+    }
+  };
 
   for (let i = 0; i < MAX_RATING; i++) {
     const currentRating = rating - i;
     const star = (
-      <div key={i} className="me-1 d-inline">
-        {getStar(currentRating)}
+      <div
+        key={i}
+        className="me-1 d-inline"
+        onMouseOver={() => onStarMouseOverHandler(i)}
+        onClick={() => onStarClickHandler(i)}
+      >
+        <RatingStar rating={currentRating} width={starWidth} />
       </div>
     );
 
@@ -42,6 +40,9 @@ function RatingStars({ rating }) {
 
 RatingStars.propTypes = {
   rating: PropTypes.number,
+  starWidth: PropTypes.number,
+  onStarMouseOver: PropTypes.func,
+  onStarClick: PropTypes.func,
 };
 
 export default RatingStars;

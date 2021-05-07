@@ -31,7 +31,7 @@ function TopicDetails({ topicId }) {
   });
 
   const id = data?.topic?.id;
-  const name = data?.topic?.name ?? 'Loading...';
+  const name = data?.topic?.name ?? 'Topic Details';
   const resources = data?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
@@ -52,7 +52,11 @@ function TopicDetails({ topicId }) {
 
       <div className="mt-4">
         {isLoadingTopic && (
-          <div className="text-center text-sm-start">Loading...</div>
+          <div className="text-center">
+            <div className="spinner-border text-dark" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
         )}
 
         {!isLoadingTopic && (

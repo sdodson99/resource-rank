@@ -1,18 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListingItem from '../listing-item/listing-item';
-import RatingStars from '../rating-stars/rating-stars';
+import AverageRatingStars from '../average-rating-stars/average-rating-stars';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { Link } from 'gatsby';
-
-function getAverageRating(ratings) {
-  const ratingTotal = ratings
-    .map((r) => r.value)
-    .filter((r) => r >= 0 && r <= 5)
-    .reduce((total, value) => (total += value), 0);
-
-  return ratingTotal / ratings.length || 0;
-}
 
 function TopicResourceListingItem({
   topicId,
@@ -21,8 +12,6 @@ function TopicResourceListingItem({
   link,
   ratings,
 }) {
-  const rating = getAverageRating(ratings);
-
   const topicResourceLink = `/topics/${topicId}/resources/${resourceId}`;
 
   return (
@@ -32,7 +21,7 @@ function TopicResourceListingItem({
           <div className="col-sm-auto">
             <div>{name}</div>
             <div className="mt-1">
-              <RatingStars rating={rating} />
+              <AverageRatingStars ratings={ratings} />
             </div>
           </div>
           <div className="col-sm-auto mt-3 mt-sm-0">

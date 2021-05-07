@@ -33,7 +33,14 @@ export default function Home() {
       />
 
       <div className="mt-4">
-        {isLoadingTopics && <div>Loading...</div>}
+        {isLoadingTopics && (
+          <div className="text-center">
+            <div className="spinner-border text-dark" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        )}
+
         {!isLoadingTopics && <TopicListing topics={topics} />}
       </div>
     </Layout>
