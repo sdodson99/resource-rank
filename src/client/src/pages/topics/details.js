@@ -35,6 +35,10 @@ function TopicDetails({ topicId }) {
   const resources = data?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
+  const orderedResources = resources.sort(
+    (r1, r2) => r2.ratingList.average - r1.ratingList.average
+  );
+
   const breadcrumbs = [
     {
       to: '/',
@@ -91,7 +95,7 @@ function TopicDetails({ topicId }) {
                   {hasResources && (
                     <TopicResourceListing
                       topicId={topicId}
-                      topicResources={resources}
+                      topicResources={orderedResources}
                     />
                   )}
                   {!hasResources && (
