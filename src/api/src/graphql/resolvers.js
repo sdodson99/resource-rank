@@ -15,6 +15,8 @@ const resolvers = {
     resources: () => Resource.find({}),
     resource: (_, { id }) => Resource.findOne({ _id: id }),
     resourceExists: (_, { name }) => Resource.exists({ name }),
+    userRating: (_, { topicId, resourceId }) =>
+      Rating.findOne({ topic: topicId, resource: resourceId }),
     availableResources: async (
       _,
       { topicId, search = null, offset = 0, limit = 20 }

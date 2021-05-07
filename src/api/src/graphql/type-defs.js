@@ -44,6 +44,7 @@ const typeDefs = gql`
     resources: [Resource]
     resource(id: ID!): Resource
     resourceExists(name: String!): Boolean
+    userRating(topicId: ID!, resourceId: ID!): Rating
     availableResources(
       topicId: ID!
       offset: Int
