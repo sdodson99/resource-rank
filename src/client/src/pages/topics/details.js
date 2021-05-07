@@ -31,7 +31,7 @@ function TopicDetails({ topicId }) {
   });
 
   const id = data?.topic?.id;
-  const name = data?.topic?.name ?? 'Topic Details';
+  const name = data?.topic?.name;
   const resources = data?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
@@ -63,7 +63,7 @@ function TopicDetails({ topicId }) {
           <div>
             {error && (
               <div className="text-center text-sm-start">
-                Failed to load resources.
+                Failed to load topic details.
               </div>
             )}
 
