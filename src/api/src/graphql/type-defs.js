@@ -58,6 +58,7 @@ const typeDefs = gql`
     createResource(name: String!, link: String!): Resource
     createTopicResource(topicId: ID!, resourceId: ID!): Boolean
     createRating(topicId: ID!, resourceId: ID!, value: Int!): Rating
+    updateRating(ratingId: ID!, value: Int!): Boolean
   }
 `;
 

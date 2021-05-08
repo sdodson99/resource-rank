@@ -162,6 +162,20 @@ const resolvers = {
         resource: resourceId,
       });
     },
+    updateRating: async (_, { ratingId, value }) => {
+      if (value < 0 || value > 5) {
+        throw new ApolloError(
+          'Rating must be between 0 and 5.',
+          'INVALID_RATING'
+        );
+      }
+
+      const { ok } = await Rating.updateOne({ _id: ratingId }, { value });
+
+      const success = ok > 0;
+
+      return success;
+    },
   },
 };
 
