@@ -7,8 +7,11 @@ import { useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
 import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
+import getUserRatingQuery from '../../../gql-requests/get-user-rating-query';
 
 function TopicResourceDetails({ topicId, resourceId }) {
+  const [ratingList, setRatingList] = useState([]);
+
   const {
     data: topicResourceData,
     loading: topicResourceLoading,
@@ -18,15 +21,35 @@ function TopicResourceDetails({ topicId, resourceId }) {
       topicId,
       resourceId,
     },
+    onCompleted: (data) => {
+      setRatingList(data?.topicResource?.ratingList);
+    },
   });
 
   const resourceName =
     topicResourceData?.topicResource?.resource?.name ?? 'Resource Details';
   const resourceLink = topicResourceData?.topicResource?.resource?.link;
-  const averageRating = topicResourceData?.topicResource?.ratingList?.average;
+  const averageRating = ratingList?.average;
 
   const [selectedRating, setSelectedRating] = useState(0);
   const validRating = selectedRating > 0;
+
+  const { data: userRatingData, loading: userRatingLoading } = useQuery(
+    getUserRatingQuery,
+    {
+      variables: {
+        topicId,
+        resourceId,
+      },
+      onCompleted: (data) => {
+        const userRatingValue = data?.userRating?.value;
+        setSelectedRating(userRatingValue);
+      },
+    }
+  );
+
+  const userRatingId = userRatingData?.userRating?.id ?? null;
+  const hasExistingUserRating = userRatingId !== null;
 
   const topicName = useTopicName(topicId);
 
@@ -44,6 +67,8 @@ function TopicResourceDetails({ topicId, resourceId }) {
       title: resourceName,
     },
   ];
+
+  const ratingTitle = hasExistingUserRating ? 'Update Rating' : 'Add Rating';
 
   return (
     <Layout>
@@ -89,19 +114,34 @@ function TopicResourceDetails({ topicId, resourceId }) {
                 </div>
 
                 <div className="mt-5">
-                  <div className="fs-2">Add a Rating</div>
-                  <div className="mt-4 d-inline-block">
-                    <SelectableRatingStars
-                      selectedRating={selectedRating}
-                      selectedRatingChanged={(r) => setSelectedRating(r)}
-                      starWidth={50}
-                    />
-                  </div>
-                  <div className="mt-5">
-                    <button className="btn btn-primary" disabled={!validRating}>
-                      Submit
-                    </button>
-                  </div>
+                  {userRatingLoading && (
+                    <div className="text-center">
+                      <div className="spinner-border text-dark" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {!userRatingLoading && (
+                    <div>
+                      <div className="fs-2">{ratingTitle}</div>
+                      <div className="mt-4 d-inline-block">
+                        <SelectableRatingStars
+                          selectedRating={selectedRating}
+                          selectedRatingChanged={(r) => setSelectedRating(r)}
+                          starWidth={50}
+                        />
+                      </div>
+                      <div className="mt-5">
+                        <button
+                          className="btn btn-primary"
+                          disabled={!validRating}
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
