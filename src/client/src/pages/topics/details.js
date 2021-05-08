@@ -72,12 +72,10 @@ function TopicDetails({ topicId }) {
             )}
 
             {!error && (
-              <div>
-                <div className="page-header text-center text-sm-start">
-                  Topic: {name}
-                </div>
+              <div className="text-center text-sm-start">
+                <div className="page-header">Topic: {name}</div>
 
-                <div className="mt-4 row align-items-center justify-content-between text-center text-sm-start">
+                <div className="mt-4 row align-items-center justify-content-between">
                   <div className="col-sm-auto">
                     <div className="font-md">Resources</div>
                   </div>

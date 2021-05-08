@@ -3,53 +3,70 @@ import PropTypes from 'prop-types';
 import Layout from '../../../components/layout/layout';
 import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
 import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
 import getUserRatingQuery from '../../../gql-requests/get-user-rating-query';
+import createRatingMutation from '../../../gql-requests/create-rating-mutation';
 
 function TopicResourceDetails({ topicId, resourceId }) {
-  const [ratingList, setRatingList] = useState([]);
-
   const {
     data: topicResourceData,
     loading: topicResourceLoading,
     error: topicResourceError,
+    refetch: refetchTopicResourceData,
   } = useQuery(getTopicResourceByIdQuery, {
     variables: {
       topicId,
       resourceId,
-    },
-    onCompleted: (data) => {
-      setRatingList(data?.topicResource?.ratingList);
     },
   });
 
   const resourceName =
     topicResourceData?.topicResource?.resource?.name ?? 'Resource Details';
   const resourceLink = topicResourceData?.topicResource?.resource?.link;
-  const averageRating = ratingList?.average;
+  const averageRating = topicResourceData?.topicResource?.ratingList?.average;
 
+  const [existingRating, setExistingRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
+
+  const { loading: userRatingLoading } = useQuery(getUserRatingQuery, {
+    variables: {
+      topicId,
+      resourceId,
+    },
+    onCompleted: (data) => {
+      const userRatingValue = data?.userRating?.value;
+
+      setSelectedRating(userRatingValue);
+      setExistingRating(userRatingValue);
+    },
+  });
+
+  const hasExistingUserRating = existingRating > 0;
+
+  const ratingChanged = selectedRating !== existingRating;
   const validRating = selectedRating > 0;
+  const canSubmitRating = ratingChanged && validRating;
 
-  const { data: userRatingData, loading: userRatingLoading } = useQuery(
-    getUserRatingQuery,
-    {
-      variables: {
-        topicId,
-        resourceId,
-      },
-      onCompleted: (data) => {
-        const userRatingValue = data?.userRating?.value;
-        setSelectedRating(userRatingValue);
-      },
+  const [createRating] = useMutation(createRatingMutation, {
+    variables: {
+      topicId,
+      resourceId,
+      value: selectedRating,
+    },
+  });
+
+  const submitRating = async () => {
+    if (!hasExistingUserRating) {
+      await createRating();
+    } else {
     }
-  );
 
-  const userRatingId = userRatingData?.userRating?.id ?? null;
-  const hasExistingUserRating = userRatingId !== null;
+    setExistingRating(selectedRating);
+    await refetchTopicResourceData();
+  };
 
   const topicName = useTopicName(topicId);
 
@@ -135,7 +152,8 @@ function TopicResourceDetails({ topicId, resourceId }) {
                       <div className="mt-5">
                         <button
                           className="btn btn-primary"
-                          disabled={!validRating}
+                          disabled={!canSubmitRating}
+                          onClick={submitRating}
                         >
                           Submit
                         </button>
