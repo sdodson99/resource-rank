@@ -9,6 +9,7 @@ import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
 import getUserRatingQuery from '../../../gql-requests/get-user-rating-query';
 import createRatingMutation from '../../../gql-requests/create-rating-mutation';
+import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const {
@@ -28,6 +29,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
   const resourceLink = topicResourceData?.topicResource?.resource?.link;
   const averageRating = topicResourceData?.topicResource?.ratingList?.average;
 
+  const [ratingId, setRatingId] = useState();
   const [existingRating, setExistingRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
 
@@ -41,10 +43,13 @@ function TopicResourceDetails({ topicId, resourceId }) {
 
       setSelectedRating(userRatingValue);
       setExistingRating(userRatingValue);
+
+      const userRatingId = data?.userRating?.id ?? null;
+      setRatingId(userRatingId);
     },
   });
 
-  const hasExistingUserRating = existingRating > 0;
+  const hasExistingUserRating = ratingId !== null;
 
   const ratingChanged = selectedRating !== existingRating;
   const validRating = selectedRating > 0;
@@ -58,10 +63,21 @@ function TopicResourceDetails({ topicId, resourceId }) {
     },
   });
 
+  const [updateRating] = useMutation(updateRatingMutation, {
+    variables: {
+      ratingId,
+      value: selectedRating,
+    },
+  });
+
   const submitRating = async () => {
     if (!hasExistingUserRating) {
-      await createRating();
+      const { data: createRatingData } = await createRating();
+
+      const createdRatingId = createRatingData?.createRating?.id;
+      setRatingId(createdRatingId);
     } else {
+      await updateRating();
     }
 
     setExistingRating(selectedRating);
