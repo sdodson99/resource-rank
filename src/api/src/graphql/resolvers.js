@@ -136,7 +136,7 @@ const resolvers = {
 
       return result.nModified;
     },
-    createRating: (_, { value, topicId, resourceId }) => {
+    createRating: async (_, { value, topicId, resourceId }) => {
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',
@@ -144,7 +144,19 @@ const resolvers = {
         );
       }
 
-      return Rating.create({
+      const existingRating = await Rating.findOne({
+        topic: topicId,
+        resource: resourceId,
+      });
+
+      if (existingRating) {
+        throw new ApolloError(
+          'A rating already exists for this topic resource.',
+          'RATING_ALREADY_EXISTS'
+        );
+      }
+
+      return await Rating.create({
         value,
         topic: topicId,
         resource: resourceId,
