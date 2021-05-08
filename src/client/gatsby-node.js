@@ -24,4 +24,10 @@ exports.createPages = ({ actions }) => {
     matchPath: `/topics/:topicId/resources/:resourceId`,
     component: path.resolve('./src/pages/topics/resources/details.js'),
   });
+
+  actions.createPage({
+    path: `/`,
+    matchPath: `/`,
+    component: path.resolve('./src/pages/topics/index.js'),
+  });
 };
