@@ -5,7 +5,7 @@ import Layout from '../components/layout/layout';
 import TopicListing from '../components/topic-listing/topic-listing';
 import getTopicsQuery from '../gql-requests/get-topics-query';
 import HeaderButton from '../components/header-button/header-button';
-import BreadcrumbListing from '../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../components/breadcrumbs/breadcrumb-listing';
 
 export default function Home() {
   const { loading: isLoadingTopics, data } = useQuery(getTopicsQuery, {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AddResourceListingItem from '../add-resource-listing-item/add-resource-listing-item';
+import AddResourceListingItem from './add-resource-listing-item';
 
 function AddResourceListing({ availableResources, onAddResource }) {
   const addResourceListingItems = availableResources

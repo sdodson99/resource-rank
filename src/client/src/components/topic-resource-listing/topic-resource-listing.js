@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TopicResourceListingItem from '../topic-resource-listing-item/topic-resource-listing-item';
+import TopicResourceListingItem from './topic-resource-listing-item';
 
 function TopicResourceListing({ topicId, topicResources }) {
   const topicResourcesListingItems = topicResources.map((r) => (

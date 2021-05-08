@@ -9,7 +9,7 @@ import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import { navigate } from 'gatsby';
-import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
 
 function AddTopicResource({ topicId }) {

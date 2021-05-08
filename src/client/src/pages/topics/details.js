@@ -6,7 +6,7 @@ import { useApolloClient, useQuery } from '@apollo/client';
 import getTopicByIdQuery from '../../gql-requests/get-topic-by-id-query';
 import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
 import { Link } from 'gatsby';
-import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
 import getTopicNameByIdQuery from '../../gql-requests/get-topic-name-by-id-query';
 
 function TopicDetails({ topicId }) {

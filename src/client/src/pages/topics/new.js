@@ -6,7 +6,7 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import createTopicMutation from '../../gql-requests/create-topic-mutation';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
 import useLiveValidation from '../../hooks/use-live-validation';
-import BreadcrumbListing from '../../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
 
 function CreateTopic() {
   const [name, setName] = useState('');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../../components/layout/layout';
-import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
 import { useMutation, useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';

@@ -8,7 +8,7 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import createResourceMutation from '../../../gql-requests/create-resource-mutation';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
-import BreadcrumbListing from '../../../components/breadcrumb-listing/breadcrumb-listing';
+import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
 
 function NewTopicResource({ topicId }) {
