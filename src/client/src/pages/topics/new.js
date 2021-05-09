@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Link, navigate } from 'gatsby';
-import Layout from '../../components/layout/layout';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
 import useLiveValidation from '../../hooks/use-live-validation';
-import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
 import useAvailableTopicNameValidator from '../../hooks/use-available-topic-name-validator';
 import TopicExistsError from '../../errors/topic-exists-error';
 import useTopicCreator from '../../hooks/use-topic-creator';
 import { Spinner } from 'react-bootstrap';
+import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 
 function CreateTopic() {
   const [name, setName] = useState('');
@@ -72,12 +71,8 @@ function CreateTopic() {
   ];
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
-      <div className="page-header text-center text-sm-start mt-4">
-        New Topic
-      </div>
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <div className="page-header text-center text-sm-start">New Topic</div>
 
       <form onSubmit={submit}>
         <div className="mt-4">
@@ -122,7 +117,7 @@ function CreateTopic() {
           )}
         </div>
       </form>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }
 

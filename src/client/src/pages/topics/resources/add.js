@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../../../components/layout/layout';
 import HeaderButton from '../../../components/header-button/header-button';
 import { useApolloClient, useMutation } from '@apollo/client';
 import getAvailableResourcesQuery from '../../../gql-requests/get-available-resources-query';
@@ -9,8 +8,8 @@ import { debounceTime, map, mergeMap } from 'rxjs/operators';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import { navigate } from 'gatsby';
-import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
+import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
@@ -109,14 +108,11 @@ function AddTopicResource({ topicId }) {
   ];
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <HeaderButton
         title="Add Resource"
         buttonContent="New"
         linkTo={`/topics/${topicId}/resources/new`}
-        className="mt-4"
       />
 
       <div className="mt-4">
@@ -145,7 +141,7 @@ function AddTopicResource({ topicId }) {
           />
         )}
       </div>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }
 

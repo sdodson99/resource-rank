@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../../../components/layout/layout';
-import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
 import { useMutation, useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
@@ -10,6 +8,7 @@ import SelectableRatingStars from '../../../components/rating-stars/selectable-r
 import getUserRatingQuery from '../../../gql-requests/get-user-rating-query';
 import createRatingMutation from '../../../gql-requests/create-rating-mutation';
 import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
+import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const {
@@ -104,10 +103,8 @@ function TopicResourceDetails({ topicId, resourceId }) {
   const ratingTitle = hasExistingUserRating ? 'Update Rating' : 'Add Rating';
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
-      <div className="mt-4">
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <div>
         {topicResourceLoading && (
           <div className="text-center">
             <div className="spinner-border text-dark" role="status">
@@ -182,7 +179,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
           </div>
         )}
       </div>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }
 

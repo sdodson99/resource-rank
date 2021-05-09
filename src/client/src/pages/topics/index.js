@@ -1,12 +1,10 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-
-import Layout from '../../components/layout/layout';
 import TopicListing from '../../components/topic-listing/topic-listing';
 import getTopicsQuery from '../../gql-requests/get-topics-query';
 import HeaderButton from '../../components/header-button/header-button';
-import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
 import { Spinner } from 'react-bootstrap';
+import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 
 export default function Home() {
   const {
@@ -25,15 +23,8 @@ export default function Home() {
   ];
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
-      <HeaderButton
-        title="Topics"
-        linkTo="/topics/new"
-        buttonContent="New"
-        className="mt-4"
-      />
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <HeaderButton title="Topics" linkTo="/topics/new" buttonContent="New" />
 
       <div className="mt-4">
         {loadingTopics && (
@@ -54,6 +45,6 @@ export default function Home() {
           </div>
         )}
       </div>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }

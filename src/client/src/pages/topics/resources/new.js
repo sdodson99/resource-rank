@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../../../components/layout/layout';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import { Link, navigate } from 'gatsby';
 import useLiveValidation from '../../../hooks/use-live-validation';
@@ -8,8 +7,8 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import createResourceMutation from '../../../gql-requests/create-resource-mutation';
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
-import BreadcrumbListing from '../../../components/breadcrumbs/breadcrumb-listing';
 import useTopicName from '../../../hooks/use-topic-name';
+import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
@@ -94,12 +93,8 @@ function NewTopicResource({ topicId }) {
   ];
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
-      <div className="page-header text-center text-sm-start mt-4">
-        New Resource
-      </div>
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <div className="page-header text-center text-sm-start">New Resource</div>
 
       <form onSubmit={submit}>
         <div className="mt-4">
@@ -147,7 +142,7 @@ function NewTopicResource({ topicId }) {
           </div>
         </div>
       </form>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }
 

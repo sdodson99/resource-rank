@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../../components/layout/layout';
 import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
 import { Link } from 'gatsby';
-import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
 import useTopicById from '../../hooks/use-topic-by-id';
 import { Spinner } from 'react-bootstrap';
+import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 
 function TopicDetails({ topicId }) {
   const {
@@ -30,15 +29,13 @@ function TopicDetails({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: name ?? 'Topic Details',
+      title: name,
     },
   ];
 
   return (
-    <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-
-      <div className="mt-4">
+    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <div>
         {isLoadingTopic && (
           <div className="text-center">
             <Spinner animation="border" role="status" />
@@ -89,7 +86,7 @@ function TopicDetails({ topicId }) {
           </div>
         )}
       </div>
-    </Layout>
+    </BreadcrumbLayout>
   );
 }
 
