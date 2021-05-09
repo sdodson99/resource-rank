@@ -6,6 +6,7 @@ import TopicListing from '../../components/topic-listing/topic-listing';
 import getTopicsQuery from '../../gql-requests/get-topics-query';
 import HeaderButton from '../../components/header-button/header-button';
 import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
+import { Spinner } from 'react-bootstrap';
 
 export default function Home() {
   const {
@@ -37,9 +38,7 @@ export default function Home() {
       <div className="mt-4">
         {loadingTopics && (
           <div className="text-center">
-            <div className="spinner-border text-dark" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
+            <Spinner animation="border" role="status" />
           </div>
         )}
 

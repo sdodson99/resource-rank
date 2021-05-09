@@ -5,7 +5,7 @@ import { Link } from 'gatsby';
 
 function BreadcrumbListing({ breadcrumbs }) {
   const breadcrumbItems = breadcrumbs.map(({ to, title }) => (
-    <li key={title} className="breadcrumb-item">
+    <li key={to} className="breadcrumb-item">
       <Link to={to} activeClassName={breadcrumbListingStyle.activeBreadcrumb}>
         {title}
       </Link>

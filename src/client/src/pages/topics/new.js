@@ -1,39 +1,30 @@
 import React, { useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import Layout from '../../components/layout/layout';
-import topicExistsQuery from '../../gql-requests/topic-exists-query';
-import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
-import createTopicMutation from '../../gql-requests/create-topic-mutation';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
 import useLiveValidation from '../../hooks/use-live-validation';
 import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
+import useAvailableTopicNameValidator from '../../hooks/use-available-topic-name-validator';
+import TopicExistsError from '../../errors/topic-exists-error';
+import useTopicCreator from '../../hooks/use-topic-creator';
+import { Spinner } from 'react-bootstrap';
 
 function CreateTopic() {
   const [name, setName] = useState('');
+  const [hasCreateTopicError, setHasCreateTopicError] = useState(false);
+  const [isCreatingTopic, setIsCreatingTopic] = useState(false);
 
-  const apolloClient = useApolloClient();
-
-  const isAvailableTopicName = async (nameInput) => {
-    const result = await apolloClient.query({
-      query: topicExistsQuery,
-      variables: {
-        name: nameInput,
-      },
-    });
-
-    const topicNameExists = result.data?.topicExists ?? false;
-
-    return !topicNameExists;
-  };
+  const validateIsAvailableTopicName = useAvailableTopicNameValidator();
 
   const {
-    isValid: isNameAvailable,
+    isValid: isAvailableTopicName,
     isValidating: isValidatingName,
     validateValue: validateName,
     setIsValid: setIsValidName,
-  } = useLiveValidation(isAvailableTopicName);
+  } = useLiveValidation(validateIsAvailableTopicName);
 
   const handleNameInput = (e) => {
+    setHasCreateTopicError(false);
     setIsValidName(true);
 
     const nameInput = e.target.value;
@@ -42,24 +33,32 @@ function CreateTopic() {
     validateName(nameInput);
   };
 
-  const [createTopic] = useMutation(createTopicMutation);
+  const createTopic = useTopicCreator();
 
   const submit = async (e) => {
     e.preventDefault();
 
+    setIsCreatingTopic(true);
+    setHasCreateTopicError(false);
+
     try {
-      await createTopic({ variables: { name } });
+      await createTopic(name);
+
+      setHasCreateTopicError(false);
       navigate('/');
     } catch (error) {
-      if (error instanceof ApolloError) {
-        const errorCode = error.graphQLErrors[0].extensions.code;
-
-        if (errorCode === 'TOPIC_ALREADY_EXISTS') {
-          setIsValidName(false);
-        }
+      if (error instanceof TopicExistsError) {
+        setIsValidName(false);
+        return;
       }
+
+      setHasCreateTopicError(true);
+    } finally {
+      setIsCreatingTopic(false);
     }
   };
+
+  const canSubmit = !isValidatingName && isAvailableTopicName;
 
   const breadcrumbs = [
     {
@@ -88,7 +87,7 @@ function CreateTopic() {
             value={name}
             onChange={handleNameInput}
             isValidating={isValidatingName}
-            hasValidationError={!isNameAvailable}
+            hasValidationError={!isAvailableTopicName}
             required={true}
             validationErrorMessage="Topic name already exists."
           />
@@ -99,7 +98,7 @@ function CreateTopic() {
             <button
               className="btn btn-primary w-100"
               type="submit"
-              disabled={isValidatingName || !isNameAvailable}
+              disabled={!canSubmit}
             >
               Submit
             </button>
@@ -109,6 +108,18 @@ function CreateTopic() {
               Cancel
             </Link>
           </div>
+        </div>
+
+        <div className="text-center text-sm-start">
+          {hasCreateTopicError && (
+            <div className="mt-4 text-danger">Failed to create topic.</div>
+          )}
+
+          {isCreatingTopic && (
+            <div className="mt-4">
+              <Spinner animation="border" role="status" />
+            </div>
+          )}
         </div>
       </form>
     </Layout>
