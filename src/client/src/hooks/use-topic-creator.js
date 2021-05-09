@@ -4,7 +4,10 @@ import TopicExistsError from '../errors/topic-exists-error';
 import createTopicMutation from '../gql-requests/create-topic-mutation';
 
 export default function useTopicCreator() {
-  const [executeCreateTopicMutation] = useMutation(createTopicMutation);
+  const [
+    executeCreateTopicMutation,
+    { loading: isCreatingTopic },
+  ] = useMutation(createTopicMutation);
 
   const createTopic = async (name) => {
     try {
@@ -22,5 +25,5 @@ export default function useTopicCreator() {
     }
   };
 
-  return createTopic;
+  return { createTopic, isCreatingTopic };
 }

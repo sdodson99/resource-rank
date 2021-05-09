@@ -11,7 +11,6 @@ import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 function CreateTopic() {
   const [name, setName] = useState('');
   const [hasCreateTopicError, setHasCreateTopicError] = useState(false);
-  const [isCreatingTopic, setIsCreatingTopic] = useState(false);
 
   const validateIsAvailableTopicName = useAvailableTopicNameValidator();
 
@@ -32,12 +31,11 @@ function CreateTopic() {
     validateName(nameInput);
   };
 
-  const createTopic = useTopicCreator();
+  const { createTopic, isCreatingTopic } = useTopicCreator();
 
   const submit = async (e) => {
     e.preventDefault();
 
-    setIsCreatingTopic(true);
     setHasCreateTopicError(false);
 
     try {
@@ -52,8 +50,6 @@ function CreateTopic() {
       }
 
       setHasCreateTopicError(true);
-    } finally {
-      setIsCreatingTopic(false);
     }
   };
 
