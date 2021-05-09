@@ -1,42 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Layout from '../../components/layout/layout';
-import { useApolloClient, useQuery } from '@apollo/client';
-import getTopicByIdQuery from '../../gql-requests/get-topic-by-id-query';
 import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
 import { Link } from 'gatsby';
 import BreadcrumbListing from '../../components/breadcrumbs/breadcrumb-listing';
-import getTopicNameByIdQuery from '../../gql-requests/get-topic-name-by-id-query';
+import useTopicById from '../../hooks/use-topic-by-id';
+import { Spinner } from 'react-bootstrap';
 
 function TopicDetails({ topicId }) {
-  const apolloClient = useApolloClient();
-  const { loading: isLoadingTopic, data, error } = useQuery(getTopicByIdQuery, {
-    variables: { id: topicId },
-    onCompleted: (data) => {
-      const topicName = data?.topic?.name;
+  const {
+    loading: isLoadingTopic,
+    data: topicData,
+    error: topicError,
+  } = useTopicById(topicId);
 
-      if (topicName) {
-        apolloClient.writeQuery({
-          query: getTopicNameByIdQuery,
-          variables: { id: topicId },
-          data: {
-            topic: {
-              name: topicName,
-            },
-          },
-        });
-      }
-    },
-  });
-
-  const id = data?.topic?.id;
-  const name = data?.topic?.name;
-  const resources = data?.topic?.resources ?? [];
+  const id = topicData?.topic?.id;
+  const name = topicData?.topic?.name;
+  const resources = topicData?.topic?.resources ?? [];
   const hasResources = resources.length > 0;
 
   const orderedResources = resources.sort(
-    (r1, r2) => r2.ratingList.average - r1.ratingList.average
+    (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
 
   const breadcrumbs = [
@@ -46,7 +30,7 @@ function TopicDetails({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: name,
+      title: name ?? 'Topic Details',
     },
   ];
 
@@ -57,21 +41,19 @@ function TopicDetails({ topicId }) {
       <div className="mt-4">
         {isLoadingTopic && (
           <div className="text-center">
-            <div className="spinner-border text-dark" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
+            <Spinner animation="border" role="status" />
           </div>
         )}
 
         {!isLoadingTopic && (
           <div>
-            {error && (
+            {topicError && (
               <div className="text-center text-sm-start">
                 Failed to load topic details.
               </div>
             )}
 
-            {!error && (
+            {!topicError && (
               <div className="text-center text-sm-start">
                 <div className="page-header">Topic: {name}</div>
 
