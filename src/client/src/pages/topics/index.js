@@ -14,6 +14,7 @@ export default function Home() {
   } = useQuery(getTopicsQuery);
 
   const topics = topicsData?.topics ?? [];
+  const hasTopics = topics.length > 0;
 
   const breadcrumbs = [
     {
@@ -41,7 +42,17 @@ export default function Home() {
               </div>
             )}
 
-            {!topicsError && <TopicListing topics={topics} />}
+            {!topicsError && (
+              <div>
+                {!hasTopics && (
+                  <div className="text-center text-sm-start">
+                    No topics have been created.
+                  </div>
+                )}
+
+                {hasTopics && <TopicListing topics={topics} />}
+              </div>
+            )}
           </div>
         )}
       </div>

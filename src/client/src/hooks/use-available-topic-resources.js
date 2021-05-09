@@ -1,12 +1,14 @@
 import { useApolloClient } from '@apollo/client';
 import { useEffect, useRef, useState } from 'react';
-import { from, of, Subject, concat } from 'rxjs';
+import { of, Subject, concat } from 'rxjs';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import getAvailableResourcesQuery from '../gql-requests/get-available-resources-query';
 
 export default function useAvailableTopicResources(topicId) {
   const [availableTopicResources, setAvailableTopicResources] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+  const [currentSearch, setCurrentSearch] = useState('');
   const searchInputSubject = useRef(new Subject()).current;
 
   const client = useApolloClient();
@@ -20,7 +22,13 @@ export default function useAvailableTopicResources(topicId) {
       },
     });
 
-    return response?.data?.availableResources ?? [];
+    const availableResources = response?.data?.availableResources;
+
+    if (!availableResources) {
+      throw new Error('Failed to load available resources.');
+    }
+
+    return availableResources;
   };
 
   useEffect(() => {
@@ -29,21 +37,30 @@ export default function useAvailableTopicResources(topicId) {
         debounceTime(1000),
         switchMap((searchInput) =>
           concat(
-            of({ loading: true }),
-            from(getAvailableTopicResources(searchInput)).pipe(
-              map((data) => ({ data }))
+            of({ loading: true, input: searchInput }),
+            of(searchInput).pipe(
+              switchMap(getAvailableTopicResources),
+              map((data) => ({ data, input: searchInput }))
             )
           )
         )
       )
-      .subscribe(({ data, loading }) => {
-        if (loading) {
-          return setIsLoading(true);
-        }
+      .subscribe(
+        ({ data, loading, input }) => {
+          if (loading) {
+            return setIsLoading(true);
+          }
 
-        setIsLoading(false);
-        setAvailableTopicResources(data);
-      });
+          setError(null);
+          setIsLoading(false);
+          setCurrentSearch(input);
+          setAvailableTopicResources(data);
+        },
+        (error) => {
+          setError(error);
+          setIsLoading(false);
+        }
+      );
 
     return () => subscription.unsubscribe();
   }, []);
@@ -54,6 +71,8 @@ export default function useAvailableTopicResources(topicId) {
     try {
       const availableResources = await getAvailableTopicResources(searchInput);
       setAvailableTopicResources(availableResources);
+    } catch (error) {
+      setError(error);
     } finally {
       setIsLoading(false);
     }
@@ -64,8 +83,10 @@ export default function useAvailableTopicResources(topicId) {
 
   return {
     initialize,
+    currentSearch,
     processSearchInput,
     availableTopicResources,
     isLoading,
+    error,
   };
 }

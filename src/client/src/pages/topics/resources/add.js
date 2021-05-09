@@ -15,11 +15,13 @@ function AddTopicResource({ topicId }) {
   const {
     initialize,
     processSearchInput,
+    currentSearch,
     availableTopicResources,
     isLoading: isAvailableTopicResourcesLoading,
+    error: availableTopicResourcesError,
   } = useAvailableTopicResources(topicId);
 
-  useEffect(async () => await initialize(search), []);
+  useEffect(() => initialize(search), []);
 
   const onSearchInput = (e) => {
     const searchInput = e.target.value;
@@ -40,6 +42,7 @@ function AddTopicResource({ topicId }) {
   };
 
   const isLoading = isCreatingTopicResource || isAvailableTopicResourcesLoading;
+  const hasAvailableTopicResources = availableTopicResources?.length > 0;
 
   const topicName = useTopicName(topicId);
 
@@ -84,10 +87,32 @@ function AddTopicResource({ topicId }) {
         )}
 
         {!isLoading && (
-          <AddResourceListing
-            availableResources={availableTopicResources}
-            onAddResource={onAddResource}
-          />
+          <div>
+            {availableTopicResourcesError && (
+              <div className="text-center text-sm-start">
+                Failed to load available topic resources.
+              </div>
+            )}
+
+            {!availableTopicResourcesError && (
+              <div>
+                {!hasAvailableTopicResources && (
+                  <div className="text-center text-sm-start">
+                    {!currentSearch && 'No topic resources are available.'}
+                    {currentSearch &&
+                      `No topic resources matching '${currentSearch}' are available.`}
+                  </div>
+                )}
+
+                {hasAvailableTopicResources && (
+                  <AddResourceListing
+                    availableResources={availableTopicResources}
+                    onAddResource={onAddResource}
+                  />
+                )}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </BreadcrumbLayout>
