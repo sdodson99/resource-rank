@@ -6,7 +6,7 @@ import { Plus } from 'react-bootstrap-icons';
 function AddResourceListingItem({ availableResource, onAddResource }) {
   const addResource = () => onAddResource(availableResource.id);
 
-  const { alreadyAdded } = availableResource;
+  const { alreadyAdded, addError } = availableResource;
   const getNameDisplayClass = () => {
     if (alreadyAdded) {
       return 'text-decoration-line-through';
@@ -25,6 +25,11 @@ function AddResourceListingItem({ availableResource, onAddResource }) {
             </div>
             {alreadyAdded && (
               <div className="fst-italic fs-6 text-danger">Already added</div>
+            )}
+            {addError && (
+              <div className="fs-6 text-danger">
+                Failed to add topic resource.
+              </div>
             )}
           </div>
         </div>

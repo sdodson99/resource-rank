@@ -11,6 +11,7 @@ import useTopicResourceCreator from '../../../hooks/use-topic-resource-creator';
 
 function AddTopicResource({ topicId }) {
   const [search, setSearch] = useState('');
+  const [topicResources, setTopicResources] = useState([]);
 
   const {
     initialize,
@@ -22,6 +23,10 @@ function AddTopicResource({ topicId }) {
   } = useAvailableTopicResources(topicId);
 
   useEffect(() => initialize(search), []);
+
+  useEffect(() => setTopicResources(availableTopicResources), [
+    availableTopicResources,
+  ]);
 
   const onSearchInput = (e) => {
     const searchInput = e.target.value;
@@ -35,14 +40,39 @@ function AddTopicResource({ topicId }) {
     isCreatingTopicResource,
   } = useTopicResourceCreator();
 
-  const onAddResource = async (resourceId) => {
-    await createTopicResource(topicId, resourceId);
+  const setTopicResourceAddError = (resourceId, error) => {
+    const nextResources = [...topicResources];
 
-    navigate(`/topics/${topicId}`);
+    // Set error without mutating state.
+    const updatedResourceIndex = nextResources.findIndex(
+      (r) => r.id === resourceId
+    );
+    const updatedResource = {
+      ...nextResources[updatedResourceIndex],
+      addError: error,
+    };
+    nextResources[updatedResourceIndex] = updatedResource;
+
+    setTopicResources(nextResources);
+  };
+
+  const clearTopicResourceAddError = (resourceId) =>
+    setTopicResourceAddError(resourceId, null);
+
+  const onAddResource = async (resourceId) => {
+    try {
+      await createTopicResource(topicId, resourceId);
+
+      navigate(`/topics/${topicId}`);
+
+      clearTopicResourceAddError(resourceId);
+    } catch (error) {
+      setTopicResourceAddError(resourceId, error);
+    }
   };
 
   const isLoading = isCreatingTopicResource || isAvailableTopicResourcesLoading;
-  const hasAvailableTopicResources = availableTopicResources?.length > 0;
+  const hasTopicResources = topicResources?.length > 0;
 
   const topicName = useTopicName(topicId);
 
@@ -96,7 +126,7 @@ function AddTopicResource({ topicId }) {
 
             {!availableTopicResourcesError && (
               <div>
-                {!hasAvailableTopicResources && (
+                {!hasTopicResources && (
                   <div className="text-center text-sm-start">
                     {!currentSearch && 'No topic resources are available.'}
                     {currentSearch &&
@@ -104,9 +134,9 @@ function AddTopicResource({ topicId }) {
                   </div>
                 )}
 
-                {hasAvailableTopicResources && (
+                {hasTopicResources && (
                   <AddResourceListing
-                    availableResources={availableTopicResources}
+                    availableResources={topicResources}
                     onAddResource={onAddResource}
                   />
                 )}

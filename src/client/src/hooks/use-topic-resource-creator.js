@@ -8,12 +8,18 @@ export default function useTopicResourceCreator() {
   ] = useMutation(createTopicResourceMutation);
 
   const createTopicResource = async (topicId, resourceId) => {
-    await executeCreateTopicResourceMutation({
+    const { data } = await executeCreateTopicResourceMutation({
       variables: {
         topicId,
         resourceId,
       },
     });
+
+    const success = data?.createTopicResource;
+
+    if (!success) {
+      throw new Error('Failed to create topic resource.');
+    }
   };
 
   return {
