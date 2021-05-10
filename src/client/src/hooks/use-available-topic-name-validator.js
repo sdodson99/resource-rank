@@ -5,14 +5,14 @@ export default function useAvailableTopicNameValidator() {
   const apolloClient = useApolloClient();
 
   const validateIsAvailableTopicName = async (nameInput) => {
-    const result = await apolloClient.query({
+    const { data } = await apolloClient.query({
       query: topicExistsQuery,
       variables: {
         name: nameInput,
       },
     });
 
-    const topicNameExists = result.data?.topicExists ?? false;
+    const topicNameExists = data?.topicExists ?? false;
 
     return !topicNameExists;
   };

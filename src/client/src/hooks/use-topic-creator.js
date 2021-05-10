@@ -11,7 +11,15 @@ export default function useTopicCreator() {
 
   const createTopic = async (name) => {
     try {
-      await executeCreateTopicMutation({ variables: { name } });
+      const { data } = await executeCreateTopicMutation({
+        variables: { name },
+      });
+
+      const success = data?.createTopic;
+
+      if (!success) {
+        throw new Error('Failed to create topic.');
+      }
     } catch (error) {
       if (error instanceof ApolloError) {
         const errorCode = getErrorCode(error);
