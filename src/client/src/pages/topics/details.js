@@ -10,13 +10,15 @@ function TopicDetails({ topicId }) {
   const {
     loading: isLoadingTopic,
     data: topicData,
-    error: topicError,
+    error: topicLoadError,
   } = useTopicById(topicId);
 
-  const id = topicData?.topic?.id;
-  const name = topicData?.topic?.name;
-  const resources = topicData?.topic?.resources ?? [];
+  const topic = topicData?.topic;
+  const id = topic?.id;
+  const name = topic?.name;
+  const resources = topic?.resources ?? [];
   const hasResources = resources.length > 0;
+  const hasTopicError = !topic || topicLoadError;
 
   const orderedResources = resources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
@@ -44,13 +46,13 @@ function TopicDetails({ topicId }) {
 
         {!isLoadingTopic && (
           <div>
-            {topicError && (
+            {hasTopicError && (
               <div className="text-center text-sm-start">
                 Failed to load topic details.
               </div>
             )}
 
-            {!topicError && (
+            {!hasTopicError && (
               <div className="text-center text-sm-start">
                 <div className="page-header">Topic: {name}</div>
 
