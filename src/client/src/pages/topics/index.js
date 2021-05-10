@@ -6,15 +6,16 @@ import HeaderButton from '../../components/header-button/header-button';
 import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 
-export default function Home() {
+export default function Index() {
   const {
     loading: loadingTopics,
     data: topicsData,
-    error: topicsError,
+    error: topicsLoadError,
   } = useQuery(getTopicsQuery);
 
-  const topics = topicsData?.topics ?? [];
-  const hasTopics = topics.length > 0;
+  const topics = topicsData?.topics;
+  const hasTopics = topics?.length > 0;
+  const topicsError = !topics || topicsLoadError;
 
   const breadcrumbs = [
     {
