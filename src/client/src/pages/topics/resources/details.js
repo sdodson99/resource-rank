@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useTopicName from '../../../hooks/use-topic-name';
 import { useMutation, useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
 import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
-import getUserRatingQuery from '../../../gql-requests/get-user-rating-query';
 import createRatingMutation from '../../../gql-requests/create-rating-mutation';
 import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
+import useTopicResourceUserRating from '../../../hooks/use-topic-resource-user-rating';
+import { Spinner } from 'react-bootstrap';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const {
     data: topicResourceData,
     loading: topicResourceLoading,
-    error: topicResourceError,
+    error: topicResourceLoadError,
     refetch: refetchTopicResourceData,
   } = useQuery(getTopicResourceByIdQuery, {
     variables: {
@@ -23,65 +24,94 @@ function TopicResourceDetails({ topicId, resourceId }) {
     },
   });
 
-  const resourceName =
-    topicResourceData?.topicResource?.resource?.name ?? 'Resource Details';
-  const resourceLink = topicResourceData?.topicResource?.resource?.link;
-  const averageRating = topicResourceData?.topicResource?.ratingList?.average;
+  const topicResource = topicResourceData?.topicResource;
+  const resourceName = topicResource?.resource?.name ?? 'Resource Details';
+  const resourceLink = topicResource?.resource?.link;
+  const averageRating = topicResource?.ratingList?.average;
+  const topicResourceError = !topicResource || topicResourceLoadError;
 
-  const [ratingId, setRatingId] = useState();
-  const [existingRating, setExistingRating] = useState(0);
-  const [selectedRating, setSelectedRating] = useState(0);
+  const [existingRating, setExistingRating] = useState();
+  const [selectedRatingValue, setSelectedRatingValue] = useState(0);
+  const {
+    userRating,
+    loading: userRatingLoading,
+    error: userRatingLoadError,
+  } = useTopicResourceUserRating(topicId, resourceId);
 
-  const { loading: userRatingLoading } = useQuery(getUserRatingQuery, {
-    variables: {
-      topicId,
-      resourceId,
-    },
-    onCompleted: (data) => {
-      const userRatingValue = data?.userRating?.value;
+  useEffect(() => {
+    if (userRating) {
+      setExistingRating(userRating);
 
-      setSelectedRating(userRatingValue);
-      setExistingRating(userRatingValue);
+      const { value: ratingValue } = userRating;
+      setSelectedRatingValue(ratingValue);
+    }
+  }, [userRating]);
 
-      const userRatingId = data?.userRating?.id ?? null;
-      setRatingId(userRatingId);
-    },
-  });
-
-  const hasExistingUserRating = ratingId !== null;
-
-  const ratingChanged = selectedRating !== existingRating;
-  const validRating = selectedRating > 0;
+  const ratingChanged = selectedRatingValue !== existingRating?.value;
+  const validRating = selectedRatingValue > 0;
   const canSubmitRating = ratingChanged && validRating;
 
-  const [createRating] = useMutation(createRatingMutation, {
-    variables: {
-      topicId,
-      resourceId,
-      value: selectedRating,
-    },
-  });
+  const [createRating, { loading: isCreatingRating }] = useMutation(
+    createRatingMutation,
+    {
+      variables: {
+        topicId,
+        resourceId,
+        value: selectedRatingValue,
+      },
+    }
+  );
 
-  const [updateRating] = useMutation(updateRatingMutation, {
-    variables: {
-      ratingId,
-      value: selectedRating,
-    },
-  });
+  const ratingId = existingRating?.id;
+  const [updateRating, { loading: isUpdatingRating }] = useMutation(
+    updateRatingMutation,
+    {
+      variables: {
+        ratingId,
+        value: selectedRatingValue,
+      },
+    }
+  );
+
+  const [submitRatingError, setSubmitRatingError] = useState();
+
+  const isSubmitingRating = isUpdatingRating || isCreatingRating;
 
   const submitRating = async () => {
-    if (!hasExistingUserRating) {
-      const { data: createRatingData } = await createRating();
+    setSubmitRatingError(null);
 
-      const createdRatingId = createRatingData?.createRating?.id;
-      setRatingId(createdRatingId);
-    } else {
-      await updateRating();
+    try {
+      if (!existingRating) {
+        const { data: createRatingData } = await createRating();
+
+        const createdRating = createRatingData?.createRating;
+        if (!createdRating) {
+          throw new Error('Failed to create rating.');
+        }
+
+        const { id } = createdRating;
+        setExistingRating({
+          id,
+          value: selectedRatingValue,
+        });
+      } else {
+        const { data: updateRatingData } = await updateRating();
+
+        const success = updateRatingData?.updateRating;
+        if (!success) {
+          throw new Error('Failed to update rating.');
+        }
+
+        setExistingRating({ ...existingRating, value: selectedRatingValue });
+      }
+
+      await refetchTopicResourceData();
+    } catch (error) {
+      setSubmitRatingError(error);
     }
-
-    setExistingRating(selectedRating);
-    await refetchTopicResourceData();
   };
+
+  const ratingTitle = existingRating ? 'Update Rating' : 'Add Rating';
 
   const { topicName } = useTopicName(topicId);
 
@@ -100,16 +130,12 @@ function TopicResourceDetails({ topicId, resourceId }) {
     },
   ];
 
-  const ratingTitle = hasExistingUserRating ? 'Update Rating' : 'Add Rating';
-
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <div>
         {topicResourceLoading && (
           <div className="text-center">
-            <div className="spinner-border text-dark" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
+            <Spinner animation="border" role="status" />
           </div>
         )}
 
@@ -144,35 +170,61 @@ function TopicResourceDetails({ topicId, resourceId }) {
                 </div>
 
                 <div className="mt-5">
-                  {userRatingLoading && (
-                    <div className="text-center">
-                      <div className="spinner-border text-dark" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                      </div>
-                    </div>
-                  )}
+                  <div className="fs-2">{ratingTitle}</div>
 
-                  {!userRatingLoading && (
-                    <div>
-                      <div className="fs-2">{ratingTitle}</div>
-                      <div className="mt-4 d-inline-block">
-                        <SelectableRatingStars
-                          selectedRating={selectedRating}
-                          selectedRatingChanged={(r) => setSelectedRating(r)}
-                          starWidth={30}
-                        />
+                  <div className="mt-4">
+                    {userRatingLoading && (
+                      <div className="text-center">
+                        <Spinner animation="border" role="status" />
                       </div>
-                      <div className="mt-5">
-                        <button
-                          className="btn btn-primary"
-                          disabled={!canSubmitRating}
-                          onClick={submitRating}
-                        >
-                          Submit
-                        </button>
+                    )}
+
+                    {!userRatingLoading && (
+                      <div>
+                        {userRatingLoadError && (
+                          <div className="text-center text-sm-start">
+                            Failed to load your rating for this topic resource.
+                          </div>
+                        )}
+
+                        {!userRatingLoadError && (
+                          <div>
+                            <div className="d-inline-block">
+                              <SelectableRatingStars
+                                selectedRating={selectedRatingValue}
+                                selectedRatingChanged={(r) =>
+                                  setSelectedRatingValue(r)
+                                }
+                                starWidth={30}
+                              />
+                            </div>
+
+                            <div className="mt-4">
+                              <button
+                                className="mt-2 btn btn-primary"
+                                disabled={!canSubmitRating}
+                                onClick={submitRating}
+                              >
+                                Submit
+                              </button>
+                            </div>
+
+                            {isSubmitingRating && (
+                              <div className="mt-4 text-center text-sm-start">
+                                <Spinner animation="border" role="status" />
+                              </div>
+                            )}
+
+                            {submitRatingError && (
+                              <div className="mt-4 text-center text-sm-start">
+                                Failed to submit rating.
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             )}
