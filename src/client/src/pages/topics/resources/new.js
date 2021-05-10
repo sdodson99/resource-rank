@@ -9,6 +9,8 @@ import createResourceMutation from '../../../gql-requests/create-resource-mutati
 import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import useTopicName from '../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
+import { Spinner } from 'react-bootstrap';
+import getErrorCode from '../../../errors/apollo-error-code-provider';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
@@ -16,14 +18,14 @@ function NewTopicResource({ topicId }) {
 
   const apolloClient = useApolloClient();
   const isAvailableResourceName = async (nameInput) => {
-    const result = await apolloClient.query({
+    const { data } = await apolloClient.query({
       query: resourceExistsQuery,
       variables: {
         name: nameInput,
       },
     });
 
-    const resourceNameExists = result.data?.resourceExists ?? false;
+    const resourceNameExists = data?.resourceExists ?? false;
 
     return !resourceNameExists;
   };
@@ -44,28 +46,54 @@ function NewTopicResource({ topicId }) {
     validateName(nameInput);
   };
 
-  const [createResource] = useMutation(createResourceMutation);
-  const [createTopicResource] = useMutation(createTopicResourceMutation);
+  const [submitError, setSubmitError] = useState();
+
+  const [createResource, { loading: isCreatingResource }] = useMutation(
+    createResourceMutation
+  );
+  const [
+    createTopicResource,
+    { loading: isCreatingTopicResource },
+  ] = useMutation(createTopicResourceMutation);
+
+  const isSubmitting = isCreatingResource || isCreatingTopicResource;
 
   const submit = async (e) => {
     e.preventDefault();
 
+    setSubmitError(null);
+
     try {
-      const { data } = await createResource({ variables: { name, link } });
+      const { data: createResourceData } = await createResource({
+        variables: { name, link },
+      });
 
-      const { id: resourceId } = data.createResource;
+      const createdResource = createResourceData?.createResource;
+      if (!createdResource) {
+        throw new Error('Failed to create resource.');
+      }
 
-      await createTopicResource({ variables: { topicId, resourceId } });
+      const { id: resourceId } = createdResource;
+      const { data: createTopicResourceData } = await createTopicResource({
+        variables: { topicId, resourceId },
+      });
+
+      const success = createTopicResourceData?.createTopicResource;
+      if (!success) {
+        // TODO: At least notify that resource was created?
+        throw new Error('Failed to create topic resource.');
+      }
 
       navigate(`/topics/${topicId}`);
     } catch (error) {
       if (error instanceof ApolloError) {
-        const errorCode = error.graphQLErrors[0].extensions.code;
-
+        const errorCode = getErrorCode(error);
         if (errorCode === 'RESOURCE_ALREADY_EXISTS') {
-          setIsValidName(false);
+          return setIsValidName(false);
         }
       }
+
+      setSubmitError(error);
     }
   };
 
@@ -140,6 +168,20 @@ function NewTopicResource({ topicId }) {
               Cancel
             </Link>
           </div>
+        </div>
+
+        <div className="text-center text-sm-start">
+          {submitError && (
+            <div className="mt-4 text-danger">
+              Failed to create topic resource.
+            </div>
+          )}
+
+          {isSubmitting && (
+            <div className="mt-4">
+              <Spinner animation="border" role="status" />
+            </div>
+          )}
         </div>
       </form>
     </BreadcrumbLayout>

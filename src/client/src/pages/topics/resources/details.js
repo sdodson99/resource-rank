@@ -75,7 +75,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
 
   const [submitRatingError, setSubmitRatingError] = useState();
 
-  const isSubmitingRating = isUpdatingRating || isCreatingRating;
+  const isSubmittingRating = isUpdatingRating || isCreatingRating;
 
   const submitRating = async () => {
     setSubmitRatingError(null);
@@ -209,7 +209,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                               </button>
                             </div>
 
-                            {isSubmitingRating && (
+                            {isSubmittingRating && (
                               <div className="mt-4 text-center text-sm-start">
                                 <Spinner animation="border" role="status" />
                               </div>
