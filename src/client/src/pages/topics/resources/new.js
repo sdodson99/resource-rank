@@ -71,7 +71,7 @@ function NewTopicResource({ topicId }) {
 
   const canSubmit = isValidName;
 
-  const topicName = useTopicName(topicId);
+  const { topicName } = useTopicName(topicId);
 
   const breadcrumbs = [
     {

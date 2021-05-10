@@ -53,6 +53,7 @@ export default function useAvailableTopicResources(topicId) {
 
           setError(null);
           setIsLoading(false);
+
           setCurrentSearch(input);
           setAvailableTopicResources(data);
         },

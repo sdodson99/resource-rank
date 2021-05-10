@@ -83,7 +83,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
     await refetchTopicResourceData();
   };
 
-  const topicName = useTopicName(topicId);
+  const { topicName } = useTopicName(topicId);
 
   const breadcrumbs = [
     {
@@ -159,7 +159,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                         <SelectableRatingStars
                           selectedRating={selectedRating}
                           selectedRatingChanged={(r) => setSelectedRating(r)}
-                          starWidth={50}
+                          starWidth={30}
                         />
                       </div>
                       <div className="mt-5">

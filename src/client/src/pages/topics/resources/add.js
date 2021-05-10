@@ -43,7 +43,6 @@ function AddTopicResource({ topicId }) {
   const setTopicResourceAddError = (resourceId, error) => {
     const nextResources = [...topicResources];
 
-    // Set error without mutating state.
     const updatedResourceIndex = nextResources.findIndex(
       (r) => r.id === resourceId
     );
@@ -74,7 +73,7 @@ function AddTopicResource({ topicId }) {
   const isLoading = isCreatingTopicResource || isAvailableTopicResourcesLoading;
   const hasTopicResources = topicResources?.length > 0;
 
-  const topicName = useTopicName(topicId);
+  const { topicName } = useTopicName(topicId);
 
   const breadcrumbs = [
     {
