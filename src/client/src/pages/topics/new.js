@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import { Link, navigate } from 'gatsby';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
-import useLiveValidation from '../../hooks/use-live-validation';
 import useAvailableTopicNameValidator from '../../hooks/use-available-topic-name-validator';
 import TopicExistsError from '../../errors/topic-exists-error';
 import useTopicCreator from '../../hooks/use-topic-creator';
 import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
+import useLiveValidation from '../../hooks/use-live-validation';
 
 function CreateTopic() {
   const [name, setName] = useState('');
-  const [hasCreateTopicError, setHasCreateTopicError] = useState(false);
+  const [createTopicError, setCreateTopicError] = useState();
 
   const validateIsAvailableTopicName = useAvailableTopicNameValidator();
 
   const {
     isValid: isAvailableTopicName,
-    isValidating: isValidatingName,
-    validateValue: validateName,
     setIsValid: setIsValidName,
+    validateInput: validateName,
+    isValidating: isValidatingName,
   } = useLiveValidation(validateIsAvailableTopicName);
 
   const handleNameInput = (e) => {
-    setHasCreateTopicError(false);
-    setIsValidName(true);
+    setCreateTopicError(null);
 
     const nameInput = e.target.value;
 
@@ -36,12 +35,10 @@ function CreateTopic() {
   const submit = async (e) => {
     e.preventDefault();
 
-    setHasCreateTopicError(false);
+    setCreateTopicError(null);
 
     try {
       await createTopic(name);
-
-      setHasCreateTopicError(false);
       navigate('/');
     } catch (error) {
       if (error instanceof TopicExistsError) {
@@ -49,7 +46,7 @@ function CreateTopic() {
         return;
       }
 
-      setHasCreateTopicError(true);
+      setCreateTopicError(error);
     }
   };
 
@@ -102,7 +99,7 @@ function CreateTopic() {
         </div>
 
         <div className="text-center text-sm-start">
-          {hasCreateTopicError && (
+          {createTopicError && (
             <div className="mt-4 text-danger">Failed to create topic.</div>
           )}
 

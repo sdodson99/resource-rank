@@ -10,19 +10,16 @@ import { Spinner } from 'react-bootstrap';
 import useTopicResourceCreator from '../../../hooks/use-topic-resource-creator';
 
 function AddTopicResource({ topicId }) {
-  const [search, setSearch] = useState('');
   const [topicResources, setTopicResources] = useState([]);
 
   const {
-    initialize,
-    processSearchInput,
-    currentSearch,
     availableTopicResources,
     isLoading: isAvailableTopicResourcesLoading,
     error: availableTopicResourcesError,
+    processSearchInput,
+    currentSearch,
+    search,
   } = useAvailableTopicResources(topicId);
-
-  useEffect(() => initialize(search), []);
 
   useEffect(() => setTopicResources(availableTopicResources), [
     availableTopicResources,
@@ -30,8 +27,6 @@ function AddTopicResource({ topicId }) {
 
   const onSearchInput = (e) => {
     const searchInput = e.target.value;
-
-    setSearch(searchInput);
     processSearchInput(searchInput);
   };
 

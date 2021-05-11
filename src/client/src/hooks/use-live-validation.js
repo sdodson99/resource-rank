@@ -1,42 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import { Subject } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import { useState, useEffect } from 'react';
+import useLiveSearch from './use-live-search';
 
-function useLiveValidation(validateCallback) {
-  const valueSubject = useRef(new Subject()).current;
+export default function useLiveValidation(executeValidation) {
   const [isValid, setIsValid] = useState(true);
-  const [isValidating, setIsValidating] = useState(false);
 
-  const validate = async (incomingValue) => {
-    setIsValidating(true);
+  const {
+    data: isValidResponse,
+    processSearch: validate,
+    dataLoading: isValidating,
+  } = useLiveSearch(executeValidation);
 
-    try {
-      return await validateCallback(incomingValue);
-    } catch {
-      return true;
-    } finally {
-      setIsValidating(false);
-    }
+  useEffect(() => setIsValid(isValidResponse), [isValidResponse]);
+
+  const validateInput = (input) => {
+    setIsValid(true);
+    validate(input);
   };
-
-  useEffect(() => {
-    const subscription = valueSubject
-      .pipe(debounceTime(1000), switchMap(validate))
-      .subscribe((validationResult) => {
-        setIsValid(validationResult);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const validateValue = (value) => valueSubject.next(value);
 
   return {
     isValid,
-    isValidating,
-    validateValue,
     setIsValid,
+    isValidating,
+    validateInput,
   };
 }
-
-export default useLiveValidation;

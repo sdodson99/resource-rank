@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import { Link, navigate } from 'gatsby';
-import useLiveValidation from '../../../hooks/use-live-validation';
 import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import createResourceMutation from '../../../gql-requests/create-resource-mutation';
@@ -11,13 +10,15 @@ import useTopicName from '../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import { Spinner } from 'react-bootstrap';
 import getErrorCode from '../../../errors/apollo-error-code-provider';
+import useLiveValidation from '../../../hooks/use-live-validation';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const [submitError, setSubmitError] = useState();
 
   const apolloClient = useApolloClient();
-  const isAvailableResourceName = async (nameInput) => {
+  const validateIsAvailableResourceName = async (nameInput) => {
     const { data } = await apolloClient.query({
       query: resourceExistsQuery,
       variables: {
@@ -31,22 +32,20 @@ function NewTopicResource({ topicId }) {
   };
 
   const {
-    isValid: isValidName,
-    isValidating: isValidatingName,
+    isValid: isAvailableResourceName,
     setIsValid: setIsValidName,
-    validateValue: validateName,
-  } = useLiveValidation(isAvailableResourceName);
+    validateInput: validateName,
+    isValidating: isValidatingName,
+  } = useLiveValidation(validateIsAvailableResourceName);
 
   const onNameChange = (e) => {
-    setIsValidName(true);
+    setSubmitError(null);
 
     const nameInput = e.target.value;
 
     setName(nameInput);
     validateName(nameInput);
   };
-
-  const [submitError, setSubmitError] = useState();
 
   const [createResource, { loading: isCreatingResource }] = useMutation(
     createResourceMutation
@@ -88,6 +87,7 @@ function NewTopicResource({ topicId }) {
     } catch (error) {
       if (error instanceof ApolloError) {
         const errorCode = getErrorCode(error);
+
         if (errorCode === 'RESOURCE_ALREADY_EXISTS') {
           return setIsValidName(false);
         }
@@ -97,7 +97,7 @@ function NewTopicResource({ topicId }) {
     }
   };
 
-  const canSubmit = isValidName;
+  const canSubmit = isAvailableResourceName;
 
   const { topicName } = useTopicName(topicId);
 
@@ -130,7 +130,7 @@ function NewTopicResource({ topicId }) {
           <LiveValidatingInput
             id="name"
             value={name}
-            hasValidationError={!isValidName}
+            hasValidationError={!isAvailableResourceName}
             isValidating={isValidatingName}
             onChange={onNameChange}
             required={true}
