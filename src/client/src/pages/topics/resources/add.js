@@ -102,7 +102,7 @@ function AddTopicResource({ topicId }) {
         <input
           type="text"
           className="form-control"
-          placeholder="Search..."
+          placeholder="Search resources..."
           value={search}
           onInput={onSearchInput}
         />
