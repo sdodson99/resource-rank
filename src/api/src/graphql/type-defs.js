@@ -37,7 +37,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    topics: [Topic]
+    topics(name: String): [Topic]
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
     topicResource(topicId: ID!, resourceId: ID!): TopicResource

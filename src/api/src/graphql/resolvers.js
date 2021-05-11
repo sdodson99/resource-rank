@@ -5,7 +5,8 @@ const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
-    topics: () => Topic.find({}),
+    topics: (_, { name = '' }) =>
+      Topic.find({ name: { $regex: name, $options: 'i' } }),
     topic: (_, { id }) => Topic.findOne({ _id: id }),
     topicExists: (_, { name }) => Topic.exists({ name }),
     topicResource: (_, { topicId, resourceId }) => ({
@@ -19,19 +20,14 @@ const resolvers = {
       Rating.findOne({ topic: topicId, resource: resourceId }),
     availableResources: async (
       _,
-      { topicId, search = null, offset = 0, limit = 20 }
+      { topicId, search = '', offset = 0, limit = 20 }
     ) => {
-      let resourceQuery;
+      const resourceDTOs = await Resource.find({
+        name: { $regex: search, $options: 'i' },
+      })
+        .skip(offset)
+        .limit(limit);
 
-      if (search) {
-        resourceQuery = Resource.find({
-          name: { $regex: search, $options: 'i' },
-        });
-      } else {
-        resourceQuery = Resource.find({});
-      }
-
-      const resourceDTOs = await resourceQuery.skip(offset).limit(limit);
       const availableResources = resourceDTOs.map((r) => ({
         id: r._id,
         name: r.name,
