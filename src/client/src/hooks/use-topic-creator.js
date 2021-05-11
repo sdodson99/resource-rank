@@ -11,12 +11,15 @@ export default function useTopicCreator() {
 
   const createTopic = async (name) => {
     try {
-      const { data } = await executeCreateTopicMutation({
+      const { data, error } = await executeCreateTopicMutation({
         variables: { name },
       });
 
-      const success = data?.createTopic;
+      if (error) {
+        throw error;
+      }
 
+      const success = data?.createTopic;
       if (!success) {
         throw new Error('Failed to create topic.');
       }

@@ -42,8 +42,7 @@ function CreateTopic() {
       navigate('/');
     } catch (error) {
       if (error instanceof TopicExistsError) {
-        setIsValidName(false);
-        return;
+        return setIsValidName(false);
       }
 
       setCreateTopicError(error);

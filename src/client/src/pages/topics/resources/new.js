@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import { Link, navigate } from 'gatsby';
-import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
-import createResourceMutation from '../../../gql-requests/create-resource-mutation';
-import createTopicResourceMutation from '../../../gql-requests/create-topic-resource-mutation';
 import useTopicName from '../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import { Spinner } from 'react-bootstrap';
-import getErrorCode from '../../../errors/apollo-error-code-provider';
 import useLiveValidation from '../../../hooks/use-live-validation';
+import useTopicResourceCreator from '../../../hooks/use-topic-resource-creator';
+import useResourceCreator from '../../../hooks/use-resource-creator';
+import ResourceExistsError from '../../../errors/resource-exists-error';
 
 function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
@@ -47,13 +47,11 @@ function NewTopicResource({ topicId }) {
     validateName(nameInput);
   };
 
-  const [createResource, { loading: isCreatingResource }] = useMutation(
-    createResourceMutation
-  );
-  const [
+  const { createResource, isCreatingResource } = useResourceCreator();
+  const {
     createTopicResource,
-    { loading: isCreatingTopicResource },
-  ] = useMutation(createTopicResourceMutation);
+    isCreatingTopicResource,
+  } = useTopicResourceCreator();
 
   const isSubmitting = isCreatingResource || isCreatingTopicResource;
 
@@ -63,34 +61,13 @@ function NewTopicResource({ topicId }) {
     setSubmitError(null);
 
     try {
-      const { data: createResourceData } = await createResource({
-        variables: { name, link },
-      });
-
-      const createdResource = createResourceData?.createResource;
-      if (!createdResource) {
-        throw new Error('Failed to create resource.');
-      }
-
-      const { id: resourceId } = createdResource;
-      const { data: createTopicResourceData } = await createTopicResource({
-        variables: { topicId, resourceId },
-      });
-
-      const success = createTopicResourceData?.createTopicResource;
-      if (!success) {
-        // TODO: At least notify that resource was created?
-        throw new Error('Failed to create topic resource.');
-      }
+      const { id: resourceId } = await createResource(name, link);
+      await createTopicResource(topicId, resourceId);
 
       navigate(`/topics/${topicId}`);
     } catch (error) {
-      if (error instanceof ApolloError) {
-        const errorCode = getErrorCode(error);
-
-        if (errorCode === 'RESOURCE_ALREADY_EXISTS') {
-          return setIsValidName(false);
-        }
+      if (error instanceof ResourceExistsError) {
+        return setIsValidName(false);
       }
 
       setSubmitError(error);
