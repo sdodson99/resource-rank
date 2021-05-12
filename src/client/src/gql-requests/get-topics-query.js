@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export default gql`
-  query GetTopics($name: String) {
-    topics(name: $name) {
+  query GetTopics($search: String) {
+    topics(search: $search) {
       id
       name
     }

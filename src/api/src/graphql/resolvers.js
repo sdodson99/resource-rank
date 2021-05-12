@@ -5,17 +5,22 @@ const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
-    topics: (_, { name = '' }) =>
-      Topic.find({ name: { $regex: name, $options: 'i' } }),
+    topics: (_, { search = '' }) =>
+      Topic.find({ name: { $regex: search, $options: 'i' } }),
     topic: (_, { id }) => Topic.findOne({ _id: id }),
     topicExists: (_, { name }) => Topic.exists({ name }),
-    topicResources: async (_, { topicId }) => {
+    topicResourceList: async (_, { topicId, resourceSearch = '' }) => {
       const { resources } = await Topic.findOne({ _id: topicId });
 
-      return resources.map((r) => ({
-        topicId: topicId,
-        resourceId: r.resource,
-      }));
+      return {
+        topicResources: resources.map((r) => ({
+          topicId: topicId,
+          resourceId: r.resource,
+          resourceSearch,
+        })),
+        topicId,
+        resourceSearch,
+      };
     },
     topicResource: (_, { topicId, resourceId }) => ({
       topicId,
@@ -81,6 +86,21 @@ const resolvers = {
         topic: topicId,
         resource: resourceId,
       }),
+  },
+  TopicResourceList: {
+    topicResources: async ({ topicResources, topicId, resourceSearch }) => {
+      const resourceIds = topicResources.map((tr) => tr.resourceId);
+      const filteredResources = await Resource.find({
+        _id: { $in: resourceIds },
+        name: { $regex: resourceSearch, $options: 'i' },
+      });
+
+      return filteredResources.map((r) => ({
+        resource: r,
+        topicId,
+        resourceId: r._id,
+      }));
+    },
   },
   RatingList: {
     average: (ratings) => {

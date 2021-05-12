@@ -23,6 +23,10 @@ const typeDefs = gql`
     ratingList: RatingList
   }
 
+  type TopicResourceList {
+    topicResources: [TopicResource]
+  }
+
   type Topic {
     id: ID!
     name: String!
@@ -37,10 +41,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    topics(name: String): [Topic]
+    topics(search: String): [Topic]
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
-    topicResources(topicId: ID!): [TopicResource]
+    topicResourceList(topicId: ID!, resourceSearch: String): TopicResourceList
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
     resources: [Resource]
     resource(id: ID!): Resource

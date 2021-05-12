@@ -13,7 +13,7 @@ export default function Index() {
     const { data, error } = await apolloClient.query({
       query: getTopicsQuery,
       variables: {
-        name: searchInput,
+        search: searchInput,
       },
     });
 
