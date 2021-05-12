@@ -2,27 +2,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
 import { Link } from 'gatsby';
-import useTopicById from '../../hooks/use-topic-by-id';
+import useTopicName from '../../hooks/use-topic-name';
 import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
+import getTopicResourceListQuery from '../../gql-requests/get-topic-resource-list-query';
+import useLiveSearch from '../../hooks/use-live-search';
+import { useApolloClient } from '@apollo/client';
 
 function TopicDetails({ topicId }) {
+  const { topicName, loading: topicNameLoading } = useTopicName(topicId);
+
+  const apolloClient = useApolloClient();
+  const searchTopicResources = async (searchInput) => {
+    const { data, error } = await apolloClient.query({
+      query: getTopicResourceListQuery,
+      variables: { topicId, resourceSearch: searchInput },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    const topicResources = data?.topicResourceList?.topicResources;
+    if (!topicResources) {
+      throw new Error('Failed to load topic resources.');
+    }
+
+    return topicResources;
+  };
+
   const {
-    loading: isLoadingTopic,
-    data: topicData,
-    error: topicLoadError,
-  } = useTopicById(topicId);
+    data: topicResourcesData,
+    dataLoadError: topicResourcesLoadError,
+    dataLoading: topicResourcesLoading,
+    search,
+    processSearch,
+    currentSearch,
+  } = useLiveSearch(searchTopicResources);
 
-  const topic = topicData?.topic;
-  const id = topic?.id;
-  const name = topic?.name;
-  const resources = topic?.resources ?? [];
-  const hasResources = resources.length > 0;
-  const hasTopicError = !topic || topicLoadError;
+  const topicResources = topicResourcesData ?? [];
+  const hasTopicResources = topicResources.length > 0;
+  const hasTopicResourceError = !topicResourcesData || topicResourcesLoadError;
 
-  const orderedResources = resources.sort(
+  const orderedResources = topicResources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
+
+  const onSearchChange = (e) => {
+    const searchInput = e.target.value;
+    processSearch(searchInput);
+  };
 
   const breadcrumbs = [
     {
@@ -31,62 +60,84 @@ function TopicDetails({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: name,
+      title: topicName ?? 'Topic Name',
     },
   ];
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <div>
-        {isLoadingTopic && (
-          <div className="text-center">
-            <Spinner animation="border" role="status" />
+        <div className="text-center text-sm-start">
+          <div className="page-header row align-items-center text-center text-sm-start">
+            <div className="col-sm-auto">Topic:</div>
+            <div className="col-sm-auto">
+              {topicNameLoading && (
+                <div className="ms-3 fs-6">
+                  <Spinner animation="border" role="status" />
+                </div>
+              )}
+              {!topicNameLoading && <div>{topicName ?? 'Topic Name'}</div>}
+            </div>
           </div>
-        )}
 
-        {!isLoadingTopic && (
-          <div>
-            {hasTopicError && (
-              <div className="text-center text-sm-start">
-                Failed to load topic details.
+          <div className="mt-4 row align-items-center justify-content-between">
+            <div className="col-sm-auto">
+              <div className="font-md">Resources</div>
+            </div>
+            <div className="col-sm-auto mt-2 mt-sm-0">
+              <Link
+                className="btn btn-primary font-sm"
+                to={`/topics/${topicId}/resources/add`}
+              >
+                Add
+              </Link>
+            </div>
+          </div>
+
+          <input
+            className="mt-4 form-control"
+            placeholder="Search resources..."
+            value={search}
+            onChange={onSearchChange}
+            type="text"
+          />
+
+          <div className="mt-4">
+            {topicResourcesLoading && (
+              <div className="text-center fs-6">
+                <Spinner animation="border" role="status" />
               </div>
             )}
 
-            {!hasTopicError && (
-              <div className="text-center text-sm-start">
-                <div className="page-header">Topic: {name}</div>
+            {!topicResourcesLoading && (
+              <div>
+                {hasTopicResourceError && (
+                  <div>Failed to load topics resources.</div>
+                )}
 
-                <div className="mt-4 row align-items-center justify-content-between">
-                  <div className="col-sm-auto">
-                    <div className="font-md">Resources</div>
-                  </div>
-                  <div className="col-sm-auto mt-2 mt-sm-0">
-                    <Link
-                      className="btn btn-primary font-sm"
-                      to={`/topics/${id}/resources/add`}
-                    >
-                      Add
-                    </Link>
-                  </div>
-                </div>
+                {!hasTopicResourceError && (
+                  <div>
+                    {!hasTopicResources && (
+                      <div>
+                        {!currentSearch &&
+                          'No topic resources have been added.'}
+                        {currentSearch &&
+                          `No topic resources matching '${currentSearch}' have been added.`}
+                      </div>
+                    )}
 
-                <div className="mt-4">
-                  {hasResources && (
-                    <TopicResourceListing
-                      topicId={topicId}
-                      topicResources={orderedResources}
-                    />
-                  )}
-                  {!hasResources && (
-                    <div className="font-xs">
-                      No resources have been created.
-                    </div>
-                  )}
-                </div>
+                    {hasTopicResources && (
+                      <TopicResourceListing
+                        topicId={topicId}
+                        topicResources={orderedResources}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </BreadcrumbLayout>
   );
