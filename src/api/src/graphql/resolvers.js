@@ -9,6 +9,14 @@ const resolvers = {
       Topic.find({ name: { $regex: name, $options: 'i' } }),
     topic: (_, { id }) => Topic.findOne({ _id: id }),
     topicExists: (_, { name }) => Topic.exists({ name }),
+    topicResources: async (_, { topicId }) => {
+      const { resources } = await Topic.findOne({ _id: topicId });
+
+      return resources.map((r) => ({
+        topicId: topicId,
+        resourceId: r.resource,
+      }));
+    },
     topicResource: (_, { topicId, resourceId }) => ({
       topicId,
       resourceId,
