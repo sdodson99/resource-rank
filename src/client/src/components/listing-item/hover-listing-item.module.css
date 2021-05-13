@@ -1,0 +1,8 @@
+.listing-item {
+  background-color: transparent;
+}
+
+.listing-item:hover {
+  background-color: rgb(243, 243, 243);
+  transition: background-color 100ms linear;
+}

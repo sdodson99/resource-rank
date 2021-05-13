@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListingItem from '../listing-item/listing-item';
 import RatingStars from '../rating-stars/rating-stars';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { Link } from 'gatsby';
+import HoverListingItem from '../listing-item/hover-listing-item';
 
 function TopicResourceListingItem({ topicId, resourceId, name, link, rating }) {
   const topicResourceLink = `/topics/${topicId}/resources/${resourceId}`;
 
   return (
     <Link to={topicResourceLink} className="text-decoration-none text-dark">
-      <ListingItem>
-        <div className="row align-items-center justify-content-between text-center text-sm-start">
+      <HoverListingItem>
+        <div className="px-3 row align-items-center justify-content-between text-center text-sm-start">
           <div className="col-sm-auto">
             <div>{name}</div>
             <div className="mt-1">
@@ -22,7 +22,7 @@ function TopicResourceListingItem({ topicId, resourceId, name, link, rating }) {
             <ArrowRightCircle fill="#333" height="25" width="25" />
           </div>
         </div>
-      </ListingItem>
+      </HoverListingItem>
     </Link>
   );
 }
