@@ -132,6 +132,8 @@ function TopicResourceDetails({ topicId, resourceId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <title>{resourceName ?? 'Resource Details'} - Resource Rank</title>
+
       <div>
         {topicResourceLoading && (
           <div className="text-center">

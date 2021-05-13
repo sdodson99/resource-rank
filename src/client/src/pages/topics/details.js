@@ -74,6 +74,8 @@ function TopicDetails({ topicId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <title>{topicName ?? 'Topic Details'} - Resource Rank</title>
+
       <div>
         <div className="text-center text-sm-start">
           <div className="page-header row align-items-center text-center text-sm-start">

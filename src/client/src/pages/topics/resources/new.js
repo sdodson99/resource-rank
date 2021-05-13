@@ -99,6 +99,8 @@ function NewTopicResource({ topicId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <title>New Topic Resource - Resource Rank</title>
+
       <div className="page-header text-center text-sm-start">New Resource</div>
 
       <form onSubmit={submit}>

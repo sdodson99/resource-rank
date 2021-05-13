@@ -87,6 +87,8 @@ function AddTopicResource({ topicId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <title>Add Topic Resource - Resource Rank</title>
+
       <HeaderButton
         title="Add Resource"
         buttonContent="New"

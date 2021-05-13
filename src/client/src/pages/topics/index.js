@@ -55,6 +55,8 @@ export default function Index() {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+      <title>Topics - Resource Rank</title>
+
       <HeaderButton title="Topics" linkTo="/topics/new" buttonContent="New" />
 
       <div className="mt-4">
