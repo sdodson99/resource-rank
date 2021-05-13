@@ -8,6 +8,7 @@ import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import getTopicResourceListQuery from '../../gql-requests/get-topic-resource-list-query';
 import useLiveSearch from '../../hooks/use-live-search';
 import { useApolloClient } from '@apollo/client';
+import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
 
 function TopicDetails({ topicId }) {
   const { topicName, loading: topicNameLoading } = useTopicName(topicId);
@@ -43,7 +44,6 @@ function TopicDetails({ topicId }) {
   const topicResources = topicResourcesData ?? [];
   const hasTopicResources = topicResources.length > 0;
   const hasTopicResourceError = !topicResourcesData || topicResourcesLoadError;
-
   const orderedResources = topicResources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
@@ -51,6 +51,14 @@ function TopicDetails({ topicId }) {
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
     processSearch(searchInput);
+  };
+
+  const getNoDataDisplay = () => {
+    if (currentSearch) {
+      return `No topic resources matching '${currentSearch}' have been added.`;
+    }
+
+    return 'No topic resources have been added.';
   };
 
   const breadcrumbs = [
@@ -103,39 +111,24 @@ function TopicDetails({ topicId }) {
           />
 
           <div className="mt-4">
-            {topicResourcesLoading && (
-              <div className="text-center fs-6">
-                <Spinner animation="border" role="status" />
-              </div>
-            )}
-
-            {!topicResourcesLoading && (
-              <div>
-                {hasTopicResourceError && (
-                  <div>Failed to load topics resources.</div>
-                )}
-
-                {!hasTopicResourceError && (
-                  <div>
-                    {!hasTopicResources && (
-                      <div>
-                        {!currentSearch &&
-                          'No topic resources have been added.'}
-                        {currentSearch &&
-                          `No topic resources matching '${currentSearch}' have been added.`}
-                      </div>
-                    )}
-
-                    {hasTopicResources && (
-                      <TopicResourceListing
-                        topicId={topicId}
-                        topicResources={orderedResources}
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
+            <LoadingErrorEmptyDataLayout
+              isLoading={topicResourcesLoading}
+              hasError={!!hasTopicResourceError}
+              hasData={hasTopicResources}
+              loadingDisplay={
+                <div className="text-center fs-6">
+                  <Spinner animation="border" role="status" />
+                </div>
+              }
+              errorDisplay="Failed to load topics resources."
+              noDataDisplay={getNoDataDisplay()}
+              dataDisplay={
+                <TopicResourceListing
+                  topicId={topicId}
+                  topicResources={orderedResources}
+                />
+              }
+            ></LoadingErrorEmptyDataLayout>
           </div>
         </div>
       </div>
