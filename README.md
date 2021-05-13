@@ -69,6 +69,7 @@ npm install
 
 ```
 MONGO_CONNECTION_STRING=mongodb://res-rank-admin:res-rank-password@localhost:27017/?authSource=admin&ssl=false
+PORT=4000
 ```
 
 5. Start the application.
