@@ -111,10 +111,25 @@ const resolvers = {
 
       const ratingTotal = ratings
         .map((r) => r.value)
-        .filter((r) => r >= 0 && r <= 5)
         .reduce((total, value) => (total += value), 0);
 
       return ratingTotal / ratings.length;
+    },
+    count: (ratings) => {
+      if (!ratings) {
+        return 0;
+      }
+
+      return ratings.length;
+    },
+    sum: (ratings) => {
+      if (!ratings) {
+        return 0;
+      }
+
+      return ratings
+        .map((r) => r.value)
+        .reduce((total, value) => (total += value), 0);
     },
     ratings: (ratings) => ratings,
   },

@@ -14,6 +14,8 @@ const typeDefs = gql`
 
   type RatingList {
     average: Float
+    count: Int
+    sum: Int
     ratings: [Rating]
   }
 
