@@ -18,7 +18,7 @@ export default function useLiveValidation(executeValidation) {
     validate(input);
   };
 
-  const isValidating = dataLoading && currentSearch;
+  const isValidating = dataLoading && !!currentSearch;
 
   return {
     isValid,
