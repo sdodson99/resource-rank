@@ -17,11 +17,7 @@ exports.createGQLServer = ({ readOnlyModeDataSource }) => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => {
-      if (isMutation(req) && readOnlyModeDataSource.isReadOnlyEnabled()) {
-        return res.status(403);
-      }
-
+    context: () => {
       return {
         resourceDataLoader: createResourceDataLoader(),
         ratingDataLoader: createRatingDataLoader(),
@@ -32,6 +28,13 @@ exports.createGQLServer = ({ readOnlyModeDataSource }) => {
         readOnlyModeDataSource,
       };
     },
+  });
+
+  app.use((req, res, next) => {
+    if (isMutation(req) && readOnlyModeDataSource.isReadOnlyEnabled()) {
+      return res.sendStatus(403);
+    }
+    next();
   });
 
   apolloServer.applyMiddleware({ app, path: '/', cors: true });
