@@ -160,7 +160,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                   <div className="fs-2">Details</div>
                   <div className="mt-4 row align-items-center">
                     <div className="col-sm-auto">Link:</div>
-                    <div className="col-sm-auto mt-2 mt-sm-0">
+                    <div className="col-sm-auto mt-2 mt-sm-0 text-break">
                       {resourceLink && (
                         <a href={resourceLink} target="_blank" rel="noreferrer">
                           {resourceLink}
