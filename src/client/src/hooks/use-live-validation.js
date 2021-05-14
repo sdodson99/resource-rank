@@ -7,8 +7,9 @@ export default function useLiveValidation(executeValidation) {
   const {
     data: isValidResponse,
     processSearch: validate,
-    dataLoading: isValidating,
-  } = useLiveSearch(executeValidation);
+    dataLoading,
+    currentSearch,
+  } = useLiveSearch(executeValidation, true);
 
   useEffect(() => setIsValid(isValidResponse), [isValidResponse]);
 
@@ -16,6 +17,8 @@ export default function useLiveValidation(executeValidation) {
     setIsValid(true);
     validate(input);
   };
+
+  const isValidating = dataLoading && currentSearch;
 
   return {
     isValid,

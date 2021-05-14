@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { merge, of, Subject } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 
-export default function useLiveSearch(executeSearch) {
-  const [data, setData] = useState();
+export default function useLiveSearch(executeSearch, defaultValue = null) {
+  const [data, setData] = useState(defaultValue);
   const [dataLoading, setDataLoading] = useState(false);
   const [dataLoadError, setDataLoadError] = useState();
   const [currentSearch, setCurrentSearch] = useState('');
