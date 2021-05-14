@@ -17,14 +17,6 @@ class InMemoryReadOnlyModeDataSource {
   isReadOnlyEnabled() {
     return this.readOnlyEnabled;
   }
-
-  /**
-   * Set if read only mode is enabled.
-   * @param {boolean} readOnlyEnabled True/false for if read only mode is enabled.
-   */
-  setIsReadOnlyEnabled(readOnlyEnabled) {
-    this.readOnlyEnabled = readOnlyEnabled;
-  }
 }
 
 module.exports = InMemoryReadOnlyModeDataSource;
