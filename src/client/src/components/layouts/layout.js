@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'gatsby';
+import { Alert } from 'react-bootstrap';
 
 import * as layoutStyle from './layout.module.css';
 import logo from '../../assets/logo.svg';
+import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 
 function Layout({ children }) {
+  const readOnlyModeEnabled = useReadOnlyModeStatus();
+
   return (
     <div>
+      {readOnlyModeEnabled && (
+        <Alert className="mb-0 text-center" variant="warning">
+          Application is in read-only mode.
+        </Alert>
+      )}
       <header className="py-3">
         <div className={`container ${layoutStyle.container}`}>
           <div className="row align-items-center justify-content-center justify-content-sm-between">
