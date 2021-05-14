@@ -5,16 +5,31 @@ const resolvers = require('./resolvers');
 const createResourceDataLoader = require('./dataloaders/resource-data-loader');
 const createRatingDataLoader = require('./dataloaders/rating-data-loader');
 
-exports.createGQLServer = () => {
+const isMutation = (req) => {
+  const query = req.body.query;
+
+  return query && query.trim().startsWith('mutation');
+};
+
+exports.createGQLServer = ({ readOnlyModeDataSource }) => {
   const app = express();
 
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => {
+    context: ({ req, res }) => {
+      if (isMutation(req) && readOnlyModeDataSource.isReadOnlyEnabled()) {
+        return res.status(403);
+      }
+
       return {
         resourceDataLoader: createResourceDataLoader(),
         ratingDataLoader: createRatingDataLoader(),
+      };
+    },
+    dataSources: () => {
+      return {
+        readOnlyModeDataSource,
       };
     },
   });

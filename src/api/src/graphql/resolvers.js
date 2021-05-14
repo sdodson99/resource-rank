@@ -64,6 +64,8 @@ const resolvers = {
 
       return availableResources;
     },
+    readOnlyModeEnabled: (_, __, { dataSources }) =>
+      dataSources.readOnlyModeDataSource.isReadOnlyEnabled(),
   },
   Topic: {
     resources: async ({ id, resources }, _, { resourceDataLoader }) => {

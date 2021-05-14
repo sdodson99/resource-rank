@@ -58,6 +58,7 @@ const typeDefs = gql`
       limit: Int
       search: String
     ): [AvailableResource]
+    readOnlyModeEnabled: Boolean
   }
 
   type Mutation {
