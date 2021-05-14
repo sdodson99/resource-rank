@@ -65,11 +65,12 @@ cd src/api
 npm install
 ```
 
-4. Create a file named '.env' with the following environment variables. Replace &lt;VALUE&gt; with custom values.
+4. Create a file named '.env' with the following environment variables.
 
 ```
 MONGO_CONNECTION_STRING=mongodb://res-rank-admin:res-rank-password@localhost:27017/?authSource=admin&ssl=false
 PORT=4000
+READ_ONLY_MODE_ENABLED=false
 ```
 
 5. Start the application.
@@ -94,7 +95,13 @@ cd src/client
 npm install
 ```
 
-3. Run the application.
+3. Create a file named '.env.development' with the following environment variables.
+
+```
+GQL_URI=http://localhost:4000
+```
+
+4. Run the application.
 
 ```
 npm run dev
