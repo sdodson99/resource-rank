@@ -77,61 +77,57 @@ function TopicDetails({ topicId }) {
       <title>{topicName ?? 'Topic Details'} - Resource Rank</title>
 
       <div>
-        <div className="text-center text-sm-start">
-          <div className="page-header row align-items-center text-center text-sm-start">
-            <div className="col-sm-auto">Topic:</div>
-            <div className="col-sm-auto">
-              {topicNameLoading && (
-                <div className="ms-3 fs-6">
-                  <Spinner animation="border" role="status" />
-                </div>
-              )}
-              {!topicNameLoading && <div>{topicName ?? 'Topic Name'}</div>}
+        <div className="page-header d-flex flex-wrap">
+          <div className="me-3">Topics:</div>
+          {topicNameLoading && (
+            <div className="fs-6">
+              <Spinner animation="border" role="status" />
             </div>
-          </div>
+          )}
+          {!topicNameLoading && <div> {topicName ?? 'Topic Name'}</div>}
+        </div>
 
-          <div className="mt-4 row align-items-center justify-content-between">
-            <div className="col-sm-auto">
-              <div className="font-md">Resources</div>
-            </div>
-            <div className="col-sm-auto mt-2 mt-sm-0">
-              <Link
-                className="btn btn-primary font-sm"
-                to={`/topics/${topicId}/resources/add`}
-              >
-                Add
-              </Link>
-            </div>
+        <div className="mt-4 row align-items-center justify-content-between">
+          <div className="col-auto">
+            <div className="font-md">Resources</div>
           </div>
-
-          <input
-            className="mt-4 form-control"
-            placeholder="Search resources..."
-            value={search}
-            onChange={onSearchChange}
-            type="text"
-          />
-
-          <div className="mt-4">
-            <LoadingErrorEmptyDataLayout
-              isLoading={topicResourcesLoading}
-              hasError={!!hasTopicResourceError}
-              hasData={hasTopicResources}
-              loadingDisplay={
-                <div className="text-center fs-6">
-                  <Spinner animation="border" role="status" />
-                </div>
-              }
-              errorDisplay="Failed to load topics resources."
-              noDataDisplay={getNoDataDisplay()}
-              dataDisplay={
-                <TopicResourceListing
-                  topicId={topicId}
-                  topicResources={orderedResources}
-                />
-              }
-            ></LoadingErrorEmptyDataLayout>
+          <div className="col-auto">
+            <Link
+              className="btn btn-primary font-sm"
+              to={`/topics/${topicId}/resources/add`}
+            >
+              Add
+            </Link>
           </div>
+        </div>
+
+        <input
+          className="mt-4 form-control"
+          placeholder="Search resources..."
+          value={search}
+          onChange={onSearchChange}
+          type="text"
+        />
+
+        <div className="mt-4">
+          <LoadingErrorEmptyDataLayout
+            isLoading={topicResourcesLoading}
+            hasError={!!hasTopicResourceError}
+            hasData={hasTopicResources}
+            loadingDisplay={
+              <div className="text-center fs-6">
+                <Spinner animation="border" role="status" />
+              </div>
+            }
+            errorDisplay="Failed to load topics resources."
+            noDataDisplay={getNoDataDisplay()}
+            dataDisplay={
+              <TopicResourceListing
+                topicId={topicId}
+                topicResources={orderedResources}
+              />
+            }
+          ></LoadingErrorEmptyDataLayout>
         </div>
       </div>
     </BreadcrumbLayout>

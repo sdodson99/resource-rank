@@ -101,7 +101,7 @@ function NewTopicResource({ topicId }) {
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <title>New Topic Resource - Resource Rank</title>
 
-      <div className="page-header text-center text-sm-start">New Resource</div>
+      <div className="page-header">New Resource</div>
 
       <form onSubmit={submit}>
         <div className="mt-4">

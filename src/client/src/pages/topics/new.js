@@ -66,7 +66,7 @@ function CreateTopic() {
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <title>New Topic - Resource Rank</title>
 
-      <div className="page-header text-center text-sm-start">New Topic</div>
+      <div className="page-header">New Topic</div>
 
       <form onSubmit={submit}>
         <div className="mt-4">

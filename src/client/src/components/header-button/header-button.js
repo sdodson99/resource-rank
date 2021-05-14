@@ -5,11 +5,11 @@ import { Link } from 'gatsby';
 function HeaderButton({ title, buttonContent, linkTo, className }) {
   return (
     <div className={className}>
-      <div className="row align-items-center justify-content-between text-center text-sm-left">
-        <div className="col-sm-auto">
+      <div className="row align-items-center justify-content-between">
+        <div className="col-auto">
           <div className="page-header">{title}</div>
         </div>
-        <div className="col-sm-auto mt-2 mt-sm-0">
+        <div className="col-auto">
           <Link className="btn btn-primary font-sm" to={linkTo}>
             {buttonContent}
           </Link>

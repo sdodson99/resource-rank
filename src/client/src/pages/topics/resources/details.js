@@ -51,6 +51,11 @@ function TopicResourceDetails({ topicId, resourceId }) {
   const validRating = selectedRatingValue > 0;
   const canSubmitRating = ratingChanged && validRating;
 
+  const onSelectedRatingChanged = (r) => {
+    setSubmitRatingError(null);
+    setSelectedRatingValue(r);
+  };
+
   const [createRating, { loading: isCreatingRating }] = useMutation(
     createRatingMutation,
     {
@@ -142,31 +147,31 @@ function TopicResourceDetails({ topicId, resourceId }) {
         )}
 
         {!topicResourceLoading && (
-          <div className="text-center text-sm-start">
+          <div className="text-sm-start">
             {topicResourceError && <div>Failed to load topic resource.</div>}
 
             {!topicResourceError && (
               <div>
-                <div className="row align-items-center">
-                  <div className="col-sm">
+                <div className="row align-items-center justify-content-between">
+                  <div className="col-auto">
                     <div className="page-header">{resourceName}</div>
                   </div>
-                  <div className="col-sm-auto">
+                  <div className="col-auto">
                     <RatingStars rating={averageRating} />
                   </div>
                 </div>
 
                 <div className="mt-4">
                   <div className="fs-2">Details</div>
-                  <div className="mt-4 row align-items-center">
-                    <div className="col-sm-auto">Link:</div>
-                    <div className="col-sm-auto mt-2 mt-sm-0 text-break">
+                  <div className="mt-4 d-flex">
+                    <div>Link:</div>
+                    <div className="ms-3 text-break">
                       {resourceLink && (
                         <a href={resourceLink} target="_blank" rel="noreferrer">
                           {resourceLink}
                         </a>
                       )}
-                      {!resourceLink && <div>No resource link added.</div>}
+                      {!resourceLink && 'No resource link added.'}
                     </div>
                   </div>
                 </div>
@@ -194,9 +199,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                             <div className="d-inline-block">
                               <SelectableRatingStars
                                 selectedRating={selectedRatingValue}
-                                selectedRatingChanged={(r) =>
-                                  setSelectedRatingValue(r)
-                                }
+                                selectedRatingChanged={onSelectedRatingChanged}
                                 starWidth={30}
                               />
                             </div>
