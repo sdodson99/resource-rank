@@ -17,10 +17,7 @@ import './styles/app.css';
 const apolloUri = process.env.GQL_URI;
 
 const client = new ApolloClient({
-  link: new HttpLink({
-    uri: apolloUri,
-    fetch,
-  }),
+  link: new HttpLink({ uri: apolloUri, fetch }),
   cache: new InMemoryCache(),
   defaultOptions: {
     query: {
