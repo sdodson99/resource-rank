@@ -8,6 +8,7 @@ import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import useAvailableTopicResources from '../../../hooks/use-available-topic-resources';
 import { Spinner } from 'react-bootstrap';
 import useTopicResourceCreator from '../../../hooks/use-topic-resource-creator';
+import LoadingErrorEmptyDataLayout from '../../../components/layouts/loading-error-empty-data-layout';
 
 function AddTopicResource({ topicId }) {
   const [topicResources, setTopicResources] = useState([]);
@@ -106,40 +107,34 @@ function AddTopicResource({ topicId }) {
       </div>
 
       <div className="mt-4">
-        {isLoading && (
-          <div className="text-center">
-            <Spinner animation="border" role="status" />
-          </div>
-        )}
-
-        {!isLoading && (
-          <div>
-            {availableTopicResourcesError && (
-              <div className="text-center text-sm-start">
-                Failed to load available topic resources.
-              </div>
-            )}
-
-            {!availableTopicResourcesError && (
-              <div>
-                {!hasTopicResources && (
-                  <div className="text-center text-sm-start">
-                    {!currentSearch && 'No topic resources are available.'}
-                    {currentSearch &&
-                      `No topic resources matching '${currentSearch}' are available.`}
-                  </div>
-                )}
-
-                {hasTopicResources && (
-                  <AddResourceListing
-                    availableResources={topicResources}
-                    onAddResource={onAddResource}
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        )}
+        <LoadingErrorEmptyDataLayout
+          isLoading={isLoading}
+          hasError={!!availableTopicResourcesError}
+          hasData={hasTopicResources}
+          loadingDisplay={
+            <div className="text-center">
+              <Spinner animation="border" role="status" />
+            </div>
+          }
+          errorDisplay={
+            <div className="text-center text-sm-start">
+              Failed to load available topic resources.
+            </div>
+          }
+          noDataDisplay={
+            <div className="text-center text-sm-start">
+              {!currentSearch && 'No topic resources are available.'}
+              {currentSearch &&
+                `No topic resources matching '${currentSearch}' are available.`}
+            </div>
+          }
+          dataDisplay={
+            <AddResourceListing
+              availableResources={topicResources}
+              onAddResource={onAddResource}
+            />
+          }
+        />
       </div>
     </BreadcrumbLayout>
   );

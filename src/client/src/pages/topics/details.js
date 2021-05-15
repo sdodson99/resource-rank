@@ -43,7 +43,6 @@ function TopicDetails({ topicId }) {
 
   const topicResources = topicResourcesData ?? [];
   const hasTopicResources = topicResources.length > 0;
-  const hasTopicResourceError = !topicResourcesData || topicResourcesLoadError;
   const orderedResources = topicResources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
@@ -112,7 +111,7 @@ function TopicDetails({ topicId }) {
         <div className="mt-4">
           <LoadingErrorEmptyDataLayout
             isLoading={topicResourcesLoading}
-            hasError={!!hasTopicResourceError}
+            hasError={!!topicResourcesLoadError}
             hasData={hasTopicResources}
             loadingDisplay={
               <div className="text-center fs-6">

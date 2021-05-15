@@ -4,10 +4,4 @@
             "jest"
         ]
     },
-    "compilerOptions": {
-        "baseUrl": "src"
-    },
-    "include": [
-        "src"
-    ]
 }

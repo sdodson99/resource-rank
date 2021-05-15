@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import { useApolloClient } from '@apollo/client';
 import useLiveSearch from '../../hooks/use-live-search';
+import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
 
 export default function Index() {
   const apolloClient = useApolloClient();
@@ -44,7 +45,6 @@ export default function Index() {
   };
 
   const hasTopics = topics?.length > 0;
-  const topicsError = !topics || topicsLoadError;
 
   const breadcrumbs = [
     {
@@ -69,35 +69,29 @@ export default function Index() {
         />
 
         <div className="mt-4">
-          {topicsLoading && (
-            <div className="text-center">
-              <Spinner animation="border" role="status" />
-            </div>
-          )}
-
-          {!topicsLoading && (
-            <div>
-              {topicsError && (
-                <div className="text-center text-sm-start">
-                  Failed to load topics.
-                </div>
-              )}
-
-              {!topicsError && (
-                <div>
-                  {!hasTopics && (
-                    <div className="text-center text-sm-start">
-                      {!currentSearch && 'No topic have been created.'}
-                      {currentSearch &&
-                        `No topics matching '${currentSearch}' have been created.`}
-                    </div>
-                  )}
-
-                  {hasTopics && <TopicListing topics={topics} />}
-                </div>
-              )}
-            </div>
-          )}
+          <LoadingErrorEmptyDataLayout
+            isLoading={topicsLoading}
+            hasError={!!topicsLoadError}
+            hasData={hasTopics}
+            loadingDisplay={
+              <div className="text-center">
+                <Spinner animation="border" role="status" />
+              </div>
+            }
+            errorDisplay={
+              <div className="text-center text-sm-start">
+                Failed to load topics.
+              </div>
+            }
+            noDataDisplay={
+              <div className="text-center text-sm-start">
+                {!currentSearch && 'No topics have been created.'}
+                {currentSearch &&
+                  `No topics matching '${currentSearch}' have been created.`}
+              </div>
+            }
+            dataDisplay={<TopicListing topics={topics} />}
+          />
         </div>
       </div>
     </BreadcrumbLayout>
