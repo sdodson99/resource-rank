@@ -76,7 +76,7 @@ function TopicDetails({ topicId }) {
       <title>{topicName ?? 'Topic Details'} - Resource Rank</title>
 
       <div>
-        <div className="page-header d-flex flex-wrap">
+        <div className="page-header d-flex flex-wrap align-items-center">
           <div className="me-3">Topics:</div>
           {topicNameLoading && (
             <div className="fs-6">
