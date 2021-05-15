@@ -11,6 +11,8 @@ import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
 
+  const onLoginClick = () => {};
+
   return (
     <div>
       {readOnlyModeEnabled && (
@@ -20,8 +22,8 @@ function Layout({ children }) {
       )}
       <header className="py-3">
         <div className={`container ${layoutStyle.container}`}>
-          <div className="row align-items-center justify-content-center justify-content-sm-between">
-            <div className="col-sm-auto text-center text-sm-start">
+          <div className="row align-items-center text-center text-sm-start">
+            <div className="col-sm ">
               <Link to="/" className={layoutStyle.title}>
                 <img
                   className={layoutStyle.logo}
@@ -31,7 +33,7 @@ function Layout({ children }) {
               </Link>
             </div>
 
-            <div className="col-auto mt-3 mt-sm-0">
+            <div className="col-sm-auto mt-3 mt-sm-0">
               <Link
                 to="/"
                 className={layoutStyle.link}
@@ -39,6 +41,12 @@ function Layout({ children }) {
               >
                 Topics
               </Link>
+            </div>
+
+            <div className="col-sm-auto mt-3 mt-sm-0">
+              <button className="btn btn-primary" onClick={onLoginClick}>
+                Login
+              </button>
             </div>
           </div>
         </div>
