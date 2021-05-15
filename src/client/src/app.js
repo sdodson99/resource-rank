@@ -13,6 +13,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import '@fontsource/magra';
 import './styles/app.css';
+import initializeFirebase from './firebase/initialize';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',
+  authDomain: 'resource-rank.firebaseapp.com',
+  databaseURL: 'https://resource-rank-default-rtdb.firebaseio.com',
+  projectId: 'resource-rank',
+  storageBucket: 'resource-rank.appspot.com',
+  messagingSenderId: '489304913015',
+  appId: '1:489304913015:web:71f38a965ccde83db54272',
+  measurementId: 'G-D18DVJ4168',
+};
+initializeFirebase(firebaseConfig, {
+  useAuthenticationEmulator: process.env.USE_AUTHENTICATION_EMULATOR,
+});
 
 const apolloUri = process.env.GQL_URI;
 
