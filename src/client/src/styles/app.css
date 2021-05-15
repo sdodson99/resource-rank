@@ -1,6 +1,8 @@
 :root {
-  --color-primary: rgb(85, 152, 240);
-  --color-primary-dark: rgb(40, 101, 180);
+  --color-primary: rgb(22, 45, 77);
+
+  --color-secondary: rgb(39, 194, 47);
+  --color-secondary-dark: rgb(28, 148, 34);
 
   --font-xs: 1rem;
   --font-sm: 1.25rem;
@@ -38,12 +40,12 @@ li {
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary:disabled {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
   box-shadow: none !important;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
+  background-color: var(--color-secondary-dark);
+  border-color: var(--color-secondary-dark);
 }
