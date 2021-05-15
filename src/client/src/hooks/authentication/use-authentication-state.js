@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
 
 const AuthenticationContext = createContext({
   isLoggedIn: false,
@@ -16,9 +15,8 @@ const AuthenticationProvider = ({ children, firebaseApp }) => {
   });
 
   useEffect(() => {
-    const unsubscribe = firebase
-      .auth(firebaseApp)
-      .onAuthStateChanged((user) => {
+    if (firebaseApp) {
+      const unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
         const isLoggedIn = !!user;
 
         setAuthenticationState({
@@ -27,8 +25,9 @@ const AuthenticationProvider = ({ children, firebaseApp }) => {
         });
       });
 
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [firebaseApp]);
 
   return (
     <AuthenticationContext.Provider value={authenticationState}>

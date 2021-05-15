@@ -8,13 +8,11 @@ import {
   HttpLink,
 } from '@apollo/client';
 import fetch from 'cross-fetch';
-
+import { AuthenticationProvider } from './hooks/authentication/use-authentication-state';
+import useFirebase from './hooks/use-firebase';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import '@fontsource/magra';
 import './styles/app.css';
-import initializeFirebase from './firebase/initialize';
-import { AuthenticationProvider } from './hooks/authentication/use-authentication-state';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',
@@ -26,9 +24,6 @@ const firebaseConfig = {
   appId: '1:489304913015:web:71f38a965ccde83db54272',
   measurementId: 'G-D18DVJ4168',
 };
-const firebaseApp = initializeFirebase(firebaseConfig, {
-  useAuthenticationEmulator: process.env.USE_AUTHENTICATION_EMULATOR,
-});
 
 const apolloUri = process.env.GQL_URI;
 
@@ -46,6 +41,10 @@ const client = new ApolloClient({
 });
 
 function App({ children }) {
+  const firebaseApp = useFirebase(firebaseConfig, {
+    useAuthenticationEmulator: process.env.USE_AUTHENTICATION_EMULATOR,
+  });
+
   return (
     <AuthenticationProvider firebaseApp={firebaseApp}>
       <ApolloProvider client={client}>
