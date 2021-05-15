@@ -7,11 +7,20 @@ import { Alert } from 'react-bootstrap';
 import * as layoutStyle from './layout.module.css';
 import logo from '../../assets/logo.svg';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
+import firebase from 'firebase';
 
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
 
-  const onLoginClick = () => {};
+  const onLoginClick = async () => {
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+    const signInResult = await firebase
+      .auth()
+      .signInWithPopup(googleAuthProvider);
+
+    console.log(signInResult);
+  };
 
   return (
     <div>
