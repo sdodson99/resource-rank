@@ -21,4 +21,6 @@ export default function initialize(
   if (useAuthenticationEmulator) {
     auth.useEmulator('http://localhost:9099');
   }
+
+  return firebaseInstance;
 }
