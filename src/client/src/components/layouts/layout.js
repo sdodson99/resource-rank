@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { Alert, Spinner } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import * as layoutStyle from './layout.module.css';
 import logo from '../../assets/logo.svg';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 import firebase from 'firebase';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 import useFirebaseApp from '../../hooks/use-firebase-app';
+import LoadingButton from '../loading-button';
 
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
@@ -74,20 +75,22 @@ function Layout({ children }) {
 
             <div className="col-sm-auto mt-3 mt-sm-0">
               {!isLoggedIn && (
-                <button className="btn btn-primary" onClick={onLoginClick}>
-                  {isLoggingIn && (
-                    <Spinner size="sm" animation="border" role="status" />
-                  )}
-                  {!isLoggingIn && <span>Login</span>}
-                </button>
+                <LoadingButton
+                  isLoading={isLoggingIn}
+                  variant="primary"
+                  onClick={onLoginClick}
+                >
+                  Login
+                </LoadingButton>
               )}
               {isLoggedIn && (
-                <button className="btn btn-primary" onClick={onLogoutClick}>
-                  {isLoggingOut && (
-                    <Spinner size="sm" animation="border" role="status" />
-                  )}
-                  {!isLoggingOut && <span>Logout</span>}
-                </button>
+                <LoadingButton
+                  isLoading={isLoggingOut}
+                  variant="primary"
+                  onClick={onLogoutClick}
+                >
+                  Logout
+                </LoadingButton>
               )}
             </div>
           </div>
