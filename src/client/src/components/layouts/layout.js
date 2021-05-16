@@ -11,9 +11,10 @@ import useFirebaseApp from '../../hooks/use-firebase-app';
 
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
-  const { isLoggedIn } = useAuthenticationState();
   const firebaseApp = useFirebaseApp();
+  const { isLoggedIn } = useAuthenticationState();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const onLoginClick = async () => {
     setIsLoggingIn(true);
@@ -26,6 +27,18 @@ function Layout({ children }) {
       console.log(error);
     } finally {
       setIsLoggingIn(false);
+    }
+  };
+
+  const onLogoutClick = async () => {
+    setIsLoggingOut(true);
+
+    try {
+      await firebaseApp.auth().signOut();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -66,6 +79,14 @@ function Layout({ children }) {
                     <Spinner size="sm" animation="border" role="status" />
                   )}
                   {!isLoggingIn && <span>Login</span>}
+                </button>
+              )}
+              {isLoggedIn && (
+                <button className="btn btn-primary" onClick={onLogoutClick}>
+                  {isLoggingOut && (
+                    <Spinner size="sm" animation="border" role="status" />
+                  )}
+                  {!isLoggingOut && <span>Logout</span>}
                 </button>
               )}
             </div>
