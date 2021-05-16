@@ -145,7 +145,9 @@ const resolvers = {
         throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
       }
 
-      return await Topic.create({ name });
+      const { uid } = user;
+
+      return await Topic.create({ name, createdBy: uid });
     },
     createResource: async (_, { name, link }, { user }) => {
       if (!user) {
@@ -159,7 +161,9 @@ const resolvers = {
         );
       }
 
-      return await Resource.create({ name, link });
+      const { uid } = user;
+
+      return await Resource.create({ name, link, createdBy: uid });
     },
     createTopicResource: async (_, { topicId, resourceId }, { user }) => {
       if (!user) {
@@ -178,8 +182,10 @@ const resolvers = {
         );
       }
 
+      const { uid } = user;
       const topicResource = {
         resource: resourceId,
+        createdBy: uid,
       };
 
       const result = await Topic.updateOne(
@@ -201,9 +207,12 @@ const resolvers = {
         );
       }
 
+      const { uid } = user;
+
       const existingRating = await Rating.findOne({
         topic: topicId,
         resource: resourceId,
+        createdBy: uid,
       });
 
       if (existingRating) {
@@ -217,6 +226,7 @@ const resolvers = {
         value,
         topic: topicId,
         resource: resourceId,
+        createdBy: uid,
       });
     },
     updateRating: async (_, { ratingId, value }, { user }) => {
@@ -231,7 +241,12 @@ const resolvers = {
         );
       }
 
-      const { ok } = await Rating.updateOne({ _id: ratingId }, { value });
+      const { uid } = user;
+
+      const { ok } = await Rating.updateOne(
+        { _id: ratingId, createdBy: uid },
+        { value }
+      );
 
       const success = ok > 0;
 
