@@ -6,11 +6,19 @@ import fetch from 'cross-fetch';
 import { ApolloProvider } from '@apollo/client';
 import firebase from 'firebase/app';
 
+const getCurrentUser = () => {
+  try {
+    return firebase.auth().currentUser;
+  } catch (error) {
+    return null;
+  }
+};
+
 const createApolloClient = (apolloUri) => {
   const apolloHttpLink = new HttpLink({ uri: apolloUri, fetch });
 
   const apolloAuthLink = setContext(async (_, { headers }) => {
-    const currentUser = firebase.auth().currentUser;
+    const currentUser = getCurrentUser();
 
     if (!currentUser) {
       return headers;

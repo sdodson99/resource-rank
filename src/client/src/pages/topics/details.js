@@ -63,13 +63,14 @@ function TopicDetails({ topicId }) {
     return 'No topic resources have been added.';
   };
 
+  const topicLink = `/topics/${topicId}`;
   const breadcrumbs = [
     {
       to: '/',
       title: 'Topics',
     },
     {
-      to: `/topics/${topicId}`,
+      to: topicLink,
       title: topicName ?? 'Topic Name',
     },
   ];
