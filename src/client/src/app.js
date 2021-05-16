@@ -1,15 +1,9 @@
 import 'regenerator-runtime';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-  HttpLink,
-} from '@apollo/client';
-import fetch from 'cross-fetch';
 import { AuthenticationProvider } from './hooks/authentication/use-authentication-state';
 import { FirebaseAppProvider } from './hooks/use-firebase-app';
+import AuthenticationApolloProvider from './components/authentication-apollo-provider';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fontsource/magra';
 import './styles/app.css';
@@ -24,22 +18,9 @@ const firebaseConfig = {
   appId: '1:489304913015:web:71f38a965ccde83db54272',
   measurementId: 'G-D18DVJ4168',
 };
-const useAuthenticationEmulator = process.env.USE_AUTHENTICATION_EMULATOR;
-
+const useAuthenticationEmulator =
+  process.env.USE_AUTHENTICATION_EMULATOR === 'true';
 const apolloUri = process.env.GQL_URI;
-
-const client = new ApolloClient({
-  link: new HttpLink({ uri: apolloUri, fetch }),
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    query: {
-      fetchPolicy: 'no-cache',
-    },
-    watchQuery: {
-      fetchPolicy: 'no-cache',
-    },
-  },
-});
 
 function App({ children }) {
   return (
@@ -48,9 +29,9 @@ function App({ children }) {
       useAuthenticationEmulator={useAuthenticationEmulator}
     >
       <AuthenticationProvider>
-        <ApolloProvider client={client}>
+        <AuthenticationApolloProvider apolloUri={apolloUri}>
           <div>{children}</div>
-        </ApolloProvider>
+        </AuthenticationApolloProvider>
       </AuthenticationProvider>
     </FirebaseAppProvider>
   );
