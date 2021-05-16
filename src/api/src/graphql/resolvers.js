@@ -29,8 +29,19 @@ const resolvers = {
     resources: () => Resource.find({}),
     resource: (_, { id }) => Resource.findOne({ _id: id }),
     resourceExists: (_, { name }) => Resource.exists({ name }),
-    userRating: (_, { topicId, resourceId }) =>
-      Rating.findOne({ topic: topicId, resource: resourceId }),
+    userRating: (_, { topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
+      const { uid } = user;
+
+      return Rating.findOne({
+        topic: topicId,
+        resource: resourceId,
+        createdBy: uid,
+      });
+    },
     availableResources: async (
       _,
       { topicId, search = '', offset = 0, limit = 20 }
