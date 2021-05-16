@@ -1,4 +1,4 @@
-const { ApolloError } = require('apollo-server');
+const { ApolloError, AuthenticationError } = require('apollo-server');
 const { Topic } = require('../mongoose/models/topic');
 const { Resource } = require('../mongoose/models/resource');
 const { Rating } = require('../mongoose/models/rating');
@@ -136,14 +136,22 @@ const resolvers = {
     ratings: (ratings) => ratings,
   },
   Mutation: {
-    createTopic: async (_, { name }) => {
+    createTopic: async (_, { name }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (await Topic.exists({ name })) {
         throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
       }
 
       return await Topic.create({ name });
     },
-    createResource: async (_, { name, link }) => {
+    createResource: async (_, { name, link }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (await Resource.exists({ name })) {
         throw new ApolloError(
           'Resource already exists.',
@@ -153,7 +161,11 @@ const resolvers = {
 
       return await Resource.create({ name, link });
     },
-    createTopicResource: async (_, { topicId, resourceId }) => {
+    createTopicResource: async (_, { topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       const topic = await Topic.findOne({ _id: topicId });
       const existingTopicResource = topic.resources.find(
         (r) => r.resource == resourceId
@@ -177,7 +189,11 @@ const resolvers = {
 
       return result.nModified;
     },
-    createRating: async (_, { value, topicId, resourceId }) => {
+    createRating: async (_, { value, topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',
@@ -203,7 +219,11 @@ const resolvers = {
         resource: resourceId,
       });
     },
-    updateRating: async (_, { ratingId, value }) => {
+    updateRating: async (_, { ratingId, value }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',
