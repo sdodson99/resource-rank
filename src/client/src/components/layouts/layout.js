@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'gatsby';
 import { Alert } from 'react-bootstrap';
-
 import * as layoutStyle from './layout.module.css';
 import logo from '../../assets/logo.svg';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 import firebase from 'firebase';
+import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
+import useFirebaseApp from '../../hooks/use-firebase-app';
 
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
+  const { isLoggedIn } = useAuthenticationState();
+  const firebaseApp = useFirebaseApp();
 
   const onLoginClick = async () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-    const signInResult = await firebase
+    const signInResult = await firebaseApp
       .auth()
       .signInWithPopup(googleAuthProvider);
 
@@ -53,9 +55,11 @@ function Layout({ children }) {
             </div>
 
             <div className="col-sm-auto mt-3 mt-sm-0">
-              <button className="btn btn-primary" onClick={onLoginClick}>
-                Login
-              </button>
+              {!isLoggedIn && (
+                <button className="btn btn-primary" onClick={onLoginClick}>
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>
