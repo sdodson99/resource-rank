@@ -21,11 +21,9 @@ function Layout({ children }) {
     try {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-      const signInResult = await firebaseApp
-        .auth()
-        .signInWithPopup(googleAuthProvider);
-
-      console.log(signInResult);
+      await firebaseApp.auth().signInWithPopup(googleAuthProvider);
+    } catch (error) {
+      console.log(error);
     } finally {
       setIsLoggingIn(false);
     }
@@ -62,7 +60,7 @@ function Layout({ children }) {
             </div>
 
             <div className="col-sm-auto mt-3 mt-sm-0">
-              {isLoggedIn && (
+              {!isLoggedIn && (
                 <button className="btn btn-primary" onClick={onLoginClick}>
                   {isLoggingIn && (
                     <Spinner size="sm" animation="border" role="status" />
