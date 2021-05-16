@@ -31,3 +31,18 @@ exports.createPages = ({ actions }) => {
     component: path.resolve('./src/pages/topics/index.js'),
   });
 };
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === 'build-html' || stage === 'develop-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /node_modules\/@?firebase/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    });
+  }
+};

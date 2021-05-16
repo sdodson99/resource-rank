@@ -9,8 +9,11 @@ import getTopicResourceListQuery from '../../gql-requests/get-topic-resource-lis
 import useLiveSearch from '../../hooks/use-live-search';
 import { useApolloClient } from '@apollo/client';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
+import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 
 function TopicDetails({ topicId }) {
+  const { isLoggedIn } = useAuthenticationState();
+
   const { topicName, loading: topicNameLoading } = useTopicName(topicId);
 
   const apolloClient = useApolloClient();
@@ -90,14 +93,16 @@ function TopicDetails({ topicId }) {
           <div className="col-auto">
             <div className="font-md">Resources</div>
           </div>
-          <div className="col-auto">
-            <Link
-              className="btn btn-primary font-sm"
-              to={`/topics/${topicId}/resources/add`}
-            >
-              Add
-            </Link>
-          </div>
+          {isLoggedIn && (
+            <div className="col-auto">
+              <Link
+                className="btn btn-primary font-sm"
+                to={`/topics/${topicId}/resources/add`}
+              >
+                Add
+              </Link>
+            </div>
+          )}
         </div>
 
         <input
