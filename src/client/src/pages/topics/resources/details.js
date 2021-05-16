@@ -10,8 +10,11 @@ import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import useTopicResourceUserRating from '../../../hooks/use-topic-resource-user-rating';
 import { Spinner } from 'react-bootstrap';
+import useAuthenticationState from '../../../hooks/authentication/use-authentication-state';
 
 function TopicResourceDetails({ topicId, resourceId }) {
+  const { isLoggedIn } = useAuthenticationState();
+
   const {
     data: topicResourceData,
     loading: topicResourceLoading,
@@ -180,49 +183,58 @@ function TopicResourceDetails({ topicId, resourceId }) {
                   <div className="fs-2">{ratingTitle}</div>
 
                   <div className="mt-4">
-                    {userRatingLoading && (
-                      <div className="text-center">
-                        <Spinner animation="border" role="status" />
-                      </div>
-                    )}
+                    {!isLoggedIn && <div>You must login to add a rating.</div>}
 
-                    {!userRatingLoading && (
+                    {isLoggedIn && (
                       <div>
-                        {userRatingLoadError && (
-                          <div className="text-center text-sm-start">
-                            Failed to load your rating for this topic resource.
+                        {userRatingLoading && (
+                          <div className="text-center">
+                            <Spinner animation="border" role="status" />
                           </div>
                         )}
 
-                        {!userRatingLoadError && (
+                        {!userRatingLoading && (
                           <div>
-                            <div className="d-inline-block">
-                              <SelectableRatingStars
-                                selectedRating={selectedRatingValue}
-                                selectedRatingChanged={onSelectedRatingChanged}
-                                starWidth={30}
-                              />
-                            </div>
-
-                            <div className="mt-4">
-                              <button
-                                className="mt-2 btn btn-primary"
-                                disabled={!canSubmitRating}
-                                onClick={submitRating}
-                              >
-                                Submit
-                              </button>
-                            </div>
-
-                            {isSubmittingRating && (
-                              <div className="mt-4 text-center text-sm-start">
-                                <Spinner animation="border" role="status" />
+                            {userRatingLoadError && (
+                              <div className="text-center text-sm-start">
+                                Failed to load your rating for this topic
+                                resource.
                               </div>
                             )}
 
-                            {submitRatingError && (
-                              <div className="mt-4 text-center text-sm-start">
-                                Failed to submit rating.
+                            {!userRatingLoadError && (
+                              <div>
+                                <div className="d-inline-block">
+                                  <SelectableRatingStars
+                                    selectedRating={selectedRatingValue}
+                                    selectedRatingChanged={
+                                      onSelectedRatingChanged
+                                    }
+                                    starWidth={30}
+                                  />
+                                </div>
+
+                                <div className="mt-4">
+                                  <button
+                                    className="mt-2 btn btn-primary"
+                                    disabled={!canSubmitRating}
+                                    onClick={submitRating}
+                                  >
+                                    Submit
+                                  </button>
+                                </div>
+
+                                {isSubmittingRating && (
+                                  <div className="mt-4 text-center text-sm-start">
+                                    <Spinner animation="border" role="status" />
+                                  </div>
+                                )}
+
+                                {submitRatingError && (
+                                  <div className="mt-4 text-center text-sm-start">
+                                    Failed to submit rating.
+                                  </div>
+                                )}
                               </div>
                             )}
                           </div>

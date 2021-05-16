@@ -7,8 +7,11 @@ import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import { useApolloClient } from '@apollo/client';
 import useLiveSearch from '../../hooks/use-live-search';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
+import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 
 export default function Index() {
+  const { isLoggedIn } = useAuthenticationState();
+
   const apolloClient = useApolloClient();
   const loadTopics = async (searchInput) => {
     const { data, error } = await apolloClient.query({
@@ -57,7 +60,12 @@ export default function Index() {
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <title>Topics - Resource Rank</title>
 
-      <HeaderButton title="Topics" linkTo="/topics/new" buttonContent="New" />
+      <HeaderButton
+        title="Topics"
+        linkTo="/topics/new"
+        buttonContent="New"
+        hideButton={!isLoggedIn}
+      />
 
       <div className="mt-4">
         <input
