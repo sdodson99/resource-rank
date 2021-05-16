@@ -3,6 +3,7 @@ const firebaseAdmin = require('firebase-admin');
 const { createGQLServer } = require('../graphql/create-gql-server');
 const openMongoConnection = require('../mongoose/open-connection');
 const FirebaseReadOnlyModeDataSource = require('../data-sources/read-only-mode/firebase-read-only-mode-data-source');
+const FirebaseUserDecoder = require('../authentication/firebase-user-decoder');
 
 const app = firebaseAdmin.initializeApp();
 const READ_ONLY_MODE_DATABASE_PATH = '/configuration/read_only_enabled';
@@ -11,10 +12,11 @@ const readOnlyModeDataSource = new FirebaseReadOnlyModeDataSource(
   READ_ONLY_MODE_DATABASE_PATH,
   false
 );
+const userDecoder = new FirebaseUserDecoder(app);
 
 const connectionString = config().mongo.connection_string;
 openMongoConnection(connectionString);
 
-const gqlServer = createGQLServer({ readOnlyModeDataSource });
+const gqlServer = createGQLServer({ readOnlyModeDataSource, userDecoder });
 
 exports.api = https.onRequest(gqlServer);
