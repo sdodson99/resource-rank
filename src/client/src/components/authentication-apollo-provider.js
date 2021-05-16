@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import fetch from 'cross-fetch';
 import { ApolloProvider } from '@apollo/client';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 const createApolloClient = (apolloUri) => {
   const apolloHttpLink = new HttpLink({ uri: apolloUri, fetch });

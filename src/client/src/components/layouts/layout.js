@@ -5,7 +5,7 @@ import { Alert } from 'react-bootstrap';
 import * as layoutStyle from './layout.module.css';
 import logo from '../../assets/logo.svg';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 import useFirebaseApp from '../../hooks/use-firebase-app';
 import LoadingButton from '../loading-button';
