@@ -17,6 +17,7 @@ const resolvers = {
           topicId: topicId,
           resourceId: r.resource,
           resourceSearch,
+          createdBy: r.createdBy,
         })),
         topicId,
         resourceSearch,
@@ -57,6 +58,7 @@ const resolvers = {
         name: r.name,
         link: r.link,
         alreadyAdded: false,
+        createdBy: r.createdBy,
       }));
 
       const resourceMap = {};
@@ -78,6 +80,10 @@ const resolvers = {
     readOnlyModeEnabled: (_, __, { dataSources }) =>
       dataSources.readOnlyModeDataSource.isReadOnlyEnabled(),
   },
+  AvailableResource: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
   Topic: {
     resources: async ({ id, resources }, _, { resourceDataLoader }) => {
       const topicResources = resources
@@ -85,10 +91,21 @@ const resolvers = {
         .map((r) => ({
           topicId: id,
           resourceId: r.resource,
+          createdBy: r.createdBy,
         }));
 
       return topicResources;
     },
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
+  Resource: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
+  Rating: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResource: {
     topic: ({ topicId }) => Topic.findOne({ _id: topicId }),
@@ -99,6 +116,8 @@ const resolvers = {
         topic: topicId,
         resource: resourceId,
       }),
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResourceList: {
     topicResources: async ({ topicResources, topicId, resourceSearch }) => {
@@ -112,6 +131,7 @@ const resolvers = {
         resource: r,
         topicId,
         resourceId: r._id,
+        createdBy: r.createdBy,
       }));
     },
   },
@@ -145,6 +165,10 @@ const resolvers = {
         .reduce((total, value) => (total += value), 0);
     },
     ratings: (ratings) => ratings,
+  },
+  User: {
+    id: ({ uid }) => uid,
+    username: ({ displayName }) => displayName,
   },
   Mutation: {
     createTopic: async (_, { name }, { user }) => {

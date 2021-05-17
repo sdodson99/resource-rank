@@ -11,7 +11,11 @@ const isMutation = (req) => {
   return query && query.trim().startsWith('mutation');
 };
 
-exports.createGQLServer = ({ readOnlyModeDataSource, userDecoder }) => {
+exports.createGQLServer = ({
+  readOnlyModeDataSource,
+  userDecoder,
+  usersDataSource,
+}) => {
   const app = express();
 
   const apolloServer = new ApolloServer({
@@ -29,6 +33,7 @@ exports.createGQLServer = ({ readOnlyModeDataSource, userDecoder }) => {
     dataSources: () => {
       return {
         readOnlyModeDataSource,
+        usersDataSource,
       };
     },
   });

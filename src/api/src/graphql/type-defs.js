@@ -4,12 +4,14 @@ const typeDefs = gql`
   type Rating {
     id: ID!
     value: Int!
+    createdBy: User
   }
 
   type Resource {
     id: ID!
     name: String!
     link: String
+    createdBy: User
   }
 
   type RatingList {
@@ -23,6 +25,7 @@ const typeDefs = gql`
     topic: Topic!
     resource: Resource!
     ratingList: RatingList
+    createdBy: User
   }
 
   type TopicResourceList {
@@ -33,6 +36,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     resources: [TopicResource]
+    createdBy: User
   }
 
   type AvailableResource {
@@ -40,6 +44,12 @@ const typeDefs = gql`
     name: String!
     link: String
     alreadyAdded: Boolean
+    createdBy: User
+  }
+
+  type User {
+    id: String
+    username: String
   }
 
   type Query {
