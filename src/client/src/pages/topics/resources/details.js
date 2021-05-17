@@ -49,7 +49,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
       const { value: ratingValue } = userRating;
       setSelectedRatingValue(ratingValue);
     }
-  }, [userRating]);
+  }, [userRating, isLoggedIn]);
 
   useEffect(async () => {
     if (isLoggedIn) {
