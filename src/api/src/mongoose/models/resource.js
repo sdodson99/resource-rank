@@ -7,7 +7,7 @@ const resourceSchema = new Schema({
   },
   link: String,
   dateCreated: { type: Date, default: Date.now },
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  createdBy: { type: String },
 });
 
 const Resource = model('Resource', resourceSchema);

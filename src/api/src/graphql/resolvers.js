@@ -1,4 +1,4 @@
-const { ApolloError } = require('apollo-server');
+const { ApolloError, AuthenticationError } = require('apollo-server');
 const { Topic } = require('../mongoose/models/topic');
 const { Resource } = require('../mongoose/models/resource');
 const { Rating } = require('../mongoose/models/rating');
@@ -17,6 +17,7 @@ const resolvers = {
           topicId: topicId,
           resourceId: r.resource,
           resourceSearch,
+          createdBy: r.createdBy,
         })),
         topicId,
         resourceSearch,
@@ -29,8 +30,19 @@ const resolvers = {
     resources: () => Resource.find({}),
     resource: (_, { id }) => Resource.findOne({ _id: id }),
     resourceExists: (_, { name }) => Resource.exists({ name }),
-    userRating: (_, { topicId, resourceId }) =>
-      Rating.findOne({ topic: topicId, resource: resourceId }),
+    userRating: (_, { topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
+      const { uid } = user;
+
+      return Rating.findOne({
+        topic: topicId,
+        resource: resourceId,
+        createdBy: uid,
+      });
+    },
     availableResources: async (
       _,
       { topicId, search = '', offset = 0, limit = 20 }
@@ -46,6 +58,7 @@ const resolvers = {
         name: r.name,
         link: r.link,
         alreadyAdded: false,
+        createdBy: r.createdBy,
       }));
 
       const resourceMap = {};
@@ -67,6 +80,10 @@ const resolvers = {
     readOnlyModeEnabled: (_, __, { dataSources }) =>
       dataSources.readOnlyModeDataSource.isReadOnlyEnabled(),
   },
+  AvailableResource: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
   Topic: {
     resources: async ({ id, resources }, _, { resourceDataLoader }) => {
       const topicResources = resources
@@ -74,10 +91,21 @@ const resolvers = {
         .map((r) => ({
           topicId: id,
           resourceId: r.resource,
+          createdBy: r.createdBy,
         }));
 
       return topicResources;
     },
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
+  Resource: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
+  },
+  Rating: {
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResource: {
     topic: ({ topicId }) => Topic.findOne({ _id: topicId }),
@@ -88,6 +116,8 @@ const resolvers = {
         topic: topicId,
         resource: resourceId,
       }),
+    createdBy: ({ createdBy }, _, { dataSources }) =>
+      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResourceList: {
     topicResources: async ({ topicResources, topicId, resourceSearch }) => {
@@ -101,6 +131,7 @@ const resolvers = {
         resource: r,
         topicId,
         resourceId: r._id,
+        createdBy: r.createdBy,
       }));
     },
   },
@@ -135,15 +166,29 @@ const resolvers = {
     },
     ratings: (ratings) => ratings,
   },
+  User: {
+    id: ({ uid }) => uid,
+    username: ({ displayName }) => displayName,
+  },
   Mutation: {
-    createTopic: async (_, { name }) => {
+    createTopic: async (_, { name }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (await Topic.exists({ name })) {
         throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
       }
 
-      return await Topic.create({ name });
+      const { uid } = user;
+
+      return await Topic.create({ name, createdBy: uid });
     },
-    createResource: async (_, { name, link }) => {
+    createResource: async (_, { name, link }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (await Resource.exists({ name })) {
         throw new ApolloError(
           'Resource already exists.',
@@ -151,9 +196,15 @@ const resolvers = {
         );
       }
 
-      return await Resource.create({ name, link });
+      const { uid } = user;
+
+      return await Resource.create({ name, link, createdBy: uid });
     },
-    createTopicResource: async (_, { topicId, resourceId }) => {
+    createTopicResource: async (_, { topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       const topic = await Topic.findOne({ _id: topicId });
       const existingTopicResource = topic.resources.find(
         (r) => r.resource == resourceId
@@ -166,8 +217,10 @@ const resolvers = {
         );
       }
 
+      const { uid } = user;
       const topicResource = {
         resource: resourceId,
+        createdBy: uid,
       };
 
       const result = await Topic.updateOne(
@@ -177,7 +230,11 @@ const resolvers = {
 
       return result.nModified;
     },
-    createRating: async (_, { value, topicId, resourceId }) => {
+    createRating: async (_, { value, topicId, resourceId }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',
@@ -185,9 +242,12 @@ const resolvers = {
         );
       }
 
+      const { uid } = user;
+
       const existingRating = await Rating.findOne({
         topic: topicId,
         resource: resourceId,
+        createdBy: uid,
       });
 
       if (existingRating) {
@@ -201,9 +261,14 @@ const resolvers = {
         value,
         topic: topicId,
         resource: resourceId,
+        createdBy: uid,
       });
     },
-    updateRating: async (_, { ratingId, value }) => {
+    updateRating: async (_, { ratingId, value }, { user }) => {
+      if (!user) {
+        throw new AuthenticationError();
+      }
+
       if (value < 0 || value > 5) {
         throw new ApolloError(
           'Rating must be between 0 and 5.',
@@ -211,7 +276,12 @@ const resolvers = {
         );
       }
 
-      const { ok } = await Rating.updateOne({ _id: ratingId }, { value });
+      const { uid } = user;
+
+      const { ok } = await Rating.updateOne(
+        { _id: ratingId, createdBy: uid },
+        { value }
+      );
 
       const success = ok > 0;
 

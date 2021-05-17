@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import getUserRatingQuery from '../gql-requests/get-user-rating-query';
 
 export default function useTopicResourceUserRating(topicId, resourceId) {
-  const { data: userRatingData, loading, error } = useQuery(
+  const { data: userRatingData, loading, error, refetch } = useQuery(
     getUserRatingQuery,
     {
       variables: {
@@ -18,5 +18,6 @@ export default function useTopicResourceUserRating(topicId, resourceId) {
     userRating,
     loading,
     error,
+    refetch,
   };
 }

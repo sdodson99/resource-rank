@@ -8,7 +8,7 @@ const ratingSchema = new Schema({
   dateCreated: { type: Date, default: Date.now },
   resource: { type: Schema.Types.ObjectId, ref: 'Resource' },
   topic: { type: Schema.Types.ObjectId, ref: 'Topic' },
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  createdBy: { type: String },
 });
 
 const Rating = model('Rating', ratingSchema);

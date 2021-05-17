@@ -39,6 +39,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
     userRating,
     loading: userRatingLoading,
     error: userRatingLoadError,
+    refetch: refetchUserRating,
   } = useTopicResourceUserRating(topicId, resourceId);
 
   useEffect(() => {
@@ -49,6 +50,14 @@ function TopicResourceDetails({ topicId, resourceId }) {
       setSelectedRatingValue(ratingValue);
     }
   }, [userRating]);
+
+  useEffect(async () => {
+    if (isLoggedIn) {
+      await refetchUserRating();
+    } else {
+      setExistingRating(0);
+    }
+  }, [isLoggedIn]);
 
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;

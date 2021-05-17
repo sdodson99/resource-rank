@@ -6,7 +6,7 @@ const topicResourceSchema = new Schema({
     ref: 'Resource',
   },
   dateCreated: { type: Date, default: Date.now },
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  createdBy: { type: String },
 });
 
 const topicSchema = new Schema({
@@ -16,7 +16,7 @@ const topicSchema = new Schema({
   },
   resources: [topicResourceSchema],
   dateCreated: { type: Date, default: Date.now },
-  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+  createdBy: { type: String },
 });
 
 const Topic = model('Topic', topicSchema);
