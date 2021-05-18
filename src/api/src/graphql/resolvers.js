@@ -7,10 +7,16 @@ const resolvers = {
   Query: {
     topics: (_, { search = '' }, { dataSources }) =>
       dataSources.topicsDataSource.search(search),
-    topic: (_, { id }) => Topic.findOne({ _id: id }),
-    topicExists: (_, { name }) => Topic.exists({ name }),
-    topicResourceList: async (_, { topicId, resourceSearch = '' }) => {
-      const { resources } = await Topic.findOne({ _id: topicId });
+    topic: (_, { id }, { dataSources }) =>
+      dataSources.topicsDataSource.getById(id),
+    topicExists: (_, { name }, { dataSources }) =>
+      dataSources.topicsDataSource.nameExists(name),
+    topicResourceList: async (
+      _,
+      { topicId, resourceSearch = '' },
+      { dataSources }
+    ) => {
+      const { resources } = await dataSources.topicsDataSource.getById(topicId);
 
       return {
         topicResources: resources.map((r) => ({
@@ -45,7 +51,8 @@ const resolvers = {
     },
     availableResources: async (
       _,
-      { topicId, search = '', offset = 0, limit = 20 }
+      { topicId, search = '', offset = 0, limit = 20 },
+      { dataSources }
     ) => {
       const resourceDTOs = await Resource.find({
         name: { $regex: search, $options: 'i' },
@@ -66,7 +73,7 @@ const resolvers = {
         resourceMap[r.id] = r;
       });
 
-      const topic = await Topic.findOne({ _id: topicId });
+      const topic = await dataSources.topicsDataSource.getById(topicId);
       topic.resources.forEach((resource) => {
         const { resource: resourceId } = resource;
 
@@ -108,7 +115,8 @@ const resolvers = {
       dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResource: {
-    topic: ({ topicId }) => Topic.findOne({ _id: topicId }),
+    topic: ({ topicId }, _, { dataSources }) =>
+      dataSources.topicsDataSource.getById(topicId),
     resource: ({ topicId, resourceId }, _, { resourceDataLoader }) =>
       resourceDataLoader.load(resourceId),
     ratingList: ({ topicId, resourceId }, _, { ratingDataLoader }) =>
@@ -171,19 +179,8 @@ const resolvers = {
     username: ({ displayName }) => displayName,
   },
   Mutation: {
-    createTopic: async (_, { name }, { user }) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      if (await Topic.exists({ name })) {
-        throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
-      }
-
-      const { uid } = user;
-
-      return await Topic.create({ name, createdBy: uid });
-    },
+    createTopic: (_, { name }, { dataSources }) =>
+      dataSources.topicsDataSource.create(name),
     createResource: async (_, { name, link }, { user }) => {
       if (!user) {
         throw new AuthenticationError();
@@ -200,12 +197,17 @@ const resolvers = {
 
       return await Resource.create({ name, link, createdBy: uid });
     },
-    createTopicResource: async (_, { topicId, resourceId }, { user }) => {
+    createTopicResource: async (
+      _,
+      { topicId, resourceId },
+      { user, dataSources }
+    ) => {
       if (!user) {
         throw new AuthenticationError();
       }
 
-      const topic = await Topic.findOne({ _id: topicId });
+      const topic = await dataSources.topicsDataSource.getById(topicId);
+
       const existingTopicResource = topic.resources.find(
         (r) => r.resource == resourceId
       );
