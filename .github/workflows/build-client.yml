@@ -1,0 +1,42 @@
+name: Build Client
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'src/client/**'
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'src/client/**'
+
+env:
+  CLIENT_PATH: 'src/client'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 'Install packages'
+        run: 'npm i'
+        working-directory: ${{ env.CLIENT_PATH }}
+
+      - name: 'Test'
+        run: 'npm run test'
+        working-directory: ${{ env.CLIENT_PATH }}
+
+      - name: 'Build'
+        run: 'npm run build'
+        working-directory: ${{ env.CLIENT_PATH }}

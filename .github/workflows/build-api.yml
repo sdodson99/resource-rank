@@ -1,0 +1,38 @@
+name: Build API
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'src/api/**'
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'src/api/**'
+
+env:
+  API_PATH: 'src/api'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 'Install packages'
+        run: 'npm i'
+        working-directory: ${{ env.API_PATH }}
+
+      - name: 'Test'
+        run: 'npm run test'
+        working-directory: ${{ env.API_PATH }}
