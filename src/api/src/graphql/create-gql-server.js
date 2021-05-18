@@ -38,8 +38,8 @@ exports.createGQLServer = ({
     },
   });
 
-  app.use((req, res, next) => {
-    if (isMutation(req) && readOnlyModeDataSource.isReadOnlyEnabled()) {
+  app.use(async (req, res, next) => {
+    if (isMutation(req) && (await readOnlyModeDataSource.isReadOnlyEnabled())) {
       return res.sendStatus(403);
     }
     next();

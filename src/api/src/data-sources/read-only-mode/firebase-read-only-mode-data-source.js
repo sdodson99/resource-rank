@@ -15,20 +15,34 @@ class FirebaseReadOnlyModeDataSource {
     this.readOnlyModeDatabasePath = readOnlyModeDatabasePath;
     this.readOnlyEnabled = readOnlyEnabled;
 
+    this.loaded = false;
+
     firebaseAdmin
       .database(app)
       .ref(this.readOnlyModeDatabasePath)
       .on('value', (data) => {
         const readOnlyEnabled = data.val();
+
         this.readOnlyEnabled = readOnlyEnabled;
+        this.loaded = true;
       });
   }
 
   /**
    * Check if read only mode is enabled.
-   * @return {boolean} True/false for if read only mode is enabled.
+   * @return {Promise<boolean>} True/false for if read only mode is enabled.
    */
-  isReadOnlyEnabled() {
+  async isReadOnlyEnabled() {
+    if (!this.loaded) {
+      const data = await firebaseAdmin
+        .database(app)
+        .ref(this.readOnlyModeDatabasePath)
+        .get();
+
+      this.readOnlyEnabled = data.val();
+      this.loaded = true;
+    }
+
     return this.readOnlyEnabled;
   }
 }
