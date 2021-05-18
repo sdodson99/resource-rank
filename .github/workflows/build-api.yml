@@ -3,7 +3,7 @@ name: Build API
 on:
   push:
     branches:
-      - '*'
+      - 'master'
     paths:
       - 'src/api/**'
   pull_request:
