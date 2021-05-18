@@ -13,6 +13,7 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "build": "gatsby build",
     "serve": "gatsby serve",
+    "serve:firebase": "firebase emulators:start --only hosting",
     "clean": "gatsby clean",
     "deploy": "firebase deploy --only hosting",
     "test": "jest"
