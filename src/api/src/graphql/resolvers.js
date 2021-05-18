@@ -5,8 +5,8 @@ const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
-    topics: (_, { search = '' }) =>
-      Topic.find({ name: { $regex: search, $options: 'i' } }),
+    topics: (_, { search = '' }, { dataSources }) =>
+      dataSources.topicsDataSource.search(search),
     topic: (_, { id }) => Topic.findOne({ _id: id }),
     topicExists: (_, { name }) => Topic.exists({ name }),
     topicResourceList: async (_, { topicId, resourceSearch = '' }) => {

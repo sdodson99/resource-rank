@@ -4,6 +4,7 @@ const typeDefs = require('./type-defs');
 const resolvers = require('./resolvers');
 const createResourceDataLoader = require('./dataloaders/resource-data-loader');
 const createRatingDataLoader = require('./dataloaders/rating-data-loader');
+const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
 
 const isMutation = (req) => {
   const { body } = req;
@@ -39,9 +40,12 @@ exports.createGQLServer = ({
       };
     },
     dataSources: () => {
+      // Careful here. Apollo recommends instantiating new data sources in
+      // this method IF we use this.context in the data source.
       return {
         readOnlyModeDataSource,
         usersDataSource,
+        topicsDataSource: new MongoTopicsDataSource(),
       };
     },
   });

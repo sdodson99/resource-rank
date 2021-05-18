@@ -38,6 +38,7 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
+    "apollo-datasource": "^0.9.0",
     "apollo-server": "^2.22.2",
     "apollo-server-express": "^2.24.0",
     "dataloader": "^2.0.0",
