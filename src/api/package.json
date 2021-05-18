@@ -14,6 +14,7 @@
     "serve": "firebase emulators:start --only functions,database,auth",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
+    "test": "echo \"Tests coming soon...\"",
     "deploy": "firebase deploy --only functions"
   },
   "keywords": [
