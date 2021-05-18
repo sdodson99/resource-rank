@@ -58,7 +58,7 @@ const typeDefs = gql`
     topic(id: ID!): Topic
     topicResourceList(topicId: ID!, resourceSearch: String): TopicResourceList
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
-    resources: [Resource]
+    resources(search: String): [Resource]
     resource(id: ID!): Resource
     resourceExists(name: String!): Boolean
     userRating(topicId: ID!, resourceId: ID!): Rating

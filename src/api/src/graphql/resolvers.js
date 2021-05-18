@@ -1,22 +1,20 @@
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const { Topic } = require('../mongoose/models/topic');
-const { Resource } = require('../mongoose/models/resource');
 const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
   Query: {
     topics: (_, { search = '' }, { dataSources }) =>
-      dataSources.topicsDataSource.search(search),
-    topic: (_, { id }, { dataSources }) =>
-      dataSources.topicsDataSource.getById(id),
+      dataSources.topics.search(search),
+    topic: (_, { id }, { dataSources }) => dataSources.topics.getById(id),
     topicExists: (_, { name }, { dataSources }) =>
-      dataSources.topicsDataSource.nameExists(name),
+      dataSources.topics.nameExists(name),
     topicResourceList: async (
       _,
       { topicId, resourceSearch = '' },
       { dataSources }
     ) => {
-      const { resources } = await dataSources.topicsDataSource.getById(topicId);
+      const { resources } = await dataSources.topics.getById(topicId);
 
       return {
         topicResources: resources.map((r) => ({
@@ -33,9 +31,11 @@ const resolvers = {
       topicId,
       resourceId,
     }),
-    resources: () => Resource.find({}),
-    resource: (_, { id }) => Resource.findOne({ _id: id }),
-    resourceExists: (_, { name }) => Resource.exists({ name }),
+    resources: (_, { search = '' }, { dataSources }) =>
+      dataSources.resources.search(search),
+    resource: (_, { id }, { dataSources }) => dataSources.resources.getById(id),
+    resourceExists: (_, { name }, { dataSources }) =>
+      dataSources.resources.nameExists(name),
     userRating: (_, { topicId, resourceId }, { user }) => {
       if (!user) {
         throw new AuthenticationError();
@@ -54,11 +54,11 @@ const resolvers = {
       { topicId, search = '', offset = 0, limit = 20 },
       { dataSources }
     ) => {
-      const resourceDTOs = await Resource.find({
-        name: { $regex: search, $options: 'i' },
-      })
-        .skip(offset)
-        .limit(limit);
+      const resourceDTOs = await dataSources.resources.search(
+        search,
+        offset,
+        limit
+      );
 
       const availableResources = resourceDTOs.map((r) => ({
         id: r._id,
@@ -73,7 +73,7 @@ const resolvers = {
         resourceMap[r.id] = r;
       });
 
-      const topic = await dataSources.topicsDataSource.getById(topicId);
+      const topic = await dataSources.topics.getById(topicId);
       topic.resources.forEach((resource) => {
         const { resource: resourceId } = resource;
 
@@ -92,7 +92,7 @@ const resolvers = {
       dataSources.usersDataSource.getUser(createdBy),
   },
   Topic: {
-    resources: async ({ id, resources }, _, { resourceDataLoader }) => {
+    resources: ({ id, resources }) => {
       const topicResources = resources
         .filter((r) => r.resource)
         .map((r) => ({
@@ -116,7 +116,7 @@ const resolvers = {
   },
   TopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
-      dataSources.topicsDataSource.getById(topicId),
+      dataSources.topics.getById(topicId),
     resource: ({ topicId, resourceId }, _, { resourceDataLoader }) =>
       resourceDataLoader.load(resourceId),
     ratingList: ({ topicId, resourceId }, _, { ratingDataLoader }) =>
@@ -128,12 +128,16 @@ const resolvers = {
       dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResourceList: {
-    topicResources: async ({ topicResources, topicId, resourceSearch }) => {
+    topicResources: async (
+      { topicResources, topicId, resourceSearch },
+      _,
+      { dataSources }
+    ) => {
       const resourceIds = topicResources.map((tr) => tr.resourceId);
-      const filteredResources = await Resource.find({
-        _id: { $in: resourceIds },
-        name: { $regex: resourceSearch, $options: 'i' },
-      });
+      const filteredResources = await dataSources.resources.getByIds(
+        resourceIds,
+        resourceSearch
+      );
 
       return filteredResources.map((r) => ({
         resource: r,
@@ -180,23 +184,9 @@ const resolvers = {
   },
   Mutation: {
     createTopic: (_, { name }, { dataSources }) =>
-      dataSources.topicsDataSource.create(name),
-    createResource: async (_, { name, link }, { user }) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      if (await Resource.exists({ name })) {
-        throw new ApolloError(
-          'Resource already exists.',
-          'RESOURCE_ALREADY_EXISTS'
-        );
-      }
-
-      const { uid } = user;
-
-      return await Resource.create({ name, link, createdBy: uid });
-    },
+      dataSources.topics.create(name),
+    createResource: (_, { name, link }, { dataSources }) =>
+      dataSources.resources.create(name, link),
     createTopicResource: async (
       _,
       { topicId, resourceId },
@@ -206,7 +196,7 @@ const resolvers = {
         throw new AuthenticationError();
       }
 
-      const topic = await dataSources.topicsDataSource.getById(topicId);
+      const topic = await dataSources.topics.getById(topicId);
 
       const existingTopicResource = topic.resources.find(
         (r) => r.resource == resourceId

@@ -5,6 +5,7 @@ const resolvers = require('./resolvers');
 const createResourceDataLoader = require('./dataloaders/resource-data-loader');
 const createRatingDataLoader = require('./dataloaders/rating-data-loader');
 const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
+const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
 
 const isMutation = (req) => {
   const { body } = req;
@@ -45,7 +46,8 @@ exports.createGQLServer = ({
       return {
         readOnlyModeDataSource,
         usersDataSource,
-        topicsDataSource: new MongoTopicsDataSource(),
+        topics: new MongoTopicsDataSource(),
+        resources: new MongoResourcesDataSource(),
       };
     },
   });
