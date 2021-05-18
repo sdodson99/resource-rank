@@ -6,9 +6,17 @@ const createResourceDataLoader = require('./dataloaders/resource-data-loader');
 const createRatingDataLoader = require('./dataloaders/rating-data-loader');
 
 const isMutation = (req) => {
-  const query = req.body.query;
+  const { body } = req;
+  if (!body) {
+    return false;
+  }
 
-  return query && query.trim().startsWith('mutation');
+  const { query } = body;
+  if (!query) {
+    return false;
+  }
+
+  return query.trim().startsWith('mutation');
 };
 
 exports.createGQLServer = ({
