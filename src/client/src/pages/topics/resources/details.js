@@ -205,7 +205,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                         {!userRatingLoading && (
                           <div>
                             {userRatingLoadError && (
-                              <div className="text-center text-sm-start">
+                              <div className="text-danger">
                                 Failed to load your rating for this topic
                                 resource.
                               </div>
@@ -240,7 +240,7 @@ function TopicResourceDetails({ topicId, resourceId }) {
                                 )}
 
                                 {submitRatingError && (
-                                  <div className="mt-4 text-center text-sm-start">
+                                  <div className="mt-4 text-danger">
                                     Failed to submit rating.
                                   </div>
                                 )}
