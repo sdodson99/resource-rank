@@ -35,27 +35,32 @@ function TopicResourceDetails({ topicId, resourceId }) {
 
   const [existingRating, setExistingRating] = useState();
   const [selectedRatingValue, setSelectedRatingValue] = useState(0);
-  const {
-    userRating,
-    loading: userRatingLoading,
-    error: userRatingLoadError,
-    refetch: refetchUserRating,
-  } = useTopicResourceUserRating(topicId, resourceId);
-
-  useEffect(() => {
-    if (userRating) {
-      setExistingRating(userRating);
-
-      const { value: ratingValue } = userRating;
-      setSelectedRatingValue(ratingValue);
-    }
-  }, [userRating, isLoggedIn]);
+  const [userRatingLoading, setUserRatingLoading] = useState(true);
+  const [userRatingLoadError, setUserRatingLoadError] = useState();
+  const { getUserRating } = useTopicResourceUserRating();
 
   useEffect(async () => {
     if (isLoggedIn) {
-      await refetchUserRating();
+      setUserRatingLoading(true);
+      setUserRatingLoadError();
+
+      try {
+        const userRating = await getUserRating(topicId, resourceId);
+
+        if (userRating) {
+          setExistingRating(userRating);
+
+          const { value: ratingValue } = userRating;
+          setSelectedRatingValue(ratingValue);
+        }
+      } catch (error) {
+        setUserRatingLoadError(error);
+      } finally {
+        setUserRatingLoading(false);
+      }
     } else {
       setExistingRating(0);
+      setSelectedRatingValue(0);
     }
   }, [isLoggedIn]);
 
