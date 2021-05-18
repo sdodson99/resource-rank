@@ -1,19 +1,19 @@
-name: Build API
+name: Build Client
 
 on:
   push:
     branches:
       - '*'
     paths:
-      - 'src/api/**'
+      - 'src/client/**'
   pull_request:
     branches:
       - '*'
     paths:
-      - 'src/api/**'
+      - 'src/client/**'
 
 env:
-  API_PATH: 'src/api'
+  CLIENT_PATH: 'src/client'
 
 jobs:
   build:
@@ -31,8 +31,12 @@ jobs:
 
       - name: 'Install packages'
         run: 'npm i'
-        working-directory: ${{ env.API_PATH }}
+        working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Test'
         run: 'npm run test'
-        working-directory: ${{ env.API_PATH }}
+        working-directory: ${{ env.CLIENT_PATH }}
+
+      - name: 'Build'
+        run: 'npm run build'
+        working-directory: ${{ env.CLIENT_PATH }}
