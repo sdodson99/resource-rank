@@ -74,6 +74,44 @@ class MongoTopicsDataSource extends DataSource {
 
     return await this.topicModel.create({ name, createdBy: uid });
   }
+
+  /**
+   * Create a new topic resource.
+   * @param {string} topicId The ID of the topic for the topic resource.
+   * @param {string} resourceId The ID of the resource for the topic resource.
+   * @return {Promise<boolean>} True/false for success.
+   */
+  async addResource(topicId, resourceId) {
+    if (!this.user) {
+      throw new AuthenticationError();
+    }
+
+    const topic = await this.getById(topicId);
+
+    const existingTopicResource = topic.resources.find(
+      (r) => r.resource == resourceId
+    );
+
+    if (existingTopicResource) {
+      throw new ApolloError(
+        'Topic resource already exists.',
+        'TOPIC_RESOURCE_ALREADY_EXISTS'
+      );
+    }
+
+    const { uid } = this.user;
+    const topicResource = {
+      resource: resourceId,
+      createdBy: uid,
+    };
+
+    const { nModified } = await this.topicModel.updateOne(
+      { _id: topicId },
+      { $addToSet: { resources: topicResource } }
+    );
+
+    return nModified;
+  }
 }
 
 module.exports = MongoTopicsDataSource;

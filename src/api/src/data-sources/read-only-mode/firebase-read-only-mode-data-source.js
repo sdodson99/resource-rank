@@ -18,7 +18,7 @@ class FirebaseReadOnlyModeDataSource {
     this.loaded = false;
 
     firebaseAdmin
-      .database(app)
+      .database(this.app)
       .ref(this.readOnlyModeDatabasePath)
       .on('value', (data) => {
         const readOnlyEnabled = data.val();
@@ -35,7 +35,7 @@ class FirebaseReadOnlyModeDataSource {
   async isReadOnlyEnabled() {
     if (!this.loaded) {
       const data = await firebaseAdmin
-        .database(app)
+        .database(this.app)
         .ref(this.readOnlyModeDatabasePath)
         .get();
 

@@ -41,8 +41,8 @@ exports.createGQLServer = ({
       };
     },
     dataSources: () => {
-      // Careful here. Apollo recommends instantiating new data sources in
-      // this method IF we use this.context in the data source.
+      // Careful here. Data sources that use this.context should be
+      // instantiated in this method.
       return {
         readOnlyModeDataSource,
         usersDataSource,

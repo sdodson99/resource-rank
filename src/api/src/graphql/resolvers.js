@@ -1,5 +1,4 @@
 const { ApolloError, AuthenticationError } = require('apollo-server');
-const { Topic } = require('../mongoose/models/topic');
 const { Rating } = require('../mongoose/models/rating');
 
 const resolvers = {
@@ -187,41 +186,8 @@ const resolvers = {
       dataSources.topics.create(name),
     createResource: (_, { name, link }, { dataSources }) =>
       dataSources.resources.create(name, link),
-    createTopicResource: async (
-      _,
-      { topicId, resourceId },
-      { user, dataSources }
-    ) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      const topic = await dataSources.topics.getById(topicId);
-
-      const existingTopicResource = topic.resources.find(
-        (r) => r.resource == resourceId
-      );
-
-      if (existingTopicResource) {
-        throw new ApolloError(
-          'Topic resource already exists.',
-          'TOPIC_RESOURCE_ALREADY_EXISTS'
-        );
-      }
-
-      const { uid } = user;
-      const topicResource = {
-        resource: resourceId,
-        createdBy: uid,
-      };
-
-      const result = await Topic.updateOne(
-        { _id: topicId },
-        { $addToSet: { resources: topicResource } }
-      );
-
-      return result.nModified;
-    },
+    createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
+      dataSources.topics.addResource(topicId, resourceId),
     createRating: async (_, { value, topicId, resourceId }, { user }) => {
       if (!user) {
         throw new AuthenticationError();
