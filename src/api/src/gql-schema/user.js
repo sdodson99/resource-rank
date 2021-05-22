@@ -6,3 +6,10 @@ exports.typeDefs = gql`
     username: String
   }
 `;
+
+exports.resolvers = {
+  User: {
+    id: ({ uid }) => uid,
+    username: ({ displayName }) => displayName,
+  },
+};

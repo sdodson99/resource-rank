@@ -5,3 +5,10 @@ exports.typeDefs = gql`
     readOnlyModeEnabled: Boolean
   }
 `;
+
+exports.resolvers = {
+  Query: {
+    readOnlyModeEnabled: (_, __, { dataSources }) =>
+      dataSources.readOnlyModeDataSource.isReadOnlyEnabled(),
+  },
+};
