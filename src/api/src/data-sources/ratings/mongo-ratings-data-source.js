@@ -1,6 +1,8 @@
 const { DataSource } = require('apollo-datasource');
 const { Rating } = require('../../mongoose/models/rating');
 const { ApolloError, AuthenticationError } = require('apollo-server');
+const DataLoader = require('dataloader');
+const RatingsMap = require('./ratings-map');
 
 /**
  * Data source for ratings from a Mongo database.
@@ -12,8 +14,23 @@ class MongoRatingsDataSource extends DataSource {
   constructor() {
     super();
 
-    this.ratingModel = Rating;
     this.user = null;
+    this.ratingModel = Rating;
+
+    this.topicResourceRatingsDataLoader = new DataLoader(
+      async (topicResourceIds) => {
+        const ratings = await this.ratingModel.find({
+          $or: topicResourceIds,
+        });
+
+        const ratingsMap = new RatingsMap();
+        ratings.forEach((r) => ratingsMap.addRating(r));
+
+        return topicResourceIds.map(({ topic, resource }) =>
+          ratingsMap.getRatings(topic, resource)
+        );
+      }
+    );
   }
 
   /**
@@ -24,6 +41,19 @@ class MongoRatingsDataSource extends DataSource {
     const { user } = context;
 
     this.user = user;
+  }
+
+  /**
+   * Get all ratings for a topic resource.
+   * @param {string} topicId The ID of the topic to get ratings for.
+   * @param {strings} resourceId The ID of the resource to get ratings for.
+   * @return {Promise<Array>} The ratings for a topic resource.
+   */
+  getAllForTopicResource(topicId, resourceId) {
+    return this.topicResourceRatingsDataLoader.load({
+      topic: topicId,
+      resource: resourceId,
+    });
   }
 
   /**

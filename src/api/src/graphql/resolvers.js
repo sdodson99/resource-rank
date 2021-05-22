@@ -104,11 +104,8 @@ const resolvers = {
       dataSources.topics.getById(topicId),
     resource: ({ topicId, resourceId }, _, { dataSources }) =>
       dataSources.resources.getById(resourceId),
-    ratingList: ({ topicId, resourceId }, _, { ratingDataLoader }) =>
-      ratingDataLoader.load({
-        topic: topicId,
-        resource: resourceId,
-      }),
+    ratingList: ({ topicId, resourceId }, _, { dataSources }) =>
+      dataSources.ratings.getAllForTopicResource(topicId, resourceId),
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
   },

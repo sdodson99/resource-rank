@@ -44,7 +44,6 @@ class MongoResourcesDataSource extends DataSource {
    * @return {Promise<object>} The resource matching the ID. Null if resource not found.
    */
   getById(id) {
-    console.log(id);
     return this.resourceDataLoader.load(id);
   }
 

@@ -2,7 +2,6 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./type-defs');
 const resolvers = require('./resolvers');
-const createRatingDataLoader = require('./dataloaders/rating-data-loader');
 const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
 const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
 const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
@@ -36,7 +35,6 @@ exports.createGQLServer = ({
 
       return {
         user,
-        ratingDataLoader: createRatingDataLoader(),
       };
     },
     dataSources: () => {

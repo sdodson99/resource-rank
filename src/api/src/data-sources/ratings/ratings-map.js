@@ -1,10 +1,7 @@
-const DataLoader = require('dataloader');
-const { Rating } = require('../../mongoose/models/rating');
-
 /**
  * Data structure to handle mapping of topic resource ids to ratings.
  */
-class TopicResourceRatingsMap {
+class RatingsMap {
   /**
    * Initialize map.
    */
@@ -49,24 +46,4 @@ class TopicResourceRatingsMap {
   }
 }
 
-/**
- * Load topic resource ratings in a batch.
- * @param {Array} topicResourceIds The objects containing the topic and resource ids.
- * @return {Array} The loaded ratings.
- */
-async function loadRatings(topicResourceIds) {
-  const topicResourceIdQueries = topicResourceIds.map((t) => ({
-    topic: t.topic,
-    resource: t.resource,
-  }));
-  const ratings = await Rating.find({ $or: topicResourceIdQueries });
-
-  const ratingsMap = new TopicResourceRatingsMap();
-  ratings.forEach((r) => ratingsMap.addRating(r));
-
-  return topicResourceIds.map(({ topic, resource }) =>
-    ratingsMap.getRatings(topic, resource)
-  );
-}
-
-module.exports = () => new DataLoader((ids) => loadRatings(ids));
+module.exports = RatingsMap;
