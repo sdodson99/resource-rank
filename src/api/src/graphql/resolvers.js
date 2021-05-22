@@ -1,6 +1,3 @@
-const { ApolloError, AuthenticationError } = require('apollo-server');
-const { Rating } = require('../mongoose/models/rating');
-
 const resolvers = {
   Query: {
     topics: (_, { search = '' }, { dataSources }) =>
@@ -35,19 +32,8 @@ const resolvers = {
     resource: (_, { id }, { dataSources }) => dataSources.resources.getById(id),
     resourceExists: (_, { name }, { dataSources }) =>
       dataSources.resources.nameExists(name),
-    userRating: (_, { topicId, resourceId }, { user }) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      const { uid } = user;
-
-      return Rating.findOne({
-        topic: topicId,
-        resource: resourceId,
-        createdBy: uid,
-      });
-    },
+    userRating: (_, { topicId, resourceId }, { dataSources }) =>
+      dataSources.ratings.getUserRatingForTopicResource(topicId, resourceId),
     availableResources: async (
       _,
       { topicId, search = '', offset = 0, limit = 20 },
@@ -188,63 +174,10 @@ const resolvers = {
       dataSources.resources.create(name, link),
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
       dataSources.topics.addResource(topicId, resourceId),
-    createRating: async (_, { value, topicId, resourceId }, { user }) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      if (value < 0 || value > 5) {
-        throw new ApolloError(
-          'Rating must be between 0 and 5.',
-          'INVALID_RATING'
-        );
-      }
-
-      const { uid } = user;
-
-      const existingRating = await Rating.findOne({
-        topic: topicId,
-        resource: resourceId,
-        createdBy: uid,
-      });
-
-      if (existingRating) {
-        throw new ApolloError(
-          'A rating already exists for this topic resource.',
-          'RATING_ALREADY_EXISTS'
-        );
-      }
-
-      return await Rating.create({
-        value,
-        topic: topicId,
-        resource: resourceId,
-        createdBy: uid,
-      });
-    },
-    updateRating: async (_, { ratingId, value }, { user }) => {
-      if (!user) {
-        throw new AuthenticationError();
-      }
-
-      if (value < 0 || value > 5) {
-        throw new ApolloError(
-          'Rating must be between 0 and 5.',
-          'INVALID_RATING'
-        );
-      }
-
-      const { uid } = user;
-
-      const { ok } = await Rating.updateOne(
-        { _id: ratingId, createdBy: uid },
-        { value }
-      );
-
-      const success = ok > 0;
-
-      return success;
-    },
+    createRating: (_, { value, topicId, resourceId }, { dataSources }) =>
+      dataSources.ratings.create(topicId, resourceId, value),
+    updateRating: (_, { ratingId, value }, { dataSources }) =>
+      dataSources.ratings.update(ratingId, value),
   },
 };
 

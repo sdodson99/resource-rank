@@ -6,6 +6,7 @@ const createResourceDataLoader = require('./dataloaders/resource-data-loader');
 const createRatingDataLoader = require('./dataloaders/rating-data-loader');
 const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
 const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
+const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
 
 const isMutation = (req) => {
   const { body } = req;
@@ -48,6 +49,7 @@ exports.createGQLServer = ({
         usersDataSource,
         topics: new MongoTopicsDataSource(),
         resources: new MongoResourcesDataSource(),
+        ratings: new MongoRatingsDataSource(),
       };
     },
   });
