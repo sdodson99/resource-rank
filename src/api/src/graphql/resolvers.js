@@ -102,8 +102,8 @@ const resolvers = {
   TopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
       dataSources.topics.getById(topicId),
-    resource: ({ topicId, resourceId }, _, { resourceDataLoader }) =>
-      resourceDataLoader.load(resourceId),
+    resource: ({ topicId, resourceId }, _, { dataSources }) =>
+      dataSources.resources.getById(resourceId),
     ratingList: ({ topicId, resourceId }, _, { ratingDataLoader }) =>
       ratingDataLoader.load({
         topic: topicId,

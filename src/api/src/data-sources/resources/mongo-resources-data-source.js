@@ -1,4 +1,5 @@
 const { DataSource } = require('apollo-datasource');
+const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
 
 /**
@@ -11,8 +12,20 @@ class MongoResourcesDataSource extends DataSource {
   constructor() {
     super();
 
-    this.resourceModel = Resource;
     this.user = null;
+    this.resourceModel = Resource;
+    this.resourceDataLoader = new DataLoader(async (resourceIds) => {
+      const resources = await this.resourceModel.find({
+        _id: { $in: resourceIds },
+      });
+
+      const resourceMap = {};
+      resources.forEach((r) => {
+        resourceMap[r._id] = r;
+      });
+
+      return resourceIds.map((id) => resourceMap[id]);
+    });
   }
 
   /**
@@ -31,7 +44,8 @@ class MongoResourcesDataSource extends DataSource {
    * @return {Promise<object>} The resource matching the ID. Null if resource not found.
    */
   getById(id) {
-    return this.resourceModel.findOne({ _id: id });
+    console.log(id);
+    return this.resourceDataLoader.load(id);
   }
 
   /**
