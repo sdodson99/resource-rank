@@ -51,7 +51,7 @@ export default function Index() {
 
   const breadcrumbs = [
     {
-      to: '/',
+      to: '/topics',
       title: 'Topics',
     },
   ];

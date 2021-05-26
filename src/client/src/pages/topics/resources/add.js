@@ -73,7 +73,7 @@ function AddTopicResource({ topicId }) {
 
   const breadcrumbs = [
     {
-      to: '/',
+      to: '/topics',
       title: 'Topics',
     },
     {

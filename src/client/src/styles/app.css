@@ -36,6 +36,10 @@ li {
   font-size: var(--font-lg);
 }
 
+.container {
+  max-width: 800px;
+}
+
 .btn-primary,
 .btn-primary:active,
 .btn-primary:focus,

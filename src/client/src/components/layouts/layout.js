@@ -51,7 +51,7 @@ function Layout({ children }) {
         </Alert>
       )}
       <header className="py-3">
-        <div className={`container ${layoutStyle.container}`}>
+        <div className="container">
           <div className="row align-items-center text-center text-sm-start">
             <div className="col-sm ">
               <Link to="/" className={layoutStyle.title}>
@@ -65,7 +65,7 @@ function Layout({ children }) {
 
             <div className="col-sm-auto mt-3 mt-sm-0">
               <Link
-                to="/"
+                to="/topics"
                 className={layoutStyle.link}
                 activeClassName={layoutStyle.active}
               >
@@ -96,9 +96,7 @@ function Layout({ children }) {
           </div>
         </div>
       </header>
-      <div className={`py-4 container ${layoutStyle.container}`}>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 }
