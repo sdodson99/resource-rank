@@ -1,9 +1,22 @@
-import React from 'react';
+import { navigate } from 'gatsby';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import logo from '../../assets/logo.svg';
 import * as heroStyle from './hero.module.css';
 
 function Hero() {
+  const [searchTopicsQuery, setSearchTopicsQuery] = useState('');
+
+  const onSearchTopicsQueryChange = (e) => {
+    const value = e.target.value;
+
+    setSearchTopicsQuery(value);
+  };
+
+  const onSearchTopics = () => {
+    navigate(`/topics?q=${searchTopicsQuery}`);
+  };
+
   return (
     <div className={`${heroStyle.container} text-white text-center`}>
       <div className={`container py-5 ${heroStyle.content}`}>
@@ -14,10 +27,16 @@ function Hero() {
               type="text"
               className="form-control"
               placeholder="Search topics..."
+              value={searchTopicsQuery}
+              onChange={onSearchTopicsQueryChange}
             />
           </div>
           <div className="col-sm-auto">
-            <Button variant="primary" className="mt-2 mt-sm-0 w-100">
+            <Button
+              variant="primary"
+              className="mt-2 mt-sm-0 w-100"
+              onClick={onSearchTopics}
+            >
               Search
             </Button>
           </div>

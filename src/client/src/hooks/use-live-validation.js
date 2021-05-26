@@ -9,7 +9,7 @@ export default function useLiveValidation(executeValidation) {
     processSearch: validate,
     dataLoading,
     currentSearch,
-  } = useLiveSearch(executeValidation, true);
+  } = useLiveSearch(executeValidation, { defaultValue: true });
 
   useEffect(() => setIsValid(isValidResponse), [isValidResponse]);
 

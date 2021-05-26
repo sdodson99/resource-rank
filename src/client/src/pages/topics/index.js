@@ -8,8 +8,11 @@ import { useApolloClient } from '@apollo/client';
 import useLiveSearch from '../../hooks/use-live-search';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
+import { useQueryParam } from 'use-query-params';
 
-export default function Index() {
+export default function Topics() {
+  const [searchQuery] = useQueryParam('q');
+
   const { isLoggedIn } = useAuthenticationState();
 
   const apolloClient = useApolloClient();
@@ -40,7 +43,7 @@ export default function Index() {
     dataLoadError: topicsLoadError,
     dataLoading: topicsLoading,
     search,
-  } = useLiveSearch(loadTopics);
+  } = useLiveSearch(loadTopics, { initialSearch: searchQuery });
 
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
