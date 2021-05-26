@@ -5,7 +5,10 @@ import * as featureListingStyle from './feature-listing.module.css';
 
 function FeatureListing({ features }) {
   const featureItems = features.map((f) => (
-    <div className={`py-5 ${featureListingStyle.featureItem}`} key={f.title}>
+    <div
+      className={`py-3 ${featureListingStyle.featureItem} d-flex flex-column justify-content-center align-items-center`}
+      key={f.title}
+    >
       <Feature description={f.description} imageSrc={f.imageSrc} />
     </div>
   ));
