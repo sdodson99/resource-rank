@@ -1,10 +1,12 @@
 import React from 'react';
 import FeatureListing from '../components/landing/feature-listing';
+import CallToAction from '../components/landing/call-to-action';
 import Layout from '../components/layouts/layout';
 import clock from '../assets/clock.svg';
 import magnifyingGlass from '../assets/mag-glass.svg';
 import star from '../assets/star.svg';
 import add from '../assets/add.svg';
+import Hero from '../components/landing/hero';
 
 export default function Index() {
   const features = [
@@ -51,7 +53,9 @@ export default function Index() {
 
   return (
     <Layout>
+      <Hero />
       <FeatureListing features={features} />
+      <CallToAction />
     </Layout>
   );
 }
