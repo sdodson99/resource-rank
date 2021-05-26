@@ -24,7 +24,7 @@ function Feature({ description, imageSrc }) {
 }
 
 Feature.propTypes = {
-  description: PropTypes.string,
+  description: PropTypes.node,
   imageSrc: PropTypes.string,
 };
 

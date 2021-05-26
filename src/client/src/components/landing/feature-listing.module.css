@@ -1,0 +1,3 @@
+.feature-item:nth-child(even) {
+  background-color: rgb(245, 245, 245);
+}
