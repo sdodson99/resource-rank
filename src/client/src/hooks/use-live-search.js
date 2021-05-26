@@ -4,7 +4,7 @@ import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 
 export default function useLiveSearch(
   executeSearch,
-  { defaultValue = null, initialSearch = '' }
+  { defaultValue = null, initialSearch = '' } = {}
 ) {
   const [data, setData] = useState(defaultValue);
   const [dataLoading, setDataLoading] = useState(true);

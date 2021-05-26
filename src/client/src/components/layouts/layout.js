@@ -67,6 +67,16 @@ function Layout({ children }) {
 
               <div className="col-sm-auto mt-3 mt-sm-0">
                 <Link
+                  to="/"
+                  className={layoutStyle.link}
+                  activeClassName={layoutStyle.active}
+                >
+                  Home
+                </Link>
+              </div>
+
+              <div className="col-sm-auto mt-3 mt-sm-0">
+                <Link
                   to="/topics"
                   className={layoutStyle.link}
                   activeClassName={layoutStyle.active}

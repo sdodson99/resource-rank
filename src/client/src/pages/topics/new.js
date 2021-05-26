@@ -39,7 +39,7 @@ function CreateTopic() {
 
     try {
       await createTopic(name);
-      navigate('/');
+      navigate('/topics');
     } catch (error) {
       if (error instanceof TopicExistsError) {
         return setIsValidName(false);
@@ -93,7 +93,7 @@ function CreateTopic() {
             </button>
           </div>
           <div className="col-sm-auto mt-3 mt-sm-0">
-            <Link to="/" className="btn btn-outline-danger w-100">
+            <Link to="/topics" className="btn btn-outline-danger w-100">
               Cancel
             </Link>
           </div>
