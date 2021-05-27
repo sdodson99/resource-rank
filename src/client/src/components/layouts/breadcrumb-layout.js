@@ -6,8 +6,10 @@ import BreadcrumbListing from '../breadcrumbs/breadcrumb-listing';
 function BreadcrumbLayout({ children, breadcrumbs }) {
   return (
     <Layout>
-      <BreadcrumbListing breadcrumbs={breadcrumbs} />
-      <div className="mt-4">{children}</div>
+      <div className="py-4 container">
+        <BreadcrumbListing breadcrumbs={breadcrumbs} />
+        <div className="mt-4">{children}</div>
+      </div>
     </Layout>
   );
 }

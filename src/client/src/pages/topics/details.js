@@ -66,7 +66,7 @@ function TopicDetails({ topicId }) {
   const topicLink = `/topics/${topicId}`;
   const breadcrumbs = [
     {
-      to: '/',
+      to: '/topics',
       title: 'Topics',
     },
     {

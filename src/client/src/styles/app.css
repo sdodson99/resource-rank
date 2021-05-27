@@ -4,6 +4,8 @@
   --color-secondary: rgb(39, 194, 47);
   --color-secondary-dark: rgb(28, 148, 34);
 
+  --color-gray: rgb(245, 245, 245);
+
   --font-xs: 1rem;
   --font-sm: 1.25rem;
   --font-md: 2.25rem;
@@ -34,6 +36,10 @@ li {
 
 .page-header {
   font-size: var(--font-lg);
+}
+
+.container {
+  max-width: 800px;
 }
 
 .btn-primary,

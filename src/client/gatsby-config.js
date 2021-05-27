@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-  plugins: [],
+  plugins: ['gatsby-plugin-use-query-params'],
 };

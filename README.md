@@ -49,6 +49,11 @@ Website: https://resource-rank.web.app/
 
 Follow the following steps to run Resource Rank locally after cloning.
 
+## Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+
 ## API
 
 1. Start the Mongo database.
@@ -69,18 +74,20 @@ cd src/api
 npm install
 ```
 
-4. Create a file named '.env' with the following environment variables.
+4. Create a file named '.runtimeconfig.json' with the following environment variables.
 
 ```
-MONGO_CONNECTION_STRING=mongodb://res-rank-admin:res-rank-password@localhost:27017/?authSource=admin&ssl=false
-PORT=4000
-READ_ONLY_MODE_ENABLED=false
+{
+  "mongo": {
+    "connection_string": "mongodb://res-rank-admin:res-rank-password@localhost:27017/?authSource=admin&ssl=false"
+  }
+}
 ```
 
-5. Start the application.
+5. Start the application w/ Firebase emulators.
 
 ```
-npm run dev
+npm run serve
 ```
 
 ## Client
@@ -99,13 +106,7 @@ cd src/client
 npm install
 ```
 
-3. Create a file named '.env.development' with the following environment variables.
-
-```
-GQL_URI=http://localhost:4000
-```
-
-4. Run the application.
+3. Run the application.
 
 ```
 npm run dev

@@ -1,14 +1,22 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const typeDefs = require('./type-defs');
-const resolvers = require('./resolvers');
-const createResourceDataLoader = require('./dataloaders/resource-data-loader');
-const createRatingDataLoader = require('./dataloaders/rating-data-loader');
+const { typeDefs, resolvers } = require('../gql-schema/index');
+const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
+const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
+const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
 
 const isMutation = (req) => {
-  const query = req.body.query;
+  const { body } = req;
+  if (!body) {
+    return false;
+  }
 
-  return query && query.trim().startsWith('mutation');
+  const { query } = body;
+  if (!query) {
+    return false;
+  }
+
+  return query.trim().startsWith('mutation');
 };
 
 exports.createGQLServer = ({
@@ -26,14 +34,17 @@ exports.createGQLServer = ({
 
       return {
         user,
-        resourceDataLoader: createResourceDataLoader(),
-        ratingDataLoader: createRatingDataLoader(),
       };
     },
     dataSources: () => {
+      // Careful here. Data sources that use this.context should be
+      // instantiated in this method.
       return {
         readOnlyModeDataSource,
         usersDataSource,
+        topics: new MongoTopicsDataSource(),
+        resources: new MongoResourcesDataSource(),
+        ratings: new MongoRatingsDataSource(),
       };
     },
   });

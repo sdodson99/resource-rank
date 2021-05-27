@@ -38,6 +38,9 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
+    "@graphql-tools/merge": "^6.2.14",
+    "@graphql-tools/utils": "^7.10.0",
+    "apollo-datasource": "^0.9.0",
     "apollo-server": "^2.22.2",
     "apollo-server-express": "^2.24.0",
     "dataloader": "^2.0.0",
