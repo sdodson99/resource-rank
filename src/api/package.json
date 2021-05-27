@@ -14,7 +14,7 @@
     "serve": "firebase emulators:start --only functions,database,auth",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "test": "echo \"Tests coming soon...\"",
+    "test": "jest",
     "deploy": "firebase deploy --only functions"
   },
   "keywords": [
@@ -31,6 +31,7 @@
     "node": "12"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "eslint": "^7.24.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.1.0",
