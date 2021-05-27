@@ -6,6 +6,7 @@ import { FirebaseAppProvider } from './hooks/use-firebase-app';
 import AuthenticationApolloProvider from './components/authentication-apollo-provider';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fontsource/magra';
+import '@fontsource/magra/700.css';
 import './styles/app.css';
 
 const firebaseConfig = {
