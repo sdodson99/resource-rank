@@ -44,15 +44,23 @@ class MongoTopicsDataSource extends DataSource {
    * Find a topic by ID.
    * @param {string} id The ID of the topic to find.
    * @return {Promise<object>} The topic matching the ID. Null if topic not found.
+   * @throws {Error} Thrown if query fails.
    */
-  getById(id) {
-    return this.topicDataLoader.load(id);
+  async getById(id) {
+    const topic = await this.topicDataLoader.load(id);
+
+    if (!topic) {
+      return null;
+    }
+
+    return topic;
   }
 
   /**
    * Search for topics.
    * @param {string} query The topic query to search for.
    * @return {Promise<object>} The topics matching the query.
+   * @throws {Error} Thrown if query fails.
    */
   search(query) {
     return this.topicModel.find({
@@ -64,6 +72,7 @@ class MongoTopicsDataSource extends DataSource {
    * Check if a topic name already exists.
    * @param {string} name The name to check.
    * @return {Promise<boolean>} True/false for already exists.
+   * @throws {Error} Thrown if query fails.
    */
   nameExists(name) {
     return this.topicModel.exists({ name });
@@ -75,6 +84,7 @@ class MongoTopicsDataSource extends DataSource {
    * @return {Promise<object>} The created topic.
    * @throws {ApolloError} Thrown if topic name already exists.
    * @throws {AuthenticationError} Thrown if user is not authenticated.
+   * @throws {Error} Thrown if create fails.
    */
   async create(name) {
     if (!this.user) {
@@ -96,6 +106,7 @@ class MongoTopicsDataSource extends DataSource {
    * @return {Promise<boolean>} True/false for success.
    * @throws {ApolloError} Thrown if topic resource already exists.
    * @throws {AuthenticationError} Thrown if user is not authenticated.
+   * @throws {Error} Thrown if add fails.
    */
   async addResource(topicId, resourceId) {
     if (!this.user) {
@@ -103,6 +114,10 @@ class MongoTopicsDataSource extends DataSource {
     }
 
     const topic = await this.getById(topicId);
+
+    if (!topic) {
+      throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
+    }
 
     const existingTopicResource = topic.resources.find(
       (r) => r.resource == resourceId
