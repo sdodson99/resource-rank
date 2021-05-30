@@ -1,6 +1,7 @@
 const { DataSource } = require('apollo-datasource');
 const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
+const { AuthenticationError, ApolloError } = require('apollo-server');
 
 /**
  * Data source for resources from a Mongo database.
@@ -14,6 +15,7 @@ class MongoResourcesDataSource extends DataSource {
 
     this.user = null;
     this.resourceModel = Resource;
+
     this.resourceDataLoader = new DataLoader(async (resourceIds) => {
       const resources = await this.resourceModel.find({
         _id: { $in: resourceIds },
@@ -42,9 +44,16 @@ class MongoResourcesDataSource extends DataSource {
    * Find a resource by ID.
    * @param {string} id The ID of the resource to find.
    * @return {Promise<object>} The resource matching the ID. Null if resource not found.
+   * @throws {Error} Thrown if query fails.
    */
-  getById(id) {
-    return this.resourceDataLoader.load(id);
+  async getById(id) {
+    const resource = await this.resourceDataLoader.load(id);
+
+    if (!resource) {
+      return null;
+    }
+
+    return resource;
   }
 
   /**
@@ -53,6 +62,7 @@ class MongoResourcesDataSource extends DataSource {
    * @param {number} skip The resources to skip in the search query.
    * @param {number} limit The resource amount to limit to in the search query.
    * @return {Promise<object>} The resources matching the query.
+   * @throws {Error} Thrown if query fails.
    */
   search(query, skip = 0, limit = 0) {
     let request = this.resourceModel.find({
@@ -75,6 +85,7 @@ class MongoResourcesDataSource extends DataSource {
    * @param {Array} ids The resource IDs to search for.
    * @param {string} search The resource query to filter by.
    * @return {Array} The resources matching the search.
+   * @throws {Error} Thrown if query fails.
    */
   getByIds(ids, search) {
     return this.resourceModel.find({
@@ -87,6 +98,7 @@ class MongoResourcesDataSource extends DataSource {
    * Check if a resource name already exists.
    * @param {string} name The name to check.
    * @return {Promise<boolean>} True/false for already exists.
+   * @throws {Error} Thrown if request fails.
    */
   nameExists(name) {
     return this.resourceModel.exists({ name });
@@ -99,6 +111,7 @@ class MongoResourcesDataSource extends DataSource {
    * @return {Promise<object>} The created resource.
    * @throws {ApolloError} Thrown if resource name alredy exists.
    * @throws {AuthenticationError} Thrown if user is not authenticated.
+   * @throws {Error} Thrown if create fails.
    */
   async create(name, link) {
     if (!this.user) {
