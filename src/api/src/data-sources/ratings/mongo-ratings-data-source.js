@@ -48,6 +48,7 @@ class MongoRatingsDataSource extends DataSource {
    * @param {string} topicId The ID of the topic to get ratings for.
    * @param {strings} resourceId The ID of the resource to get ratings for.
    * @return {Promise<Array>} The ratings for a topic resource.
+   * @throws {Error} Thrown if query fails.
    */
   getAllForTopicResource(topicId, resourceId) {
     return this.topicResourceRatingsDataLoader.load({
@@ -62,6 +63,7 @@ class MongoRatingsDataSource extends DataSource {
    * @param {string} resourceId The ID of the resource with the rating.
    * @return {Promise<object>} The user's rating for the topic resources.
    * @throws {AuthenticationError} Thrown if user not authenticated.
+   * @throws {Error} Thrown if query fails.
    */
   async getUserRatingForTopicResource(topicId, resourceId) {
     if (!this.user) {
@@ -85,6 +87,7 @@ class MongoRatingsDataSource extends DataSource {
    * @return {Promise<object>} The created rating.
    * @throws {AuthenticationError} Thrown if user not authenticated.
    * @throws {ApolloError} Thrown if rating value is invalid.
+   * @throws {Error} Thrown if create fails.
    */
   async create(topicId, resourceId, value) {
     if (!this.user) {
@@ -128,6 +131,7 @@ class MongoRatingsDataSource extends DataSource {
    * @return {Promise<boolean>} True/false for successfully updated.
    * @throws {AuthenticationError} Thrown if user not authenticated.
    * @throws {ApolloError} Thrown if rating value is invalid.
+   * @throws {Error} Thrown if update fails.
    */
   async update(ratingId, value) {
     if (!this.user) {
@@ -143,7 +147,7 @@ class MongoRatingsDataSource extends DataSource {
 
     const { uid } = this.user;
 
-    const { ok } = await Rating.updateOne(
+    const { ok } = await this.ratingModel.updateOne(
       { _id: ratingId, createdBy: uid },
       { value }
     );
