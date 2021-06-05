@@ -33,6 +33,10 @@ exports.resolvers = {
   },
   Topic: {
     resources: ({ id, resources }) => {
+      if (!resources) {
+        return [];
+      }
+
       const topicResources = resources
         .filter((r) => r.resource)
         .map((r) => ({
