@@ -1,6 +1,6 @@
 const { https, config } = require('firebase-functions');
 const firebaseAdmin = require('firebase-admin');
-const { createGQLServer } = require('../graphql/create-gql-server');
+const { createGQLServer } = require('../server/create-gql-server');
 const openMongoConnection = require('../mongoose/open-connection');
 const FirebaseReadOnlyModeDataSource = require('../data-sources/read-only-mode/firebase-read-only-mode-data-source');
 const FirebaseUserDecoder = require('../authentication/firebase-user-decoder');

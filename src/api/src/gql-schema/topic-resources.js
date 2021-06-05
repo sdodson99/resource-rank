@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql, ApolloError } = require('apollo-server');
 
 exports.typeDefs = gql`
   type Query {
@@ -43,15 +43,15 @@ exports.resolvers = {
       { topicId, resourceSearch = '' },
       { dataSources }
     ) => {
-      const { resources } = await dataSources.topics.getById(topicId);
+      const topic = await dataSources.topics.getById(topicId);
+
+      let resourceIds = [];
+      if (topic && topic.resources) {
+        resourceIds = topic.resources.map((r) => r.resource);
+      }
 
       return {
-        topicResources: resources.map((r) => ({
-          topicId: topicId,
-          resourceId: r.resource,
-          resourceSearch,
-          createdBy: r.createdBy,
-        })),
+        resourceIds,
         topicId,
         resourceSearch,
       };
@@ -85,6 +85,11 @@ exports.resolvers = {
       });
 
       const topic = await dataSources.topics.getById(topicId);
+
+      if (!topic) {
+        throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
+      }
+
       topic.resources.forEach((resource) => {
         const { resource: resourceId } = resource;
 
@@ -107,7 +112,7 @@ exports.resolvers = {
   TopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
       dataSources.topics.getById(topicId),
-    resource: ({ topicId, resourceId }, _, { dataSources }) =>
+    resource: ({ resourceId }, _, { dataSources }) =>
       dataSources.resources.getById(resourceId),
     ratingList: ({ topicId, resourceId }, _, { dataSources }) =>
       dataSources.ratings.getAllForTopicResource(topicId, resourceId),
@@ -116,11 +121,10 @@ exports.resolvers = {
   },
   TopicResourceList: {
     topicResources: async (
-      { topicResources, topicId, resourceSearch },
+      { resourceIds, topicId, resourceSearch },
       _,
       { dataSources }
     ) => {
-      const resourceIds = topicResources.map((tr) => tr.resourceId);
       const filteredResources = await dataSources.resources.getByIds(
         resourceIds,
         resourceSearch

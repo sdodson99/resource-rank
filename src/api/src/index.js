@@ -1,7 +1,7 @@
 require('dotenv').config();
 const firebaseAdmin = require('firebase-admin');
 const openMongoConnection = require('./mongoose/open-connection');
-const { createGQLServer } = require('./graphql/create-gql-server');
+const { createGQLServer } = require('./server/create-gql-server');
 const FirebaseUserDecoder = require('./authentication/firebase-user-decoder');
 const FirebaseUsersDataSource = require('./data-sources/firebase-users-data-source');
 const InMemoryReadOnlyModeDataSource = require('./data-sources/read-only-mode/in-memory-read-only-mode-data-source');
