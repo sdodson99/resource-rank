@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`404 page should render correctly 1`] = `
+<div>
+  <div>
+    <header
+      className="py-3"
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row align-items-center text-center text-sm-start"
+        >
+          <div
+            className="col-sm "
+          >
+            <a
+              href="/"
+            >
+              <img
+                alt="Resource Rank Logo"
+                src="test-file-stub"
+              />
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <a
+              href="/"
+            >
+              Home
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <a
+              href="/topics"
+            >
+              Topics
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <button
+              className="btn btn-primary"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div
+        className="mt-5 page-header text-center"
+      >
+        Uh-oh! Page not found.
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div
+      className="container p-5"
+    >
+      <div
+        className="row text-center text-sm-start"
+      >
+        <div
+          className="col-sm order-0 order-sm-1 ms-sm-3"
+        >
+          <h1>
+            Our Mission
+          </h1>
+          <p>
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are 
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books 
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p>
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="col-sm-auto order-1 order-sm-0 mt-3 mt-sm-0"
+        >
+          <img
+            alt="Logo"
+            src="test-file-stub"
+          />
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+`;

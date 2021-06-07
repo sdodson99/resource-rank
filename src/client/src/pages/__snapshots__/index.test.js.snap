@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home page should render correctly 1`] = `
+<div>
+  <div>
+    <header
+      className="py-3"
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row align-items-center text-center text-sm-start"
+        >
+          <div
+            className="col-sm "
+          >
+            <a
+              href="/"
+            >
+              <img
+                alt="Resource Rank Logo"
+                src="test-file-stub"
+              />
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <a
+              href="/"
+            >
+              Home
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <a
+              href="/topics"
+            >
+              Topics
+            </a>
+          </div>
+          <div
+            className="col-sm-auto mt-3 mt-sm-0"
+          >
+            <button
+              className="btn btn-primary"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div
+        className="undefined text-white text-center"
+      >
+        <div
+          className="container py-5 undefined"
+        >
+          <div
+            className="display-1"
+          >
+            What are you planning to learn?
+          </div>
+          <div
+            className="row mt-5 mx-auto"
+            style={
+              Object {
+                "maxWidth": "600px",
+              }
+            }
+          >
+            <div
+              className="col-sm"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                placeholder="Search topics..."
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-sm-auto"
+            >
+              <button
+                className="mt-2 mt-sm-0 w-100 btn btn-primary"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div>
+            <div
+              className="fs-4"
+            >
+              <strong>
+                Resource Rank
+              </strong>
+               helps you find the
+               
+              <strong>
+                best
+              </strong>
+               resources for your learning journey.
+            </div>
+            <div
+              className="mt-4"
+            >
+              <img
+                alt="Logo"
+                src="test-file-stub"
+              />
+            </div>
+          </div>
+        </div>
+        <div />
+      </div>
+      <div>
+        <div
+          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
+        >
+          <div>
+            <div
+              className="container"
+            >
+              <div
+                className="row justify-content-md-between align-items-center"
+              >
+                <div
+                  className="col-md-8 fs-2 text-center text-md-start"
+                >
+                  <div>
+                    <strong>
+                      Instantly find the best resources
+                    </strong>
+                     for learning about a specific topic.
+                  </div>
+                </div>
+                <div
+                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
+                >
+                  <img
+                    alt="Feature Logo"
+                    src="test-file-stub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
+        >
+          <div>
+            <div
+              className="container"
+            >
+              <div
+                className="row justify-content-md-between align-items-center"
+              >
+                <div
+                  className="col-md-8 fs-2 text-center text-md-start"
+                >
+                  <div>
+                    <strong>
+                      Explore topics
+                    </strong>
+                     to find your next learning journey.
+                  </div>
+                </div>
+                <div
+                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
+                >
+                  <img
+                    alt="Feature Logo"
+                    src="test-file-stub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
+        >
+          <div>
+            <div
+              className="container"
+            >
+              <div
+                className="row justify-content-md-between align-items-center"
+              >
+                <div
+                  className="col-md-8 fs-2 text-center text-md-start"
+                >
+                  <div>
+                    <strong>
+                      Rate resources
+                    </strong>
+                     based on helpfulness for learning a topic.
+                  </div>
+                </div>
+                <div
+                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
+                >
+                  <img
+                    alt="Feature Logo"
+                    src="test-file-stub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
+        >
+          <div>
+            <div
+              className="container"
+            >
+              <div
+                className="row justify-content-md-between align-items-center"
+              >
+                <div
+                  className="col-md-8 fs-2 text-center text-md-start"
+                >
+                  <div>
+                    <strong>
+                      Add your own new topics and resources
+                    </strong>
+                     that are useful.
+                  </div>
+                </div>
+                <div
+                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
+                >
+                  <img
+                    alt="Feature Logo"
+                    src="test-file-stub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="undefined text-white text-center"
+      >
+        <div
+          className="container py-5 undefined"
+        >
+          <div
+            className="display-3"
+          >
+            What are you waiting for?
+          </div>
+          <a
+            className="btn btn-primary mt-4"
+            href="/topics"
+          >
+            Explore Topics
+          </a>
+        </div>
+        <div />
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div
+      className="container p-5"
+    >
+      <div
+        className="row text-center text-sm-start"
+      >
+        <div
+          className="col-sm order-0 order-sm-1 ms-sm-3"
+        >
+          <h1>
+            Our Mission
+          </h1>
+          <p>
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are 
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books 
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p>
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="col-sm-auto order-1 order-sm-0 mt-3 mt-sm-0"
+        >
+          <img
+            alt="Logo"
+            src="test-file-stub"
+          />
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+`;
