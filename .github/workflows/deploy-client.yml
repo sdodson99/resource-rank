@@ -23,7 +23,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: 'Install packages'
-        run: 'npm i'
+        run: 'npm ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Build'
