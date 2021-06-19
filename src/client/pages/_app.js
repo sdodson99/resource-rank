@@ -5,6 +5,7 @@ import { FirebaseAppProvider } from '../hooks/use-firebase-app';
 import AuthenticationApolloProvider from '../components/authentication-apollo-provider';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
+import { GraphQLFetcherProvider } from '../hooks/graphql/use-graphql-fetcher';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',
@@ -18,7 +19,7 @@ const firebaseConfig = {
 };
 const useAuthenticationEmulator =
   process.env.USE_AUTHENTICATION_EMULATOR === 'true';
-const apolloUri = process.env.GQL_URI;
+const apolloUri = process.env.NEXT_PUBLIC_GQL_URI;
 
 function App({ Component, pageProps }) {
   return (
@@ -27,9 +28,11 @@ function App({ Component, pageProps }) {
     //   useAuthenticationEmulator={useAuthenticationEmulator}
     // >
     //   <AuthenticationProvider>
-    <AuthenticationApolloProvider apolloUri={apolloUri}>
+    // <AuthenticationApolloProvider apolloUri={apolloUri}>
+    <GraphQLFetcherProvider url={apolloUri}>
       <Component {...pageProps} />
-    </AuthenticationApolloProvider>
+    </GraphQLFetcherProvider>
+    // </AuthenticationApolloProvider>
     //   </AuthenticationProvider>
     // </FirebaseAppProvider>
   );

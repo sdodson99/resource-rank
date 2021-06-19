@@ -1,12 +1,8 @@
-import { useQuery } from '@apollo/client';
 import readOnlyModeEnabledQuery from '../gql-requests/read-only-mode-enabled-query';
+import useGraphQLRequest from './graphql/use-graphql-request';
 
 export default function useReadOnlyModeStatus() {
-  const { data, error, ...others } = useQuery(readOnlyModeEnabledQuery, {
-    fetchPolicy: 'cache-first',
-  });
+  const { data } = useGraphQLRequest(readOnlyModeEnabledQuery);
 
-  const readOnlyModeEnabled = data?.readOnlyModeEnabled;
-
-  return readOnlyModeEnabled;
+  return data?.readOnlyModeEnabled;
 }
