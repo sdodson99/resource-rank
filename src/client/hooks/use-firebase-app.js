@@ -1,15 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import constate from 'constate';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const FirebaseAppContext = createContext();
-
-function FirebaseAppProvider({
-  children,
-  firebaseConfig,
-  useAuthenticationEmulator,
-}) {
+function useFirebaseApp({ firebaseConfig, useAuthenticationEmulator }) {
   const [firebaseApp, setFirebaseApp] = useState(null);
 
   useEffect(() => {
@@ -23,19 +17,10 @@ function FirebaseAppProvider({
     setFirebaseApp(initializedFirebaseApp);
   }, []);
 
-  return (
-    <FirebaseAppContext.Provider value={firebaseApp}>
-      {children}
-    </FirebaseAppContext.Provider>
-  );
+  return firebaseApp;
 }
 
-FirebaseAppProvider.propTypes = {
-  children: PropTypes.node,
-  firebaseConfig: PropTypes.object,
-  useAuthenticationEmulator: PropTypes.bool,
-};
+const [FirebaseAppProvider, useFirebaseAppContext] = constate(useFirebaseApp);
 
 export { FirebaseAppProvider };
-
-export default () => useContext(FirebaseAppContext);
+export default useFirebaseAppContext;

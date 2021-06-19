@@ -2,7 +2,6 @@ import '../styles/globals.css';
 import PropTypes from 'prop-types';
 import { AuthenticationProvider } from '../hooks/authentication/use-authentication-state';
 import { FirebaseAppProvider } from '../hooks/use-firebase-app';
-import AuthenticationApolloProvider from '../components/authentication-apollo-provider';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
 import { GraphQLFetcherProvider } from '../hooks/graphql/use-graphql-fetcher';
@@ -23,18 +22,16 @@ const apolloUri = process.env.NEXT_PUBLIC_GQL_URI;
 
 function App({ Component, pageProps }) {
   return (
-    // <FirebaseAppProvider
-    //   firebaseConfig={firebaseConfig}
-    //   useAuthenticationEmulator={useAuthenticationEmulator}
-    // >
-    //   <AuthenticationProvider>
-    // <AuthenticationApolloProvider apolloUri={apolloUri}>
-    <GraphQLFetcherProvider url={apolloUri}>
-      <Component {...pageProps} />
-    </GraphQLFetcherProvider>
-    // </AuthenticationApolloProvider>
-    //   </AuthenticationProvider>
-    // </FirebaseAppProvider>
+    <FirebaseAppProvider
+      firebaseConfig={firebaseConfig}
+      useAuthenticationEmulator={useAuthenticationEmulator}
+    >
+      <AuthenticationProvider>
+        <GraphQLFetcherProvider url={apolloUri}>
+          <Component {...pageProps} />
+        </GraphQLFetcherProvider>
+      </AuthenticationProvider>
+    </FirebaseAppProvider>
   );
 }
 

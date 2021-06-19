@@ -61,6 +61,7 @@ function Layout({ children }) {
                     alt="Resource Rank Logo"
                     height="75"
                     width="75"
+                    priority={true}
                   />
                 </Link>
               </div>
