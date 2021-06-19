@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import * as heroStyle from './hero.module.css';
+import Image from 'next/image';
 
 function Hero() {
   const [searchTopicsQuery, setSearchTopicsQuery] = useState('');
@@ -42,7 +43,12 @@ function Hero() {
             <strong>best</strong> resources for your learning journey.
           </div>
           <div className="mt-4">
-            <img className={heroStyle.logo} src={logo} alt="Logo" />
+            <Image
+              src="/img/logo.svg"
+              alt="Resource Rank Logo"
+              height="75"
+              width="75"
+            />
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ import FeatureListing from '../components/landing/feature-listing';
 import CallToAction from '../components/landing/call-to-action';
 import Layout from '../components/layouts/layout';
 import Hero from '../components/landing/hero';
-import Link from 'next/link';
 
 export default function Index() {
   const features = [
@@ -50,10 +49,9 @@ export default function Index() {
 
   return (
     <Layout>
-      <Link href="/404">404 Page</Link>
-      {/* <Hero />
+      <Hero />
       <FeatureListing features={features} />
-      <CallToAction /> */}
+      <CallToAction />
     </Layout>
   );
 }
