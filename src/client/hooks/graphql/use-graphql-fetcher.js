@@ -1,20 +1,28 @@
 import { GraphQLClient } from 'graphql-request';
 import constate from 'constate';
+import firebase from 'firebase';
 
 function createGraphQLClient(url) {
   return new GraphQLClient(url);
 }
 
-async function getAccessToken() {
-  return 'token';
+function getCurrentUser() {
+  try {
+    return firebase.auth().currentUser;
+  } catch (error) {
+    return null;
+  }
 }
 
 function useGraphQLFetcher({ url }) {
   return async (document, variables) => {
     const graphQLClient = createGraphQLClient(url);
 
-    const accessToken = await getAccessToken();
-    graphQLClient.setHeader('authorization', `Bearer ${accessToken}`);
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+      const accessToken = await currentUser.getIdToken();
+      graphQLClient.setHeader('authorization', `Bearer ${accessToken}`);
+    }
 
     return graphQLClient.request(document, variables);
   };

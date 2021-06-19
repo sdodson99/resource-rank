@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react';
 import constate from 'constate';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
 function useFirebaseApp({ firebaseConfig, useAuthenticationEmulator }) {
-  const [firebaseApp, setFirebaseApp] = useState(null);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
 
-  useEffect(() => {
-    const initializedFirebaseApp = firebase.initializeApp(firebaseConfig);
-
-    const auth = initializedFirebaseApp.auth();
+    const auth = firebase.auth();
     if (useAuthenticationEmulator) {
       auth.useEmulator('http://localhost:9099');
     }
+  }
 
-    setFirebaseApp(initializedFirebaseApp);
-  }, []);
-
-  return firebaseApp;
+  return firebase;
 }
 
 const [FirebaseAppProvider, useFirebaseAppContext] = constate(useFirebaseApp);
