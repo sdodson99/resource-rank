@@ -1,55 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`404 page should render correctly 1`] = `
-<div>
-  <div>
+<div
+  className="Layout"
+  data-testid="Layout"
+>
+  <div
+    className="page"
+  >
     <header
-      className="py-3"
+      className="Header"
+      data-testid="Header"
     >
-      <div
-        className="container"
-      >
-        <div
-          className="row align-items-center text-center text-sm-start"
-        >
-          <div
-            className="col-sm "
-          >
+      <div>
+        <div>
+          <div>
             <a
               href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <img
-                alt="Resource Rank Logo"
-                src="test-file-stub"
-              />
+              <div
+                style={
+                  Object {
+                    "boxSizing": "border-box",
+                    "display": "inline-block",
+                    "margin": 0,
+                    "maxWidth": "100%",
+                    "overflow": "hidden",
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "maxWidth": "100%",
+                    }
+                  }
+                >
+                  <img
+                    alt=""
+                    aria-hidden={true}
+                    role="presentation"
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                    style={
+                      Object {
+                        "border": "none",
+                        "display": "block",
+                        "margin": 0,
+                        "maxWidth": "100%",
+                        "padding": 0,
+                      }
+                    }
+                  />
+                </div>
+                <img
+                  alt="Resource Rank Logo"
+                  decoding="async"
+                  src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
+                  srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
+                  style={
+                    Object {
+                      "border": "none",
+                      "bottom": 0,
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "height": 0,
+                      "left": 0,
+                      "margin": "auto",
+                      "maxHeight": "100%",
+                      "maxWidth": "100%",
+                      "minHeight": "100%",
+                      "minWidth": "100%",
+                      "objectFit": undefined,
+                      "objectPosition": undefined,
+                      "padding": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "width": 0,
+                    }
+                  }
+                />
+              </div>
             </a>
           </div>
-          <div
-            className="col-sm-auto mt-3 mt-sm-0"
-          >
+          <div>
             <a
               href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               Home
             </a>
           </div>
-          <div
-            className="col-sm-auto mt-3 mt-sm-0"
-          >
+          <div>
             <a
               href="/topics"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               Topics
             </a>
           </div>
-          <div
-            className="col-sm-auto mt-3 mt-sm-0"
-          >
+          <div>
             <button
-              className="btn btn-primary"
-              disabled={false}
               onClick={[Function]}
-              type="button"
             >
               Login
             </button>
@@ -65,16 +124,13 @@ exports[`404 page should render correctly 1`] = `
       </div>
     </div>
   </div>
-  <footer>
-    <div
-      className="container p-5"
-    >
-      <div
-        className="row text-center text-sm-start"
-      >
-        <div
-          className="col-sm order-0 order-sm-1 ms-sm-3"
-        >
+  <footer
+    className="Footer"
+    data-testid="Footer"
+  >
+    <div>
+      <div>
+        <div>
           <h1>
             Our Mission
           </h1>
@@ -114,13 +170,102 @@ exports[`404 page should render correctly 1`] = `
              resources for what you are learning.
           </p>
         </div>
-        <div
-          className="col-sm-auto order-1 order-sm-0 mt-3 mt-sm-0"
-        >
-          <img
-            alt="Logo"
-            src="test-file-stub"
-          />
+        <div>
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "display": "inline-block",
+                "margin": 0,
+                "maxWidth": "100%",
+                "overflow": "hidden",
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "maxWidth": "100%",
+                }
+              }
+            >
+              <img
+                alt=""
+                aria-hidden={true}
+                role="presentation"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                style={
+                  Object {
+                    "border": "none",
+                    "display": "block",
+                    "margin": 0,
+                    "maxWidth": "100%",
+                    "padding": 0,
+                  }
+                }
+              />
+            </div>
+            <noscript>
+              <img
+                alt="Resource Rank Logo"
+                decoding="async"
+                src="/img/logo.svg"
+                srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": undefined,
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+            </noscript>
+            <img
+              alt="Resource Rank Logo"
+              decoding="async"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": undefined,
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

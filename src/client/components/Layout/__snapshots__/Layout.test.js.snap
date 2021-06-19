@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`home page should render correctly 1`] = `
+exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
 <div
   className="Layout"
   data-testid="Layout"
@@ -116,64 +116,179 @@ exports[`home page should render correctly 1`] = `
         </div>
       </div>
     </header>
+    <div />
+  </div>
+  <footer
+    className="Footer"
+    data-testid="Footer"
+  >
     <div>
-      <div
-        className="undefined text-white text-center"
-      >
-        <div
-          className="container py-5 undefined"
-        >
+      <div>
+        <div>
+          <h1>
+            Our Mission
+          </h1>
+          <p>
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are 
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books 
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p>
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div>
           <div
-            className="display-1"
-          >
-            What are you planning to learn?
-          </div>
-          <div
-            className="row mt-5 mx-auto"
             style={
               Object {
-                "maxWidth": "600px",
+                "boxSizing": "border-box",
+                "display": "inline-block",
+                "margin": 0,
+                "maxWidth": "100%",
+                "overflow": "hidden",
+                "position": "relative",
               }
             }
           >
             <div
-              className="col-sm"
+              style={
+                Object {
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "maxWidth": "100%",
+                }
+              }
             >
-              <input
-                className="form-control"
-                onChange={[Function]}
-                placeholder="Search topics..."
-                type="text"
-                value=""
+              <img
+                alt=""
+                aria-hidden={true}
+                role="presentation"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                style={
+                  Object {
+                    "border": "none",
+                    "display": "block",
+                    "margin": 0,
+                    "maxWidth": "100%",
+                    "padding": 0,
+                  }
+                }
               />
             </div>
-            <div
-              className="col-sm-auto"
-            >
-              <button
-                className="mt-2 mt-sm-0 w-100"
-                onClick={[Function]}
-              >
-                Search
-              </button>
-            </div>
+            <noscript>
+              <img
+                alt="Resource Rank Logo"
+                decoding="async"
+                src="/img/logo.svg"
+                srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": undefined,
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+            </noscript>
+            <img
+              alt="Resource Rank Logo"
+              decoding="async"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": undefined,
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
           </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
+<div
+  className="Layout"
+  data-testid="Layout"
+>
+  <div
+    className="page"
+  >
+    <div>
+      Application is in read-only mode.
+    </div>
+    <header
+      className="Header"
+      data-testid="Header"
+    >
+      <div>
+        <div>
           <div>
-            <div
-              className="fs-4"
-            >
-              <strong>
-                Resource Rank
-              </strong>
-               helps you find the
-               
-              <strong>
-                best
-              </strong>
-               resources for your learning journey.
-            </div>
-            <div
-              className="mt-4"
+            <a
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               <div
                 style={
@@ -212,40 +327,11 @@ exports[`home page should render correctly 1`] = `
                     }
                   />
                 </div>
-                <noscript>
-                  <img
-                    alt="Resource Rank Logo"
-                    decoding="async"
-                    src="/img/logo.svg"
-                    srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
-                    style={
-                      Object {
-                        "border": "none",
-                        "bottom": 0,
-                        "boxSizing": "border-box",
-                        "display": "block",
-                        "height": 0,
-                        "left": 0,
-                        "margin": "auto",
-                        "maxHeight": "100%",
-                        "maxWidth": "100%",
-                        "minHeight": "100%",
-                        "minWidth": "100%",
-                        "objectFit": undefined,
-                        "objectPosition": undefined,
-                        "padding": 0,
-                        "position": "absolute",
-                        "right": 0,
-                        "top": 0,
-                        "width": 0,
-                      }
-                    }
-                  />
-                </noscript>
                 <img
                   alt="Resource Rank Logo"
                   decoding="async"
-                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                  src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
+                  srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
                   style={
                     Object {
                       "border": "none",
@@ -270,163 +356,37 @@ exports[`home page should render correctly 1`] = `
                   }
                 />
               </div>
-            </div>
+            </a>
           </div>
-        </div>
-        <div />
-      </div>
-      <div>
-        <div
-          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
-        >
           <div>
-            <div
-              className="container"
+            <a
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <div
-                className="row justify-content-md-between align-items-center"
-              >
-                <div
-                  className="col-md-8 fs-2 text-center text-md-start"
-                >
-                  <div>
-                    <strong>
-                      Instantly find the best resources
-                    </strong>
-                     for learning about a specific topic.
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
-                >
-                  <img
-                    alt="Feature Logo"
-                    src="/img/clock.svg"
-                  />
-                </div>
-              </div>
-            </div>
+              Home
+            </a>
           </div>
-        </div>
-        <div
-          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
-        >
           <div>
-            <div
-              className="container"
+            <a
+              href="/topics"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <div
-                className="row justify-content-md-between align-items-center"
-              >
-                <div
-                  className="col-md-8 fs-2 text-center text-md-start"
-                >
-                  <div>
-                    <strong>
-                      Explore topics
-                    </strong>
-                     to find your next learning journey.
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
-                >
-                  <img
-                    alt="Feature Logo"
-                    src="/img/mag-glass.svg"
-                  />
-                </div>
-              </div>
-            </div>
+              Topics
+            </a>
           </div>
-        </div>
-        <div
-          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
-        >
           <div>
-            <div
-              className="container"
+            <button
+              onClick={[Function]}
             >
-              <div
-                className="row justify-content-md-between align-items-center"
-              >
-                <div
-                  className="col-md-8 fs-2 text-center text-md-start"
-                >
-                  <div>
-                    <strong>
-                      Rate resources
-                    </strong>
-                     based on helpfulness for learning a topic.
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
-                >
-                  <img
-                    alt="Feature Logo"
-                    src="/img/star.svg"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="py-3 undefined d-flex flex-column justify-content-center align-items-center"
-        >
-          <div>
-            <div
-              className="container"
-            >
-              <div
-                className="row justify-content-md-between align-items-center"
-              >
-                <div
-                  className="col-md-8 fs-2 text-center text-md-start"
-                >
-                  <div>
-                    <strong>
-                      Add your own new topics and resources
-                    </strong>
-                     that are useful.
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 mt-3 mt-md-0 text-center text-md-end"
-                >
-                  <img
-                    alt="Feature Logo"
-                    src="/img/add.svg"
-                  />
-                </div>
-              </div>
-            </div>
+              Login
+            </button>
           </div>
         </div>
       </div>
-      <div
-        className="undefined text-white text-center"
-      >
-        <div
-          className="container py-5 undefined"
-        >
-          <div
-            className="display-3"
-          >
-            What are you waiting for?
-          </div>
-          <a
-            href="/topics"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-          >
-            Explore Topics
-          </a>
-        </div>
-        <div />
-      </div>
-    </div>
+    </header>
+    <div />
   </div>
   <footer
     className="Footer"

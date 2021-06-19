@@ -45,22 +45,28 @@ const Header = () => {
         <div>
           <div>
             <Link href="/">
-              <Image
-                src="/img/logo.svg"
-                alt="Resource Rank Logo"
-                height="75"
-                width="75"
-                priority={true}
-              />
+              <a>
+                <Image
+                  src="/img/logo.svg"
+                  alt="Resource Rank Logo"
+                  height="75"
+                  width="75"
+                  priority={true}
+                />
+              </a>
             </Link>
           </div>
 
           <div>
-            <Link href="/">Home</Link>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
           </div>
 
           <div>
-            <Link href="/topics">Topics</Link>
+            <Link href="/topics">
+              <a>Topics</a>
+            </Link>
           </div>
 
           <div>

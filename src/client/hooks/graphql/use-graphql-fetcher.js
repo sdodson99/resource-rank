@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import constate from 'constate';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 function createGraphQLClient(url) {
   return new GraphQLClient(url);
