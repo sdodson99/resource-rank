@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import useLiveSearch from '../../hooks/use-live-search';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
-import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
+import useAuthenticationState from '../../hooks/authentication/use-authentication-context';
 import { useQueryParam } from 'use-query-params';
 
 export default function Topics() {

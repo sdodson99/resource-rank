@@ -8,7 +8,7 @@ import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import getTopicResourceListQuery from '../../gql-requests/get-topic-resource-list-query';
 import useLiveSearch from '../../hooks/use-live-search';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
-import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
+import useAuthenticationState from '../../hooks/authentication/use-authentication-context';
 
 function TopicDetails({ topicId }) {
   const { isLoggedIn } = useAuthenticationState();

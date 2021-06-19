@@ -4,12 +4,12 @@ import Link from 'next/link';
 import LoadingButton from '../loading-button';
 import Image from 'next/image';
 import firebase from 'firebase/app';
-import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
+import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
 import useFirebaseApp from '../../hooks/use-firebase-app';
 
 const Header = () => {
   const firebaseApp = useFirebaseApp();
-  const { isLoggedIn } = useAuthenticationState();
+  const { isLoggedIn } = useAuthenticationContext();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 

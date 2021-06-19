@@ -9,7 +9,7 @@ import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import useTopicResourceUserRating from '../../../hooks/use-topic-resource-user-rating';
 import { Spinner } from 'react-bootstrap';
-import useAuthenticationState from '../../../hooks/authentication/use-authentication-state';
+import useAuthenticationState from '../../../hooks/authentication/use-authentication-context';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const { isLoggedIn } = useAuthenticationState();

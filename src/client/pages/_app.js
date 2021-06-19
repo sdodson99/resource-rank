@@ -1,6 +1,7 @@
 import '../styles/globals.css';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { AuthenticationProvider } from '../hooks/authentication/use-authentication-state';
+import { AuthenticationProvider } from '../hooks/authentication/use-authentication-context';
 import { FirebaseAppProvider } from '../hooks/use-firebase-app';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
