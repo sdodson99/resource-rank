@@ -1,13 +1,10 @@
-import { ApolloError, useMutation } from '@apollo/client';
 import getErrorCode from '../errors/apollo-error-code-provider';
 import TopicExistsError from '../errors/topic-exists-error';
 import createTopicMutation from '../gql-requests/create-topic-mutation';
 
 export default function useTopicCreator() {
-  const [
-    executeCreateTopicMutation,
-    { loading: isCreatingTopic },
-  ] = useMutation(createTopicMutation);
+  const [executeCreateTopicMutation, { loading: isCreatingTopic }] =
+    useMutation(createTopicMutation);
 
   const createTopic = async (name) => {
     try {

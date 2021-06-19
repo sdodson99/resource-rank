@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client';
 import createTopicResourceMutation from '../gql-requests/create-topic-resource-mutation';
 
 export default function useTopicResourceCreator() {

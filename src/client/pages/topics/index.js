@@ -4,7 +4,6 @@ import getTopicsQuery from '../../gql-requests/get-topics-query';
 import HeaderButton from '../../components/header-button/header-button';
 import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
-import { useApolloClient } from '@apollo/client';
 import useLiveSearch from '../../hooks/use-live-search';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
@@ -15,7 +14,6 @@ export default function Topics() {
 
   const { isLoggedIn } = useAuthenticationState();
 
-  const apolloClient = useApolloClient();
   const loadTopics = async (searchInput) => {
     const { data, error } = await apolloClient.query({
       query: getTopicsQuery,

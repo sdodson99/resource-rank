@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useTopicName from '../../../hooks/use-topic-name';
-import { useMutation, useQuery } from '@apollo/client';
 import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
 import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';

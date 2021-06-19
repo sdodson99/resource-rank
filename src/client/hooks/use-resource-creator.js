@@ -1,13 +1,10 @@
-import { ApolloError, useMutation } from '@apollo/client';
 import getErrorCode from '../errors/apollo-error-code-provider';
 import ResourceExistsError from '../errors/resource-exists-error';
 import createResourceMutation from '../gql-requests/create-resource-mutation';
 
 export default function useResourceCreator() {
-  const [
-    executeCreateResourceMutation,
-    { loading: isCreatingResource },
-  ] = useMutation(createResourceMutation);
+  const [executeCreateResourceMutation, { loading: isCreatingResource }] =
+    useMutation(createResourceMutation);
 
   const createResource = async (name, link) => {
     try {

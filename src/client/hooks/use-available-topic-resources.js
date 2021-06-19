@@ -1,9 +1,7 @@
-import { useApolloClient } from '@apollo/client';
 import getAvailableResourcesQuery from '../gql-requests/get-available-resources-query';
 import useLiveSearch from './use-live-search';
 
 export default function useAvailableTopicResources(topicId) {
-  const client = useApolloClient();
   const getAvailableTopicResources = async (searchInput) => {
     const { data, error } = await client.query({
       query: getAvailableResourcesQuery,

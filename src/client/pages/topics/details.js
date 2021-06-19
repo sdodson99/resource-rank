@@ -7,7 +7,6 @@ import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
 import getTopicResourceListQuery from '../../gql-requests/get-topic-resource-list-query';
 import useLiveSearch from '../../hooks/use-live-search';
-import { useApolloClient } from '@apollo/client';
 import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 
@@ -16,7 +15,6 @@ function TopicDetails({ topicId }) {
 
   const { topicName, loading: topicNameLoading } = useTopicName(topicId);
 
-  const apolloClient = useApolloClient();
   const searchTopicResources = async (searchInput) => {
     const { data, error } = await apolloClient.query({
       query: getTopicResourceListQuery,

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useApolloClient } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import useTopicName from '../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
@@ -19,7 +18,6 @@ function NewTopicResource({ topicId }) {
   const [submitError, setSubmitError] = useState();
   const router = useRouter();
 
-  const apolloClient = useApolloClient();
   const validateIsAvailableResourceName = async (nameInput) => {
     const { data } = await apolloClient.query({
       query: resourceExistsQuery,
