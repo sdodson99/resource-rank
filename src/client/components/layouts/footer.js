@@ -1,6 +1,5 @@
-import React from 'react';
 import * as footerStyle from './footer.module.css';
-import logo from '../../assets/logo.svg';
+import Image from 'next/image';
 
 function Footer() {
   return (
@@ -22,7 +21,12 @@ function Footer() {
             </p>
           </div>
           <div className="col-sm-auto order-1 order-sm-0 mt-3 mt-sm-0">
-            <img className={footerStyle.logo} src={logo} alt="Logo" />
+            <Image
+              src="/img/logo.svg"
+              alt="Resource Rank Logo"
+              height="75"
+              width="75"
+            />
           </div>
         </div>
       </div>

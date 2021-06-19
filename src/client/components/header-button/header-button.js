@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 
 function HeaderButton({ title, buttonContent, hideButton, linkTo, className }) {
   return (
@@ -11,7 +11,7 @@ function HeaderButton({ title, buttonContent, hideButton, linkTo, className }) {
         </div>
         {!hideButton && (
           <div className="col-auto">
-            <Link className="btn btn-primary font-sm" to={linkTo}>
+            <Link className="btn btn-primary font-sm" href={linkTo}>
               {buttonContent}
             </Link>
           </div>

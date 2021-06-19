@@ -21,7 +21,9 @@ const createApolloClient = (apolloUri) => {
     const currentUser = getCurrentUser();
 
     if (!currentUser) {
-      return headers;
+      return {
+        headers,
+      };
     }
 
     const token = await currentUser.getIdToken();
@@ -39,6 +41,7 @@ const createApolloClient = (apolloUri) => {
   return new ApolloClient({
     link: apolloLink,
     cache: new InMemoryCache(),
+    ssrMode: true,
     defaultOptions: {
       query: {
         fetchPolicy: 'no-cache',

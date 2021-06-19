@@ -2,20 +2,6 @@
   min-height: 100vh;
 }
 
-header {
-  background-color: var(--color-primary);
-}
-
-header a,
-header a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-img.logo {
-  height: 50px;
-}
-
 .link {
   color: rgb(207, 207, 207);
   font-size: var(--font-sm);

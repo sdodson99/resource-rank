@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TopicResourceListing from '../../components/topic-resource-listing/topic-resource-listing';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 import useTopicName from '../../hooks/use-topic-name';
 import { Spinner } from 'react-bootstrap';
 import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
@@ -98,7 +98,7 @@ function TopicDetails({ topicId }) {
             <div className="col-auto">
               <Link
                 className="btn btn-primary font-sm"
-                to={`/topics/${topicId}/resources/add`}
+                href={`/topics/${topicId}/resources/add`}
               >
                 Add
               </Link>

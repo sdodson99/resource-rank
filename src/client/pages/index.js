@@ -2,10 +2,6 @@ import React from 'react';
 import FeatureListing from '../components/landing/feature-listing';
 import CallToAction from '../components/landing/call-to-action';
 import Layout from '../components/layouts/layout';
-import clock from '../assets/clock.svg';
-import magnifyingGlass from '../assets/mag-glass.svg';
-import star from '../assets/star.svg';
-import add from '../assets/add.svg';
 import Hero from '../components/landing/hero';
 
 export default function Index() {
@@ -18,7 +14,7 @@ export default function Index() {
           a specific topic.
         </div>
       ),
-      imageSrc: clock,
+      imageSrc: '/img/clock.svg',
     },
     {
       title: 'Explore',
@@ -27,7 +23,7 @@ export default function Index() {
           <strong>Explore topics</strong> to find your next learning journey.
         </div>
       ),
-      imageSrc: magnifyingGlass,
+      imageSrc: '/img/mag-glass.svg',
     },
     {
       title: 'Rate',
@@ -37,7 +33,7 @@ export default function Index() {
           topic.
         </div>
       ),
-      imageSrc: star,
+      imageSrc: '/img/star.svg',
     },
     {
       title: 'Contribute',
@@ -47,15 +43,15 @@ export default function Index() {
           useful.
         </div>
       ),
-      imageSrc: add,
+      imageSrc: '/img/add.svg',
     },
   ];
 
   return (
     <Layout>
-      <Hero />
+      {/* <Hero />
       <FeatureListing features={features} />
-      <CallToAction />
+      <CallToAction /> */}
     </Layout>
   );
 }

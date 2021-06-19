@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RatingStars from '../rating-stars/rating-stars';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 import HoverListingItem from '../listing-item/hover-listing-item';
 
 function TopicResourceListingItem({ topicId, resourceId, name, link, rating }) {
   const topicResourceLink = `/topics/${topicId}/resources/${resourceId}`;
 
   return (
-    <Link to={topicResourceLink} className="text-decoration-none text-dark">
+    <Link href={topicResourceLink} className="text-decoration-none text-dark">
       <HoverListingItem>
         <div className="px-3 row align-items-center justify-content-between text-center text-sm-start">
           <div className="col-sm-auto">

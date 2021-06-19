@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, navigate } from 'gatsby';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
 import useAvailableTopicNameValidator from '../../hooks/use-available-topic-name-validator';
 import TopicExistsError from '../../errors/topic-exists-error';
@@ -11,6 +12,7 @@ import useLiveValidation from '../../hooks/use-live-validation';
 function CreateTopic() {
   const [name, setName] = useState('');
   const [createTopicError, setCreateTopicError] = useState();
+  const router = useRouter();
 
   const validateIsAvailableTopicName = useAvailableTopicNameValidator();
 
@@ -39,7 +41,7 @@ function CreateTopic() {
 
     try {
       await createTopic(name);
-      navigate('/topics');
+      router.push('/topics');
     } catch (error) {
       if (error instanceof TopicExistsError) {
         return setIsValidName(false);
@@ -93,7 +95,7 @@ function CreateTopic() {
             </button>
           </div>
           <div className="col-sm-auto mt-3 mt-sm-0">
-            <Link to="/topics" className="btn btn-outline-danger w-100">
+            <Link href="/topics" className="btn btn-outline-danger w-100">
               Cancel
             </Link>
           </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
-import { Link, navigate } from 'gatsby';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
 import resourceExistsQuery from '../../../gql-requests/resource-exists-query';
 import useTopicName from '../../../hooks/use-topic-name';
@@ -16,6 +17,7 @@ function NewTopicResource({ topicId }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
   const [submitError, setSubmitError] = useState();
+  const router = useRouter();
 
   const apolloClient = useApolloClient();
   const validateIsAvailableResourceName = async (nameInput) => {
@@ -48,10 +50,8 @@ function NewTopicResource({ topicId }) {
   };
 
   const { createResource, isCreatingResource } = useResourceCreator();
-  const {
-    createTopicResource,
-    isCreatingTopicResource,
-  } = useTopicResourceCreator();
+  const { createTopicResource, isCreatingTopicResource } =
+    useTopicResourceCreator();
 
   const isSubmitting = isCreatingResource || isCreatingTopicResource;
 
@@ -64,7 +64,7 @@ function NewTopicResource({ topicId }) {
       const { id: resourceId } = await createResource(name, link);
       await createTopicResource(topicId, resourceId);
 
-      navigate(`/topics/${topicId}`);
+      router.push(`/topics/${topicId}`);
     } catch (error) {
       if (error instanceof ResourceExistsError) {
         return setIsValidName(false);
@@ -141,7 +141,7 @@ function NewTopicResource({ topicId }) {
           </div>
           <div className="col-sm-auto mt-3 mt-sm-0">
             <Link
-              to={`/topics/${topicId}/resources/add`}
+              href={`/topics/${topicId}/resources/add`}
               className="btn btn-outline-danger w-100"
             >
               Cancel

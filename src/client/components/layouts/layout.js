@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
-import { Alert } from 'react-bootstrap';
+import Link from 'next/link';
 import * as layoutStyle from './layout.module.css';
-import logo from '../../assets/logo.svg';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 import firebase from 'firebase/app';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-state';
 import useFirebaseApp from '../../hooks/use-firebase-app';
 import LoadingButton from '../loading-button';
 import Footer from './footer';
+import Image from 'next/image';
 
 function Layout({ children }) {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
@@ -48,26 +47,27 @@ function Layout({ children }) {
     <div>
       <div className={layoutStyle.page}>
         {readOnlyModeEnabled && (
-          <Alert className="mb-0 text-center" variant="warning">
+          <div className="mb-0 text-center">
             Application is in read-only mode.
-          </Alert>
+          </div>
         )}
         <header className="py-3">
           <div className="container">
             <div className="row align-items-center text-center text-sm-start">
               <div className="col-sm ">
-                <Link to="/" className={layoutStyle.title}>
-                  <img
-                    className={layoutStyle.logo}
-                    src={logo}
+                <Link href="/" className={layoutStyle.title}>
+                  <Image
+                    src="/img/logo.svg"
                     alt="Resource Rank Logo"
+                    height="75"
+                    width="75"
                   />
                 </Link>
               </div>
 
               <div className="col-sm-auto mt-3 mt-sm-0">
                 <Link
-                  to="/"
+                  href="/"
                   className={layoutStyle.link}
                   activeClassName={layoutStyle.active}
                 >
@@ -77,7 +77,7 @@ function Layout({ children }) {
 
               <div className="col-sm-auto mt-3 mt-sm-0">
                 <Link
-                  to="/topics"
+                  href="/topics"
                   className={layoutStyle.link}
                   activeClassName={layoutStyle.active}
                 >

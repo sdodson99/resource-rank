@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Spinner } from 'react-bootstrap';
 
 function LoadingButton({ isLoading, onClick, children, variant }) {
   return (
-    <Button variant={variant} onClick={onClick}>
-      {isLoading && <Spinner size="sm" animation="border" role="status" />}
+    <button onClick={onClick}>
+      {isLoading && <div>Loading...</div>}
       {!isLoading && children}
-    </Button>
+    </button>
   );
 }
 

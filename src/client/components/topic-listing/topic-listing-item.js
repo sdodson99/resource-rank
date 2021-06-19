@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import HoverListingItem from '../listing-item/hover-listing-item';
 
@@ -8,7 +8,7 @@ function TopicListingItem({ id, name }) {
   const resourcesLink = `/topics/${id}`;
 
   return (
-    <Link to={resourcesLink} className="text-decoration-none text-dark">
+    <Link href={resourcesLink} className="text-decoration-none text-dark">
       <HoverListingItem>
         <div className="px-3 row align-items-center justify-content-between text-center text-sm-start">
           <div className="col-sm-auto">{name}</div>

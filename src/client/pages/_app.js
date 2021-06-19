@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import PropTypes from 'prop-types';
-import { AuthenticationProvider } from './hooks/authentication/use-authentication-state';
-import { FirebaseAppProvider } from './hooks/use-firebase-app';
+import { AuthenticationProvider } from '../hooks/authentication/use-authentication-state';
+import { FirebaseAppProvider } from '../hooks/use-firebase-app';
 import AuthenticationApolloProvider from '../components/authentication-apollo-provider';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
@@ -22,16 +22,16 @@ const apolloUri = process.env.GQL_URI;
 
 function App({ Component, pageProps }) {
   return (
-    <FirebaseAppProvider
-      firebaseConfig={firebaseConfig}
-      useAuthenticationEmulator={useAuthenticationEmulator}
-    >
-      <AuthenticationProvider>
-        <AuthenticationApolloProvider apolloUri={apolloUri}>
-          <Component {...pageProps} />
-        </AuthenticationApolloProvider>
-      </AuthenticationProvider>
-    </FirebaseAppProvider>
+    // <FirebaseAppProvider
+    //   firebaseConfig={firebaseConfig}
+    //   useAuthenticationEmulator={useAuthenticationEmulator}
+    // >
+    //   <AuthenticationProvider>
+    <AuthenticationApolloProvider apolloUri={apolloUri}>
+      <Component {...pageProps} />
+    </AuthenticationApolloProvider>
+    //   </AuthenticationProvider>
+    // </FirebaseAppProvider>
   );
 }
 

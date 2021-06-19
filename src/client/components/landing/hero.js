@@ -1,11 +1,10 @@
-import { navigate } from 'gatsby';
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import logo from '../../assets/logo.svg';
+import { useRouter } from 'next/router';
 import * as heroStyle from './hero.module.css';
 
 function Hero() {
   const [searchTopicsQuery, setSearchTopicsQuery] = useState('');
+  const router = useRouter();
 
   const onSearchTopicsQueryChange = (e) => {
     const value = e.target.value;
@@ -14,7 +13,7 @@ function Hero() {
   };
 
   const onSearchTopics = () => {
-    navigate(`/topics?q=${searchTopicsQuery}`);
+    router.push(`/topics?q=${searchTopicsQuery}`);
   };
 
   return (
@@ -32,13 +31,9 @@ function Hero() {
             />
           </div>
           <div className="col-sm-auto">
-            <Button
-              variant="primary"
-              className="mt-2 mt-sm-0 w-100"
-              onClick={onSearchTopics}
-            >
+            <button className="mt-2 mt-sm-0 w-100" onClick={onSearchTopics}>
               Search
-            </Button>
+            </button>
           </div>
         </div>
         <div className={heroStyle.description}>

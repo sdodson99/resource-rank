@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import readOnlyModeEnabledQuery from '../gql-requests/read-only-mode-enabled-query';
 
 export default function useReadOnlyModeStatus() {
-  const { data } = useQuery(readOnlyModeEnabledQuery, {
+  const { data, error, ...others } = useQuery(readOnlyModeEnabledQuery, {
     fetchPolicy: 'cache-first',
   });
 

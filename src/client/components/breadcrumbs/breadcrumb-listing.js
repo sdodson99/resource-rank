@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as breadcrumbListingStyle from './breadcrumb-listing.module.css';
-import { Link } from 'gatsby';
+import Link from 'next/link';
 
 function BreadcrumbListing({ breadcrumbs }) {
   const breadcrumbItems = breadcrumbs.map(({ to, title }) => (
     <li key={to} className="breadcrumb-item">
-      <Link to={to} activeClassName={breadcrumbListingStyle.activeBreadcrumb}>
-        {title}
-      </Link>
+      <Link href={to}>{title}</Link>
     </li>
   ));
 

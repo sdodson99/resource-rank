@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import HeaderButton from '../../../components/header-button/header-button';
 import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
-import { navigate } from 'gatsby';
+import { useRouter } from 'next/router';
 import useTopicName from '../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import useAvailableTopicResources from '../../../hooks/use-available-topic-resources';
@@ -12,6 +12,7 @@ import LoadingErrorEmptyDataLayout from '../../../components/layouts/loading-err
 
 function AddTopicResource({ topicId }) {
   const [topicResources, setTopicResources] = useState([]);
+  const router = useRouter();
 
   const {
     availableTopicResources,
@@ -22,19 +23,18 @@ function AddTopicResource({ topicId }) {
     search,
   } = useAvailableTopicResources(topicId);
 
-  useEffect(() => setTopicResources(availableTopicResources), [
-    availableTopicResources,
-  ]);
+  useEffect(
+    () => setTopicResources(availableTopicResources),
+    [availableTopicResources]
+  );
 
   const onSearchInput = (e) => {
     const searchInput = e.target.value;
     processSearchInput(searchInput);
   };
 
-  const {
-    createTopicResource,
-    isCreatingTopicResource,
-  } = useTopicResourceCreator();
+  const { createTopicResource, isCreatingTopicResource } =
+    useTopicResourceCreator();
 
   const setTopicResourceAddError = (resourceId, error) => {
     const nextResources = [...topicResources];
@@ -58,7 +58,7 @@ function AddTopicResource({ topicId }) {
     try {
       await createTopicResource(topicId, resourceId);
 
-      navigate(`/topics/${topicId}`);
+      router.push(`/topics/${topicId}`);
 
       clearTopicResourceAddError(resourceId);
     } catch (error) {

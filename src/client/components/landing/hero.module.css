@@ -1,5 +1,5 @@
 .container {
-  background: url(../../assets/hero.png);
+  background: url('/img/hero.png');
   position: relative;
   display: flex;
 }
