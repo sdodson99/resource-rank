@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from 'graphql-request';
 
 export default gql`
   mutation CreateRatingMutation($topicId: ID!, $resourceId: ID!, $value: Int!) {
