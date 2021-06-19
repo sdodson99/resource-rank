@@ -1,7 +1,7 @@
 import React from 'react';
 import FeatureListing from '../components/landing/feature-listing';
 import CallToAction from '../components/landing/call-to-action';
-import Layout from '../components/layouts/layout';
+import Layout from '../components/Layout/Layout';
 import Hero from '../components/landing/hero';
 
 export default function Index() {

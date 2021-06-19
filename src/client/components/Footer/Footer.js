@@ -1,12 +1,13 @@
-import * as footerStyle from './footer.module.css';
+import React from 'react';
+import styles from './Footer.module.css';
 import Image from 'next/image';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer>
-      <div className="container p-5">
-        <div className="row text-center text-sm-start">
-          <div className="col-sm order-0 order-sm-1 ms-sm-3">
+    <footer className={styles.Footer} data-testid="Footer">
+      <div>
+        <div>
+          <div>
             <h1>Our Mission</h1>
             <p>
               is to <strong>simplify</strong> your learning journey. Learning
@@ -20,7 +21,7 @@ function Footer() {
               <strong>best</strong> resources for what you are learning.
             </p>
           </div>
-          <div className="col-sm-auto order-1 order-sm-0 mt-3 mt-sm-0">
+          <div>
             <Image
               src="/img/logo.svg"
               alt="Resource Rank Logo"
@@ -32,6 +33,10 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+Footer.propTypes = {};
+
+Footer.defaultProps = {};
 
 export default Footer;

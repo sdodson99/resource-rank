@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../components/layouts/layout';
+import Layout from '../components/Layout/Layout';
 
 function _404_() {
   return (
