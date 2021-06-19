@@ -4,3 +4,4 @@ todo.txt
 *.log
 .runtimeconfig.json
 .firebase
+.vscode

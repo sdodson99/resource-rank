@@ -1,0 +1,37 @@
+{
+  "name": "res-rank-client",
+  "description": "",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "lint:eslint": "eslint \"./**/*.js\"",
+    "lint:prettier": "prettier \"./**/*.js\"",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "fix:eslint": "eslint --fix \"./**/*.js\"",
+    "fix:prettier": "prettier --write \"./**/*.js\"",
+    "fix": "npm run fix:eslint && npm run fix:prettier",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "autoprefixer": "^10.0.4",
+    "eslint": "^7.29.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.24.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.4",
+    "postcss": "^8.1.10",
+    "prettier": "^2.3.1",
+    "prop-types": "^15.7.2",
+    "tailwindcss": "^2.1.1"
+  }
+}
