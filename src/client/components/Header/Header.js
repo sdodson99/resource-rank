@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
 import Link from 'next/link';
-import LoadingButton from '../loading-button';
+import LoadingButton from '../LoadingButton/LoadingButton';
 import Image from 'next/image';
 import firebase from 'firebase/app';
 import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
@@ -71,20 +71,12 @@ const Header = () => {
 
           <div>
             {!isLoggedIn && (
-              <LoadingButton
-                isLoading={isLoggingIn}
-                variant="primary"
-                onClick={onLoginClick}
-              >
+              <LoadingButton isLoading={isLoggingIn} onClick={onLoginClick}>
                 Login
               </LoadingButton>
             )}
             {isLoggedIn && (
-              <LoadingButton
-                isLoading={isLoggingOut}
-                variant="primary"
-                onClick={onLogoutClick}
-              >
+              <LoadingButton isLoading={isLoggingOut} onClick={onLogoutClick}>
                 Logout
               </LoadingButton>
             )}

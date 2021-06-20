@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingButton /> with loading should render correctly 1`] = `
+<button
+  className="LoadingButton"
+  data-testid="LoadingButton"
+>
+  <div>
+    Loading...
+  </div>
+</button>
+`;
+
+exports[`<LoadingButton /> with not loading should render correctly 1`] = `
+<button
+  className="LoadingButton"
+  data-testid="LoadingButton"
+>
+  Content
+</button>
+`;
