@@ -1,7 +1,5 @@
 .Footer {
-}
+  background-color: var(--color-primary);
 
-.logo {
-  max-height: 75px;
-  max-width: 75px;
+  @apply py-10 text-white text-lg;
 }

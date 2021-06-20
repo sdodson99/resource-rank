@@ -5,13 +5,23 @@ exports[`<Footer /> should render correctly 1`] = `
   className="Footer"
   data-testid="Footer"
 >
-  <div>
-    <div>
-      <div>
-        <h1>
+  <div
+    className="content-container"
+  >
+    <div
+      className="sm:flex text-center sm:text-left"
+    >
+      <div
+        className="order-1 sm:order-2 sm:ml-10"
+      >
+        <h1
+          className="text-5xl"
+        >
           Our Mission
         </h1>
-        <p>
+        <p
+          className="py-3"
+        >
           is to 
           <strong>
             simplify
@@ -20,17 +30,21 @@ exports[`<Footer /> should render correctly 1`] = `
           <strong>
             difficult
           </strong>
-          , especially when starting. There are 
+          , especially when starting. There are
+           
           <strong>
             millions
           </strong>
-           of educational courses, videos, and books 
+           of educational courses, videos, and books
+           
           <strong>
             scattered
           </strong>
            across the Internet.
         </p>
-        <p>
+        <p
+          className="py-3"
+        >
           Resource Rank’s goal is to 
           <strong>
             consolidate
@@ -47,78 +61,26 @@ exports[`<Footer /> should render correctly 1`] = `
            resources for what you are learning.
         </p>
       </div>
-      <div>
+      <div
+        className="order-2 sm:order-1 mt-10 sm:mt-0"
+      >
         <div
           style={
             Object {
               "boxSizing": "border-box",
               "display": "inline-block",
-              "margin": 0,
-              "maxWidth": "100%",
+              "height": 75,
               "overflow": "hidden",
               "position": "relative",
+              "width": 75,
             }
           }
         >
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "display": "block",
-                "maxWidth": "100%",
-              }
-            }
-          >
-            <img
-              alt=""
-              aria-hidden={true}
-              role="presentation"
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
-              style={
-                Object {
-                  "border": "none",
-                  "display": "block",
-                  "margin": 0,
-                  "maxWidth": "100%",
-                  "padding": 0,
-                }
-              }
-            />
-          </div>
-          <noscript>
-            <img
-              alt="Resource Rank Logo"
-              decoding="async"
-              src="/img/logo.svg"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </noscript>
           <img
             alt="Resource Rank Logo"
             decoding="async"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
+            srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
             style={
               Object {
                 "border": "none",

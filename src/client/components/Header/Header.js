@@ -63,6 +63,7 @@ const Header = () => {
                   alt="Resource Rank Logo"
                   height="50"
                   width="50"
+                  layout="fixed"
                   priority={true}
                 />
               </a>
