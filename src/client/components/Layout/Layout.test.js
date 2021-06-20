@@ -4,17 +4,24 @@ import '@testing-library/jest-dom/extend-expect';
 import Layout from './Layout';
 import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
 import renderer from 'react-test-renderer';
+import { useRouter } from 'next/router';
 
 jest.mock('../../hooks/use-read-only-mode-status');
 jest.mock('../../hooks/use-firebase-app');
+jest.mock('next/router');
 
 describe('<Layout />', () => {
   beforeEach(() => {
     useReadOnlyModeStatus.mockReturnValue(true);
+
+    useRouter.mockReturnValue({
+      route: '/',
+    });
   });
 
   afterEach(() => {
     useReadOnlyModeStatus.mockReset();
+    useRouter.mockReset();
   });
 
   it('should mount', () => {
@@ -34,16 +41,6 @@ describe('<Layout />', () => {
       useReadOnlyModeStatus.mockReset();
     });
 
-    it('should display read only mode', () => {
-      render(<Layout />);
-
-      const readOnlyModeElement = screen.queryByText(
-        'Application is in read-only mode.'
-      );
-
-      expect(readOnlyModeElement).toBeTruthy();
-    });
-
     it('should render correctly', () => {
       const tree = renderer.create(<Layout />).toJSON();
 
@@ -58,16 +55,6 @@ describe('<Layout />', () => {
 
     afterEach(() => {
       useReadOnlyModeStatus.mockReset();
-    });
-
-    it('should not display read only mode', () => {
-      render(<Layout />);
-
-      const readOnlyModeElement = screen.queryByText(
-        'Application is in read-only mode.'
-      );
-
-      expect(readOnlyModeElement).toBeNull();
     });
 
     it('should render correctly', () => {

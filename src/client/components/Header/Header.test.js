@@ -3,12 +3,14 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import renderer from 'react-test-renderer';
 import Header from './Header';
+import { useRouter } from 'next/router';
 import useFirebaseApp from '../../hooks/use-firebase-app';
 import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
 import 'firebase/auth';
 
 jest.mock('../../hooks/authentication/use-authentication-context');
 jest.mock('../../hooks/use-firebase-app');
+jest.mock('next/router');
 
 describe('<Header />', () => {
   let mockFirebaseApp;
@@ -16,6 +18,10 @@ describe('<Header />', () => {
   let mockSignOut;
 
   beforeEach(() => {
+    useRouter.mockReturnValue({
+      route: '/',
+    });
+
     mockSignIn = jest.fn();
     mockSignOut = jest.fn();
     mockFirebaseApp = {
@@ -30,6 +36,7 @@ describe('<Header />', () => {
   });
 
   afterEach(() => {
+    useRouter.mockReset();
     useFirebaseApp.mockReset();
     useAuthenticationContext.mockReset();
   });

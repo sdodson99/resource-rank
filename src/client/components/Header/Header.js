@@ -6,8 +6,10 @@ import Image from 'next/image';
 import firebase from 'firebase/app';
 import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
 import useFirebaseApp from '../../hooks/use-firebase-app';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+  const router = useRouter();
   const firebaseApp = useFirebaseApp();
   const { isLoggedIn } = useAuthenticationContext();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -39,37 +41,47 @@ const Header = () => {
     }
   };
 
+  const getLinkClassName = (href) => {
+    let className = `${styles.NavItem} ${styles.NavLink}`;
+
+    if (href === router.route) {
+      className += ` ${styles.Active}`;
+    }
+
+    return className;
+  };
+
   return (
     <header className={styles.Header} data-testid="Header">
-      <div>
-        <div>
-          <div>
+      <div className="content-container">
+        <div className="sm:flex items-center text-center sm:text-left">
+          <div className="flex-grow">
             <Link href="/">
               <a>
                 <Image
                   src="/img/logo.svg"
                   alt="Resource Rank Logo"
-                  height="75"
-                  width="75"
+                  height="50"
+                  width="50"
                   priority={true}
                 />
               </a>
             </Link>
           </div>
 
-          <div>
+          <div className={getLinkClassName('/')}>
             <Link href="/">
               <a>Home</a>
             </Link>
           </div>
 
-          <div>
+          <div className={getLinkClassName('/topics')}>
             <Link href="/topics">
               <a>Topics</a>
             </Link>
           </div>
 
-          <div>
+          <div className={styles.NavItem}>
             {!isLoggedIn && (
               <LoadingButton isLoading={isLoggingIn} onClick={onLoginClick}>
                 Login

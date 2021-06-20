@@ -1,1 +1,17 @@
-.Header {}
+.Header {
+  background-color: var(--color-primary);
+
+  @apply py-5 text-white;
+}
+
+.NavItem {
+  @apply sm:pl-8 pt-3 sm:pt-0;
+}
+
+.NavLink {
+  @apply text-xl opacity-80 hover:opacity-100 transition duration-200;
+}
+
+.NavLink.Active {
+  @apply opacity-100;
+}

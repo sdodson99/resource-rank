@@ -7,3 +7,9 @@
 body {
   font-family: 'Magra';
 }
+
+.content-container {
+  max-width: 850px;
+
+  @apply mx-auto px-8;
+}

@@ -5,9 +5,15 @@ exports[`<Header /> with logged in should render correctly 1`] = `
   className="Header"
   data-testid="Header"
 >
-  <div>
-    <div>
-      <div>
+  <div
+    className="content-container"
+  >
+    <div
+      className="sm:flex items-center text-center sm:text-left"
+    >
+      <div
+        className="flex-grow"
+      >
         <a
           href="/"
           onClick={[Function]}
@@ -38,7 +44,7 @@ exports[`<Header /> with logged in should render correctly 1`] = `
                 alt=""
                 aria-hidden={true}
                 role="presentation"
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
                 style={
                   Object {
                     "border": "none",
@@ -53,8 +59,8 @@ exports[`<Header /> with logged in should render correctly 1`] = `
             <img
               alt="Resource Rank Logo"
               decoding="async"
-              src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
+              src="/_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75"
+              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=64&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75 2x"
               style={
                 Object {
                   "border": "none",
@@ -81,7 +87,9 @@ exports[`<Header /> with logged in should render correctly 1`] = `
           </div>
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem NavLink Active"
+      >
         <a
           href="/"
           onClick={[Function]}
@@ -90,7 +98,9 @@ exports[`<Header /> with logged in should render correctly 1`] = `
           Home
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem NavLink"
+      >
         <a
           href="/topics"
           onClick={[Function]}
@@ -99,7 +109,9 @@ exports[`<Header /> with logged in should render correctly 1`] = `
           Topics
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem"
+      >
         <button
           className="LoadingButton"
           data-testid="LoadingButton"
@@ -118,9 +130,15 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
   className="Header"
   data-testid="Header"
 >
-  <div>
-    <div>
-      <div>
+  <div
+    className="content-container"
+  >
+    <div
+      className="sm:flex items-center text-center sm:text-left"
+    >
+      <div
+        className="flex-grow"
+      >
         <a
           href="/"
           onClick={[Function]}
@@ -151,7 +169,7 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
                 alt=""
                 aria-hidden={true}
                 role="presentation"
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iNzUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
                 style={
                   Object {
                     "border": "none",
@@ -166,8 +184,8 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
             <img
               alt="Resource Rank Logo"
               decoding="async"
-              src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
+              src="/_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75"
+              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=64&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75 2x"
               style={
                 Object {
                   "border": "none",
@@ -194,7 +212,9 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
           </div>
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem NavLink Active"
+      >
         <a
           href="/"
           onClick={[Function]}
@@ -203,7 +223,9 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
           Home
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem NavLink"
+      >
         <a
           href="/topics"
           onClick={[Function]}
@@ -212,7 +234,9 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
           Topics
         </a>
       </div>
-      <div>
+      <div
+        className="NavItem"
+      >
         <button
           className="LoadingButton"
           data-testid="LoadingButton"
