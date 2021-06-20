@@ -1,14 +1,11 @@
 import 'regenerator-runtime';
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { createRenderer } from 'react-test-renderer/shallow';
 import __404__ from './404';
-
-jest.mock('../hooks/use-read-only-mode-status');
-jest.mock('../hooks/use-firebase-app');
 
 describe('404 page', () => {
   it('should render correctly', () => {
-    const page = renderer.create(<__404__ />).toJSON();
+    const page = createRenderer().render(<__404__ />);
 
     expect(page).toMatchSnapshot();
   });
