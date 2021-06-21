@@ -2,8 +2,13 @@
 
 exports[`404 page should render correctly 1`] = `
 <Layout>
+  <Head>
+    <title>
+      Page Not Found - Resource Rank
+    </title>
+  </Head>
   <div
-    className="mt-5 page-header text-center"
+    className="text-xl mt-10 text-center"
   >
     Uh-oh! Page not found.
   </div>

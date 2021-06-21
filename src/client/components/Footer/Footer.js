@@ -7,7 +7,7 @@ const Footer = () => (
     <div className="content-container">
       <div className="sm:flex text-center sm:text-left">
         <div className="order-1 sm:order-2 sm:ml-10">
-          <h1 className="text-5xl">Our Mission</h1>
+          <h1 className="text-4xl">Our Mission</h1>
           <p className="py-3">
             is to <strong>simplify</strong> your learning journey. Learning can
             be <strong>difficult</strong>, especially when starting. There are{' '}

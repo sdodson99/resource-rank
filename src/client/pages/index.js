@@ -1,8 +1,9 @@
 import React from 'react';
-import FeatureListing from '../components/landing/feature-listing';
-import CallToAction from '../components/landing/call-to-action';
+import FeatureListing from '../components/FeatureListing/FeatureListing';
+import CallToAction from '../components/CallToAction/CallToAction';
 import Layout from '../components/Layout/Layout';
-import Hero from '../components/landing/hero';
+import Hero from '../components/Hero/Hero';
+import Head from 'next/head';
 
 export default function Index() {
   const features = [
@@ -49,6 +50,9 @@ export default function Index() {
 
   return (
     <Layout>
+      <Head>
+        <title>Home - Resource Rank</title>
+      </Head>
       <Hero />
       <FeatureListing features={features} />
       <CallToAction />

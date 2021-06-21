@@ -1,9 +1,2 @@
 .LoadingButton {
-  background-color: var(--color-secondary);
-
-  @apply px-4 py-2 rounded transition duration-200;
-}
-
-.LoadingButton:hover {
-  background-color: var(--color-secondary-dark);
 }

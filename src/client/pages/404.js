@@ -1,10 +1,14 @@
 import React from 'react';
 import Layout from '../components/Layout/Layout';
+import Head from 'next/head';
 
 function _404_() {
   return (
     <Layout>
-      <div className="mt-5 page-header text-center">Uh-oh! Page not found.</div>
+      <Head>
+        <title>Page Not Found - Resource Rank</title>
+      </Head>
+      <div className="text-xl mt-10 text-center">Uh-oh! Page not found.</div>
     </Layout>
   );
 }

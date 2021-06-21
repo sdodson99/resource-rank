@@ -88,7 +88,7 @@ exports[`<Header /> with logged in should render correctly 1`] = `
         className="NavItem"
       >
         <button
-          className="LoadingButton"
+          className="btn btn-primary"
           data-testid="LoadingButton"
           onClick={[Function]}
         >
@@ -188,7 +188,7 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
         className="NavItem"
       >
         <button
-          className="LoadingButton"
+          className="btn btn-primary"
           data-testid="LoadingButton"
           onClick={[Function]}
         >

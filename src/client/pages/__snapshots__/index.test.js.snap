@@ -2,6 +2,11 @@
 
 exports[`home page should render correctly 1`] = `
 <Layout>
+  <Head>
+    <title>
+      Home - Resource Rank
+    </title>
+  </Head>
   <Hero />
   <FeatureListing
     features={

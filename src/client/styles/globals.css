@@ -13,3 +13,19 @@ body {
 
   @apply mx-auto px-8;
 }
+
+.btn {
+  @apply px-4 py-2 rounded transition duration-200;
+}
+
+.btn-primary {
+  background-color: var(--color-secondary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+input[type='text'] {
+  @apply px-3 py-2 rounded border border-gray-50 text-gray-900;
+}

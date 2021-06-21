@@ -10,8 +10,10 @@ const Layout = ({ children }) => {
 
   return (
     <div className={styles.Layout} data-testid="Layout">
-      <div className={styles.page}>
-        {readOnlyModeEnabled && <div>Application is in read-only mode.</div>}
+      <div className={styles.Page}>
+        {readOnlyModeEnabled && (
+          <div className={styles.Alert}>Application is in read-only mode.</div>
+        )}
         <Header />
         <div>{children}</div>
       </div>

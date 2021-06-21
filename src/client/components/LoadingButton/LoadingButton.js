@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './LoadingButton.module.css';
 
 const LoadingButton = ({ isLoading, onClick, children }) => (
   <button
-    className={styles.LoadingButton}
+    className="btn btn-primary"
     data-testid="LoadingButton"
     onClick={onClick}
   >

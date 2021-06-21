@@ -2,7 +2,7 @@
 
 exports[`<LoadingButton /> with loading should render correctly 1`] = `
 <button
-  className="LoadingButton"
+  className="btn btn-primary"
   data-testid="LoadingButton"
 >
   <div>
@@ -13,7 +13,7 @@ exports[`<LoadingButton /> with loading should render correctly 1`] = `
 
 exports[`<LoadingButton /> with not loading should render correctly 1`] = `
 <button
-  className="LoadingButton"
+  className="btn btn-primary"
   data-testid="LoadingButton"
 >
   Content

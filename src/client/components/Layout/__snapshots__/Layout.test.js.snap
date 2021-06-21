@@ -6,7 +6,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
   data-testid="Layout"
 >
   <div
-    className="page"
+    className="Page"
   >
     <header
       className="Header"
@@ -95,7 +95,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
             className="NavItem"
           >
             <button
-              className="LoadingButton"
+              className="btn btn-primary"
               data-testid="LoadingButton"
               onClick={[Function]}
             >
@@ -121,7 +121,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
           className="order-1 sm:order-2 sm:ml-10"
         >
           <h1
-            className="text-5xl"
+            className="text-4xl"
           >
             Our Mission
           </h1>
@@ -224,9 +224,11 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
   data-testid="Layout"
 >
   <div
-    className="page"
+    className="Page"
   >
-    <div>
+    <div
+      className="Alert"
+    >
       Application is in read-only mode.
     </div>
     <header
@@ -316,7 +318,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
             className="NavItem"
           >
             <button
-              className="LoadingButton"
+              className="btn btn-primary"
               data-testid="LoadingButton"
               onClick={[Function]}
             >
@@ -342,7 +344,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
           className="order-1 sm:order-2 sm:ml-10"
         >
           <h1
-            className="text-5xl"
+            className="text-4xl"
           >
             Our Mission
           </h1>

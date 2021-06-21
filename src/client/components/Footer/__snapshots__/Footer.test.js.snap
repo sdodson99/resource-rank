@@ -15,7 +15,7 @@ exports[`<Footer /> should render correctly 1`] = `
         className="order-1 sm:order-2 sm:ml-10"
       >
         <h1
-          className="text-5xl"
+          className="text-4xl"
         >
           Our Mission
         </h1>
