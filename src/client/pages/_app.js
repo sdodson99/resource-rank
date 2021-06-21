@@ -18,7 +18,7 @@ const firebaseConfig = {
   measurementId: 'G-D18DVJ4168',
 };
 const useAuthenticationEmulator =
-  process.env.USE_AUTHENTICATION_EMULATOR === 'true';
+  process.env.NEXT_PUBLIC_USE_AUTHENTICATION_EMULATOR === 'true';
 const graphqlUri = process.env.NEXT_PUBLIC_GQL_URI;
 
 function App({ Component, pageProps }) {
