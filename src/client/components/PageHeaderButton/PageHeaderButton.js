@@ -9,7 +9,7 @@ const PageHeaderButton = ({ title, buttonContent, hideButton, linkTo }) => (
       <div className="text-4xl">{title}</div>
 
       {hideButton && (
-        <div>
+        <div className="ml-3">
           <Link href={linkTo}>
             <a className="btn btn-primary">{buttonContent}</a>
           </Link>

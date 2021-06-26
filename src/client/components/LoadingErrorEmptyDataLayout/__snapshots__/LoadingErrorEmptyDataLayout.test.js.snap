@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingErrorEmptyDataLayout /> should render correctly when loading 1`] = `
+<div
+  className="LoadingErrorEmptyDataLayout"
+  data-testid="LoadingErrorEmptyDataLayout"
+>
+  <div>
+    Loading...
+  </div>
+</div>
+`;
+
+exports[`<LoadingErrorEmptyDataLayout /> should render correctly when not loading and has error 1`] = `
+<div
+  className="LoadingErrorEmptyDataLayout"
+  data-testid="LoadingErrorEmptyDataLayout"
+>
+  <div>
+    <div>
+      Error
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<LoadingErrorEmptyDataLayout /> should render correctly when not loading, has no error, and has data 1`] = `
+<div
+  className="LoadingErrorEmptyDataLayout"
+  data-testid="LoadingErrorEmptyDataLayout"
+>
+  <div>
+    <div>
+      <div>
+        Data
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<LoadingErrorEmptyDataLayout /> should render correctly when not loading, has no error, and has no data 1`] = `
+<div
+  className="LoadingErrorEmptyDataLayout"
+  data-testid="LoadingErrorEmptyDataLayout"
+>
+  <div>
+    <div>
+      <div>
+        No data
+      </div>
+    </div>
+  </div>
+</div>
+`;
