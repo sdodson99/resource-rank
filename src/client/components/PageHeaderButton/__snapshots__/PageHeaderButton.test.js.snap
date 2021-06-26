@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageHeaderButton /> should render correctly 1`] = `
+<div
+  className="PageHeaderButton"
+  data-testid="PageHeaderButton"
+>
+  <div
+    className="flex items-center justify-between"
+  >
+    <div
+      className="text-4xl"
+    />
+  </div>
+</div>
+`;
+
+exports[`<PageHeaderButton /> with button hidden should render correctly 1`] = `
+<div
+  className="PageHeaderButton"
+  data-testid="PageHeaderButton"
+>
+  <div
+    className="flex items-center justify-between"
+  >
+    <div
+      className="text-4xl"
+    />
+    <div>
+      <a
+        className="btn btn-primary"
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

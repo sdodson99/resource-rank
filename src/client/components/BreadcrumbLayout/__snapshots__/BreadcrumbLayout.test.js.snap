@@ -46,7 +46,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
         </ol>
       </nav>
       <div
-        className="mt-4"
+        className="mt-8"
       />
     </div>
   </Layout>
@@ -71,7 +71,7 @@ exports[`<BreadcrumbLayout /> without breadcrumbs should render correctly 1`] = 
         />
       </nav>
       <div
-        className="mt-4"
+        className="mt-8"
       />
     </div>
   </Layout>

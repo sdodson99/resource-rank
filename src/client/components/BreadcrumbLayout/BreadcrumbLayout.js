@@ -25,7 +25,7 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
           <nav className={styles.BreadcrumbContent} aria-label="breadcrumb">
             <ol className="flex">{breadcrumbItems}</ol>
           </nav>
-          <div className="mt-4">{children}</div>
+          <div className="mt-8">{children}</div>
         </div>
       </Layout>
     </div>
