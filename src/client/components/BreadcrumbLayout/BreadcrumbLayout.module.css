@@ -1,0 +1,10 @@
+.BreadcrumbLayout {
+}
+
+.LayoutContent {
+  @apply py-8;
+}
+
+.BreadcrumbContent {
+  @apply bg-gray-50 text-gray-700 rounded p-5 text-xl;
+}

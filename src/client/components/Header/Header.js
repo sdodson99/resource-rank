@@ -44,7 +44,7 @@ const Header = () => {
   const getLinkClassName = (href) => {
     let className = `${styles.NavItem} ${styles.NavLink}`;
 
-    if (href === router.route) {
+    if (href === router?.route) {
       className += ` ${styles.Active}`;
     }
 
