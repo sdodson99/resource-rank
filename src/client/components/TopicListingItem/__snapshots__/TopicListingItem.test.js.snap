@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicListingItem /> should render correctly 1`] = `
+<div
+  className="TopicListingItem"
+  data-testid="TopicListingItem"
+>
+  <Link
+    href="/topics/123"
+  >
+    <a>
+      <ListingItem>
+        <div>
+          <div>
+            Topic1
+          </div>
+          <div>
+            Click Me
+          </div>
+        </div>
+      </ListingItem>
+    </a>
+  </Link>
+</div>
+`;

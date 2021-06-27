@@ -1,8 +1,8 @@
-.listing-item {
+.HoverListingItem {
   background-color: transparent;
 }
 
-.listing-item:hover {
+.HoverListingItem:hover {
   background-color: rgb(243, 243, 243);
   transition: background-color 100ms linear;
 }

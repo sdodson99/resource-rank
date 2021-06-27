@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
+<div
+  className="TopicListing"
+  data-testid="TopicListing"
+>
+  <div>
+    <div
+      className="TopicListingItem"
+      data-testid="TopicListingItem"
+    >
+      TopicListingItem Component
+    </div>
+  </div>
+  <div>
+    <div
+      className="TopicListingItem"
+      data-testid="TopicListingItem"
+    >
+      TopicListingItem Component
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<TopicListing /> without topics should render correctly 1`] = `
+<div
+  className="TopicListing"
+  data-testid="TopicListing"
+/>
+`;

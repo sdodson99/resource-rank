@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import TopicListing from '../../components/topic-listing/topic-listing';
 import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
 import LoadingErrorEmptyDataLayout from '../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-context';
@@ -8,6 +7,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import useTopicSearchQuery from '../../hooks/use-topic-search-query';
 import debounce from 'lodash.debounce';
+import TopicListing from '../../components/TopicListing/TopicListing';
 
 export default function Topics() {
   const router = useRouter();
@@ -101,7 +101,7 @@ export default function Topics() {
                   `No topics matching '${currentSearch}' have been created.`}
               </div>
             }
-            dataDisplay={topics.length}
+            dataDisplay={<TopicListing topics={topics} />}
           />
         </div>
       </div>
