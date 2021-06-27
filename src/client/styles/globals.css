@@ -27,5 +27,5 @@ body {
 }
 
 input[type='text'] {
-  @apply px-3 py-2 rounded border border-gray-50 text-gray-900;
+  @apply px-3 py-2 rounded border border-gray-200 text-gray-900;
 }

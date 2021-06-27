@@ -1,55 +1,59 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TopicListing from '../../components/topic-listing/topic-listing';
-import getTopicsQuery from '../../gql-requests/get-topics-query';
-import HeaderButton from '../../components/header-button/header-button';
-import { Spinner } from 'react-bootstrap';
-import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
-import useLiveSearch from '../../hooks/use-live-search';
-import LoadingErrorEmptyDataLayout from '../../components/layouts/loading-error-empty-data-layout';
+import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
+import LoadingErrorEmptyDataLayout from '../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-context';
-import { useQueryParam } from 'use-query-params';
+import PageHeaderButton from '../../components/PageHeaderButton/PageHeaderButton';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import useTopicSearchQuery from '../../hooks/use-topic-search-query';
+import debounce from 'lodash.debounce';
 
 export default function Topics() {
-  const [searchQuery] = useQueryParam('q');
-
+  const router = useRouter();
+  const { q: searchQuery } = router.query;
   const { isLoggedIn } = useAuthenticationState();
+  const executeTopicSearchQuery = useTopicSearchQuery();
+
+  const [topics, setTopics] = useState([]);
+  const [search, setSearch] = useState(searchQuery || '');
+  const [currentSearch, setCurrentSearch] = useState('');
+  const [isLoadingTopics, setIsLoadingTopics] = useState(true);
+  const [loadTopicsError, setLoadTopicsError] = useState();
 
   const loadTopics = async (searchInput) => {
-    const { data, error } = await apolloClient.query({
-      query: getTopicsQuery,
-      variables: {
-        search: searchInput,
-      },
-    });
+    setIsLoadingTopics(true);
+    setTopics([]);
+    setLoadTopicsError(null);
 
-    if (error) {
-      throw error;
+    setCurrentSearch(searchInput);
+
+    try {
+      const { topics } = await executeTopicSearchQuery(searchInput);
+      setTopics(topics);
+    } catch (error) {
+      setLoadTopicsError(error);
+    } finally {
+      setIsLoadingTopics(false);
     }
-
-    const topics = data?.topics;
-    if (!topics) {
-      throw new Error('Failed to load topics.');
-    }
-
-    return topics;
   };
 
-  const {
-    data: topics,
-    processSearch,
-    currentSearch,
-    dataLoadError: topicsLoadError,
-    dataLoading: topicsLoading,
-    search,
-  } = useLiveSearch(loadTopics, { initialSearch: searchQuery });
+  useEffect(() => {
+    loadTopics(search);
+  }, []);
 
+  const debounceLoadTopics = useCallback(
+    debounce((searchInput) => loadTopics(searchInput), 1000),
+    []
+  );
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    processSearch(searchInput);
+    setSearch(searchInput);
+
+    debounceLoadTopics(searchInput);
   };
 
   const hasTopics = topics?.length > 0;
-
   const breadcrumbs = [
     {
       to: '/topics',
@@ -59,47 +63,45 @@ export default function Topics() {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <title>Topics - Resource Rank</title>
+      <Head>
+        <title>Topics - Resource Rank</title>
+      </Head>
 
-      <HeaderButton
+      <PageHeaderButton
         title="Topics"
         linkTo="/topics/new"
         buttonContent="New"
         hideButton={!isLoggedIn}
       />
 
-      <div className="mt-4">
+      <div className="mt-8 flex flex-col">
         <input
-          className="form-control"
+          className="flex-grow"
           placeholder="Search topics..."
           value={search}
           onChange={onSearchChange}
           type="text"
         />
 
-        <div className="mt-4">
+        <div className="mt-8">
           <LoadingErrorEmptyDataLayout
-            isLoading={topicsLoading}
-            hasError={!!topicsLoadError}
-            hasData={hasTopics}
-            loadingDisplay={
-              <div className="text-center">
-                <Spinner animation="border" role="status" />
-              </div>
-            }
+            isLoading={isLoadingTopics}
+            loadingDisplay={<div className="text-center">Loading</div>}
+            hasError={!!loadTopicsError}
             errorDisplay={
-              <div className="text-center text-sm-start">
+              <div className="text-center sm:text-left">
                 Failed to load topics.
               </div>
             }
+            hasData={hasTopics}
             noDataDisplay={
-              <div className="text-center text-sm-start">
+              <div className="text-center sm:text-left">
                 {!currentSearch && 'No topics have been created.'}
                 {currentSearch &&
                   `No topics matching '${currentSearch}' have been created.`}
               </div>
             }
-            dataDisplay={<TopicListing topics={topics} />}
+            dataDisplay={topics.length}
           />
         </div>
       </div>

@@ -1,8 +1,8 @@
 import readOnlyModeEnabledQuery from '../gql-requests/read-only-mode-enabled-query';
-import useGraphQLRequest from './graphql/use-graphql-request';
+import useGraphQLQuery from './graphql/use-graphql-query';
 
 export default function useReadOnlyModeStatus() {
-  const { data } = useGraphQLRequest(readOnlyModeEnabledQuery);
+  const { data } = useGraphQLQuery(readOnlyModeEnabledQuery);
 
   return data?.readOnlyModeEnabled;
 }
