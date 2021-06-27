@@ -1,8 +1,7 @@
 .HoverListingItem {
-  background-color: transparent;
+  @apply bg-transparent;
 }
 
 .HoverListingItem:hover {
-  background-color: rgb(243, 243, 243);
-  transition: background-color 100ms linear;
+  @apply bg-gray-100 transition duration-200;
 }

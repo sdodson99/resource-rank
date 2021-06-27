@@ -23,6 +23,10 @@ describe('<TopicListing />', () => {
         id: '456',
         name: 'Topic2',
       },
+      {
+        id: '789',
+        name: 'Topic3',
+      },
     ];
 
     it('should render correctly', () => {

@@ -9,12 +9,18 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
     href="/topics/123"
   >
     <a>
-      <ListingItem>
-        <div>
+      <ListingItem
+        hover={true}
+      >
+        <div
+          className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+        >
           <div>
             Topic1
           </div>
-          <div>
+          <div
+            className="mt-5 sm:mt-0"
+          >
             Click Me
           </div>
         </div>

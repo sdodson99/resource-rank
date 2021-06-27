@@ -14,7 +14,7 @@ exports[`<CallToAction /> should render correctly 1`] = `
       What are you waiting for?
     </div>
     <div
-      className="mt-10"
+      className="mt-10 flex justify-center"
     >
       <a
         className="btn btn-primary"

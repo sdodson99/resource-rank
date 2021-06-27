@@ -11,10 +11,10 @@ const TopicListingItem = ({ id, name }) => {
     <div className={styles.TopicListingItem} data-testid="TopicListingItem">
       <Link href={resourcesLink}>
         <a>
-          <ListingItem>
-            <div>
+          <ListingItem hover={true}>
+            <div className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3">
               <div>{name}</div>
-              <div>Click Me</div>
+              <div className="mt-5 sm:mt-0">Click Me</div>
             </div>
           </ListingItem>
         </a>

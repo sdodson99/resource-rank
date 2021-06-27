@@ -13,7 +13,7 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
+    "test": "jest --watch",
     "generate": "npx generate-react-cli component"
   },
   "dependencies": {

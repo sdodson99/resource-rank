@@ -6,7 +6,7 @@ const CallToAction = () => (
   <div className={styles.CallToAction} data-testid="CallToAction">
     <div className={`content-container ${styles.Content}`}>
       <div className="text-6xl">What are you waiting for?</div>
-      <div className="mt-10">
+      <div className="mt-10 flex justify-center">
         <Link href="/topics">
           <a className="btn btn-primary">Explore Topics</a>
         </Link>

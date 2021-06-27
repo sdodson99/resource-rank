@@ -6,7 +6,7 @@ exports[`<PageHeaderButton /> should render correctly 1`] = `
   data-testid="PageHeaderButton"
 >
   <div
-    className="flex items-center justify-between"
+    className="flex items-center justify-between text-center sm:text-left"
   >
     <div
       className="text-4xl"
@@ -21,13 +21,13 @@ exports[`<PageHeaderButton /> with button hidden should render correctly 1`] = `
   data-testid="PageHeaderButton"
 >
   <div
-    className="flex items-center justify-between"
+    className="flex items-center justify-between text-center sm:text-left"
   >
     <div
       className="text-4xl"
     />
     <div
-      className="ml-3"
+      className="ml-3 flex"
     >
       <a
         className="btn btn-primary"

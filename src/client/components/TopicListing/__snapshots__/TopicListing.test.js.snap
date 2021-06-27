@@ -5,20 +5,100 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
   className="TopicListing"
   data-testid="TopicListing"
 >
-  <div>
+  <div
+    className="border-b"
+  >
     <div
       className="TopicListingItem"
       data-testid="TopicListingItem"
     >
-      TopicListingItem Component
+      <a
+        href="/topics/123"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        <div
+          className="ListingItem HoverListingItem"
+          data-testid="ListingItem"
+        >
+          <div
+            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+          >
+            <div>
+              Topic1
+            </div>
+            <div
+              className="mt-5 sm:mt-0"
+            >
+              Click Me
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
-  <div>
+  <div
+    className="border-b"
+  >
     <div
       className="TopicListingItem"
       data-testid="TopicListingItem"
     >
-      TopicListingItem Component
+      <a
+        href="/topics/456"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        <div
+          className="ListingItem HoverListingItem"
+          data-testid="ListingItem"
+        >
+          <div
+            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+          >
+            <div>
+              Topic2
+            </div>
+            <div
+              className="mt-5 sm:mt-0"
+            >
+              Click Me
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    className=""
+  >
+    <div
+      className="TopicListingItem"
+      data-testid="TopicListingItem"
+    >
+      <a
+        href="/topics/789"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        <div
+          className="ListingItem HoverListingItem"
+          data-testid="ListingItem"
+        >
+          <div
+            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+          >
+            <div>
+              Topic3
+            </div>
+            <div
+              className="mt-5 sm:mt-0"
+            >
+              Click Me
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </div>
