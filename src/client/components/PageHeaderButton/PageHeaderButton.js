@@ -8,7 +8,7 @@ const PageHeaderButton = ({ title, buttonContent, hideButton, linkTo }) => (
     <div className="flex items-center justify-between text-center sm:text-left">
       <div className="text-4xl">{title}</div>
 
-      {hideButton && (
+      {!hideButton && (
         <div className="ml-3 flex">
           <Link href={linkTo}>
             <a className="btn btn-primary">{buttonContent}</a>

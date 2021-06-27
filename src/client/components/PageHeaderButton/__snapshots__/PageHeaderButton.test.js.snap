@@ -11,6 +11,16 @@ exports[`<PageHeaderButton /> should render correctly 1`] = `
     <div
       className="text-4xl"
     />
+    <div
+      className="ml-3 flex"
+    >
+      <a
+        className="btn btn-primary"
+        href="/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      />
+    </div>
   </div>
 </div>
 `;
@@ -26,16 +36,6 @@ exports[`<PageHeaderButton /> with button hidden should render correctly 1`] = `
     <div
       className="text-4xl"
     />
-    <div
-      className="ml-3 flex"
-    >
-      <a
-        className="btn btn-primary"
-        href="/"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      />
-    </div>
   </div>
 </div>
 `;

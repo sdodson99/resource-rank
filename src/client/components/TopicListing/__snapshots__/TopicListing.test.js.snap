@@ -30,7 +30,16 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             <div
               className="mt-5 sm:mt-0"
             >
-              Click Me
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -62,7 +71,16 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             <div
               className="mt-5 sm:mt-0"
             >
-              Click Me
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -94,7 +112,16 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             <div
               className="mt-5 sm:mt-0"
             >
-              Click Me
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                />
+              </svg>
             </div>
           </div>
         </div>

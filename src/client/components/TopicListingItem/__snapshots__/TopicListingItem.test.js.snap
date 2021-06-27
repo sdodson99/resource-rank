@@ -21,7 +21,7 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
           <div
             className="mt-5 sm:mt-0"
           >
-            Click Me
+            <Memo />
           </div>
         </div>
       </ListingItem>

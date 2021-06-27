@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './TopicListingItem.module.css';
 import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const TopicListingItem = ({ id, name }) => {
   const resourcesLink = `/topics/${id}`;
@@ -14,7 +15,9 @@ const TopicListingItem = ({ id, name }) => {
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3">
               <div>{name}</div>
-              <div className="mt-5 sm:mt-0">Click Me</div>
+              <div className="mt-5 sm:mt-0">
+                <ArrowForwardIcon />
+              </div>
             </div>
           </ListingItem>
         </a>
