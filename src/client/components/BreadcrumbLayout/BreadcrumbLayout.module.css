@@ -6,5 +6,13 @@
 }
 
 .BreadcrumbContent {
-  @apply bg-gray-50 text-gray-700 rounded p-5 text-xl;
+  @apply bg-gray-50 rounded p-5 text-xl;
+}
+
+.BreadcrumbItem {
+  @apply text-blue-700 underline;
+}
+
+.BreadcrumbItem.ActiveBreadcrumbItem {
+  @apply text-gray-700 no-underline;
 }

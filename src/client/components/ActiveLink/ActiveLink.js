@@ -6,18 +6,19 @@ import { useRouter } from 'next/router';
 const ActiveLink = ({ href, className, activeClassName, children }) => {
   const router = useRouter();
 
-  const calculateClassName = () => {
-    let calculatedClassName = className;
-
-    if (href === router?.route) {
-      calculatedClassName += ` ${activeClassName}`;
-    }
-
-    return calculatedClassName;
-  };
+  if (href === router?.asPath) {
+    return (
+      <div
+        className={`${className} ${activeClassName}`}
+        data-testid="ActiveLink"
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
-    <div className={calculateClassName()} data-testid="ActiveLink">
+    <div className={className} data-testid="ActiveLink">
       <Link href={href}>
         <a>{children}</a>
       </Link>

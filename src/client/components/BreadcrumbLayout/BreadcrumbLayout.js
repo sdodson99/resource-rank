@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './BreadcrumbLayout.module.css';
 import Layout from '../Layout/Layout';
-import Link from 'next/link';
+import ActiveLink from '../ActiveLink/ActiveLink';
 
 const BreadcrumbLayout = ({ children, breadcrumbs }) => {
   const breadcrumbItems = breadcrumbs.map(({ to, title }, index) => {
@@ -10,9 +10,14 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
 
     return (
       <li key={to} className="flex">
-        <Link href={to}>
-          <a>{title}</a>
-        </Link>
+        <ActiveLink
+          href={to}
+          className={styles.BreadcrumbItem}
+          activeClassName={styles.ActiveBreadcrumbItem}
+        >
+          {title}
+        </ActiveLink>
+
         {!isLastBreadcrumb && <div className="px-3">/</div>}
       </li>
     );

@@ -20,29 +20,49 @@ describe('<ActiveLink />', () => {
     expect(activeLink).toBeInTheDocument();
   });
 
-  it('should render correctly', () => {
-    const page = createRenderer().render(
-      <ActiveLink href="/">Link</ActiveLink>
-    );
+  describe('with active', () => {
+    const path = '/home';
 
-    expect(page).toMatchSnapshot();
+    beforeEach(() => {
+      useRouter.mockReturnValue({ asPath: path });
+    });
+
+    it('should render correctly', () => {
+      const page = createRenderer().render(
+        <ActiveLink href={path}>Link</ActiveLink>
+      );
+
+      expect(page).toMatchSnapshot();
+    });
+
+    it('should have active class name', () => {
+      render(<ActiveLink href={path}>Link</ActiveLink>);
+
+      const activeLink = screen.getByTestId('ActiveLink');
+
+      expect(activeLink.classList).toContain('active');
+    });
   });
 
-  it('should have active class name when active', () => {
-    useRouter.mockReturnValue({ route: '/home' });
-    render(<ActiveLink href="/home">Link</ActiveLink>);
+  describe('with not active', () => {
+    beforeEach(() => {
+      useRouter.mockReturnValue({ asPath: '/home' });
+    });
 
-    const activeLink = screen.getByTestId('ActiveLink');
+    it('should render correctly', () => {
+      const page = createRenderer().render(
+        <ActiveLink href="/">Link</ActiveLink>
+      );
 
-    expect(activeLink.classList).toContain('active');
-  });
+      expect(page).toMatchSnapshot();
+    });
 
-  it('should not have active class name when not active', () => {
-    useRouter.mockReturnValue({ route: '/home' });
-    render(<ActiveLink href="/about">Link</ActiveLink>);
+    it('should have active class name', () => {
+      render(<ActiveLink href="/">Link</ActiveLink>);
 
-    const activeLink = screen.getByTestId('ActiveLink');
+      const activeLink = screen.getByTestId('ActiveLink');
 
-    expect(activeLink.classList).not.toContain('active');
+      expect(activeLink.classList).not.toContain('active');
+    });
   });
 });

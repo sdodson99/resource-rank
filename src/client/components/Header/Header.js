@@ -64,7 +64,7 @@ const Header = () => {
             className={`${styles.NavItem} ${styles.NavLink}`}
             activeClassName={styles.ActiveNavLink}
           >
-            <a>Home</a>
+            Home
           </ActiveLink>
 
           <ActiveLink
@@ -72,7 +72,7 @@ const Header = () => {
             className={`${styles.NavItem} ${styles.NavLink}`}
             activeClassName={styles.ActiveNavLink}
           >
-            <a>Topics</a>
+            Topics
           </ActiveLink>
 
           <div className={styles.NavItem}>

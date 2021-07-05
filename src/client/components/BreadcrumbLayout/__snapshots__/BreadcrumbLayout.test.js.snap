@@ -19,13 +19,13 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
           <li
             className="flex"
           >
-            <Link
+            <ActiveLink
+              activeClassName="ActiveBreadcrumbItem"
+              className="BreadcrumbItem"
               href="/"
             >
-              <a>
-                Home
-              </a>
-            </Link>
+              Home
+            </ActiveLink>
             <div
               className="px-3"
             >
@@ -35,13 +35,13 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
           <li
             className="flex"
           >
-            <Link
+            <ActiveLink
+              activeClassName="ActiveBreadcrumbItem"
+              className="BreadcrumbItem"
               href="/topics"
             >
-              <a>
-                topics
-              </a>
-            </Link>
+              topics
+            </ActiveLink>
           </li>
         </ol>
       </nav>

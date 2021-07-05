@@ -70,7 +70,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
             </a>
           </div>
           <div
-            className="NavItem NavLink ActiveNavLink"
+            className="NavItem NavLink"
             data-testid="ActiveLink"
           >
             <a
@@ -78,9 +78,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <a>
-                Home
-              </a>
+              Home
             </a>
           </div>
           <div
@@ -92,9 +90,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <a>
-                Topics
-              </a>
+              Topics
             </a>
           </div>
           <div
@@ -299,7 +295,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
             </a>
           </div>
           <div
-            className="NavItem NavLink ActiveNavLink"
+            className="NavItem NavLink"
             data-testid="ActiveLink"
           >
             <a
@@ -307,9 +303,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <a>
-                Home
-              </a>
+              Home
             </a>
           </div>
           <div
@@ -321,9 +315,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <a>
-                Topics
-              </a>
+              Topics
             </a>
           </div>
           <div
