@@ -1,31 +1,14 @@
-import { GraphQLClient } from 'graphql-request';
 import constate from 'constate';
-import firebase from 'firebase/app';
+import { createGraphQLFetcher } from '../../services/graphql-fetchers/graphql-fetcher-factory';
 
-function createGraphQLClient(url) {
-  return new GraphQLClient(url);
+async function executeGraphQLFetch(document, variables) {
+  const graphqlFetcher = createGraphQLFetcher();
+
+  return await graphqlFetcher.fetch(document, variables);
 }
 
-function getCurrentUser() {
-  try {
-    return firebase.auth().currentUser;
-  } catch (error) {
-    return null;
-  }
-}
-
-function useGraphQLFetcher({ url }) {
-  return async (document, variables) => {
-    const graphQLClient = createGraphQLClient(url);
-
-    const currentUser = getCurrentUser();
-    if (currentUser) {
-      const accessToken = await currentUser.getIdToken();
-      graphQLClient.setHeader('authorization', `Bearer ${accessToken}`);
-    }
-
-    return graphQLClient.request(document, variables);
-  };
+export function useGraphQLFetcher() {
+  return executeGraphQLFetch;
 }
 
 const [GraphQLFetcherProvider, useGraphQLFetcherContext] =

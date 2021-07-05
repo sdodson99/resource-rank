@@ -19,7 +19,6 @@ const firebaseConfig = {
 };
 const useAuthenticationEmulator =
   process.env.NEXT_PUBLIC_USE_AUTHENTICATION_EMULATOR === 'true';
-const graphqlUri = process.env.NEXT_PUBLIC_GQL_URI;
 
 function App({ Component, pageProps }) {
   return (
@@ -28,7 +27,7 @@ function App({ Component, pageProps }) {
       useAuthenticationEmulator={useAuthenticationEmulator}
     >
       <AuthenticationProvider>
-        <GraphQLFetcherProvider url={graphqlUri}>
+        <GraphQLFetcherProvider>
           <Component {...pageProps} />
         </GraphQLFetcherProvider>
       </AuthenticationProvider>
