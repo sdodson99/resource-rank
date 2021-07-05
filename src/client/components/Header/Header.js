@@ -6,10 +6,9 @@ import Image from 'next/image';
 import firebase from 'firebase/app';
 import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
 import useFirebaseApp from '../../hooks/use-firebase-app';
-import { useRouter } from 'next/router';
+import ActiveLink from '../ActiveLink/ActiveLink';
 
 const Header = () => {
-  const router = useRouter();
   const firebaseApp = useFirebaseApp();
   const { isLoggedIn } = useAuthenticationContext();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -41,16 +40,6 @@ const Header = () => {
     }
   };
 
-  const getLinkClassName = (href) => {
-    let className = `${styles.NavItem} ${styles.NavLink}`;
-
-    if (href === router?.route) {
-      className += ` ${styles.Active}`;
-    }
-
-    return className;
-  };
-
   return (
     <header className={styles.Header} data-testid="Header">
       <div className="content-container">
@@ -70,17 +59,21 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className={getLinkClassName('/')}>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </div>
+          <ActiveLink
+            href="/"
+            className={`${styles.NavItem} ${styles.NavLink}`}
+            activeClassName={styles.ActiveNavLink}
+          >
+            <a>Home</a>
+          </ActiveLink>
 
-          <div className={getLinkClassName('/topics')}>
-            <Link href="/topics">
-              <a>Topics</a>
-            </Link>
-          </div>
+          <ActiveLink
+            href="/topics"
+            className={`${styles.NavItem} ${styles.NavLink}`}
+            activeClassName={styles.ActiveNavLink}
+          >
+            <a>Topics</a>
+          </ActiveLink>
 
           <div className={styles.NavItem}>
             {!isLoggedIn && (
