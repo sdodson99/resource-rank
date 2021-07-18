@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './TopicResourceListingItem.module.css';
 import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
-import RatingStars from '../rating-stars/rating-stars';
+import RatingStars from '../RatingStars/rating-stars';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const TopicResourceListingItem = ({
