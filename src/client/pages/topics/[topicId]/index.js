@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLFetcher } from '../../services/graphql-fetchers/graphql-fetcher-factory';
-import getTopicNameByIdQuery from '../../gql-requests/get-topic-name-by-id-query';
+import BreadcrumbLayout from '../../../components/BreadcrumbLayout/BreadcrumbLayout';
+import { createGraphQLFetcher } from '../../../services/graphql-fetchers/graphql-fetcher-factory';
+import getTopicNameByIdQuery from '../../../gql-requests/get-topic-name-by-id-query';
 import Head from 'next/head';
 import Link from 'next/link';
-import LoadingErrorEmptyDataLayout from '../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
-import useTopicResourceSearchQuery from '../../hooks/use-topic-resource-search-query';
-import useDebounce from '../../hooks/use-debounce';
-import TopicResourceListing from '../../components/TopicResourceListing/TopicResourceListing';
+import LoadingErrorEmptyDataLayout from '../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import useAuthenticationContext from '../../../hooks/authentication/use-authentication-context';
+import useTopicResourceSearchQuery from '../../../hooks/use-topic-resource-search-query';
+import useDebounce from '../../../hooks/use-debounce';
+import TopicResourceListing from '../../../components/TopicResourceListing/TopicResourceListing';
 
-const TopicDetails = ({ id, name }) => {
+const TopicDetails = ({ topicId, name }) => {
   const { isLoggedIn } = useAuthenticationContext();
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState('');
@@ -20,7 +20,7 @@ const TopicDetails = ({ id, name }) => {
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
     execute: executeTopicResourceSearchQuery,
-  } = useTopicResourceSearchQuery(id);
+  } = useTopicResourceSearchQuery(topicId);
 
   const executeTopicResourceSearch = (search) => {
     setCurrentSearch(search);
@@ -56,7 +56,7 @@ const TopicDetails = ({ id, name }) => {
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
 
-  const topicLink = `/topics/${id}`;
+  const topicLink = `/topics/${topicId}`;
   const breadcrumbs = [
     {
       to: '/topics',
@@ -81,7 +81,7 @@ const TopicDetails = ({ id, name }) => {
 
         {isLoggedIn && (
           <div className="flex ml-4">
-            <Link href={`/topics/${id}/resources/add`}>
+            <Link href={`/topics/${topicId}/resources/add`}>
               <a className="btn btn-primary">Add</a>
             </Link>
           </div>
@@ -115,7 +115,7 @@ const TopicDetails = ({ id, name }) => {
             }
             dataDisplay={
               <TopicResourceListing
-                topicId={id}
+                topicId={topicId}
                 topicResources={orderedResources}
               />
             }
@@ -127,14 +127,16 @@ const TopicDetails = ({ id, name }) => {
 };
 
 TopicDetails.propTypes = {
-  id: PropTypes.string,
+  topicId: PropTypes.string,
   name: PropTypes.string,
 };
 
-export async function getServerSideProps({ req, params: { id } }) {
+export async function getServerSideProps({ req, params: { topicId } }) {
   const graphqlFetcher = createGraphQLFetcher();
 
-  const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, { id });
+  const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {
+    id: topicId,
+  });
   const name = topicResult?.topic?.name;
 
   if (!name) {
@@ -145,7 +147,7 @@ export async function getServerSideProps({ req, params: { id } }) {
 
   return {
     props: {
-      id,
+      topicId,
       name,
     },
   };

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import useTopicName from '../../../hooks/use-topic-name';
-import getTopicResourceByIdQuery from '../../../gql-requests/get-topic-resource-by-id-query';
+import useTopicName from '../../../../hooks/use-topic-name';
+import getTopicResourceByIdQuery from '../../../../gql-requests/get-topic-resource-by-id-query';
 import RatingStars from '../../../components/rating-stars/rating-stars';
 import SelectableRatingStars from '../../../components/rating-stars/selectable-rating-stars';
-import createRatingMutation from '../../../gql-requests/create-rating-mutation';
-import updateRatingMutation from '../../../gql-requests/update-rating-mutation';
+import createRatingMutation from '../../../../gql-requests/create-rating-mutation';
+import updateRatingMutation from '../../../../gql-requests/update-rating-mutation';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
-import useTopicResourceUserRating from '../../../hooks/use-topic-resource-user-rating';
+import useTopicResourceUserRating from '../../../../hooks/use-topic-resource-user-rating';
 import { Spinner } from 'react-bootstrap';
-import useAuthenticationState from '../../../hooks/authentication/use-authentication-context';
+import useAuthenticationState from '../../../../hooks/authentication/use-authentication-context';
 
 function TopicResourceDetails({ topicId, resourceId }) {
   const { isLoggedIn } = useAuthenticationState();

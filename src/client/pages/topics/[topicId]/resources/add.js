@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import HeaderButton from '../../../components/header-button/header-button';
-import AddResourceListing from '../../../components/add-resource-listing/add-resource-listing';
+import AddResourceListing from '../../../../components/add-resource-listing/add-resource-listing';
 import { useRouter } from 'next/router';
-import useTopicName from '../../../hooks/use-topic-name';
+import useTopicName from '../../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
-import useAvailableTopicResources from '../../../hooks/use-available-topic-resources';
+import useAvailableTopicResources from '../../../../hooks/use-available-topic-resources';
 import { Spinner } from 'react-bootstrap';
-import useTopicResourceCreator from '../../../hooks/use-topic-resource-creator';
+import useTopicResourceCreator from '../../../../hooks/use-topic-resource-creator';
 import LoadingErrorEmptyDataLayout from '../../../components/layouts/loading-error-empty-data-layout';
 
 function AddTopicResource({ topicId }) {
