@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
 import LoadingErrorEmptyDataLayout from '../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationState from '../../hooks/authentication/use-authentication-context';
@@ -6,51 +6,38 @@ import PageHeaderButton from '../../components/PageHeaderButton/PageHeaderButton
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import useTopicSearchQuery from '../../hooks/use-topic-search-query';
-import debounce from 'lodash.debounce';
 import TopicListing from '../../components/TopicListing/TopicListing';
+import useDebounce from '../../hooks/use-debounce';
 
 export default function Topics() {
   const router = useRouter();
   const { q: searchQuery } = router.query;
   const { isLoggedIn } = useAuthenticationState();
-  const executeTopicSearchQuery = useTopicSearchQuery();
-
-  const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState(searchQuery || '');
   const [currentSearch, setCurrentSearch] = useState('');
-  const [isLoadingTopics, setIsLoadingTopics] = useState(true);
-  const [loadTopicsError, setLoadTopicsError] = useState();
+  const {
+    data: topics,
+    error: topicsError,
+    isLoading: isLoadingTopics,
+    execute: executeTopicSearchQuery,
+  } = useTopicSearchQuery();
 
-  const loadTopics = async (searchInput) => {
-    setIsLoadingTopics(true);
-    setTopics([]);
-    setLoadTopicsError(null);
-
-    setCurrentSearch(searchInput);
-
-    try {
-      const { topics } = await executeTopicSearchQuery(searchInput);
-      setTopics(topics);
-    } catch (error) {
-      setLoadTopicsError(error);
-    } finally {
-      setIsLoadingTopics(false);
-    }
+  const executeTopicSearch = async (search) => {
+    setCurrentSearch(search);
+    executeTopicSearchQuery(search);
   };
 
   useEffect(() => {
-    loadTopics(search);
+    executeTopicSearch(search);
   }, []);
 
-  const debounceLoadTopics = useCallback(
-    debounce((searchInput) => loadTopics(searchInput), 1000),
-    []
-  );
+  const debounceExecuteTopicSearch = useDebounce(executeTopicSearch, 1000);
+
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
     setSearch(searchInput);
 
-    debounceLoadTopics(searchInput);
+    debounceExecuteTopicSearch(searchInput);
   };
 
   const hasTopics = topics?.length > 0;
@@ -87,7 +74,7 @@ export default function Topics() {
           <LoadingErrorEmptyDataLayout
             isLoading={isLoadingTopics}
             loadingDisplay={<div className="text-center">Loading</div>}
-            hasError={!!loadTopicsError}
+            hasError={!!topicsError}
             errorDisplay={
               <div className="text-center sm:text-left">
                 Failed to load topics.

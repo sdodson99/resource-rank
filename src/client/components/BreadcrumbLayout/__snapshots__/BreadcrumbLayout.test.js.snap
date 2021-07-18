@@ -14,7 +14,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
         className="BreadcrumbContent"
       >
         <ol
-          className="flex"
+          className="flex flex-wrap"
         >
           <li
             className="flex"
@@ -67,7 +67,7 @@ exports[`<BreadcrumbLayout /> without breadcrumbs should render correctly 1`] = 
         className="BreadcrumbContent"
       >
         <ol
-          className="flex"
+          className="flex flex-wrap"
         />
       </nav>
       <div

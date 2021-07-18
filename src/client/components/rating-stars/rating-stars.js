@@ -24,7 +24,7 @@ function RatingStars({ rating, starWidth, onStarMouseOver, onStarClick }) {
     const star = (
       <div
         key={i}
-        className="me-1 d-inline"
+        className="me-1"
         onMouseOver={() => onStarMouseOverHandler(i)}
         onClick={() => onStarClickHandler(i)}
       >
@@ -35,7 +35,7 @@ function RatingStars({ rating, starWidth, onStarMouseOver, onStarClick }) {
     stars.push(star);
   }
 
-  return stars;
+  return <div className="flex">{stars}</div>;
 }
 
 RatingStars.propTypes = {

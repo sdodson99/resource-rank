@@ -31,7 +31,7 @@ describe('<TopicListing />', () => {
 
     it('should render correctly', () => {
       const tree = renderer.create(<TopicListing topics={topics} />).toJSON();
-  
+
       expect(tree).toMatchSnapshot();
     });
   });
@@ -39,7 +39,7 @@ describe('<TopicListing />', () => {
   describe('without topics', () => {
     it('should render correctly', () => {
       const tree = renderer.create(<TopicListing />).toJSON();
-  
+
       expect(tree).toMatchSnapshot();
     });
   });

@@ -6,7 +6,7 @@ import TopicListingItem from '../TopicListingItem/TopicListingItem';
 const TopicListing = ({ topics }) => {
   const topicListingItems = topics.map((t, index) => {
     const isLast = index === topics.length - 1;
-    const className = isLast ? "" : "border-b";
+    const className = isLast ? '' : 'border-b';
 
     return (
       <div key={t.id} className={className}>

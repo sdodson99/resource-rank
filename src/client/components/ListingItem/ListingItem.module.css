@@ -1,3 +1,5 @@
+.ListingItem {}
+
 .HoverListingItem {
   @apply bg-transparent;
 }
