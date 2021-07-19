@@ -20,7 +20,7 @@ const ActiveLink = ({ href, className, activeClassName, children }) => {
   return (
     <div className={className} data-testid="ActiveLink">
       <Link href={href}>
-        <a>{children}</a>
+        <a className={className}>{children}</a>
       </Link>
     </div>
   );

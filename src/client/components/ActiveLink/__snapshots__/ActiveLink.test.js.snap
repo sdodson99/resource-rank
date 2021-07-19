@@ -17,7 +17,9 @@ exports[`<ActiveLink /> with not active should render correctly 1`] = `
   <Link
     href="/"
   >
-    <a>
+    <a
+      className=""
+    >
       Link
     </a>
   </Link>

@@ -67,6 +67,7 @@ exports[`<Header /> with logged in should render correctly 1`] = `
         data-testid="ActiveLink"
       >
         <a
+          className="NavItem NavLink"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -79,6 +80,7 @@ exports[`<Header /> with logged in should render correctly 1`] = `
         data-testid="ActiveLink"
       >
         <a
+          className="NavItem NavLink"
           href="/topics"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -169,6 +171,7 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
         data-testid="ActiveLink"
       >
         <a
+          className="NavItem NavLink"
           href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -181,6 +184,7 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
         data-testid="ActiveLink"
       >
         <a
+          className="NavItem NavLink"
           href="/topics"
           onClick={[Function]}
           onMouseEnter={[Function]}
