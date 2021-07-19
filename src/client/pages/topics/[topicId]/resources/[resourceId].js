@@ -8,11 +8,16 @@ import RatingStars from '../../../../components/RatingStars/rating-stars';
 import useAuthenticationContext from '../../../../hooks/authentication/use-authentication-context';
 import useTopicResourceUserRatingQuery from '../../../../hooks/use-topic-resource-user-rating-query';
 import SelectableRatingStars from '../../../../components/RatingStars/selectable-rating-stars';
+import useCreateRatingMutation from '../../../../hooks/use-create-rating-mutation';
+import useUpdateRatingMutation from '../../../../hooks/use-update-rating-mutation';
 
 const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const { isLoggedIn } = useAuthenticationContext();
 
-  const [selectedRating, setSelectedRating] = useState();
+  const [existingRating, setExistingRating] = useState();
+  const [selectedRatingValue, setSelectedRatingValue] = useState();
+  const [submitRatingError, setSubmitRatingError] = useState();
+  const hasExistingRating = !!existingRating;
 
   const {
     execute: executeGetUserRatingQuery,
@@ -24,21 +29,63 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   useEffect(async () => {
     if (isLoggedIn) {
       await executeGetUserRatingQuery();
+    } else {
+      setExistingRating(null);
     }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log(userRatingData);
+    const rating = userRatingData?.userRating;
+    setExistingRating(rating);
+
+    const ratingValue = rating?.value;
+    setSelectedRatingValue(ratingValue);
   }, [userRatingData]);
 
-  const submitRating = () => {
-    console.log(selectedRating);
+  const { execute: executeCreateRatingMutation, isLoading: isCreatingRating } =
+    useCreateRatingMutation(topicId, resourceId);
+
+  const createRating = async () => {
+    await executeCreateRatingMutation(selectedRatingValue);
+  };
+
+  const { execute: executeUpdateRatingMutation, isLoading: isUpdatingRating } =
+    useUpdateRatingMutation();
+
+  const updateRating = async () => {
+    const ratingId = existingRating?.id;
+
+    await executeUpdateRatingMutation(ratingId, selectedRatingValue);
+  };
+
+  const submitRating = async () => {
+    setSubmitRatingError(null);
+
+    try {
+      if (!hasExistingRating) {
+        await createRating();
+      } else {
+        await updateRating();
+      }
+    } catch (error) {
+      setSubmitRatingError(error);
+    }
+  };
+
+  const onSelectedRatingValueChanged = (r) => {
+    setSubmitRatingError(null);
+    setSelectedRatingValue(r);
   };
 
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
   const rating = topicResource?.ratingList?.average;
+  const ratingChanged = selectedRatingValue !== existingRating?.value;
+  const validRating = selectedRatingValue > 0;
+  const canSubmitRating = ratingChanged && validRating;
+  const isSubmittingRating = isUpdatingRating || isCreatingRating;
+  const ratingTitle = hasExistingRating ? 'Update Rating' : 'Add Rating';
 
   const breadcrumbs = [
     {
@@ -74,15 +121,18 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
         <div className="mt-4 flex">
           <div>Link:</div>
           <div className="ml-4">
-            <a href={resourceLink} target="_blank" rel="noreferrer">
-              {resourceLink}
-            </a>
+            {resourceLink && (
+              <a href={resourceLink} target="_blank" rel="noreferrer">
+                {resourceLink}
+              </a>
+            )}
+            {!resourceLink && 'No resource link added.'}
           </div>
         </div>
       </div>
 
       <div className="mt-8">
-        <div className="text-2xl">Add Rating</div>
+        <div className="text-2xl">{ratingTitle}</div>
 
         <div className="mt-4">
           {!isLoggedIn && <div>You must login to add a rating.</div>}
@@ -90,8 +140,8 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
           {isLoggedIn && (
             <div>
               <SelectableRatingStars
-                selectedRating={selectedRating}
-                selectedRatingChanged={setSelectedRating}
+                selectedRating={selectedRatingValue}
+                selectedRatingChanged={onSelectedRatingValueChanged}
                 starWidth={25}
               />
               <div className="mt-6">
@@ -99,6 +149,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
                   className="btn btn-primary"
                   onClick={submitRating}
                   type="button"
+                  disabled={!canSubmitRating}
                 >
                   Submit
                 </button>

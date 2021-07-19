@@ -18,6 +18,10 @@ body {
   @apply px-4 py-2 rounded transition duration-200 text-white;
 }
 
+.btn:disabled {
+  @apply opacity-60 shadow-none pointer-events-none;
+}
+
 .btn-primary {
   background-color: var(--color-secondary);
 }
