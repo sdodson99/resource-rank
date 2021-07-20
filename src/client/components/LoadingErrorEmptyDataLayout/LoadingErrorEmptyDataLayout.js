@@ -44,7 +44,7 @@ LoadingErrorEmptyDataLayout.propTypes = {
 };
 
 LoadingErrorEmptyDataLayout.defaultProps = {
-  hasData: true
+  hasData: true,
 };
 
 export default LoadingErrorEmptyDataLayout;

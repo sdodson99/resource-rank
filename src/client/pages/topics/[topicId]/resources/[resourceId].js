@@ -11,6 +11,7 @@ import SelectableRatingStars from '../../../../components/RatingStars/selectable
 import useCreateRatingMutation from '../../../../hooks/use-create-rating-mutation';
 import useUpdateRatingMutation from '../../../../hooks/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
 const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const { isLoggedIn } = useAuthenticationContext();
@@ -181,7 +182,11 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
           {isLoggedIn && (
             <LoadingErrorEmptyDataLayout
               isLoading={isLoadingUserRating}
-              loadingDisplay={<div className="text-center">Loading</div>}
+              loadingDisplay={
+                <div className="text-center">
+                  <LoadingSpinner />
+                </div>
+              }
               hasError={!!userRatingLoadError}
               errorDisplay={
                 <div>Failed to load your rating for this topic resource.</div>
@@ -194,7 +199,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
                     starWidth={25}
                   />
 
-                  <div className="mt-6">
+                  <div className="mt-6 flex items-center">
                     <button
                       className="btn btn-primary"
                       onClick={submitRating}
@@ -203,11 +208,13 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
                     >
                       Submit
                     </button>
-                  </div>
 
-                  {isSubmittingRating && (
-                    <div className="mt-4 text-center">Submitting...</div>
-                  )}
+                    {isSubmittingRating && (
+                      <div className="ml-4">
+                        <LoadingSpinner height={25} width={25} />
+                      </div>
+                    )}
+                  </div>
 
                   {submitRatingError && (
                     <div className="mt-4 text-red-700">

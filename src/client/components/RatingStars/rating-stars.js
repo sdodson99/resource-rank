@@ -24,7 +24,7 @@ function RatingStars({ rating, starWidth, onStarMouseOver, onStarClick }) {
     const star = (
       <div
         key={i}
-        className="ml-1"
+        className="mr-1"
         onMouseOver={() => onStarMouseOverHandler(i)}
         onClick={() => onStarClickHandler(i)}
       >

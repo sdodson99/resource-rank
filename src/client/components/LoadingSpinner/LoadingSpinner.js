@@ -6,9 +6,9 @@ import Image from 'next/image';
 const LoadingSpinner = ({ height, width }) => (
   <div className={styles.LoadingSpinner} data-testid="LoadingSpinner">
     <Image
-      className="animate-spin"
+      className="animate-spin align-middle"
       src="/img/spinner.svg"
-      layout="fixed"
+      layout="intrinsic"
       height={height}
       width={width}
     />

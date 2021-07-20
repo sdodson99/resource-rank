@@ -10,6 +10,7 @@ import useAuthenticationContext from '../../../hooks/authentication/use-authenti
 import useTopicResourceSearchQuery from '../../../hooks/use-topic-resource-search-query';
 import useDebounce from '../../../hooks/use-debounce';
 import TopicResourceListing from '../../../components/TopicResourceListing/TopicResourceListing';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const TopicDetails = ({ topicId, name }) => {
   const { isLoggedIn } = useAuthenticationContext();
@@ -100,7 +101,11 @@ const TopicDetails = ({ topicId, name }) => {
         <div className="mt-8">
           <LoadingErrorEmptyDataLayout
             isLoading={isLoadingTopicResources}
-            loadingDisplay={<div className="text-center">Loading</div>}
+            loadingDisplay={
+              <div className="text-center">
+                <LoadingSpinner />
+              </div>
+            }
             hasError={!!topicResourcesError}
             errorDisplay={
               <div className="text-center sm:text-left">
@@ -135,28 +140,28 @@ export async function getServerSideProps({ req, params: { topicId } }) {
   const graphqlFetcher = createGraphQLFetcher();
 
   try {
-  const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {
-    id: topicId,
-  });
-  const name = topicResult?.topic?.name;
+    const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {
+      id: topicId,
+    });
+    const name = topicResult?.topic?.name;
 
-  if (!name) {
+    if (!name) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        topicId,
+        name,
+      },
+    };
+  } catch (error) {
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      topicId,
-      name,
-    },
-  };
-} catch (error) {
-  return {
-    notFound: true,
-  };
-}
 }
 
 export default TopicDetails;

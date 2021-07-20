@@ -8,6 +8,7 @@ import Head from 'next/head';
 import useTopicSearchQuery from '../../hooks/use-topic-search-query';
 import TopicListing from '../../components/TopicListing/TopicListing';
 import useDebounce from '../../hooks/use-debounce';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 export default function Topics() {
   const router = useRouter();
@@ -73,7 +74,11 @@ export default function Topics() {
         <div className="mt-8">
           <LoadingErrorEmptyDataLayout
             isLoading={isLoadingTopics}
-            loadingDisplay={<div className="text-center">Loading</div>}
+            loadingDisplay={
+              <div className="text-center">
+                <LoadingSpinner />
+              </div>
+            }
             hasError={!!topicsError}
             errorDisplay={
               <div className="text-center sm:text-left">
