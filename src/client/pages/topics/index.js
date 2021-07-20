@@ -81,7 +81,7 @@ export default function Topics() {
             }
             hasError={!!topicsError}
             errorDisplay={
-              <div className="text-center sm:text-left">
+              <div className="text-center sm:text-left error-text">
                 Failed to load topics.
               </div>
             }

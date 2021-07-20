@@ -189,7 +189,9 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
               }
               hasError={!!userRatingLoadError}
               errorDisplay={
-                <div>Failed to load your rating for this topic resource.</div>
+                <div className="error-text">
+                  Failed to load your rating for this topic resource.
+                </div>
               }
               dataDisplay={
                 <div>
@@ -217,7 +219,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
                   </div>
 
                   {submitRatingError && (
-                    <div className="mt-4 text-red-700">
+                    <div className="mt-4 error-text">
                       Failed to submit rating.
                     </div>
                   )}
