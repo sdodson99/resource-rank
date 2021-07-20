@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingSpinner /> should render correctly 1`] = `
+<div
+  className="LoadingSpinner"
+  data-testid="LoadingSpinner"
+>
+  <div
+    style={
+      Object {
+        "boxSizing": "border-box",
+        "display": "inline-block",
+        "height": 50,
+        "overflow": "hidden",
+        "position": "relative",
+        "width": 50,
+      }
+    }
+  >
+    <noscript>
+      <img
+        className="animate-spin"
+        decoding="async"
+        src="/img/spinner.svg"
+        srcSet="/_next/image?url=%2Fimg%2Fspinner.svg&w=64&q=75 1x, /_next/image?url=%2Fimg%2Fspinner.svg&w=128&q=75 2x"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": undefined,
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
+    </noscript>
+    <img
+      className="animate-spin"
+      decoding="async"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      style={
+        Object {
+          "border": "none",
+          "bottom": 0,
+          "boxSizing": "border-box",
+          "display": "block",
+          "height": 0,
+          "left": 0,
+          "margin": "auto",
+          "maxHeight": "100%",
+          "maxWidth": "100%",
+          "minHeight": "100%",
+          "minWidth": "100%",
+          "objectFit": undefined,
+          "objectPosition": undefined,
+          "padding": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "width": 0,
+        }
+      }
+    />
+  </div>
+</div>
+`;
