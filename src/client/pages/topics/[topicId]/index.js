@@ -134,6 +134,7 @@ TopicDetails.propTypes = {
 export async function getServerSideProps({ req, params: { topicId } }) {
   const graphqlFetcher = createGraphQLFetcher();
 
+  try {
   const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {
     id: topicId,
   });
@@ -151,6 +152,11 @@ export async function getServerSideProps({ req, params: { topicId } }) {
       name,
     },
   };
+} catch (error) {
+  return {
+    notFound: true,
+  };
+}
 }
 
 export default TopicDetails;

@@ -21,7 +21,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
           >
             <ActiveLink
               activeClassName="ActiveBreadcrumbItem"
-              className="BreadcrumbItem"
+              className="BreadcrumbItem hyperlink"
               href="/"
             >
               Home
@@ -37,7 +37,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
           >
             <ActiveLink
               activeClassName="ActiveBreadcrumbItem"
-              className="BreadcrumbItem"
+              className="BreadcrumbItem hyperlink"
               href="/topics"
             >
               topics

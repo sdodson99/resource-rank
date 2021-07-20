@@ -10,9 +10,15 @@ import useTopicResourceUserRatingQuery from '../../../../hooks/use-topic-resourc
 import SelectableRatingStars from '../../../../components/RatingStars/selectable-rating-stars';
 import useCreateRatingMutation from '../../../../hooks/use-create-rating-mutation';
 import useUpdateRatingMutation from '../../../../hooks/use-update-rating-mutation';
+import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 
 const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const { isLoggedIn } = useAuthenticationContext();
+
+  const [ratingSum, setRatingSum] = useState(topicResource?.ratingList?.sum);
+  const [ratingCount, setRatingCount] = useState(
+    topicResource?.ratingList?.count
+  );
 
   const [existingRating, setExistingRating] = useState();
   const [selectedRatingValue, setSelectedRatingValue] = useState();
@@ -46,7 +52,23 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
     useCreateRatingMutation(topicId, resourceId);
 
   const createRating = async () => {
-    await executeCreateRatingMutation(selectedRatingValue);
+    const { data: createRatingData } = await executeCreateRatingMutation(
+      selectedRatingValue
+    );
+
+    const createdRating = createRatingData?.createRating;
+    if (!createdRating) {
+      throw new Error('Failed to create rating.');
+    }
+
+    const { id } = createdRating;
+    setExistingRating({
+      id,
+      value: selectedRatingValue,
+    });
+
+    setRatingSum(ratingSum + selectedRatingValue);
+    setRatingCount(ratingCount + 1);
   };
 
   const { execute: executeUpdateRatingMutation, isLoading: isUpdatingRating } =
@@ -55,7 +77,21 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const updateRating = async () => {
     const ratingId = existingRating?.id;
 
-    await executeUpdateRatingMutation(ratingId, selectedRatingValue);
+    const { data: updateRatingData } = await executeUpdateRatingMutation(
+      ratingId,
+      selectedRatingValue
+    );
+
+    const success = updateRatingData?.updateRating;
+    if (!success) {
+      throw new Error('Failed to update rating.');
+    }
+
+    setExistingRating({ id: ratingId, value: selectedRatingValue });
+
+    const existingRatingValue = existingRating?.value ?? 0;
+    const ratingChange = selectedRatingValue - existingRatingValue;
+    setRatingSum(ratingSum + ratingChange);
   };
 
   const submitRating = async () => {
@@ -80,7 +116,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
-  const rating = topicResource?.ratingList?.average;
+  const ratingAverage = ratingSum / ratingCount;
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;
   const canSubmitRating = ratingChanged && validRating;
@@ -111,7 +147,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
       <div className="sm:flex justify-between items-center">
         <div className="text-4xl">{resourceName}</div>
         <div className="mt-3 sm:mt-0">
-          <RatingStars rating={rating} />
+          <RatingStars rating={ratingAverage} />
         </div>
       </div>
 
@@ -122,7 +158,12 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
           <div>Link:</div>
           <div className="ml-4">
             {resourceLink && (
-              <a href={resourceLink} target="_blank" rel="noreferrer">
+              <a
+                className="hyperlink"
+                href={resourceLink}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {resourceLink}
               </a>
             )}
@@ -138,23 +179,44 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
           {!isLoggedIn && <div>You must login to add a rating.</div>}
 
           {isLoggedIn && (
-            <div>
-              <SelectableRatingStars
-                selectedRating={selectedRatingValue}
-                selectedRatingChanged={onSelectedRatingValueChanged}
-                starWidth={25}
-              />
-              <div className="mt-6">
-                <button
-                  className="btn btn-primary"
-                  onClick={submitRating}
-                  type="button"
-                  disabled={!canSubmitRating}
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
+            <LoadingErrorEmptyDataLayout
+              isLoading={isLoadingUserRating}
+              loadingDisplay={<div className="text-center">Loading</div>}
+              hasError={!!userRatingLoadError}
+              errorDisplay={
+                <div>Failed to load your rating for this topic resource.</div>
+              }
+              dataDisplay={
+                <div>
+                  <SelectableRatingStars
+                    selectedRating={selectedRatingValue}
+                    selectedRatingChanged={onSelectedRatingValueChanged}
+                    starWidth={25}
+                  />
+
+                  <div className="mt-6">
+                    <button
+                      className="btn btn-primary"
+                      onClick={submitRating}
+                      type="button"
+                      disabled={!canSubmitRating}
+                    >
+                      Submit
+                    </button>
+                  </div>
+
+                  {isSubmittingRating && (
+                    <div className="mt-4 text-center">Submitting...</div>
+                  )}
+
+                  {submitRatingError && (
+                    <div className="mt-4 text-red-700">
+                      Failed to submit rating.
+                    </div>
+                  )}
+                </div>
+              }
+            />
           )}
         </div>
       </div>
@@ -174,29 +236,35 @@ export async function getServerSideProps({
 }) {
   const graphqlFetcher = createGraphQLFetcher();
 
-  const topicResourceResult = await graphqlFetcher.fetch(
-    getTopicResourceByIdQuery,
-    {
-      topicId,
-      resourceId,
+  try {
+    const topicResourceResult = await graphqlFetcher.fetch(
+      getTopicResourceByIdQuery,
+      {
+        topicId,
+        resourceId,
+      }
+    );
+
+    const topicResource = topicResourceResult?.topicResource;
+
+    if (!topicResource) {
+      return {
+        notFound: true,
+      };
     }
-  );
 
-  const topicResource = topicResourceResult?.topicResource;
-
-  if (!topicResource) {
+    return {
+      props: {
+        topicId,
+        resourceId,
+        topicResource,
+      },
+    };
+  } catch (error) {
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      topicId,
-      resourceId,
-      topicResource,
-    },
-  };
 }
 
 export default TopicResourceDetails;

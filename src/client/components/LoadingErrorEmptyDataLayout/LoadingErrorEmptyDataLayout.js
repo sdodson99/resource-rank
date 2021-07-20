@@ -43,6 +43,8 @@ LoadingErrorEmptyDataLayout.propTypes = {
   dataDisplay: PropTypes.node,
 };
 
-LoadingErrorEmptyDataLayout.defaultProps = {};
+LoadingErrorEmptyDataLayout.defaultProps = {
+  hasData: true
+};
 
 export default LoadingErrorEmptyDataLayout;

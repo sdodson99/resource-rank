@@ -11,7 +11,8 @@ export default gql`
         link
       }
       ratingList {
-        average
+        count
+        sum
       }
     }
   }
