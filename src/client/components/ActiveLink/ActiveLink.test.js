@@ -20,6 +20,20 @@ describe('<ActiveLink />', () => {
     expect(activeLink).toBeInTheDocument();
   });
 
+  it('should render correctly', () => {
+    const page = createRenderer().render(
+      <ActiveLink
+        href={'/'}
+        className="className"
+        linkClassName="linkClassName"
+      >
+        Link
+      </ActiveLink>
+    );
+
+    expect(page).toMatchSnapshot();
+  });
+
   describe('with active', () => {
     const path = '/home';
 

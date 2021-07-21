@@ -12,8 +12,9 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
       <li key={to} className="flex">
         <ActiveLink
           href={to}
-          className={`${styles.BreadcrumbItem} hyperlink`}
+          className={styles.BreadcrumbItem}
           activeClassName={styles.ActiveBreadcrumbItem}
+          linkClassName={'hyperlink'}
         >
           {title}
         </ActiveLink>

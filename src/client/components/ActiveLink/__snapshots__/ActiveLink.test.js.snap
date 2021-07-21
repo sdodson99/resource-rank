@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<ActiveLink /> should render correctly 1`] = `
+<div
+  className="className"
+  data-testid="ActiveLink"
+>
+  <Link
+    href="/"
+  >
+    <a
+      className="linkClassName"
+    >
+      Link
+    </a>
+  </Link>
+</div>
+`;
+
 exports[`<ActiveLink /> with active should render correctly 1`] = `
 <div
   className=" active"
