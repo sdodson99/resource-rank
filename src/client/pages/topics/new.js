@@ -1,57 +1,41 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import LiveValidatingInput from '../../components/live-vaildating-input/live-validating-input';
-import useAvailableTopicNameValidator from '../../hooks/use-available-topic-name-validator';
-import TopicExistsError from '../../errors/topic-exists-error';
-import useTopicCreator from '../../hooks/use-topic-creator';
-import { Spinner } from 'react-bootstrap';
-import BreadcrumbLayout from '../../components/layouts/breadcrumb-layout';
-import useLiveValidation from '../../hooks/use-live-validation';
+import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
+import Head from 'next/head';
+import useTopicExistsQuery from '../../hooks/use-topic-exists-query';
+import { useForm } from 'react-hook-form';
+import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
 
-function CreateTopic() {
-  const [name, setName] = useState('');
-  const [createTopicError, setCreateTopicError] = useState();
+const FormField = {
+  NAME: 'name',
+};
+
+export default function NewTopic() {
   const router = useRouter();
-
-  const validateIsAvailableTopicName = useAvailableTopicNameValidator();
-
   const {
-    isValid: isAvailableTopicName,
-    setIsValid: setIsValidName,
-    validateInput: validateName,
-    isValidating: isValidatingName,
-  } = useLiveValidation(validateIsAvailableTopicName);
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
-  const handleNameInput = (e) => {
-    setCreateTopicError(null);
+  const [createTopicError, setCreateTopicError] = useState();
 
-    const nameInput = e.target.value;
+  const { execute: executeTopicExistsQuery } = useTopicExistsQuery();
+  const { execute: executeCreateTopicMutation } = useCreateTopicMutation();
 
-    setName(nameInput);
-    validateName(nameInput);
+  const onSubmit = async (formData) => {
+    const name = formData[FormField.NAME]
+    
+    console.log(name);
+    // await executeCreateTopicMutation(name);
+    // router.push('/topics');
   };
 
-  const { createTopic, isCreatingTopic } = useTopicCreator();
-
-  const submit = async (e) => {
-    e.preventDefault();
-
-    setCreateTopicError(null);
-
-    try {
-      await createTopic(name);
-      router.push('/topics');
-    } catch (error) {
-      if (error instanceof TopicExistsError) {
-        return setIsValidName(false);
-      }
-
-      setCreateTopicError(error);
-    }
-  };
-
-  const canSubmit = !isValidatingName && isAvailableTopicName;
+  const nameError = errors[FormField.NAME]?.message;
 
   const breadcrumbs = [
     {
@@ -66,55 +50,43 @@ function CreateTopic() {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <title>New Topic - Resource Rank</title>
+      <Head>
+        <title>New Topic - Resource Rank</title>
+      </Head>
 
-      <div className="page-header">New Topic</div>
+      <div className="text-4xl">New Topic</div>
 
-      <form onSubmit={submit}>
-        <div className="mt-4">
-          <label htmlFor="name">Name</label>
-          <LiveValidatingInput
-            id="name"
-            value={name}
-            onChange={handleNameInput}
-            isValidating={isValidatingName}
-            hasValidationError={!isAvailableTopicName}
-            required={true}
-            validationErrorMessage="Topic name already exists."
+      <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col">
+          <label htmlFor={FormField.NAME}>Name</label>
+          <input
+            className="mt-2 form-control flex-grow"
+            type="text"
+            {...register(FormField.NAME, {
+              required: 'Required',
+            })}
           />
+
+          {nameError && (
+            <div className="mt-2 error-text text-sm">{nameError}</div>
+          )}
         </div>
 
-        <div className="mt-4 row align-items-center">
-          <div className="col-sm-auto">
-            <button
-              className="btn btn-primary w-100"
-              type="submit"
-              disabled={!canSubmit}
-            >
-              Submit
-            </button>
-          </div>
-          <div className="col-sm-auto mt-3 mt-sm-0">
-            <Link href="/topics" className="btn btn-outline-danger w-100">
-              Cancel
-            </Link>
-          </div>
+        <div className="mt-10 flex flex-col sm:flex-row">
+          <button className="btn btn-primary w-100" type="submit">
+            Submit
+          </button>
+          <button className="mt-3 btn btn-danger-outline w-100 sm:mt-0 sm:ml-3">
+            <Link href="/topics">Cancel</Link>
+          </button>
         </div>
 
         <div className="text-center text-sm-start">
           {createTopicError && (
             <div className="mt-4 text-danger">Failed to create topic.</div>
           )}
-
-          {isCreatingTopic && (
-            <div className="mt-4">
-              <Spinner animation="border" role="status" />
-            </div>
-          )}
         </div>
       </form>
     </BreadcrumbLayout>
   );
 }
-
-export default CreateTopic;

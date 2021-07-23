@@ -24,7 +24,7 @@ const Hero = () => {
         <div className={styles.Search}>
           <input
             type="text"
-            className="flex-grow block"
+            className="flex-grow block form-control-lg"
             placeholder="Search topics..."
             value={searchTopicsQuery}
             onChange={onSearchTopicsQueryChange}

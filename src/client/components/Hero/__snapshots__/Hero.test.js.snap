@@ -17,7 +17,7 @@ exports[`<Hero /> should render correctly 1`] = `
       className="Search"
     >
       <input
-        className="flex-grow block"
+        className="flex-grow block form-control-lg"
         onChange={[Function]}
         placeholder="Search topics..."
         type="text"

@@ -91,7 +91,7 @@ const TopicDetails = ({ topicId, name }) => {
 
       <div className="mt-8">
         <input
-          className="w-full"
+          className="w-full form-control-lg"
           placeholder="Search resources..."
           type="text"
           onChange={onSearchChange}

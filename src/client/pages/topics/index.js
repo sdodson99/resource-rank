@@ -64,7 +64,7 @@ export default function Topics() {
 
       <div className="mt-8 flex flex-col">
         <input
-          className="flex-grow"
+          className="flex-grow form-control-lg"
           placeholder="Search topics..."
           value={search}
           onChange={onSearchChange}
