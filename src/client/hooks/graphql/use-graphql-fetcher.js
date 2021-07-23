@@ -1,8 +1,8 @@
 import constate from 'constate';
-import { createGraphQLFetcher } from '../../services/graphql-fetchers/graphql-fetcher-factory';
+import { createGraphQLClient } from '../../graphql/clients/graphql-client-factory';
 
 async function executeGraphQLFetch(document, variables) {
-  const graphqlFetcher = createGraphQLFetcher();
+  const graphqlFetcher = createGraphQLClient();
 
   return await graphqlFetcher.fetch(document, variables);
 }

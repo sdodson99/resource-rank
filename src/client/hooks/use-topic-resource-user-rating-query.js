@@ -1,4 +1,4 @@
-import getUserRatingQuery from '../gql-requests/get-user-rating-query';
+import getUserRatingQuery from '../graphql/queries/get-user-rating-query';
 import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
 
 export default function useTopicResourceUserRatingQuery(topicId, resourceId) {

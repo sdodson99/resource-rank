@@ -1,4 +1,4 @@
-import getAvailableResourcesQuery from '../gql-requests/get-available-resources-query';
+import getAvailableResourcesQuery from '../graphql/queries/get-available-resources-query';
 import useLiveSearch from './use-live-search';
 
 export default function useAvailableTopicResources(topicId) {

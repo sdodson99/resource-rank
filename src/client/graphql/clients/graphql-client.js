@@ -1,8 +1,8 @@
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClient as GraphQLClientBase } from 'graphql-request';
 import firebase from 'firebase/app';
 
-function createGraphQLClient(url) {
-  return new GraphQLClient(url);
+function createGraphQLClientBase(url) {
+  return new GraphQLClientBase(url);
 }
 
 function getCurrentUser() {
@@ -13,7 +13,7 @@ function getCurrentUser() {
   }
 }
 
-export default class GraphQLFetcher {
+export default class GraphQLClient {
   constructor(url) {
     this.url = url;
   }
@@ -25,14 +25,14 @@ export default class GraphQLFetcher {
    * @return {object} The request data.
    */
   async fetch(document, variables) {
-    const graphQLClient = createGraphQLClient(this.url);
+    const graphQLClientBase = createGraphQLClientBase(this.url);
 
     const currentUser = getCurrentUser();
     if (currentUser) {
       const accessToken = await currentUser.getIdToken();
-      graphQLClient.setHeader('authorization', `Bearer ${accessToken}`);
+      graphQLClientBase.setHeader('authorization', `Bearer ${accessToken}`);
     }
 
-    return graphQLClient.request(document, variables);
+    return graphQLClientBase.request(document, variables);
   }
 }

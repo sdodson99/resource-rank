@@ -1,6 +1,6 @@
 import getErrorCode from '../errors/apollo-error-code-provider';
 import ResourceExistsError from '../errors/resource-exists-error';
-import createResourceMutation from '../gql-requests/create-resource-mutation';
+import createResourceMutation from '../graphql/mutations/create-resource-mutation';
 
 export default function useResourceCreator() {
   const [executeCreateResourceMutation, { loading: isCreatingResource }] =

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLFetcher } from '../../../../services/graphql-fetchers/graphql-fetcher-factory';
-import getTopicResourceByIdQuery from '../../../../gql-requests/get-topic-resource-by-id-query';
+import { createGraphQLClient } from '../../../../graphql/clients/graphql-client-factory';
+import getTopicResourceByIdQuery from '../../../../graphql/queries/get-topic-resource-by-id-query';
 import Head from 'next/head';
 import RatingStars from '../../../../components/RatingStars/rating-stars';
 import useAuthenticationContext from '../../../../hooks/authentication/use-authentication-context';
@@ -243,7 +243,7 @@ export async function getServerSideProps({
   req,
   params: { topicId, resourceId },
 }) {
-  const graphqlFetcher = createGraphQLFetcher();
+  const graphqlFetcher = createGraphQLClient();
 
   try {
     const topicResourceResult = await graphqlFetcher.fetch(

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLFetcher } from '../../../services/graphql-fetchers/graphql-fetcher-factory';
-import getTopicNameByIdQuery from '../../../gql-requests/get-topic-name-by-id-query';
+import { createGraphQLClient } from '../../../graphql/clients/graphql-client-factory';
+import getTopicNameByIdQuery from '../../../graphql/queries/get-topic-name-by-id-query';
 import Head from 'next/head';
 import Link from 'next/link';
 import LoadingErrorEmptyDataLayout from '../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
@@ -137,7 +137,7 @@ TopicDetails.propTypes = {
 };
 
 export async function getServerSideProps({ req, params: { topicId } }) {
-  const graphqlFetcher = createGraphQLFetcher();
+  const graphqlFetcher = createGraphQLClient();
 
   try {
     const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {

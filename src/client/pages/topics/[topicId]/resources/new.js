@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import resourceExistsQuery from '../../../../gql-requests/resource-exists-query';
+import resourceExistsQuery from '../../../../graphql/queries/resource-exists-query';
 import useTopicName from '../../../../hooks/use-topic-name';
 import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
 import { Spinner } from 'react-bootstrap';

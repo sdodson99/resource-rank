@@ -1,4 +1,4 @@
-import createTopicResourceMutation from '../gql-requests/create-topic-resource-mutation';
+import createTopicResourceMutation from '../graphql/mutations/create-topic-resource-mutation';
 
 export default function useTopicResourceCreator() {
   const [
