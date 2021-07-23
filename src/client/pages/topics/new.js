@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import TextInput from '../../components/TextInput/TextInput';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -100,20 +101,15 @@ export default function NewTopic() {
       <div className="text-4xl">New Topic</div>
 
       <form className="mt-10" onSubmit={handleSubmit(onSubmit, onInvalid)}>
-        <div className="flex flex-col">
-          <label htmlFor={FormField.TOPIC_NAME}>Topic Name</label>
-          <input
-            className="mt-2 form-control flex-grow"
-            type="text"
-            {...register(FormField.TOPIC_NAME, {
-              required: 'Required',
-            })}
-          />
-
-          {nameError && (
-            <div className="mt-2 error-text text-sm">{nameError}</div>
-          )}
-        </div>
+        <TextInput
+          name={FormField.TOPIC_NAME}
+          label="Topic Name"
+          errorMessage={nameError}
+          autoComplete="off"
+          {...register(FormField.TOPIC_NAME, {
+            required: 'Required',
+          })}
+        />
 
         <div className="mt-10 flex flex-col sm:flex-row">
           <button
