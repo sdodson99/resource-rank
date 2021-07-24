@@ -6,13 +6,13 @@ exports[`<PageHeaderButton /> should render correctly 1`] = `
   data-testid="PageHeaderButton"
 >
   <div
-    className="flex items-center justify-between text-center sm:text-left"
+    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
   >
     <div
       className="text-4xl"
     />
     <div
-      className="ml-3 flex"
+      className="mt-3 flex sm:mt-0 sm:ml-3"
     >
       <a
         className="btn btn-primary"
@@ -31,7 +31,7 @@ exports[`<PageHeaderButton /> with button hidden should render correctly 1`] = `
   data-testid="PageHeaderButton"
 >
   <div
-    className="flex items-center justify-between text-center sm:text-left"
+    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
   >
     <div
       className="text-4xl"

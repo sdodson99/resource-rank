@@ -1,4 +1,6 @@
-.ListingItem {}
+.ListingItem {
+  @apply py-5 px-3;
+}
 
 .HoverListingItem {
   @apply bg-transparent;

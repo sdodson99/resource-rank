@@ -13,7 +13,7 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
         hover={true}
       >
         <div
-          className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+          className="sm:flex sm:justify-between sm:text-left text-center"
         >
           <div>
             Topic1

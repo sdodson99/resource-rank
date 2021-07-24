@@ -1,75 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import HeaderButton from '../../../components/header-button/header-button';
-import AddResourceListing from '../../../../components/add-resource-listing/add-resource-listing';
-import { useRouter } from 'next/router';
-import useTopicName from '../../../../hooks/use-topic-name';
-import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
-import useAvailableTopicResources from '../../../../hooks/use-available-topic-resources';
-import { Spinner } from 'react-bootstrap';
-import useTopicResourceCreator from '../../../../hooks/use-topic-resource-creator';
-import LoadingErrorEmptyDataLayout from '../../../components/layouts/loading-error-empty-data-layout';
+import Head from 'next/head';
+import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
+import { createGraphQLClient } from '../../../../graphql/clients/graphql-client-factory';
+import getTopicNameByIdQuery from '../../../../graphql/queries/get-topic-name-by-id-query';
+import PageHeaderButton from '../../../../components/PageHeaderButton/PageHeaderButton';
+import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+import useAvailableTopicResourcesQuery from '../../../../hooks/use-available-topic-resources-query';
+import useDebounce from '../../../../hooks/use-debounce';
+import AvailableResourceListing from '../../../../components/AvailableResourceListing/AvailableResourceListing';
 
-function AddTopicResource({ topicId }) {
-  const [topicResources, setTopicResources] = useState([]);
-  const router = useRouter();
+const AddTopicResource = ({ topicId, name }) => {
+  const [search, setSearch] = useState('');
+  const [currentSearch, setCurrentSearch] = useState('');
 
   const {
-    availableTopicResources,
-    isLoading: isAvailableTopicResourcesLoading,
-    error: availableTopicResourcesError,
-    processSearchInput,
-    currentSearch,
-    search,
-  } = useAvailableTopicResources(topicId);
+    data: resourcesData,
+    error: resourcesError,
+    isLoading: isLoadingResources,
+    execute: executeResourcesQuery,
+  } = useAvailableTopicResourcesQuery();
 
-  useEffect(
-    () => setTopicResources(availableTopicResources),
-    [availableTopicResources]
+  const executeResourcesSearch = async (search) => {
+    setCurrentSearch(search);
+    executeResourcesQuery({ topicId, search });
+  };
+
+  useEffect(() => {
+    executeResourcesSearch(search);
+  }, []);
+
+  const debounceExecuteResourcesSearch = useDebounce(
+    executeResourcesSearch,
+    1000
   );
 
-  const onSearchInput = (e) => {
+  const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    processSearchInput(searchInput);
+    setSearch(searchInput);
+
+    debounceExecuteResourcesSearch(searchInput);
   };
-
-  const { createTopicResource, isCreatingTopicResource } =
-    useTopicResourceCreator();
-
-  const setTopicResourceAddError = (resourceId, error) => {
-    const nextResources = [...topicResources];
-
-    const updatedResourceIndex = nextResources.findIndex(
-      (r) => r.id === resourceId
-    );
-    const updatedResource = {
-      ...nextResources[updatedResourceIndex],
-      addError: error,
-    };
-    nextResources[updatedResourceIndex] = updatedResource;
-
-    setTopicResources(nextResources);
-  };
-
-  const clearTopicResourceAddError = (resourceId) =>
-    setTopicResourceAddError(resourceId, null);
 
   const onAddResource = async (resourceId) => {
-    try {
-      await createTopicResource(topicId, resourceId);
-
-      router.push(`/topics/${topicId}`);
-
-      clearTopicResourceAddError(resourceId);
-    } catch (error) {
-      setTopicResourceAddError(resourceId, error);
-    }
+    console.log(resourceId);
   };
 
-  const isLoading = isCreatingTopicResource || isAvailableTopicResourcesLoading;
-  const hasTopicResources = topicResources?.length > 0;
-
-  const { topicName } = useTopicName(topicId);
+  const resources = resourcesData?.availableResources;
+  const hasResources = resources?.length > 0;
 
   const breadcrumbs = [
     {
@@ -78,7 +57,7 @@ function AddTopicResource({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: topicName ?? 'Topic Details',
+      title: name,
     },
     {
       to: `/topics/${topicId}/resources/add`,
@@ -88,49 +67,51 @@ function AddTopicResource({ topicId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <title>Add Topic Resource - Resource Rank</title>
+      <Head>
+        <title>Add Topic Resource - Resource Rank</title>
+      </Head>
 
-      <HeaderButton
+      <PageHeaderButton
         title="Add Resource"
         buttonContent="New"
         linkTo={`/topics/${topicId}/resources/new`}
       />
 
-      <div className="mt-4">
+      <div className="mt-8 flex flex-col">
         <input
-          type="text"
-          className="form-control"
+          className="flex-grow form-control-lg"
           placeholder="Search resources..."
           value={search}
-          onInput={onSearchInput}
+          onChange={onSearchChange}
+          type="text"
         />
       </div>
 
-      <div className="mt-4">
+      <div className="mt-8">
         <LoadingErrorEmptyDataLayout
-          isLoading={isLoading}
-          hasError={!!availableTopicResourcesError}
-          hasData={hasTopicResources}
+          isLoading={isLoadingResources}
           loadingDisplay={
             <div className="text-center">
-              <Spinner animation="border" role="status" />
+              <LoadingSpinner />
             </div>
           }
+          hasError={!!resourcesError}
           errorDisplay={
-            <div className="text-center text-sm-start">
-              Failed to load available topic resources.
+            <div className="text-center sm:text-left error-text">
+              Failed to load available resources.
             </div>
           }
+          hasData={hasResources}
           noDataDisplay={
-            <div className="text-center text-sm-start">
-              {!currentSearch && 'No topic resources are available.'}
+            <div className="text-center sm:text-left">
+              {!currentSearch && 'No resources have been created.'}
               {currentSearch &&
-                `No topic resources matching '${currentSearch}' are available.`}
+                `No resources matching '${currentSearch}' have been created.`}
             </div>
           }
           dataDisplay={
-            <AddResourceListing
-              availableResources={topicResources}
+            <AvailableResourceListing
+              resources={resources}
               onAddResource={onAddResource}
             />
           }
@@ -138,10 +119,39 @@ function AddTopicResource({ topicId }) {
       </div>
     </BreadcrumbLayout>
   );
-}
+};
 
 AddTopicResource.propTypes = {
   topicId: PropTypes.string,
+  name: PropTypes.string,
 };
+
+export async function getServerSideProps({ req, params: { topicId } }) {
+  const client = createGraphQLClient();
+
+  try {
+    const topicResult = await client.fetch(getTopicNameByIdQuery, {
+      id: topicId,
+    });
+    const name = topicResult?.topic?.name;
+
+    if (!name) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        topicId,
+        name,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+}
 
 export default AddTopicResource;

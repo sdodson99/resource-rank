@@ -13,7 +13,7 @@ const TopicListingItem = ({ id, name }) => {
       <Link href={resourcesLink}>
         <a>
           <ListingItem hover={true}>
-            <div className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3">
+            <div className="sm:flex sm:justify-between sm:text-left text-center">
               <div>{name}</div>
               <div className="mt-5 sm:mt-0">
                 <ArrowForwardIcon />

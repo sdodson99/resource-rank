@@ -15,7 +15,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
       data-testid="ListingItem"
     >
       <div
-        className="sm:flex sm:justify-between items-center sm:text-left text-center py-5 px-3"
+        className="sm:flex sm:justify-between items-center sm:text-left text-center"
       >
         <div
           className="col-sm-auto flex flex-col items-center sm:items-start"

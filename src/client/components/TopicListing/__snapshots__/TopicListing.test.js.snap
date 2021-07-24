@@ -22,7 +22,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           data-testid="ListingItem"
         >
           <div
-            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+            className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div>
               Topic1
@@ -63,7 +63,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           data-testid="ListingItem"
         >
           <div
-            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+            className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div>
               Topic2
@@ -104,7 +104,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           data-testid="ListingItem"
         >
           <div
-            className="sm:flex sm:justify-between sm:text-left text-center py-5 px-3"
+            className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div>
               Topic3
