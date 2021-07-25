@@ -1,7 +1,7 @@
 import 'regenerator-runtime';
 import React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
-import __404__ from './404';
+import __404__ from './404.page';
 
 describe('404 page', () => {
   it('should render correctly', () => {

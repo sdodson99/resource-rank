@@ -1,10 +1,27 @@
 {
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextjs"
+      }
+    ]
+  },
+  "functions": {
+    "source": ".",
+    "runtime": "nodejs12"
+  },
   "emulators": {
     "auth": {
       "port": 9099
     },
     "hosting": {
       "port": 5000
+    },
+    "functions": {
+      "port": 7001
     },
     "ui": {
       "enabled": true
