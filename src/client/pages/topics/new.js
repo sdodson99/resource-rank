@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import TextInput from '../../components/TextInput/TextInput';
+import getErrorCode from '../../graphql/errors/getErrorCode';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -18,7 +19,7 @@ export default function NewTopic() {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -29,26 +30,12 @@ export default function NewTopic() {
 
   const [createTopicError, setCreateTopicError] = useState();
 
-  const { execute: executeCreateTopicMutation, isLoading: isCreatingTopic } =
-    useCreateTopicMutation();
+  const { execute: executeCreateTopicMutation } = useCreateTopicMutation();
 
   const isTopicAlreadyExistsError = (error) => {
-    const errors = error.response?.errors;
-
-    if (!Array.isArray(errors)) {
-      return false;
-    }
-
-    if (errors.length === 0) {
-      return false;
-    }
-
-    const errorCode = errors[0].extensions?.code;
+    const errorCode = getErrorCode(error);
 
     return errorCode === 'TOPIC_ALREADY_EXISTS';
-
-    if (errorCode === 'TOPIC_ALREADY_EXISTS') {
-    }
   };
 
   const onSubmit = async (formData) => {
@@ -115,7 +102,7 @@ export default function NewTopic() {
           <button
             className="btn btn-primary w-100"
             type="submit"
-            disabled={isCreatingTopic}
+            disabled={isSubmitting}
           >
             Submit
           </button>
@@ -125,7 +112,7 @@ export default function NewTopic() {
             </a>
           </Link>
 
-          {isCreatingTopic && (
+          {isSubmitting && (
             <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
               <LoadingSpinner height={30} width={30} />
             </div>

@@ -1,80 +1,99 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import LiveValidatingInput from '../../../components/live-vaildating-input/live-validating-input';
-import Link from 'next/link';
+import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
+import getTopicName from '../../../../services/topic-names/graphql-topic-name-service';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import resourceExistsQuery from '../../../../graphql/queries/resource-exists-query';
-import useTopicName from '../../../../hooks/use-topic-name';
-import BreadcrumbLayout from '../../../components/layouts/breadcrumb-layout';
-import { Spinner } from 'react-bootstrap';
-import useLiveValidation from '../../../hooks/use-live-validation';
-import useTopicResourceCreator from '../../../../hooks/use-topic-resource-creator';
-import useResourceCreator from '../../../../hooks/use-resource-creator';
-import ResourceExistsError from '../../../../errors/resource-exists-error';
+import { useForm } from 'react-hook-form';
+import TextInput from '../../../../components/TextInput/TextInput';
+import Link from 'next/link';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+import useCreateResourceMutation from '../../../../hooks/use-create-resource-mutation';
+import useCreateTopicResourceMutation from '../../../../hooks/use-create-topic-resource-mutation';
+import getErrorCode from '../../../../graphql/errors/getErrorCode';
 
-function NewTopicResource({ topicId }) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
-  const [submitError, setSubmitError] = useState();
+const FormField = {
+  RESOURCE_NAME: 'name',
+  RESOURCE_LINK: 'link',
+};
+
+const NewTopicResource = ({ topicId, topicName }) => {
   const router = useRouter();
-
-  const validateIsAvailableResourceName = async (nameInput) => {
-    const { data } = await apolloClient.query({
-      query: resourceExistsQuery,
-      variables: {
-        name: nameInput,
-      },
-    });
-
-    const resourceNameExists = data?.resourceExists ?? false;
-
-    return !resourceNameExists;
-  };
-
   const {
-    isValid: isAvailableResourceName,
-    setIsValid: setIsValidName,
-    validateInput: validateName,
-    isValidating: isValidatingName,
-  } = useLiveValidation(validateIsAvailableResourceName);
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      [FormField.RESOURCE_NAME]: '',
+      [FormField.RESOURCE_LINK]: '',
+    },
+  });
 
-  const onNameChange = (e) => {
-    setSubmitError(null);
+  const [createResourceError, setCreateResourceError] = useState(null);
+  const [createTopicResourceError, setCreateTopicResourceError] =
+    useState(null);
 
-    const nameInput = e.target.value;
+  const { execute: executeCreateResourceMutation } =
+    useCreateResourceMutation();
+  const { execute: executeCreateTopicResourceMutation } =
+    useCreateTopicResourceMutation();
 
-    setName(nameInput);
-    validateName(nameInput);
+  const isResourceAlreadyExistsError = (error) => {
+    const errorCode = getErrorCode(error);
+
+    return errorCode === 'RESOURCE_ALREADY_EXISTS';
   };
 
-  const { createResource, isCreatingResource } = useResourceCreator();
-  const { createTopicResource, isCreatingTopicResource } =
-    useTopicResourceCreator();
+  const onSubmit = async (formData) => {
+    setCreateResourceError(null);
+    setCreateTopicResourceError(null);
 
-  const isSubmitting = isCreatingResource || isCreatingTopicResource;
+    const name = formData[FormField.RESOURCE_NAME];
+    const link = formData[FormField.RESOURCE_LINK];
 
-  const submit = async (e) => {
-    e.preventDefault();
+    const { data: resourceData, error: resourceError } =
+      await executeCreateResourceMutation(name, link);
 
-    setSubmitError(null);
-
-    try {
-      const { id: resourceId } = await createResource(name, link);
-      await createTopicResource(topicId, resourceId);
-
-      router.push(`/topics/${topicId}`);
-    } catch (error) {
-      if (error instanceof ResourceExistsError) {
-        return setIsValidName(false);
+    if (resourceError) {
+      if (isResourceAlreadyExistsError(resourceError)) {
+        return setError(FormField.RESOURCE_NAME, {
+          message: 'Name already exists.',
+        });
+      } else {
+        return setCreateResourceError(resourceError);
       }
-
-      setSubmitError(error);
     }
+
+    const resourceId = resourceData?.createResource?.id;
+
+    if (!resourceId) {
+      return setCreateResourceError(new Error('Failed to create resource.'));
+    }
+
+    const { data: topicResourceData, error: topicResourceError } =
+      await executeCreateTopicResourceMutation(topicId, resourceId);
+
+    if (topicResourceError) {
+      return setCreateTopicResourceError(topicResourceError);
+    }
+
+    const success = topicResourceData?.createTopicResource;
+
+    if (!success) {
+      return setCreateTopicResourceError(new Error('Failed to create topic resource.'));
+    }
+
+    router.push(`/topics/${topicId}/resources/${resourceId}`);
   };
 
-  const canSubmit = isAvailableResourceName;
+  const onInvalid = () => setCreateTopicResourceError(null);
 
-  const { topicName } = useTopicName(topicId);
+  const nameError = errors[FormField.RESOURCE_NAME]?.message;
+  const linkError = errors[FormField.RESOURCE_LINK]?.message;
 
   const breadcrumbs = [
     {
@@ -83,11 +102,7 @@ function NewTopicResource({ topicId }) {
     },
     {
       to: `/topics/${topicId}`,
-      title: topicName ?? 'Topic Details',
-    },
-    {
-      to: `/topics/${topicId}/resources/add`,
-      title: 'Add',
+      title: topicName,
     },
     {
       to: `/topics/${topicId}/resources/new`,
@@ -97,76 +112,94 @@ function NewTopicResource({ topicId }) {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <title>New Topic Resource - Resource Rank</title>
+      <Head>
+        <title>New Topic Resource - Resource Rank</title>
+      </Head>
 
-      <div className="page-header">New Resource</div>
+      <div className="text-4xl">New Topic Resource</div>
 
-      <form onSubmit={submit}>
-        <div className="mt-4">
-          <label htmlFor="name">Name</label>
-          <LiveValidatingInput
-            id="name"
-            value={name}
-            hasValidationError={!isAvailableResourceName}
-            isValidating={isValidatingName}
-            onChange={onNameChange}
-            required={true}
-            validationErrorMessage="Resource name already exists."
+      <form className="mt-10" onSubmit={handleSubmit(onSubmit, onInvalid)}>
+        <div>
+          <TextInput
+            name={FormField.RESOURCE_NAME}
+            label="Resource Name"
+            errorMessage={nameError}
+            autoComplete="off"
+            {...register(FormField.RESOURCE_NAME, {
+              required: 'Required',
+            })}
           />
         </div>
 
-        <div className="mt-3">
-          <label htmlFor="link">Link</label>
-          <input
-            id="link"
-            className="form-control mt-1"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-            required={true}
-            type="text"
+        <div className="mt-6">
+          <TextInput
+            name={FormField.RESOURCE_LINK}
+            label="Link"
+            errorMessage={linkError}
+            autoComplete="off"
+            {...register(FormField.RESOURCE_LINK, {
+              required: 'Required',
+            })}
           />
         </div>
 
-        <div className="mt-4 row align-items-center">
-          <div className="col-sm-auto">
-            <button
-              className="btn btn-primary w-100"
-              type="submit"
-              disabled={!canSubmit}
-            >
-              Submit
-            </button>
-          </div>
-          <div className="col-sm-auto mt-3 mt-sm-0">
-            <Link
-              href={`/topics/${topicId}/resources/add`}
-              className="btn btn-outline-danger w-100"
-            >
+        <div className="mt-10 flex flex-col sm:flex-row">
+          <button
+            className="btn btn-primary w-100"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Submit
+          </button>
+          <Link href={`/topics/${topicId}/resources/add`}>
+            <a className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3">
               Cancel
-            </Link>
-          </div>
-        </div>
-
-        <div className="text-center text-sm-start">
-          {submitError && (
-            <div className="mt-4 text-danger">
-              Failed to create topic resource.
-            </div>
-          )}
+            </a>
+          </Link>
 
           {isSubmitting && (
-            <div className="mt-4">
-              <Spinner animation="border" role="status" />
+            <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
+              <LoadingSpinner height={30} width={30} />
+            </div>
+          )}
+        </div>
+
+        <div className="text-center sm:text-left">
+          {createResourceError && (
+            <div className="mt-6 error-text">Failed to create resource.</div>
+          )}
+
+          {createTopicResourceError && (
+            <div className="mt-6 error-text">
+              Failed to create topic resource.
             </div>
           )}
         </div>
       </form>
     </BreadcrumbLayout>
   );
-}
+};
 
 NewTopicResource.propTypes = {
   topicId: PropTypes.string,
+  topicName: PropTypes.string,
 };
+
+export async function getServerSideProps({ req, params: { topicId } }) {
+  try {
+    const topicName = await getTopicName(topicId);
+
+    return {
+      props: {
+        topicId,
+        topicName,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+}
 
 export default NewTopicResource;

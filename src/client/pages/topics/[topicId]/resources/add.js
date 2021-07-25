@@ -73,13 +73,22 @@ const AddTopicResource = ({ topicId, topicName }) => {
   const onAddResource = async (resourceId) => {
     setAddResourceError(resourceId, false);
 
-    try {
-      await executeCreateTopicResourceMutation(topicId, resourceId);
+    const { data, error } = await executeCreateTopicResourceMutation(
+      topicId,
+      resourceId
+    );
 
-      router.push(`/topics/${topicId}/resources/${resourceId}`);
-    } catch (error) {
-      setAddResourceError(resourceId, true);
+    if (error) {
+      return setAddResourceError(resourceId, true);
     }
+
+    const success = data?.createTopicResource;
+
+    if (!success) {
+      return setAddResourceError(resourceId, true);
+    }
+
+    router.push(`/topics/${topicId}/resources/${resourceId}`);
   };
 
   const hasResources = resources?.length > 0;
