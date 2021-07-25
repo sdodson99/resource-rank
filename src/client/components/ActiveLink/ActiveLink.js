@@ -12,7 +12,10 @@ const ActiveLink = ({
 }) => {
   const router = useRouter();
 
-  if (href === router?.asPath) {
+  const asPath = router?.asPath ?? '';
+  const route = asPath.split('?')[0];
+
+  if (href === route) {
     return (
       <div
         className={`${className} ${activeClassName}`}

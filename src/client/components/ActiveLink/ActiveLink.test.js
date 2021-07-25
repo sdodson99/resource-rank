@@ -58,6 +58,31 @@ describe('<ActiveLink />', () => {
     });
   });
 
+  describe('with active and query parameters', () => {
+    const path = '/home';
+    const pathWithQuery = '/home?test=123';
+
+    beforeEach(() => {
+      useRouter.mockReturnValue({ asPath: pathWithQuery });
+    });
+
+    it('should render correctly', () => {
+      const page = createRenderer().render(
+        <ActiveLink href={path}>Link</ActiveLink>
+      );
+
+      expect(page).toMatchSnapshot();
+    });
+
+    it('should have active class name', () => {
+      render(<ActiveLink href={path}>Link</ActiveLink>);
+
+      const activeLink = screen.getByTestId('ActiveLink');
+
+      expect(activeLink.classList).toContain('active');
+    });
+  });
+
   describe('with not active', () => {
     beforeEach(() => {
       useRouter.mockReturnValue({ asPath: '/home' });

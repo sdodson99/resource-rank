@@ -17,6 +17,15 @@ exports[`<ActiveLink /> should render correctly 1`] = `
 </div>
 `;
 
+exports[`<ActiveLink /> with active and query parameters should render correctly 1`] = `
+<div
+  className=" active"
+  data-testid="ActiveLink"
+>
+  Link
+</div>
+`;
+
 exports[`<ActiveLink /> with active should render correctly 1`] = `
 <div
   className=" active"
