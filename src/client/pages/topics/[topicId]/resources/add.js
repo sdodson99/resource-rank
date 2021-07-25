@@ -10,8 +10,13 @@ import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner
 import useAvailableTopicResourcesQuery from '../../../../hooks/use-available-topic-resources-query';
 import useDebounce from '../../../../hooks/use-debounce';
 import AvailableResourceListing from '../../../../components/AvailableResourceListing/AvailableResourceListing';
+import useCreateTopicResourceMutation from '../../../../hooks/use-create-topic-resource-mutation';
+import { useRouter } from 'next/router';
 
 const AddTopicResource = ({ topicId, name }) => {
+  const router = useRouter();
+
+  const [resources, setResources] = useState([]);
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState('');
 
@@ -21,6 +26,10 @@ const AddTopicResource = ({ topicId, name }) => {
     isLoading: isLoadingResources,
     execute: executeResourcesQuery,
   } = useAvailableTopicResourcesQuery();
+
+  useEffect(() => {
+    setResources(resourcesData?.availableResources);
+  }, [resourcesData]);
 
   const executeResourcesSearch = async (search) => {
     setCurrentSearch(search);
@@ -43,11 +52,36 @@ const AddTopicResource = ({ topicId, name }) => {
     debounceExecuteResourcesSearch(searchInput);
   };
 
-  const onAddResource = async (resourceId) => {
-    console.log(resourceId);
+  const { execute: executeCreateTopicResourceMutation } =
+    useCreateTopicResourceMutation();
+
+  const setAddResourceError = (resourceId, status) => {
+    const nextResources = [...resources];
+
+    const updatedResourceIndex = nextResources.findIndex(
+      (r) => r.id === resourceId
+    );
+    const updatedResource = {
+      ...nextResources[updatedResourceIndex],
+      hasAddError: status,
+    };
+    nextResources[updatedResourceIndex] = updatedResource;
+
+    setResources(nextResources);
   };
 
-  const resources = resourcesData?.availableResources;
+  const onAddResource = async (resourceId) => {
+    setAddResourceError(resourceId, false);
+
+    try {
+      await executeCreateTopicResourceMutation(topicId, resourceId);
+
+      router.push(`/topics/${topicId}/resources/${resourceId}`);
+    } catch (error) {
+      setAddResourceError(resourceId, true);
+    }
+  };
+
   const hasResources = resources?.length > 0;
 
   const breadcrumbs = [
