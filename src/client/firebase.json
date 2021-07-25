@@ -11,7 +11,11 @@
   },
   "functions": {
     "source": ".",
-    "runtime": "nodejs12"
+    "runtime": "nodejs12",
+    "ignore": [
+      "**/node_modules/**",
+      "**/coverage/**"
+    ]
   },
   "emulators": {
     "hosting": {
