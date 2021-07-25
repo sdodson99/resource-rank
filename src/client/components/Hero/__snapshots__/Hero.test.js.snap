@@ -47,78 +47,14 @@ exports[`<Hero /> should render correctly 1`] = `
          resources for your learning journey.
       </div>
       <div
-        className="mt-8"
+        className="mt-8 flex justify-center"
       >
-        <div
-          style={
-            Object {
-              "boxSizing": "border-box",
-              "display": "inline-block",
-              "height": 100,
-              "overflow": "hidden",
-              "position": "relative",
-              "width": 100,
-            }
-          }
-        >
-          <noscript>
-            <img
-              alt="Resource Rank Logo"
-              decoding="async"
-              src="/img/logo.svg"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </noscript>
-          <img
-            alt="Resource Rank Logo"
-            decoding="async"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            style={
-              Object {
-                "border": "none",
-                "bottom": 0,
-                "boxSizing": "border-box",
-                "display": "block",
-                "height": 0,
-                "left": 0,
-                "margin": "auto",
-                "maxHeight": "100%",
-                "maxWidth": "100%",
-                "minHeight": "100%",
-                "minWidth": "100%",
-                "objectFit": undefined,
-                "objectPosition": undefined,
-                "padding": 0,
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "width": 0,
-              }
-            }
-          />
-        </div>
+        <img
+          alt="Resource Rank Logo"
+          height="100"
+          src="/img/logo.svg"
+          width="100"
+        />
       </div>
     </div>
   </div>

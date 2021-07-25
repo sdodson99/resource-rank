@@ -19,54 +19,19 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
           className="sm:flex items-center text-center sm:text-left"
         >
           <div
-            className="flex-grow"
+            className="flex-grow flex justify-center sm:justify-start"
           >
             <a
               href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <div
-                style={
-                  Object {
-                    "boxSizing": "border-box",
-                    "display": "inline-block",
-                    "height": 50,
-                    "overflow": "hidden",
-                    "position": "relative",
-                    "width": 50,
-                  }
-                }
-              >
-                <img
-                  alt="Resource Rank Logo"
-                  decoding="async"
-                  src="/_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75"
-                  srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=64&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75 2x"
-                  style={
-                    Object {
-                      "border": "none",
-                      "bottom": 0,
-                      "boxSizing": "border-box",
-                      "display": "block",
-                      "height": 0,
-                      "left": 0,
-                      "margin": "auto",
-                      "maxHeight": "100%",
-                      "maxWidth": "100%",
-                      "minHeight": "100%",
-                      "minWidth": "100%",
-                      "objectFit": undefined,
-                      "objectPosition": undefined,
-                      "padding": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                      "width": 0,
-                    }
-                  }
-                />
-              </div>
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
             </a>
           </div>
           <div
@@ -122,7 +87,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
         className="sm:flex text-center sm:text-left"
       >
         <div
-          className="order-1 sm:order-2 sm:ml-10"
+          className="sm:order-2 sm:ml-10"
         >
           <h1
             className="text-4xl"
@@ -172,49 +137,14 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
           </p>
         </div>
         <div
-          className="order-2 sm:order-1 mt-10 sm:mt-0"
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
         >
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "display": "inline-block",
-                "height": 75,
-                "overflow": "hidden",
-                "position": "relative",
-                "width": 75,
-              }
-            }
-          >
-            <img
-              alt="Resource Rank Logo"
-              decoding="async"
-              src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </div>
+          <img
+            alt="Resource Rank Logo"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
+          />
         </div>
       </div>
     </div>
@@ -246,54 +176,19 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
           className="sm:flex items-center text-center sm:text-left"
         >
           <div
-            className="flex-grow"
+            className="flex-grow flex justify-center sm:justify-start"
           >
             <a
               href="/"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
-              <div
-                style={
-                  Object {
-                    "boxSizing": "border-box",
-                    "display": "inline-block",
-                    "height": 50,
-                    "overflow": "hidden",
-                    "position": "relative",
-                    "width": 50,
-                  }
-                }
-              >
-                <img
-                  alt="Resource Rank Logo"
-                  decoding="async"
-                  src="/_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75"
-                  srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=64&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=128&q=75 2x"
-                  style={
-                    Object {
-                      "border": "none",
-                      "bottom": 0,
-                      "boxSizing": "border-box",
-                      "display": "block",
-                      "height": 0,
-                      "left": 0,
-                      "margin": "auto",
-                      "maxHeight": "100%",
-                      "maxWidth": "100%",
-                      "minHeight": "100%",
-                      "minWidth": "100%",
-                      "objectFit": undefined,
-                      "objectPosition": undefined,
-                      "padding": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                      "width": 0,
-                    }
-                  }
-                />
-              </div>
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
             </a>
           </div>
           <div
@@ -349,7 +244,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
         className="sm:flex text-center sm:text-left"
       >
         <div
-          className="order-1 sm:order-2 sm:ml-10"
+          className="sm:order-2 sm:ml-10"
         >
           <h1
             className="text-4xl"
@@ -399,49 +294,14 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
           </p>
         </div>
         <div
-          className="order-2 sm:order-1 mt-10 sm:mt-0"
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
         >
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "display": "inline-block",
-                "height": 75,
-                "overflow": "hidden",
-                "position": "relative",
-                "width": 75,
-              }
-            }
-          >
-            <img
-              alt="Resource Rank Logo"
-              decoding="async"
-              src="/_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75"
-              srcSet="/_next/image?url=%2Fimg%2Flogo.svg&w=96&q=75 1x, /_next/image?url=%2Fimg%2Flogo.svg&w=256&q=75 2x"
-              style={
-                Object {
-                  "border": "none",
-                  "bottom": 0,
-                  "boxSizing": "border-box",
-                  "display": "block",
-                  "height": 0,
-                  "left": 0,
-                  "margin": "auto",
-                  "maxHeight": "100%",
-                  "maxWidth": "100%",
-                  "minHeight": "100%",
-                  "minWidth": "100%",
-                  "objectFit": undefined,
-                  "objectPosition": undefined,
-                  "padding": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                  "width": 0,
-                }
-              }
-            />
-          </div>
+          <img
+            alt="Resource Rank Logo"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
+          />
         </div>
       </div>
     </div>

@@ -160,7 +160,7 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
           <div className="ml-4">
             {resourceLink && (
               <a
-                className="hyperlink"
+                className="hyperlink break-all"
                 href={resourceLink}
                 target="_blank"
                 rel="noreferrer"
