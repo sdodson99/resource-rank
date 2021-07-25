@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Feature /> should render correctly 1`] = `
+<div
+  className="Feature"
+  data-testid="Feature"
+>
+  <div
+    className="FeatureDescription"
+  >
+    123
+  </div>
+  <img
+    alt="Feature Image"
+    className="FeatureImage"
+  />
+</div>
+`;

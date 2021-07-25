@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicListingItem /> should render correctly 1`] = `
+<div
+  className="TopicListingItem"
+  data-testid="TopicListingItem"
+>
+  <Link
+    href="/topics/123"
+  >
+    <a>
+      <ListingItem
+        hover={true}
+      >
+        <div
+          className="sm:flex sm:justify-between sm:text-left text-center"
+        >
+          <div>
+            Topic1
+          </div>
+          <div
+            className="mt-5 sm:mt-0"
+          >
+            <Memo />
+          </div>
+        </div>
+      </ListingItem>
+    </a>
+  </Link>
+</div>
+`;

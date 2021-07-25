@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListingItem /> with hover disabled should render correctly 1`] = `
+<div
+  className="ListingItem"
+  data-testid="ListingItem"
+>
+  Hello world.
+</div>
+`;
+
+exports[`<ListingItem /> with hover enabled should render correctly 1`] = `
+<div
+  className="ListingItem HoverListingItem"
+  data-testid="ListingItem"
+>
+  Hello world.
+</div>
+`;

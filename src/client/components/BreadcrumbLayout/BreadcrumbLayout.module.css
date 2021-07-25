@@ -1,0 +1,14 @@
+.BreadcrumbLayout {
+}
+
+.LayoutContent {
+  @apply py-8;
+}
+
+.BreadcrumbContent {
+  @apply bg-gray-50 rounded p-5 text-xl;
+}
+
+.BreadcrumbItem.ActiveBreadcrumbItem {
+  @apply text-gray-700 no-underline;
+}

@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home page should render correctly 1`] = `
+<Layout>
+  <Head>
+    <title>
+      Home - Resource Rank
+    </title>
+  </Head>
+  <Hero />
+  <FeatureListing
+    features={
+      Array [
+        Object {
+          "description": <div>
+            <strong>
+              Instantly find the best resources
+            </strong>
+             for learning about a specific topic.
+          </div>,
+          "imageSrc": "/img/clock.svg",
+          "title": "Instant",
+        },
+        Object {
+          "description": <div>
+            <strong>
+              Explore topics
+            </strong>
+             to find your next learning journey.
+          </div>,
+          "imageSrc": "/img/mag-glass.svg",
+          "title": "Explore",
+        },
+        Object {
+          "description": <div>
+            <strong>
+              Rate resources
+            </strong>
+             based on helpfulness for learning a topic.
+          </div>,
+          "imageSrc": "/img/star.svg",
+          "title": "Rate",
+        },
+        Object {
+          "description": <div>
+            <strong>
+              Add your own new topics and resources
+            </strong>
+             that are useful.
+          </div>,
+          "imageSrc": "/img/add.svg",
+          "title": "Contribute",
+        },
+      ]
+    }
+  />
+  <CallToAction />
+</Layout>
+`;

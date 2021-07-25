@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AvailableResourceListingItem /> should render correctly 1`] = `
+<div
+  className="AvailableResourceListingItem"
+  data-testid="AvailableResourceListingItem"
+>
+  <div
+    className="ListingItem"
+    data-testid="ListingItem"
+  >
+    <div
+      className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+    >
+      <div>
+        <div
+          className=""
+        />
+      </div>
+      <div
+        className="mt-5 sm:mt-0 sm:ml-5"
+      >
+        <button
+          className="btn btn-primary"
+          data-testid="AddResourceButton"
+          onClick={[Function]}
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            fill="white"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<AvailableResourceListingItem /> with already added resource should render correctly 1`] = `
+<div
+  className="AvailableResourceListingItem"
+  data-testid="AvailableResourceListingItem"
+>
+  <div
+    className="ListingItem"
+    data-testid="ListingItem"
+  >
+    <div
+      className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+    >
+      <div>
+        <div
+          className="line-through"
+        />
+        <div
+          className="error-text italic text-xs"
+        >
+          Already added
+        </div>
+      </div>
+      <div
+        className="mt-5 sm:mt-0 sm:ml-5"
+      >
+        <button
+          className="btn btn-primary"
+          data-testid="AddResourceButton"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            fill="white"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<AvailableResourceListingItem /> with error on add should render correctly 1`] = `
+<div
+  className="AvailableResourceListingItem"
+  data-testid="AvailableResourceListingItem"
+>
+  <div
+    className="ListingItem"
+    data-testid="ListingItem"
+  >
+    <div
+      className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+    >
+      <div>
+        <div
+          className=""
+        />
+        <div
+          className="error-text text-xs"
+        >
+          Failed to add topic resource.
+        </div>
+      </div>
+      <div
+        className="mt-5 sm:mt-0 sm:ml-5"
+      >
+        <button
+          className="btn btn-primary"
+          data-testid="AddResourceButton"
+          onClick={[Function]}
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            fill="white"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

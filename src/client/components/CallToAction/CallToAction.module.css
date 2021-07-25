@@ -1,0 +1,15 @@
+.CallToAction {
+  background: url('/img/hero.png');
+
+  @apply flex relative text-center text-white;
+}
+
+.Content {
+  @apply z-10 py-16;
+}
+
+.ColorOverlay {
+  background-color: rgba(53, 53, 53, 0.9);
+
+  @apply w-full h-full absolute;
+}

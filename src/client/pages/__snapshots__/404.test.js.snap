@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`404 page should render correctly 1`] = `
+<Layout>
+  <Head>
+    <title>
+      Page Not Found - Resource Rank
+    </title>
+  </Head>
+  <div
+    className="text-xl mt-10 text-center"
+  >
+    Uh-oh! Page not found.
+  </div>
+</Layout>
+`;

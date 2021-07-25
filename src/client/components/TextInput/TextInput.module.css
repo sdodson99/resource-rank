@@ -1,0 +1,10 @@
+.TextInput {
+}
+
+input[type='text'].ErrorTextInput {
+  @apply border-red-400 outline-none;
+}
+
+input[type='text'].ErrorTextInput:focus {
+  @apply ring ring-red-50;
+}

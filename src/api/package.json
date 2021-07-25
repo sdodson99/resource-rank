@@ -14,7 +14,8 @@
     "serve": "firebase emulators:start --only functions,database,auth",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "test": "jest",
+    "test": "jest --watch",
+    "test:cover": "jest --coverage",
     "deploy": "firebase deploy --only functions"
   },
   "keywords": [

@@ -1,0 +1,21 @@
+.Hero {
+  background: url('/img/hero.png');
+
+  @apply flex relative text-white text-center;
+}
+
+.Content {
+  @apply z-10 py-16;
+}
+
+.ColorOverlay {
+  background-color: rgba(53, 53, 53, 0.9);
+
+  @apply absolute w-full h-full;
+}
+
+.Search {
+  max-width: 600px;
+
+  @apply mx-auto flex flex-col sm:flex-row mt-12;
+}

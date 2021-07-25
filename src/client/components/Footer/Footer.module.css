@@ -1,0 +1,5 @@
+.Footer {
+  background-color: var(--color-primary);
+
+  @apply py-10 text-white text-lg;
+}

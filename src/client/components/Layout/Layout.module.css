@@ -1,0 +1,12 @@
+.Layout {
+}
+
+.Page {
+  min-height: 100vh;
+}
+
+.Alert {
+  color: #664d03;
+
+  @apply bg-yellow-100 py-4 text-center;
+}

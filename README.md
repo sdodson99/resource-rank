@@ -41,9 +41,9 @@ Website: https://resource-rank.web.app/
 ## Client
 
 - React
-- Gatsby (planning to switch to NextJS for SSR)
+- NextJS
+- Tailwind
 - Unit Testing w/ Jest
-- Reactive Extensions
 
 # How to Run Locally
 

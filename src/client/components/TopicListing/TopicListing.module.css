@@ -1,0 +1,5 @@
+.TopicListing {}
+
+.TopicListingItem:last-child {
+    @apply mx-5;
+}

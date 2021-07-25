@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextInput /> should render correct when label provided 1`] = `
+<div
+  className="TextInput"
+  data-testid="TextInput"
+>
+  <div
+    className="flex flex-col"
+  >
+    <label
+      htmlFor="input"
+    >
+      Data Input
+    </label>
+    <input
+      className="mt-2 form-control flex-grow"
+      name="input"
+      type="text"
+    />
+  </div>
+</div>
+`;
+
+exports[`<TextInput /> should render correctly 1`] = `
+<div
+  className="TextInput"
+  data-testid="TextInput"
+>
+  <div
+    className="flex flex-col"
+  >
+    <input
+      className="mt-2 form-control flex-grow"
+      name="input"
+      type="text"
+    />
+  </div>
+</div>
+`;
+
+exports[`<TextInput /> should render correctly when error message provided 1`] = `
+<div
+  className="TextInput"
+  data-testid="TextInput"
+>
+  <div
+    className="flex flex-col"
+  >
+    <input
+      className="mt-2 form-control flex-grow ErrorTextInput"
+      name="input"
+      type="text"
+    />
+    <div
+      className="mt-2 error-text text-sm flex items-center"
+    >
+      <div>
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+          />
+        </svg>
+      </div>
+      <div
+        className="ml-2"
+      >
+        Error message.
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,11 @@
+.ListingItem {
+  @apply py-5 px-3;
+}
+
+.HoverListingItem {
+  @apply bg-transparent;
+}
+
+.HoverListingItem:hover {
+  @apply bg-gray-100 transition duration-200;
+}

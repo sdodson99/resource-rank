@@ -1,0 +1,12 @@
+.FeatureListing {
+}
+
+.FeatureItem {
+  min-height: 300px;
+
+  @apply py-10 flex items-center;
+}
+
+.FeatureItem:nth-child(even) {
+  @apply bg-gray-50;
+}

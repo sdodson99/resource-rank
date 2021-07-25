@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 1`] = `
+<div
+  className="BreadcrumbLayout"
+  data-testid="BreadcrumbLayout"
+>
+  <Layout>
+    <div
+      className="LayoutContent content-container"
+    >
+      <nav
+        aria-label="breadcrumb"
+        className="BreadcrumbContent"
+      >
+        <ol
+          className="flex flex-wrap"
+        >
+          <li
+            className="flex"
+          >
+            <ActiveLink
+              activeClassName="ActiveBreadcrumbItem"
+              className="BreadcrumbItem"
+              href="/"
+              linkClassName="hyperlink"
+            >
+              Home
+            </ActiveLink>
+            <div
+              className="px-3"
+            >
+              /
+            </div>
+          </li>
+          <li
+            className="flex"
+          >
+            <ActiveLink
+              activeClassName="ActiveBreadcrumbItem"
+              className="BreadcrumbItem"
+              href="/topics"
+              linkClassName="hyperlink"
+            >
+              topics
+            </ActiveLink>
+          </li>
+        </ol>
+      </nav>
+      <div
+        className="mt-8"
+      />
+    </div>
+  </Layout>
+</div>
+`;
+
+exports[`<BreadcrumbLayout /> without breadcrumbs should render correctly 1`] = `
+<div
+  className="BreadcrumbLayout"
+  data-testid="BreadcrumbLayout"
+>
+  <Layout>
+    <div
+      className="LayoutContent content-container"
+    >
+      <nav
+        aria-label="breadcrumb"
+        className="BreadcrumbContent"
+      >
+        <ol
+          className="flex flex-wrap"
+        />
+      </nav>
+      <div
+        className="mt-8"
+      />
+    </div>
+  </Layout>
+</div>
+`;

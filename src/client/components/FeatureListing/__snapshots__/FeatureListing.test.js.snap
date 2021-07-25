@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FeatureListing /> with features should render correctly 1`] = `
+<div
+  className="FeatureListing"
+  data-testid="FeatureListing"
+>
+  <div
+    className="FeatureItem"
+  >
+    <div
+      className="content-container flex-grow"
+    >
+      <div
+        className="Feature"
+        data-testid="Feature"
+      >
+        <div
+          className="FeatureDescription"
+        >
+          123
+        </div>
+        <img
+          alt="Feature Image"
+          className="FeatureImage"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="FeatureItem"
+  >
+    <div
+      className="content-container flex-grow"
+    >
+      <div
+        className="Feature"
+        data-testid="Feature"
+      >
+        <div
+          className="FeatureDescription"
+        >
+          456
+        </div>
+        <img
+          alt="Feature Image"
+          className="FeatureImage"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<FeatureListing /> without features should render correctly 1`] = `
+<div
+  className="FeatureListing"
+  data-testid="FeatureListing"
+/>
+`;

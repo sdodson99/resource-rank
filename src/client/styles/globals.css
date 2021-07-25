@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url(./variables.css);
+
+body {
+  font-family: 'Magra';
+}
+
+.content-container {
+  max-width: 850px;
+
+  @apply mx-auto px-8;
+}
+
+.btn {
+  @apply px-4 py-2 rounded transition duration-200 text-white;
+}
+
+.btn:disabled {
+  @apply opacity-60 shadow-none pointer-events-none;
+}
+
+.btn-primary {
+  background-color: var(--color-secondary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.btn-danger-outline {
+  @apply border-2 border-red-700 text-red-700;
+}
+
+.btn-danger-outline:hover {
+  @apply bg-red-700 text-white;
+}
+
+input[type='text'] {
+  @apply rounded border border-gray-200 text-gray-900;
+}
+
+input[type='text'].form-control {
+  @apply py-1 px-2;
+}
+
+input[type='text'].form-control-lg {
+  @apply py-2 px-3;
+}
+
+a.hyperlink {
+  @apply underline text-blue-600 hover:text-blue-800 transition duration-200;
+}
+
+.error-text {
+  @apply text-red-700;
+}

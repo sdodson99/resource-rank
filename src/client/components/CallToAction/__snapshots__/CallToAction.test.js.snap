@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CallToAction /> should render correctly 1`] = `
+<div
+  className="CallToAction"
+  data-testid="CallToAction"
+>
+  <div
+    className="content-container Content"
+  >
+    <div
+      className="text-6xl"
+    >
+      What are you waiting for?
+    </div>
+    <div
+      className="mt-10 flex justify-center"
+    >
+      <a
+        className="btn btn-primary"
+        href="/topics"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        Explore Topics
+      </a>
+    </div>
+  </div>
+  <div
+    className="ColorOverlay"
+  />
+</div>
+`;
