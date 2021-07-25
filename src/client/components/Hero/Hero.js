@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './Hero.module.css';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 const Hero = () => {
@@ -41,13 +40,12 @@ const Hero = () => {
             <strong>Resource Rank</strong> helps you find the{' '}
             <strong>best</strong> resources for your learning journey.
           </div>
-          <div className="mt-8">
-            <Image
+          <div className="mt-8 flex justify-center">
+            <img
               src="/img/logo.svg"
               alt="Resource Rank Logo"
               height="100"
               width="100"
-              layout="fixed"
             />
           </div>
         </div>

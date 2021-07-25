@@ -18,7 +18,10 @@
     "test": "jest --watch",
     "test:cover": "jest --coverage",
     "generate": "npx generate-react-cli component",
-    "deploy": "firebase deploy --only functions:nextjs,hosting"
+    "clean": "npm run clean:next",
+    "clean:next": "rm -rf .next",
+    "deploy": "npm run deploy:firebase",
+    "deploy:firebase": "firebase deploy --only functions:nextjs,hosting"
   },
   "dependencies": {
     "@fontsource/magra": "^4.4.5",

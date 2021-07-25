@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './LoadingSpinner.module.css';
-import Image from 'next/image';
 
 const LoadingSpinner = ({ height, width }) => (
   <div className={styles.LoadingSpinner} data-testid="LoadingSpinner">
-    <Image
+    <img
       className="animate-spin align-middle"
       src="/img/spinner.svg"
-      layout="intrinsic"
       height={height}
       width={width}
     />

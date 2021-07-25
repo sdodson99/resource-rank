@@ -7,7 +7,9 @@ const isDev = configuration.env.value !== 'production';
 
 const server = next({
   dev: isDev,
-  conf: { distDir: '.next' },
+  conf: {
+    distDir: '.next',
+  },
 });
 
 const handleRequest = server.getRequestHandler();

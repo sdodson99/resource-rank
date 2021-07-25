@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import Image from 'next/image';
 
 const Footer = () => (
   <footer className={styles.Footer} data-testid="Footer">
     <div className="content-container">
       <div className="sm:flex text-center sm:text-left">
-        <div className="order-1 sm:order-2 sm:ml-10">
+        <div className="sm:order-2 sm:ml-10">
           <h1 className="text-4xl">Our Mission</h1>
           <p className="py-3">
             is to <strong>simplify</strong> your learning journey. Learning can
@@ -20,14 +19,12 @@ const Footer = () => (
             <strong>best</strong> resources for what you are learning.
           </p>
         </div>
-        <div className="order-2 sm:order-1 mt-10 sm:mt-0">
-          <Image
+        <div className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start">
+          <img
             src="/img/logo.svg"
             alt="Resource Rank Logo"
             height="75"
             width="75"
-            layout="fixed"
-            priority={true}
           />
         </div>
       </div>

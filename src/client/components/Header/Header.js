@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './Header.module.css';
 import Link from 'next/link';
 import LoadingButton from '../LoadingButton/LoadingButton';
-import Image from 'next/image';
 import firebase from 'firebase/app';
 import useAuthenticationContext from '../../hooks/authentication/use-authentication-context';
 import useFirebaseApp from '../../hooks/use-firebase-app';
@@ -44,16 +43,14 @@ const Header = () => {
     <header className={styles.Header} data-testid="Header">
       <div className="content-container">
         <div className="sm:flex items-center text-center sm:text-left">
-          <div className="flex-grow">
+          <div className="flex-grow flex justify-center sm:justify-start">
             <Link href="/">
               <a>
-                <Image
+                <img
                   src="/img/logo.svg"
                   alt="Resource Rank Logo"
                   height="50"
                   width="50"
-                  layout="fixed"
-                  priority={true}
                 />
               </a>
             </Link>
