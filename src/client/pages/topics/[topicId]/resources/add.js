@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLClient } from '../../../../graphql/clients/graphql-client-factory';
-import getTopicNameByIdQuery from '../../../../graphql/queries/get-topic-name-by-id-query';
 import PageHeaderButton from '../../../../components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
@@ -12,8 +10,9 @@ import useDebounce from '../../../../hooks/use-debounce';
 import AvailableResourceListing from '../../../../components/AvailableResourceListing/AvailableResourceListing';
 import useCreateTopicResourceMutation from '../../../../hooks/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
+import getTopicName from '../../../../services/topic-names/graphql-topic-name-service';
 
-const AddTopicResource = ({ topicId, name }) => {
+const AddTopicResource = ({ topicId, topicName }) => {
   const router = useRouter();
 
   const [resources, setResources] = useState([]);
@@ -55,6 +54,7 @@ const AddTopicResource = ({ topicId, name }) => {
   const { execute: executeCreateTopicResourceMutation } =
     useCreateTopicResourceMutation();
 
+  // TBD: Move this logic into resource listing/listing item components?
   const setAddResourceError = (resourceId, status) => {
     const nextResources = [...resources];
 
@@ -91,7 +91,7 @@ const AddTopicResource = ({ topicId, name }) => {
     },
     {
       to: `/topics/${topicId}`,
-      title: name,
+      title: topicName,
     },
     {
       to: `/topics/${topicId}/resources/add`,
@@ -157,28 +157,17 @@ const AddTopicResource = ({ topicId, name }) => {
 
 AddTopicResource.propTypes = {
   topicId: PropTypes.string,
-  name: PropTypes.string,
+  topicName: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicId } }) {
-  const client = createGraphQLClient();
-
   try {
-    const topicResult = await client.fetch(getTopicNameByIdQuery, {
-      id: topicId,
-    });
-    const name = topicResult?.topic?.name;
-
-    if (!name) {
-      return {
-        notFound: true,
-      };
-    }
+    const topicName = await getTopicName(topicId);
 
     return {
       props: {
         topicId,
-        name,
+        topicName,
       },
     };
   } catch (error) {

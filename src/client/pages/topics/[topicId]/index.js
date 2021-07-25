@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLClient } from '../../../graphql/clients/graphql-client-factory';
-import getTopicNameByIdQuery from '../../../graphql/queries/get-topic-name-by-id-query';
 import Head from 'next/head';
 import Link from 'next/link';
 import LoadingErrorEmptyDataLayout from '../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
@@ -11,8 +9,9 @@ import useTopicResourceSearchQuery from '../../../hooks/use-topic-resource-searc
 import useDebounce from '../../../hooks/use-debounce';
 import TopicResourceListing from '../../../components/TopicResourceListing/TopicResourceListing';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import getTopicName from '../../../services/topic-names/graphql-topic-name-service';
 
-const TopicDetails = ({ topicId, name }) => {
+const TopicDetails = ({ topicId, topicName }) => {
   const { isLoggedIn } = useAuthenticationContext();
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState('');
@@ -65,17 +64,17 @@ const TopicDetails = ({ topicId, name }) => {
     },
     {
       to: topicLink,
-      title: name,
+      title: topicName,
     },
   ];
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
       <Head>
-        <title>{name} - Resource Rank</title>
+        <title>{topicName} - Resource Rank</title>
       </Head>
 
-      <div className="text-4xl">{name}</div>
+      <div className="text-4xl">{topicName}</div>
 
       <div className="mt-10 flex justify-between">
         <div className="text-3xl">Resources</div>
@@ -133,28 +132,17 @@ const TopicDetails = ({ topicId, name }) => {
 
 TopicDetails.propTypes = {
   topicId: PropTypes.string,
-  name: PropTypes.string,
+  topicName: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicId } }) {
-  const graphqlFetcher = createGraphQLClient();
-
   try {
-    const topicResult = await graphqlFetcher.fetch(getTopicNameByIdQuery, {
-      id: topicId,
-    });
-    const name = topicResult?.topic?.name;
-
-    if (!name) {
-      return {
-        notFound: true,
-      };
-    }
+    const topicName = await getTopicName(topicId);
 
     return {
       props: {
         topicId,
-        name,
+        topicName,
       },
     };
   } catch (error) {
