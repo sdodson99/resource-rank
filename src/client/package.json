@@ -14,6 +14,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watch",
+    "test:cover": "jest --coverage",
     "generate": "npx generate-react-cli component"
   },
   "dependencies": {
