@@ -14,7 +14,7 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "build": "next build",
     "start": "next start",
-    "serve:firebase": "firebase emulators:start --only hosting,functions,auth",
+    "serve:firebase": "firebase emulators:start --only hosting,functions",
     "test": "jest --watch",
     "test:cover": "jest --coverage",
     "generate": "npx generate-react-cli component"

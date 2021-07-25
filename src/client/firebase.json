@@ -14,9 +14,6 @@
     "runtime": "nodejs12"
   },
   "emulators": {
-    "auth": {
-      "port": 9099
-    },
     "hosting": {
       "port": 5000
     },
