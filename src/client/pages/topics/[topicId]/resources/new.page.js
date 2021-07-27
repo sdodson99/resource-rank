@@ -84,7 +84,9 @@ const NewTopicResource = ({ topicId, topicName }) => {
     const success = topicResourceData?.createTopicResource;
 
     if (!success) {
-      return setCreateTopicResourceError(new Error('Failed to create topic resource.'));
+      return setCreateTopicResourceError(
+        new Error('Failed to create topic resource.')
+      );
     }
 
     router.push(`/topics/${topicId}/resources/${resourceId}`);

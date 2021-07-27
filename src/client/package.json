@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "lint:eslint": "eslint \"./**/*.js\"",
-    "lint:prettier": "prettier \"./**/*.js\"",
+    "lint:prettier": "prettier --check \"./**/*.js\"",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "fix:eslint": "eslint --fix \"./**/*.js\"",
     "fix:prettier": "prettier --write \"./**/*.js\"",
