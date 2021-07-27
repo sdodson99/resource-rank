@@ -17,6 +17,7 @@
     "serve": "firebase emulators:start --only hosting,functions",
     "test": "jest --watch",
     "test:cover": "jest --coverage",
+    "test:ci": "jest --ci --coverage",
     "generate": "npx generate-react-cli component",
     "clean": "npm run clean:next",
     "clean:next": "rm -rf .next",

@@ -34,7 +34,7 @@ jobs:
         working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Test'
-        run: 'npm run test'
+        run: 'npm run test:ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Build'
