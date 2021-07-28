@@ -6,6 +6,8 @@ module.exports = {
     '^@/hooks(.*)$': '<rootDir>/hooks/$1',
     '^@/graphql(.*)$': '<rootDir>/graphql/$1',
     '^@/services(.*)$': '<rootDir>/services/$1',
+    '^@/styles(.*)$': '<rootDir>/styles/$1',
+    '^@/configuration(.*)$': '<rootDir>/configuration/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   collectCoverageFrom: ['**/*.{js,jsx}'],

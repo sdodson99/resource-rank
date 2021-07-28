@@ -1,11 +1,11 @@
-import '../styles/globals.css';
+import '@/styles/globals.css';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AuthenticationProvider } from '../hooks/authentication/use-authentication-context';
-import { FirebaseAppProvider } from '../hooks/use-firebase-app';
+import { AuthenticationProvider } from '@/hooks/authentication/use-authentication-context';
+import { FirebaseAppProvider } from '@/hooks/use-firebase-app';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
-import { GraphQLFetcherProvider } from '../hooks/graphql/use-graphql-fetcher';
+import { GraphQLFetcherProvider } from '@/hooks/graphql/use-graphql-fetcher';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',

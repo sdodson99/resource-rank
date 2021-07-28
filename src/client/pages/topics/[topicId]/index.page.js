@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BreadcrumbLayout from '../../../components/BreadcrumbLayout/BreadcrumbLayout';
+import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import Head from 'next/head';
 import Link from 'next/link';
-import LoadingErrorEmptyDataLayout from '../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import useAuthenticationContext from '../../../hooks/authentication/use-authentication-context';
-import useTopicResourceSearchQuery from '../../../hooks/use-topic-resource-search-query';
-import useDebounce from '../../../hooks/use-debounce';
-import TopicResourceListing from '../../../components/TopicResourceListing/TopicResourceListing';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import getTopicName from '../../../services/topic-names/graphql-topic-name-service';
+import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
+import useTopicResourceSearchQuery from '@/hooks/use-topic-resource-search-query';
+import useDebounce from '@/hooks/use-debounce';
+import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import getTopicName from '@/services/topic-names/graphql-topic-name-service';
 
 const TopicDetails = ({ topicId, topicName }) => {
   const { isLoggedIn } = useAuthenticationContext();

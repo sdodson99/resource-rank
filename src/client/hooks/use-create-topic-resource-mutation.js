@@ -1,4 +1,4 @@
-import createTopicResourceMutation from '../graphql/mutations/create-topic-resource-mutation';
+import createTopicResourceMutation from '@/graphql/mutations/create-topic-resource-mutation';
 import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
 
 export default function useCreateTopicResourceMutation() {

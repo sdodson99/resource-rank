@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import PageHeaderButton from '../../../../components/PageHeaderButton/PageHeaderButton';
-import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
-import useAvailableTopicResourcesQuery from '../../../../hooks/use-available-topic-resources-query';
-import useDebounce from '../../../../hooks/use-debounce';
-import AvailableResourceListing from '../../../../components/AvailableResourceListing/AvailableResourceListing';
-import useCreateTopicResourceMutation from '../../../../hooks/use-create-topic-resource-mutation';
+import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
+import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
+import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import useAvailableTopicResourcesQuery from '@/hooks/use-available-topic-resources-query';
+import useDebounce from '@/hooks/use-debounce';
+import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
+import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
-import getTopicName from '../../../../services/topic-names/graphql-topic-name-service';
+import getTopicName from '@/services/topic-names/graphql-topic-name-service';
 
 const AddTopicResource = ({ topicId, topicName }) => {
   const router = useRouter();

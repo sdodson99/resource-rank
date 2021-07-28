@@ -1,8 +1,8 @@
 import React from 'react';
-import FeatureListing from '../components/FeatureListing/FeatureListing';
-import CallToAction from '../components/CallToAction/CallToAction';
-import Layout from '../components/Layout/Layout';
-import Hero from '../components/Hero/Hero';
+import FeatureListing from '@/components/FeatureListing/FeatureListing';
+import CallToAction from '@/components/CallToAction/CallToAction';
+import Layout from '@/components/Layout/Layout';
+import Hero from '@/components/Hero/Hero';
 import Head from 'next/head';
 
 export default function Index() {

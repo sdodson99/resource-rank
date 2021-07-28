@@ -5,7 +5,9 @@
       "@/components/*": ["./components/*"],
       "@/hooks/*": ["./hooks/*"],
       "@/graphql/*": ["./graphql/*"],
-      "@/services/*": ["./services/*"]
+      "@/services/*": ["./services/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/configuration/*": ["./configuration/*"]
     }
   },
   "typeAcquisition": {

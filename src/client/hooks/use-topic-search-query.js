@@ -1,4 +1,4 @@
-import getTopicsQuery from '../graphql/queries/get-topics-query';
+import getTopicsQuery from '@/graphql/queries/get-topics-query';
 import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
 
 export default function useTopicSearchQuery() {

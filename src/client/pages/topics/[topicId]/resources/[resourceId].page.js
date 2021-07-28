@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLClient } from '../../../../graphql/clients/graphql-client-factory';
-import getTopicResourceByIdQuery from '../../../../graphql/queries/get-topic-resource-by-id-query';
+import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
+import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
+import getTopicResourceByIdQuery from '@/graphql/queries/get-topic-resource-by-id-query';
 import Head from 'next/head';
-import RatingStars from '../../../../components/RatingStars/rating-stars';
-import useAuthenticationContext from '../../../../hooks/authentication/use-authentication-context';
-import useTopicResourceUserRatingQuery from '../../../../hooks/use-topic-resource-user-rating-query';
-import SelectableRatingStars from '../../../../components/RatingStars/selectable-rating-stars';
-import useCreateRatingMutation from '../../../../hooks/use-create-rating-mutation';
-import useUpdateRatingMutation from '../../../../hooks/use-update-rating-mutation';
-import LoadingErrorEmptyDataLayout from '../../../../components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+import RatingStars from '@/components/RatingStars/rating-stars';
+import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
+import useTopicResourceUserRatingQuery from '@/hooks/use-topic-resource-user-rating-query';
+import SelectableRatingStars from '@/components/RatingStars/selectable-rating-stars';
+import useCreateRatingMutation from '@/hooks/use-create-rating-mutation';
+import useUpdateRatingMutation from '@/hooks/use-update-rating-mutation';
+import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
   const { isLoggedIn } = useAuthenticationContext();
