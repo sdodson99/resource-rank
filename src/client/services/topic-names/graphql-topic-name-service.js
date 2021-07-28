@@ -1,5 +1,5 @@
 import { createGraphQLClient } from '../../graphql/clients/graphql-client-factory';
-import getTopicNameByIdQuery from '../../graphql/queries/get-topic-name-by-id-query';
+import getTopicNameByIdQuery from '../../graphql/queries/topic-name-by-id-query';
 
 export default async function getTopicName(topicId) {
   const client = createGraphQLClient();

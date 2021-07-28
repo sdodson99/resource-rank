@@ -1,4 +1,4 @@
-import getTopicResourceListingQuery from '@/graphql/queries/get-topic-resource-listing-query';
+import getTopicResourceListingQuery from '@/graphql/queries/topic-resource-listing-query';
 import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
 
 export default function useTopicResourceSearchQuery(topicId) {

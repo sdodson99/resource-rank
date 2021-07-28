@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
-import getTopicResourceByIdQuery from '@/graphql/queries/get-topic-resource-by-id-query';
+import getTopicResourceByIdQuery from '@/graphql/queries/topic-resource-by-id-query';
 import Head from 'next/head';
 import RatingStars from '@/components/RatingStars/rating-stars';
 import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
