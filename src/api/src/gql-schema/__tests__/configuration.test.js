@@ -1,4 +1,4 @@
-const { resolvers } = require('./configuration');
+const { resolvers } = require('../configuration');
 
 describe('configuration resolvers', () => {
   describe('readOnlyModeEnabled query', () => {

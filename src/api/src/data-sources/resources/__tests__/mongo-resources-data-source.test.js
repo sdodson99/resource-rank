@@ -1,8 +1,8 @@
-const MongoResourcesDataSource = require('./mongo-resources-data-source');
+const MongoResourcesDataSource = require('../mongo-resources-data-source');
 
-const { Resource } = require('../../mongoose/models/resource');
+const { Resource } = require('../../../mongoose/models/resource');
 const { AuthenticationError } = require('apollo-server');
-jest.mock('../../mongoose/models/resource');
+jest.mock('../../../mongoose/models/resource');
 
 describe('MongoResourcesDataSource', () => {
   let mongoResourcesDataSource;

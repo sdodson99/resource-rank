@@ -1,4 +1,4 @@
-const FirebaseUsersDataSource = require('./firebase-users-data-source');
+const FirebaseUsersDataSource = require('../firebase-users-data-source');
 
 describe('FirebaseUsersDataSource', () => {
   let firebaseUsersDataSource;

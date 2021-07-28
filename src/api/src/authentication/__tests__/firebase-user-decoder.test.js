@@ -1,4 +1,4 @@
-const FirebaseUserDecoder = require('./firebase-user-decoder');
+const FirebaseUserDecoder = require('../firebase-user-decoder');
 
 describe('FirebaseUserDecoder', () => {
   let firebaseUserDecoder;

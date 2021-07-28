@@ -1,4 +1,4 @@
-const RatingsMap = require('./ratings-map');
+const RatingsMap = require('../ratings-map');
 
 describe('RatingsMap', () => {
   let ratingsMap;
