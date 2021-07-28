@@ -5,9 +5,18 @@ const resourceSchema = new Schema({
     type: String,
     required: true,
   },
+  slug: {
+    type: String,
+    required: true,
+  },
   link: String,
-  dateCreated: { type: Date, default: Date.now },
-  createdBy: { type: String },
+  dateCreated: { 
+    type: Date, 
+    default: Date.now 
+  },
+  createdBy: { 
+    type: String 
+  },
 });
 
 const Resource = model('Resource', resourceSchema);

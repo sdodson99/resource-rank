@@ -5,10 +5,18 @@ const ratingSchema = new Schema({
     type: Number,
     required: true,
   },
-  dateCreated: { type: Date, default: Date.now },
-  resource: { type: Schema.Types.ObjectId, ref: 'Resource' },
+  dateCreated: {
+    type: Date,
+    default: Date.now,
+  },
+  resource: {
+    type: Schema.Types.ObjectId,
+    ref: 'Resource',
+  },
   topic: { type: Schema.Types.ObjectId, ref: 'Topic' },
-  createdBy: { type: String },
+  createdBy: {
+    type: String,
+  },
 });
 
 const Rating = model('Rating', ratingSchema);
