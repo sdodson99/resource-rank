@@ -11,7 +11,7 @@
     "fix:eslint": "eslint --fix \"src/**/*.js\"",
     "fix:prettier": "prettier --write \"src/**/*.js\"",
     "fix": "npm run fix:eslint && npm run fix:prettier",
-    "serve": "firebase emulators:start --only functions,database,auth",
+    "serve": "firebase emulators:start --only functions,database,auth --inspect-functions 9228",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "test": "jest --watch",
@@ -53,6 +53,7 @@
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.11.0",
     "graphql": "^15.5.0",
-    "mongoose": "^5.12.5"
+    "mongoose": "^5.12.5",
+    "slugify": "^1.6.0"
   }
 }
