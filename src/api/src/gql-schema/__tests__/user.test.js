@@ -1,4 +1,4 @@
-const { resolvers } = require('./user');
+const { resolvers } = require('../user');
 
 describe('user resolvers', () => {
   describe('user id resolver', () => {

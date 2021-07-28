@@ -1,4 +1,4 @@
-const FirebaseReadOnlyModeDataSource = require('./firebase-read-only-mode-data-source');
+const FirebaseReadOnlyModeDataSource = require('../firebase-read-only-mode-data-source');
 
 describe('FirebaseReadOnlyModeDataSource', () => {
   let readOnlyModeDataSource;

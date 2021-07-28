@@ -37,12 +37,15 @@ Website: https://resource-rank.web.app/
 - MongoDB w/ Mongoose
 - GraphQL w/ Apollo Server
 - DataLoader
+- Firebase (Functions, Authentication)
+- Unit Testing w /Jest
 
 ## Client
 
 - React
 - NextJS
 - Tailwind
+- Firebase (Hosting, Authentication)
 - Unit Testing w/ Jest
 
 # How to Run Locally

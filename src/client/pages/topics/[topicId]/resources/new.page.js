@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import BreadcrumbLayout from '../../../../components/BreadcrumbLayout/BreadcrumbLayout';
-import getTopicName from '../../../../services/topic-names/graphql-topic-name-service';
+import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
+import getTopicName from '@/services/topic-names/graphql-topic-name-service';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import TextInput from '../../../../components/TextInput/TextInput';
+import TextInput from '@/components/TextInput/TextInput';
 import Link from 'next/link';
-import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
-import useCreateResourceMutation from '../../../../hooks/use-create-resource-mutation';
-import useCreateTopicResourceMutation from '../../../../hooks/use-create-topic-resource-mutation';
-import getErrorCode from '../../../../graphql/errors/getErrorCode';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import useCreateResourceMutation from '@/hooks/use-create-resource-mutation';
+import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
+import getErrorCode from '@/graphql/errors/getErrorCode';
 
 const FormField = {
   RESOURCE_NAME: 'name',

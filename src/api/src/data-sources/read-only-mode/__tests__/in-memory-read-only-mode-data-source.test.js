@@ -1,4 +1,4 @@
-const InMemoryReadOnlyModeDataSource = require('./in-memory-read-only-mode-data-source');
+const InMemoryReadOnlyModeDataSource = require('../in-memory-read-only-mode-data-source');
 
 describe('InMemoryReadOnlyModeDataSource', () => {
   let inMemoryReadOnlyModeDataSource;

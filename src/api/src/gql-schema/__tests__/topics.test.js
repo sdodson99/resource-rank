@@ -1,4 +1,4 @@
-const { resolvers } = require('./topics');
+const { resolvers } = require('../topics');
 
 describe('topics resolvers', () => {
   let topicsDataSource;

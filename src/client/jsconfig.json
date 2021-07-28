@@ -1,7 +1,17 @@
 {
-    "typeAcquisition": {
-        "include": [
-            "jest"
-        ]
-    },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/graphql/*": ["./graphql/*"],
+      "@/services/*": ["./services/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/configuration/*": ["./configuration/*"]
+    }
+  },
+  "typeAcquisition": {
+    "include": ["jest"]
+  },
+  "exclude": ["node_modules"]
 }

@@ -1,8 +1,8 @@
-const MongoTopicsDataSource = require('./mongo-topics-data-source');
+const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
 
-const { Topic } = require('../../mongoose/models/topic');
-jest.mock('../../mongoose/models/topic');
+const { Topic } = require('../../../mongoose/models/topic');
+jest.mock('../../../mongoose/models/topic');
 
 describe('MongoTopicsDataSource', () => {
   let mongoTopicsDataSource;

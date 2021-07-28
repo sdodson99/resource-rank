@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BreadcrumbLayout from '../../components/BreadcrumbLayout/BreadcrumbLayout';
+import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
-import useCreateTopicMutation from '../../hooks/use-create-topic-mutation';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import TextInput from '../../components/TextInput/TextInput';
-import getErrorCode from '../../graphql/errors/getErrorCode';
+import useCreateTopicMutation from '@/hooks/use-create-topic-mutation';
+import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import TextInput from '@/components/TextInput/TextInput';
+import getErrorCode from '@/graphql/errors/getErrorCode';
 
 const FormField = {
   TOPIC_NAME: 'name',

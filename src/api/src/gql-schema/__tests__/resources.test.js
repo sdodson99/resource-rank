@@ -1,4 +1,4 @@
-const { resolvers } = require('./resources');
+const { resolvers } = require('../resources');
 
 describe('resources resolvers', () => {
   let resourcesDataSource;

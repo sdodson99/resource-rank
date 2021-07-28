@@ -1,4 +1,4 @@
-const { resolvers } = require('./ratings');
+const { resolvers } = require('../ratings');
 
 describe('ratings resolvers', () => {
   let topicId;

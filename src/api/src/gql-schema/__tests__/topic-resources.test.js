@@ -1,6 +1,6 @@
 const { when } = require('jest-when');
 
-const { resolvers } = require('./topic-resources');
+const { resolvers } = require('../topic-resources');
 
 describe('topic resources resolvers', () => {
   let topicId;

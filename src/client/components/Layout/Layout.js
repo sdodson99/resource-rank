@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Layout.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
+import useReadOnlyModeStatus from '@/hooks/use-read-only-mode-status';
 
 const Layout = ({ children }) => {
   const readOnlyModeEnabled = useReadOnlyModeStatus();
