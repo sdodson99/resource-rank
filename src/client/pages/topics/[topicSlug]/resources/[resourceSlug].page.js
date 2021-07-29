@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
-import getTopicResourceByIdQuery from '@/graphql/queries/topic-resource-by-id-query';
 import Head from 'next/head';
 import RatingStars from '@/components/RatingStars/rating-stars';
 import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
@@ -12,8 +11,15 @@ import useCreateRatingMutation from '@/hooks/use-create-rating-mutation';
 import useUpdateRatingMutation from '@/hooks/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
 
-const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
+const TopicResourceDetails = ({
+  topicId,
+  resourceId,
+  topicSlug,
+  resourceSlug,
+  topicResource,
+}) => {
   const { isLoggedIn } = useAuthenticationContext();
 
   const [ratingSum, setRatingSum] = useState(topicResource?.ratingList?.sum);
@@ -130,11 +136,11 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
       title: 'Topics',
     },
     {
-      to: `/topics/${topicId}`,
+      to: `/topics/${topicSlug}`,
       title: topicName,
     },
     {
-      to: `/topics/${topicId}/resources/${resourceId}`,
+      to: `/topics/${topicSlug}/resources/${resourceSlug}`,
       title: resourceName,
     },
   ];
@@ -236,6 +242,8 @@ const TopicResourceDetails = ({ topicId, resourceId, topicResource }) => {
 TopicResourceDetails.propTypes = {
   topicId: PropTypes.string,
   resourceId: PropTypes.string,
+  topicSlug: PropTypes.string,
+  resourceSlug: PropTypes.string,
   topicResource: PropTypes.object,
 };
 
@@ -247,14 +255,14 @@ export async function getServerSideProps({
 
   try {
     const topicResourceResult = await graphqlFetcher.fetch(
-      getTopicResourceByIdQuery,
+      topicResourceBySlugQuery,
       {
-        topicId: topicSlug,
-        resourceId: resourceSlug,
+        topicSlug,
+        resourceSlug,
       }
     );
 
-    const topicResource = topicResourceResult?.topicResource;
+    const topicResource = topicResourceResult?.topicResourceBySlug;
 
     if (!topicResource) {
       return {
@@ -264,8 +272,10 @@ export async function getServerSideProps({
 
     return {
       props: {
-        topicId: topicSlug,
-        resourceId: resourceSlug,
+        topicId: topicResource.topic.id,
+        resourceId: topicResource.resource.id,
+        topicSlug,
+        resourceSlug,
         topicResource,
       },
     };
