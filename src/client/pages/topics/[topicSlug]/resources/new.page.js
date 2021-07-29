@@ -9,8 +9,9 @@ import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import useCreateResourceMutation from '@/hooks/use-create-resource-mutation';
 import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
-import getErrorCode from '@/graphql/errors/getErrorCode';
+import getErrorCode from '@/graphql/errors/get-error-code';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
+import ErrorCode from '@/graphql/errors/error-code';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -42,12 +43,6 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
   const { execute: executeCreateTopicResourceMutation } =
     useCreateTopicResourceMutation();
 
-  const isResourceAlreadyExistsError = (error) => {
-    const errorCode = getErrorCode(error);
-
-    return errorCode === 'RESOURCE_ALREADY_EXISTS';
-  };
-
   const onSubmit = async (formData) => {
     setCreateResourceError(null);
     setCreateTopicResourceError(null);
@@ -59,13 +54,21 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       await executeCreateResourceMutation(name, link);
 
     if (resourceError) {
-      if (isResourceAlreadyExistsError(resourceError)) {
+      const errorCode = getErrorCode(resourceError);
+
+      if (errorCode === ErrorCode.RESOURCE_ALREADY_EXISTS) {
         return setError(FormField.RESOURCE_NAME, {
           message: 'Name already exists.',
         });
-      } else {
-        return setCreateResourceError(resourceError);
       }
+
+      if (errorCode === ErrorCode.RESOURCE_NAME_ERROR) {
+        return setError(FormField.RESOURCE_NAME, {
+          message: 'Invalid name.',
+        });
+      }
+
+      return setCreateResourceError(resourceError);
     }
 
     const resourceId = resourceData?.createResource?.id;

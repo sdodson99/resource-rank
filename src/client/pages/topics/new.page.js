@@ -7,7 +7,8 @@ import { useForm } from 'react-hook-form';
 import useCreateTopicMutation from '@/hooks/use-create-topic-mutation';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import TextInput from '@/components/TextInput/TextInput';
-import getErrorCode from '@/graphql/errors/getErrorCode';
+import getErrorCode from '@/graphql/errors/get-error-code';
+import ErrorCode from '@/graphql/errors/error-code';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -32,12 +33,6 @@ export default function NewTopic() {
 
   const { execute: executeCreateTopicMutation } = useCreateTopicMutation();
 
-  const isTopicAlreadyExistsError = (error) => {
-    const errorCode = getErrorCode(error);
-
-    return errorCode === 'TOPIC_ALREADY_EXISTS';
-  };
-
   const onSubmit = async (formData) => {
     setCreateTopicError(null);
 
@@ -46,13 +41,21 @@ export default function NewTopic() {
     const { data, error } = await executeCreateTopicMutation(name);
 
     if (error) {
-      if (isTopicAlreadyExistsError(error)) {
+      const errorCode = getErrorCode(error);
+
+      if (errorCode === ErrorCode.TOPIC_ALREADY_EXISTS) {
         return setError(FormField.TOPIC_NAME, {
           message: 'Name already exists.',
         });
-      } else {
-        return setCreateTopicError(error);
       }
+
+      if (errorCode === ErrorCode.TOPIC_NAME_ERROR) {
+        return setError(FormField.TOPIC_NAME, {
+          message: 'Invalid name.',
+        });
+      }
+
+      return setCreateTopicError(error);
     }
 
     const createdTopicSlug = data?.createTopic?.slug;
