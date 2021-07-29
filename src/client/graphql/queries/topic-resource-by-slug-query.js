@@ -11,6 +11,9 @@ const topicResourceBySlugQuery = gql`
         id
         name
         link
+        createdBy {
+          username
+        }
       }
       ratingList {
         count

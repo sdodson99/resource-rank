@@ -6,6 +6,9 @@ const topicBySlugQuery = gql`
       id
       name
       slug
+      createdBy {
+        username
+      }
     }
   }
 `;

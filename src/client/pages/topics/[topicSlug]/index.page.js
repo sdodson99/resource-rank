@@ -11,7 +11,7 @@ import TopicResourceListing from '@/components/TopicResourceListing/TopicResourc
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 
-const TopicDetails = ({ topicId, topicName, topicSlug }) => {
+const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
   const { isLoggedIn } = useAuthenticationContext();
 
   const [search, setSearch] = useState('');
@@ -82,6 +82,8 @@ const TopicDetails = ({ topicId, topicName, topicSlug }) => {
 
       <div className="text-4xl">{topicName}</div>
 
+      <div className="mt-3 text-xs text-gray-800">Created By: {topicCreator}</div>
+
       <div className="mt-10 flex justify-between">
         <div className="text-3xl">Resources</div>
 
@@ -141,6 +143,7 @@ TopicDetails.propTypes = {
   topicId: PropTypes.string,
   topicName: PropTypes.string,
   topicSlug: PropTypes.string,
+  topicCreator: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicSlug } }) {
@@ -158,6 +161,7 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
         topicId: topic.id,
         topicName: topic.name,
         topicSlug: topic.slug,
+        topicCreator: topic.createdBy?.username ?? 'Unknown',
       },
     };
   } catch (error) {

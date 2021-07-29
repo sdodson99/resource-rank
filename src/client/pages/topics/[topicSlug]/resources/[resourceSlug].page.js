@@ -123,6 +123,7 @@ const TopicResourceDetails = ({
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
+  const resourceCreatedBy = topicResource?.resource?.createdBy?.username ?? 'Unknown';
   const ratingAverage = ratingSum / ratingCount;
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;
@@ -156,6 +157,10 @@ const TopicResourceDetails = ({
         <div className="mt-3 sm:mt-0">
           <RatingStars rating={ratingAverage} />
         </div>
+      </div>
+
+      <div className="mt-3 text-xs text-gray-800">
+        Created By: {resourceCreatedBy}
       </div>
 
       <div className="mt-10">
