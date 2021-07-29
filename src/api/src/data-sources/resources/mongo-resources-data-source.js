@@ -2,6 +2,7 @@ const { DataSource } = require('apollo-datasource');
 const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
+const slugify = require('../../services/slugify');
 
 /**
  * Data source for resources from a Mongo database.
@@ -126,7 +127,17 @@ class MongoResourcesDataSource extends DataSource {
       );
     }
 
-    return await this.resourceModel.create({ name, link, createdBy: uid });
+    const slug = slugify(name);
+    const slugExists = await this.resourceModel.exists({ slug });
+
+    if (slugExists) {
+      throw new ApolloError(
+        'Resource slug already exists.',
+        'RESOURCE_ALREADY_EXISTS'
+      );
+    }
+
+    return await this.resourceModel.create({ name, slug, link, createdBy: uid });
   }
 }
 

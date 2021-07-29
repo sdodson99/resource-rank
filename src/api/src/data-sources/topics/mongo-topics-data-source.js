@@ -2,6 +2,7 @@ const { DataSource } = require('apollo-datasource');
 const { Topic } = require('../../mongoose/models/topic');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
+const slugify = require('../../services/slugify');
 
 /**
  * Data source for topics from a Mongo database.
@@ -90,13 +91,24 @@ class MongoTopicsDataSource extends DataSource {
     if (!this.user) {
       throw new AuthenticationError();
     }
+
     const { uid } = this.user;
 
     if (await this.nameExists(name)) {
       throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
     }
 
-    return await this.topicModel.create({ name, createdBy: uid });
+    const slug = slugify(name);
+    const slugExists = await this.topicModel.exists({ slug });
+
+    if (slugExists) {
+      throw new ApolloError(
+        'Topic slug already exists.',
+        'TOPIC_ALREADY_EXISTS'
+      );
+    }
+
+    return await this.topicModel.create({ name, slug, createdBy: uid });
   }
 
   /**

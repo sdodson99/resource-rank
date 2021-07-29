@@ -1,8 +1,10 @@
 const MongoResourcesDataSource = require('../mongo-resources-data-source');
-
-const { Resource } = require('../../../mongoose/models/resource');
 const { AuthenticationError } = require('apollo-server');
+const { Resource } = require('../../../mongoose/models/resource');
+const slugify = require('../../../services/slugify');
+
 jest.mock('../../../mongoose/models/resource');
+jest.mock('../../../services/slugify');
 
 describe('MongoResourcesDataSource', () => {
   let mongoResourcesDataSource;
@@ -12,6 +14,8 @@ describe('MongoResourcesDataSource', () => {
     Resource.find.mockReset();
     Resource.exists.mockReset();
     Resource.create.mockReset();
+
+    slugify.mockReset();
 
     mongoResourcesDataSource = new MongoResourcesDataSource();
   });
@@ -177,8 +181,9 @@ describe('MongoResourcesDataSource', () => {
   });
 
   describe('create', () => {
-    const name = 'resource-name';
+    const name = 'resource name';
     const link = 'test.com';
+    const slug = 'resource-name';
 
     describe('with unauthenticated user', () => {
       it('should throw authentication error', async () => {
@@ -203,6 +208,15 @@ describe('MongoResourcesDataSource', () => {
         }).rejects.toThrow('Resource already exists.');
       });
 
+      it('should throw resource slug exists error if slug already exists', async () => {
+        Resource.exists.mockReturnValueOnce(false);
+        Resource.exists.mockReturnValueOnce(true);
+
+        await expect(async () => {
+          await mongoResourcesDataSource.create(name, link);
+        }).rejects.toThrow('Resource slug already exists.');
+      });
+
       it('should throw if request fails', async () => {
         Resource.create.mockImplementation(() => {
           throw new Error();
@@ -214,7 +228,8 @@ describe('MongoResourcesDataSource', () => {
       });
 
       it('should return created resource if successful', async () => {
-        const expected = { name, link };
+        slugify.mockReturnValue(slug);
+        const expected = { name, slug, link };
         Resource.create.mockReturnValue(expected);
 
         const actual = await mongoResourcesDataSource.create(name, link);
@@ -223,7 +238,8 @@ describe('MongoResourcesDataSource', () => {
       });
 
       it('should call create if successful', async () => {
-        const expected = { name, link, createdBy: userId };
+        slugify.mockReturnValue(slug);
+        const expected = { name, slug, link, createdBy: userId };
 
         await mongoResourcesDataSource.create(name, link);
 

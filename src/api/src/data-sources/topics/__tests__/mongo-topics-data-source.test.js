@@ -1,8 +1,10 @@
 const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
-
 const { Topic } = require('../../../mongoose/models/topic');
+const slugify = require('../../../services/slugify');
+
 jest.mock('../../../mongoose/models/topic');
+jest.mock('../../../services/slugify');
 
 describe('MongoTopicsDataSource', () => {
   let mongoTopicsDataSource;
@@ -13,6 +15,8 @@ describe('MongoTopicsDataSource', () => {
     Topic.exists.mockReset();
     Topic.create.mockReset();
     Topic.updateOne.mockReset();
+
+    slugify.mockReset();
 
     mongoTopicsDataSource = new MongoTopicsDataSource();
   });
@@ -134,9 +138,11 @@ describe('MongoTopicsDataSource', () => {
 
   describe('create', () => {
     let name;
+    let slug;
 
     beforeEach(() => {
-      name = 'some-name';
+      name = 'some name';
+      slug = 'some-name';
     });
 
     describe('with unauthenticated user', () => {
@@ -164,6 +170,15 @@ describe('MongoTopicsDataSource', () => {
         }).rejects.toThrow('Topic already exists.');
       });
 
+      it('should throw topic slug exists error if slug already exists', async () => {
+        Topic.exists.mockReturnValueOnce(false);
+        Topic.exists.mockReturnValueOnce(true);
+
+        await expect(async () => {
+          await mongoTopicsDataSource.create(name);
+        }).rejects.toThrow('Topic slug already exists.');
+      });
+
       it('should throw error if topic creation fails', async () => {
         Topic.create.mockImplementation(() => {
           throw new Error();
@@ -175,16 +190,20 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should create topic if successful', async () => {
+        slugify.mockReturnValue(slug);
+
         await mongoTopicsDataSource.create(name);
 
         expect(Topic.create.mock.calls[0][0]).toEqual({
           name,
+          slug,
           createdBy: userId,
         });
       });
 
       it('should return created topic if successful', async () => {
-        const expected = { name, createdBy: userId };
+        slugify.mockReturnValue(slug);
+        const expected = { name, slug, createdBy: userId };
         Topic.create.mockReturnValue(expected);
 
         const actual = await mongoTopicsDataSource.create(name);
