@@ -12,6 +12,7 @@ describe('MongoResourcesDataSource', () => {
   beforeEach(() => {
     Resource.mockReset();
     Resource.find.mockReset();
+    Resource.findOne.mockReset();
     Resource.exists.mockReset();
     Resource.create.mockReset();
 
@@ -59,6 +60,37 @@ describe('MongoResourcesDataSource', () => {
 
       await expect(async () => {
         await mongoResourcesDataSource.getById(resourceId);
+      }).rejects.toThrow();
+    });
+  });
+
+  describe('getBySlug', () => {
+    const slug = 'resource-name';
+
+    it('should return resource if resource slug found', async () => {
+      const expected = { slug };
+      Resource.findOne.mockReturnValue(expected);
+
+      const actual = await mongoResourcesDataSource.getBySlug(slug);
+
+      expect(actual).toBe(expected);
+    });
+
+    it('should return null if resource slug not found', async () => {
+      Resource.findOne.mockReturnValue(null);
+
+      const actual = await mongoResourcesDataSource.getBySlug(slug);
+
+      expect(actual).toBeNull();
+    });
+
+    it('should throw if resource slug query fails', async () => {
+      Resource.findOne.mockImplementation(() => {
+        throw new Error();
+      });
+
+      await expect(async () => {
+        await mongoResourcesDataSource.getBySlug(slug);
       }).rejects.toThrow();
     });
   });

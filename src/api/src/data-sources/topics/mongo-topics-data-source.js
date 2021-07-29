@@ -58,6 +58,24 @@ class MongoTopicsDataSource extends DataSource {
   }
 
   /**
+   * Find a topic by slug.
+   * @param {string} slug The slug of the topic to find.
+   * @return {Promise<object>} The topic matching the slug. Null if topic not found.
+   * @throws {Error} Thrown if query fails.
+   */
+  async getBySlug(slug) {
+    const topic = await this.topicModel.findOne({
+      slug,
+    });
+
+    if (!topic) {
+      return null;
+    }
+
+    return topic;
+  }
+
+  /**
    * Search for topics.
    * @param {string} query The topic query to search for.
    * @return {Promise<object>} The topics matching the query.

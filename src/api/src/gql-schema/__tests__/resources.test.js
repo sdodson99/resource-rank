@@ -66,6 +66,23 @@ describe('resources resolvers', () => {
     });
   });
 
+  describe('resource slug query', () => {
+    let slug;
+
+    beforeEach(() => {
+      slug = 'resource-name123';
+    });
+
+    it('should return resource', () => {
+      const expected = { slug };
+      resourcesDataSource.getBySlug = () => expected;
+
+      const actual = resolvers.Query.resourceBySlug(null, { slug }, context);
+
+      expect(expected).toBe(actual);
+    });
+  });
+
   describe('resource exists query', () => {
     let name;
 

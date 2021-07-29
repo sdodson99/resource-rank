@@ -4,6 +4,7 @@ exports.typeDefs = gql`
   type Query {
     resources(search: String): [Resource]
     resource(id: ID!): Resource
+    resourceBySlug(slug: String!): Resource
     resourceExists(name: String!): Boolean
   }
 
@@ -24,6 +25,8 @@ exports.resolvers = {
     resources: (_, { search = '' }, { dataSources }) =>
       dataSources.resources.search(search),
     resource: (_, { id }, { dataSources }) => dataSources.resources.getById(id),
+    resourceBySlug: (_, { slug }, { dataSources }) =>
+      dataSources.resources.getBySlug(slug),
     resourceExists: (_, { name }, { dataSources }) =>
       dataSources.resources.nameExists(name),
   },

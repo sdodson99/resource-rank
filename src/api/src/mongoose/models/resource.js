@@ -10,12 +10,12 @@ const resourceSchema = new Schema({
     required: true,
   },
   link: String,
-  dateCreated: { 
-    type: Date, 
-    default: Date.now 
+  dateCreated: {
+    type: Date,
+    default: Date.now,
   },
-  createdBy: { 
-    type: String 
+  createdBy: {
+    type: String,
   },
 });
 

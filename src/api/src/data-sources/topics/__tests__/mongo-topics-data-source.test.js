@@ -12,6 +12,7 @@ describe('MongoTopicsDataSource', () => {
   beforeEach(() => {
     Topic.mockReset();
     Topic.find.mockReset();
+    Topic.findOne.mockReset();
     Topic.exists.mockReset();
     Topic.create.mockReset();
     Topic.updateOne.mockReset();
@@ -64,6 +65,41 @@ describe('MongoTopicsDataSource', () => {
 
       await expect(async () => {
         await mongoTopicsDataSource.getById(topicId);
+      }).rejects.toThrow();
+    });
+  });
+
+  describe('getBySlug', () => {
+    let slug;
+
+    beforeEach(() => {
+      slug = 'topic-name';
+    });
+
+    it('should return topic if topic slug found', async () => {
+      const expected = { name: 'Topic Name', slug };
+      Topic.findOne.mockReturnValue(expected);
+
+      const actual = await mongoTopicsDataSource.getBySlug(slug);
+
+      expect(actual).toBe(expected);
+    });
+
+    it('should return null if topic slug not found', async () => {
+      Topic.findOne.mockReturnValue(null);
+
+      const actual = await mongoTopicsDataSource.getBySlug(slug);
+
+      expect(actual).toBeNull();
+    });
+
+    it('should throw if topic query fails', async () => {
+      Topic.findOne.mockImplementation(() => {
+        throw new Error();
+      });
+
+      await expect(async () => {
+        await mongoTopicsDataSource.getBySlug(slug);
       }).rejects.toThrow();
     });
   });

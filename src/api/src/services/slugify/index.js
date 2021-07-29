@@ -1,6 +1,6 @@
 const slug = require('slugify');
 
-slug.extend({'#': 'sharp'})
+slug.extend({ '#': 'sharp' });
 
 const slugify = (value) => {
   return slug(value, {

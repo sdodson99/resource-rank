@@ -58,6 +58,24 @@ class MongoResourcesDataSource extends DataSource {
   }
 
   /**
+   * Find a resource by slug.
+   * @param {string} slug The slug of the resource to find.
+   * @return {Promise<object>} The resource matching the slug. Null if resource not found.
+   * @throws {Error} Thrown if query fails.
+   */
+  async getBySlug(slug) {
+    const resource = await this.resourceModel.findOne({
+      slug,
+    });
+
+    if (!resource) {
+      return null;
+    }
+
+    return resource;
+  }
+
+  /**
    * Search for resources.
    * @param {string} query The resource query to search for.
    * @param {number} skip The resources to skip in the search query.
@@ -137,7 +155,12 @@ class MongoResourcesDataSource extends DataSource {
       );
     }
 
-    return await this.resourceModel.create({ name, slug, link, createdBy: uid });
+    return await this.resourceModel.create({
+      name,
+      slug,
+      link,
+      createdBy: uid,
+    });
   }
 }
 
