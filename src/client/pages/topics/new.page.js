@@ -55,13 +55,13 @@ export default function NewTopic() {
       }
     }
 
-    const createdTopicId = data?.createTopic?.id;
+    const createdTopicSlug = data?.createTopic?.slug;
 
-    if (!createdTopicId) {
+    if (!createdTopicSlug) {
       return setCreateTopicError(new Error('Failed to create topic.'));
     }
 
-    router.push(`/topics/${createdTopicId}`);
+    router.push(`/topics/${createdTopicSlug}`);
   };
 
   const onInvalid = () => setCreateTopicError(null);
