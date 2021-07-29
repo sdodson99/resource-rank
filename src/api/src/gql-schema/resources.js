@@ -15,6 +15,7 @@ exports.typeDefs = gql`
   type Resource {
     id: ID!
     name: String!
+    slug: String
     link: String
     createdBy: User
   }

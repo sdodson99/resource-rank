@@ -15,6 +15,7 @@ exports.typeDefs = gql`
   type Topic {
     id: ID!
     name: String!
+    slug: String
     resources: [TopicResource]
     createdBy: User
   }

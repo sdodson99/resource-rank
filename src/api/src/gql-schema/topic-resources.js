@@ -30,6 +30,7 @@ exports.typeDefs = gql`
   type AvailableResource {
     id: ID!
     name: String!
+    slug: String
     link: String
     alreadyAdded: Boolean
     createdBy: User
@@ -74,6 +75,7 @@ exports.resolvers = {
       const availableResources = resourceDTOs.map((r) => ({
         id: r._id,
         name: r.name,
+        slug: r.slug,
         link: r.link,
         alreadyAdded: false,
         createdBy: r.createdBy,
