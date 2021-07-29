@@ -4,6 +4,10 @@ exports.typeDefs = gql`
   type Query {
     topicResourceList(topicId: ID!, resourceSearch: String): TopicResourceList
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
+    topicResourceBySlug(
+      topicSlug: String!
+      resourceSlug: String!
+    ): TopicResource
     availableResources(
       topicId: ID!
       offset: Int
@@ -61,6 +65,28 @@ exports.resolvers = {
       topicId,
       resourceId,
     }),
+    topicResourceBySlug: async (
+      _,
+      { topicSlug, resourceSlug },
+      { dataSources: { topics, resources } }
+    ) => {
+      const topic = await topics.getBySlug(topicSlug);
+      const resource = await resources.getBySlug(resourceSlug);
+
+      if (!topic || !resource) {
+        throw new ApolloError(
+          'Topic resource not found.',
+          'TOPIC_RESOURCE_NOT_FOUND'
+        );
+      }
+
+      return {
+        topicId: topic.id,
+        resourceId: resource.id,
+        topic,
+        resource,
+      };
+    },
     availableResources: async (
       _,
       { topicId, search = '', offset = 0, limit = 20 },
