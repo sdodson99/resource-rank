@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import getTopicName from '@/services/topic-names/graphql-topic-name-service';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -11,13 +10,14 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import useCreateResourceMutation from '@/hooks/use-create-resource-mutation';
 import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
 import getErrorCode from '@/graphql/errors/getErrorCode';
+import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 
 const FormField = {
   RESOURCE_NAME: 'name',
   RESOURCE_LINK: 'link',
 };
 
-const NewTopicResource = ({ topicId, topicName }) => {
+const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
   const router = useRouter();
   const {
     register,
@@ -89,7 +89,8 @@ const NewTopicResource = ({ topicId, topicName }) => {
       );
     }
 
-    router.push(`/topics/${topicId}/resources/${resourceId}`);
+    const resourceSlug = resourceData?.createResource?.slug;
+    router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
   };
 
   const onInvalid = () => setCreateTopicResourceError(null);
@@ -103,11 +104,11 @@ const NewTopicResource = ({ topicId, topicName }) => {
       title: 'Topics',
     },
     {
-      to: `/topics/${topicId}`,
+      to: `/topics/${topicSlug}`,
       title: topicName,
     },
     {
-      to: `/topics/${topicId}/resources/new`,
+      to: `/topics/${topicSlug}/resources/new`,
       title: 'New',
     },
   ];
@@ -153,7 +154,7 @@ const NewTopicResource = ({ topicId, topicName }) => {
           >
             Submit
           </button>
-          <Link href={`/topics/${topicId}/resources/add`}>
+          <Link href={`/topics/${topicSlug}/resources/add`}>
             <a className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3">
               Cancel
             </a>
@@ -185,16 +186,24 @@ const NewTopicResource = ({ topicId, topicName }) => {
 NewTopicResource.propTypes = {
   topicId: PropTypes.string,
   topicName: PropTypes.string,
+  topicSlug: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
-    const topicName = await getTopicName(topicSlug);
+    const topic = await getTopicBySlug(topicSlug);
+
+    if (!topic) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {
-        topicId: topicSlug,
-        topicName,
+        topicId: topic.id,
+        topicName: topic.name,
+        topicSlug: topic.slug,
       },
     };
   } catch (error) {
