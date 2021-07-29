@@ -18,14 +18,17 @@ describe('<TopicListing />', () => {
       {
         id: '123',
         name: 'Topic1',
+        slug: 'topic1',
       },
       {
         id: '456',
         name: 'Topic2',
+        slug: 'topic2',
       },
       {
         id: '789',
         name: 'Topic3',
+        slug: 'topic2',
       },
     ];
 

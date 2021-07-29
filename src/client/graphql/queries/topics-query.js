@@ -5,6 +5,7 @@ export default gql`
     topics(search: $search) {
       id
       name
+      slug
     }
   }
 `;

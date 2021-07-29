@@ -12,12 +12,14 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 export default function Topics() {
   const router = useRouter();
-  const { q: searchQuery } = router.query;
   const { isLoggedIn } = useAuthenticationState();
+
+  const { q: searchQuery } = router.query;
   const [search, setSearch] = useState(searchQuery || '');
   const [currentSearch, setCurrentSearch] = useState('');
+
   const {
-    data: topics,
+    data: topicsData,
     error: topicsError,
     isLoading: isLoadingTopics,
     execute: executeTopicSearchQuery,
@@ -41,7 +43,9 @@ export default function Topics() {
     debounceExecuteTopicSearch(searchInput);
   };
 
+  const topics = topicsData?.topics.filter((t) => t.slug) ?? [];
   const hasTopics = topics?.length > 0;
+
   const breadcrumbs = [
     {
       to: '/topics',

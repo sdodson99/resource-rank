@@ -13,7 +13,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
       data-testid="TopicListingItem"
     >
       <a
-        href="/topics/123"
+        href="/topics/topic1"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -54,7 +54,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
       data-testid="TopicListingItem"
     >
       <a
-        href="/topics/456"
+        href="/topics/topic2"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -95,7 +95,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
       data-testid="TopicListingItem"
     >
       <a
-        href="/topics/789"
+        href="/topics/topic2"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >

@@ -15,7 +15,7 @@ describe('<TopicListingItem />', () => {
 
   it('should render correctly', () => {
     const tree = createRenderer().render(
-      <TopicListingItem id="123" name="Topic1" />
+      <TopicListingItem name="Topic1" slug="topic1" />
     );
 
     expect(tree).toMatchSnapshot();
