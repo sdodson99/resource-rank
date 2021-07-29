@@ -3,6 +3,7 @@ const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
 const slugify = require('../../services/slugify');
+const isProfane = require('../../validators/profanity');
 
 /**
  * Data source for resources from a Mongo database.
@@ -137,6 +138,13 @@ class MongoResourcesDataSource extends DataSource {
       throw new AuthenticationError();
     }
     const { uid } = this.user;
+
+    if (isProfane(name)) {
+      throw new ApolloError(
+        'Resource name contains profanity.',
+        'RESOURCE_NAME_ERROR'
+      );
+    }
 
     if (await this.nameExists(name)) {
       throw new ApolloError(

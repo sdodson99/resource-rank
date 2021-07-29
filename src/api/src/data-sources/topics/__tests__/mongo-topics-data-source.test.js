@@ -2,14 +2,20 @@ const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
 const { Topic } = require('../../../mongoose/models/topic');
 const slugify = require('../../../services/slugify');
+const isProfane = require('../../../validators/profanity');
 
 jest.mock('../../../mongoose/models/topic');
 jest.mock('../../../services/slugify');
+jest.mock('../../../validators/profanity');
 
 describe('MongoTopicsDataSource', () => {
   let mongoTopicsDataSource;
 
   beforeEach(() => {
+    mongoTopicsDataSource = new MongoTopicsDataSource();
+  });
+
+  afterEach(() => {
     Topic.mockReset();
     Topic.find.mockReset();
     Topic.findOne.mockReset();
@@ -18,8 +24,7 @@ describe('MongoTopicsDataSource', () => {
     Topic.updateOne.mockReset();
 
     slugify.mockReset();
-
-    mongoTopicsDataSource = new MongoTopicsDataSource();
+    isProfane.mockReset();
   });
 
   describe('initialize', () => {
@@ -196,6 +201,14 @@ describe('MongoTopicsDataSource', () => {
         userId = '123123';
 
         mongoTopicsDataSource.user = { uid: userId };
+      });
+
+      it('should throw topic name error if name contains profanity', async () => {
+        isProfane.mockReturnValue(true);
+
+        await expect(async () => {
+          await mongoTopicsDataSource.create(name);
+        }).rejects.toThrow('Topic name contains profanity.');
       });
 
       it('should throw topic exists error if name already exists', async () => {

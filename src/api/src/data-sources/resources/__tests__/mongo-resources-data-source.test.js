@@ -2,14 +2,20 @@ const MongoResourcesDataSource = require('../mongo-resources-data-source');
 const { AuthenticationError } = require('apollo-server');
 const { Resource } = require('../../../mongoose/models/resource');
 const slugify = require('../../../services/slugify');
+const isProfane = require('../../../validators/profanity');
 
 jest.mock('../../../mongoose/models/resource');
 jest.mock('../../../services/slugify');
+jest.mock('../../../validators/profanity');
 
 describe('MongoResourcesDataSource', () => {
   let mongoResourcesDataSource;
 
   beforeEach(() => {
+    mongoResourcesDataSource = new MongoResourcesDataSource();
+  });
+
+  afterEach(() => {
     Resource.mockReset();
     Resource.find.mockReset();
     Resource.findOne.mockReset();
@@ -17,8 +23,7 @@ describe('MongoResourcesDataSource', () => {
     Resource.create.mockReset();
 
     slugify.mockReset();
-
-    mongoResourcesDataSource = new MongoResourcesDataSource();
+    isProfane.mockReset();
   });
 
   describe('initialize', () => {
@@ -230,6 +235,14 @@ describe('MongoResourcesDataSource', () => {
 
       beforeEach(() => {
         mongoResourcesDataSource.user = { uid: userId };
+      });
+
+      it('should throw resource name error if name contains profanity', async () => {
+        isProfane.mockReturnValue(true);
+
+        await expect(async () => {
+          await mongoResourcesDataSource.create(name, link);
+        }).rejects.toThrow('Resource name contains profanity.');
       });
 
       it('should throw resource exists error if name exists', async () => {

@@ -3,6 +3,7 @@ const { Topic } = require('../../mongoose/models/topic');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
 const slugify = require('../../services/slugify');
+const isProfane = require('../../validators/profanity');
 
 /**
  * Data source for topics from a Mongo database.
@@ -111,6 +112,13 @@ class MongoTopicsDataSource extends DataSource {
     }
 
     const { uid } = this.user;
+
+    if (isProfane(name)) {
+      throw new ApolloError(
+        'Topic name contains profanity.',
+        'TOPIC_NAME_ERROR'
+      );
+    }
 
     if (await this.nameExists(name)) {
       throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
