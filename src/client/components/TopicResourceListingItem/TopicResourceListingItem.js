@@ -9,11 +9,13 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 const TopicResourceListingItem = ({
   topicId,
   resourceId,
+  topicSlug,
+  resourceSlug,
   name,
   link,
   rating,
 }) => {
-  const topicResourceLink = `/topics/${topicId}/resources/${resourceId}`;
+  const topicResourceLink = `/topics/${topicSlug}/resources/${resourceSlug}`;
 
   return (
     <div
@@ -44,6 +46,8 @@ const TopicResourceListingItem = ({
 TopicResourceListingItem.propTypes = {
   topicId: PropTypes.string,
   resourceId: PropTypes.string,
+  topicSlug: PropTypes.string,
+  resourceSlug: PropTypes.string,
   name: PropTypes.string,
   link: PropTypes.string,
   rating: PropTypes.number,

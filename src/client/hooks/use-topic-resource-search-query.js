@@ -2,7 +2,7 @@ import getTopicResourceListingQuery from '@/graphql/queries/topic-resource-listi
 import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
 
 export default function useTopicResourceSearchQuery(topicId) {
-  const { execute, data, ...others } = useLazyGraphQLRequest(
+  const { execute, ...others } = useLazyGraphQLRequest(
     getTopicResourceListingQuery
   );
 
@@ -12,7 +12,6 @@ export default function useTopicResourceSearchQuery(topicId) {
 
   return {
     execute: executeSearch,
-    data: data?.topicResourceList?.topicResources ?? [],
     ...others,
   };
 }

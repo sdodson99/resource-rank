@@ -9,14 +9,16 @@ import useTopicResourceSearchQuery from '@/hooks/use-topic-resource-search-query
 import useDebounce from '@/hooks/use-debounce';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import getTopicName from '@/services/topic-names/graphql-topic-name-service';
+import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 
-const TopicDetails = ({ topicId, topicName }) => {
+const TopicDetails = ({ topicId, topicName, topicSlug }) => {
   const { isLoggedIn } = useAuthenticationContext();
+
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState('');
+
   const {
-    data: topicResources,
+    data: topicResourcesData,
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
     execute: executeTopicResourceSearchQuery,
@@ -51,12 +53,16 @@ const TopicDetails = ({ topicId, topicName }) => {
     return 'No topic resources have been added.';
   };
 
-  const hasTopicResources = topicResources && topicResources.length > 0;
+  const topicResources =
+    topicResourcesData?.topicResourceList?.topicResources?.filter(
+      (r) => r.resource?.slug
+    ) ?? [];
+  const hasTopicResources = topicResources.length > 0;
   const orderedResources = topicResources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
   );
 
-  const topicLink = `/topics/${topicId}`;
+  const topicLink = `/topics/${topicSlug}`;
   const breadcrumbs = [
     {
       to: '/topics',
@@ -81,7 +87,7 @@ const TopicDetails = ({ topicId, topicName }) => {
 
         {isLoggedIn && (
           <div className="flex ml-4">
-            <Link href={`/topics/${topicId}/resources/add`}>
+            <Link href={`/topics/${topicSlug}/resources/add`}>
               <a className="btn btn-primary">Add</a>
             </Link>
           </div>
@@ -120,6 +126,7 @@ const TopicDetails = ({ topicId, topicName }) => {
             dataDisplay={
               <TopicResourceListing
                 topicId={topicId}
+                topicSlug={topicSlug}
                 topicResources={orderedResources}
               />
             }
@@ -133,16 +140,24 @@ const TopicDetails = ({ topicId, topicName }) => {
 TopicDetails.propTypes = {
   topicId: PropTypes.string,
   topicName: PropTypes.string,
+  topicSlug: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
-    const topicName = await getTopicName(topicSlug);
+    const topic = await getTopicBySlug(topicSlug);
+
+    if (!topic) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {
-        topicId: topicSlug,
-        topicName,
+        topicId: topic.id,
+        topicName: topic.name,
+        topicSlug: topic.slug,
       },
     };
   } catch (error) {

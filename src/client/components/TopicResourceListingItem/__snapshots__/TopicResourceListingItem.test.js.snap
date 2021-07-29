@@ -6,7 +6,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
   data-testid="TopicResourceListingItem"
 >
   <a
-    href="/topics/123/resources/123"
+    href="/topics/topic-name/resources/resource-name"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >
@@ -33,8 +33,8 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 onMouseOver={[Function]}
               >
                 <svg
-                  aria-label="star-empty"
-                  fill="#d6d6d6"
+                  aria-label="star-full"
+                  fill="#e38100"
                   height={20}
                   viewBox="0 0 16 16"
                   width={20}
@@ -51,8 +51,8 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 onMouseOver={[Function]}
               >
                 <svg
-                  aria-label="star-empty"
-                  fill="#d6d6d6"
+                  aria-label="star-full"
+                  fill="#e38100"
                   height={20}
                   viewBox="0 0 16 16"
                   width={20}
@@ -69,8 +69,8 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 onMouseOver={[Function]}
               >
                 <svg
-                  aria-label="star-empty"
-                  fill="#d6d6d6"
+                  aria-label="star-full"
+                  fill="#e38100"
                   height={20}
                   viewBox="0 0 16 16"
                   width={20}

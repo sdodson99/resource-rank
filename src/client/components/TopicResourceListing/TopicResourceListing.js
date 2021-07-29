@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './TopicResourceListing.module.css';
 import TopicResourceListingItem from '../TopicResourceListingItem/TopicResourceListingItem';
 
-const TopicResourceListing = ({ topicId, topicResources }) => {
+const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
   const topicResourcesListingItems = topicResources.map((r, index) => {
     const isLast = index === topicResources.length - 1;
     const className = isLast ? '' : 'border-b';
@@ -12,7 +12,9 @@ const TopicResourceListing = ({ topicId, topicResources }) => {
       <div key={r.resource.id} className={className}>
         <TopicResourceListingItem
           topicId={topicId}
+          topicSlug={topicSlug}
           resourceId={r.resource.id}
+          resourceSlug={r.resource.slug}
           name={r.resource.name}
           rating={r.ratingList.average}
           link={r.resource.link}
@@ -33,6 +35,7 @@ const TopicResourceListing = ({ topicId, topicResources }) => {
 
 TopicResourceListing.propTypes = {
   topicId: PropTypes.string,
+  topicSlug: PropTypes.string,
   topicResources: PropTypes.array,
 };
 

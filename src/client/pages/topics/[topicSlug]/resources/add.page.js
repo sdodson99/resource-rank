@@ -10,9 +10,9 @@ import useDebounce from '@/hooks/use-debounce';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
 import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
-import getTopicName from '@/services/topic-names/graphql-topic-name-service';
+import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 
-const AddTopicResource = ({ topicId, topicName }) => {
+const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const router = useRouter();
 
   const [resources, setResources] = useState([]);
@@ -27,7 +27,11 @@ const AddTopicResource = ({ topicId, topicName }) => {
   } = useAvailableTopicResourcesQuery();
 
   useEffect(() => {
-    setResources(resourcesData?.availableResources);
+    const availableResources = resourcesData?.availableResources?.filter(
+      (r) => r.slug
+    );
+
+    setResources(availableResources);
   }, [resourcesData]);
 
   const executeResourcesSearch = async (search) => {
@@ -70,7 +74,7 @@ const AddTopicResource = ({ topicId, topicName }) => {
     setResources(nextResources);
   };
 
-  const onAddResource = async (resourceId) => {
+  const onAddResource = async ({ id: resourceId, slug: resourceSlug }) => {
     setAddResourceError(resourceId, false);
 
     const { data, error } = await executeCreateTopicResourceMutation(
@@ -88,7 +92,7 @@ const AddTopicResource = ({ topicId, topicName }) => {
       return setAddResourceError(resourceId, true);
     }
 
-    router.push(`/topics/${topicId}/resources/${resourceId}`);
+    router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
   };
 
   const hasResources = resources?.length > 0;
@@ -99,11 +103,11 @@ const AddTopicResource = ({ topicId, topicName }) => {
       title: 'Topics',
     },
     {
-      to: `/topics/${topicId}`,
+      to: `/topics/${topicSlug}`,
       title: topicName,
     },
     {
-      to: `/topics/${topicId}/resources/add`,
+      to: `/topics/${topicSlug}/resources/add`,
       title: 'Add',
     },
   ];
@@ -117,7 +121,7 @@ const AddTopicResource = ({ topicId, topicName }) => {
       <PageHeaderButton
         title="Add Resource"
         buttonContent="New"
-        linkTo={`/topics/${topicId}/resources/new`}
+        linkTo={`/topics/${topicSlug}/resources/new`}
       />
 
       <div className="mt-8 flex flex-col">
@@ -167,16 +171,24 @@ const AddTopicResource = ({ topicId, topicName }) => {
 AddTopicResource.propTypes = {
   topicId: PropTypes.string,
   topicName: PropTypes.string,
+  topicSlug: PropTypes.string,
 };
 
 export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
-    const topicName = await getTopicName(topicSlug);
+    const topic = await getTopicBySlug(topicSlug);
+
+    if (!topic) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {
-        topicId: topicSlug,
-        topicName,
+        topicId: topic.id,
+        topicName: topic.name,
+        topicSlug: topic.slug,
       },
     };
   } catch (error) {

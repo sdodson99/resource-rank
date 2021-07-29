@@ -7,6 +7,7 @@ export default gql`
         resource {
           id
           name
+          slug
         }
         ratingList {
           average

@@ -17,7 +17,14 @@ describe('<TopicResourceListingItem />', () => {
 
   it('should render correctly', () => {
     const tree = renderer
-      .create(<TopicResourceListingItem topicId={'123'} resourceId={'123'} />)
+      .create(
+        <TopicResourceListingItem
+          topicId={'123'}
+          topicSlug={'topic-name'}
+          resourceSlug={'resource-name'}
+          rating={3}
+        />
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
