@@ -4,8 +4,8 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import Head from 'next/head';
 import Link from 'next/link';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
-import useTopicResourceSearchQuery from '@/hooks/use-topic-resource-search-query';
+import useAuthenticationContext from '@/hooks/use-authentication-context';
+import useTopicResourceSearchQuery from '@/hooks/queries/use-topic-resource-search-query';
 import useDebounce from '@/hooks/use-debounce';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
@@ -82,7 +82,7 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
 
       <div className="text-4xl">{topicName}</div>
 
-      <div className="mt-3 text-xs text-gray-800">Created By: {topicCreator}</div>
+      <div className="mt-3 text-xs text-gray-800">Created by {topicCreator}</div>
 
       <div className="mt-10 flex justify-between">
         <div className="text-3xl">Resources</div>

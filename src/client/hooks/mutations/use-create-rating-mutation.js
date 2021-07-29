@@ -1,5 +1,5 @@
 import createRatingMutation from '@/graphql/mutations/create-rating-mutation';
-import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
+import useLazyGraphQLRequest from '../graphql/use-lazy-graphql-request';
 
 export default function useCreateRatingMutation(topicId, resourceId) {
   const { execute, ...others } = useLazyGraphQLRequest(createRatingMutation);

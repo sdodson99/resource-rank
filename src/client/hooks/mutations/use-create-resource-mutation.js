@@ -1,5 +1,5 @@
 import createResourceMutation from '@/graphql/mutations/create-resource-mutation';
-import useLazyGraphQLRequest from './graphql/use-lazy-graphql-request';
+import useLazyGraphQLRequest from '../graphql/use-lazy-graphql-request';
 
 export default function useCreateResourceMutation() {
   const { execute, ...others } = useLazyGraphQLRequest(createResourceMutation);

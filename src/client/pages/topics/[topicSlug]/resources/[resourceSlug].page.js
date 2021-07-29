@@ -4,11 +4,11 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
 import Head from 'next/head';
 import RatingStars from '@/components/RatingStars/rating-stars';
-import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
-import useTopicResourceUserRatingQuery from '@/hooks/use-topic-resource-user-rating-query';
+import useAuthenticationContext from '@/hooks/use-authentication-context';
+import useTopicResourceUserRatingQuery from '@/hooks/queries/use-topic-resource-user-rating-query';
 import SelectableRatingStars from '@/components/RatingStars/selectable-rating-stars';
-import useCreateRatingMutation from '@/hooks/use-create-rating-mutation';
-import useUpdateRatingMutation from '@/hooks/use-update-rating-mutation';
+import useCreateRatingMutation from '@/hooks/mutations/use-create-rating-mutation';
+import useUpdateRatingMutation from '@/hooks/mutations/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
@@ -160,7 +160,7 @@ const TopicResourceDetails = ({
       </div>
 
       <div className="mt-3 text-xs text-gray-800">
-        Created By: {resourceCreatedBy}
+        Created by {resourceCreatedBy}
       </div>
 
       <div className="mt-10">

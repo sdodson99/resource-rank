@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styles from './Layout.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import useReadOnlyModeStatus from '@/hooks/use-read-only-mode-status';
+import useReadOnlyModeEnabledQuery from '@/hooks/queries/use-read-only-mode-enabled-query';
 
 const Layout = ({ children }) => {
-  const readOnlyModeEnabled = useReadOnlyModeStatus();
+  const readOnlyModeEnabled = useReadOnlyModeEnabledQuery();
 
   return (
     <div className={styles.Layout} data-testid="Layout">

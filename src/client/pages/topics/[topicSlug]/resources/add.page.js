@@ -5,10 +5,10 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import useAvailableTopicResourcesQuery from '@/hooks/use-available-topic-resources-query';
+import useAvailableTopicResourcesQuery from '@/hooks/queries/use-available-topic-resources-query';
 import useDebounce from '@/hooks/use-debounce';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
-import useCreateTopicResourceMutation from '@/hooks/use-create-topic-resource-mutation';
+import useCreateTopicResourceMutation from '@/hooks/mutations/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 

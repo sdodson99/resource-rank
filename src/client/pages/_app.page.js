@@ -1,8 +1,8 @@
 import '@/styles/globals.css';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AuthenticationProvider } from '@/hooks/authentication/use-authentication-context';
-import { FirebaseAppProvider } from '@/hooks/use-firebase-app';
+import { AuthenticationProvider } from '@/hooks/use-authentication-context';
+import { FirebaseAppProvider } from '@/hooks/use-firebase-app-context';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
 import { GraphQLFetcherProvider } from '@/hooks/graphql/use-graphql-fetcher';
