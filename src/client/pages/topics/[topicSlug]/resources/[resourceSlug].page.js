@@ -241,7 +241,7 @@ TopicResourceDetails.propTypes = {
 
 export async function getServerSideProps({
   req,
-  params: { topicId, resourceId },
+  params: { topicSlug, resourceSlug },
 }) {
   const graphqlFetcher = createGraphQLClient();
 
@@ -249,8 +249,8 @@ export async function getServerSideProps({
     const topicResourceResult = await graphqlFetcher.fetch(
       getTopicResourceByIdQuery,
       {
-        topicId,
-        resourceId,
+        topicId: topicSlug,
+        resourceId: resourceSlug,
       }
     );
 
@@ -264,8 +264,8 @@ export async function getServerSideProps({
 
     return {
       props: {
-        topicId,
-        resourceId,
+        topicId: topicSlug,
+        resourceId: resourceSlug,
         topicResource,
       },
     };

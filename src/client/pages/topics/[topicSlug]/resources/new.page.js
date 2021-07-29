@@ -187,13 +187,13 @@ NewTopicResource.propTypes = {
   topicName: PropTypes.string,
 };
 
-export async function getServerSideProps({ req, params: { topicId } }) {
+export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
-    const topicName = await getTopicName(topicId);
+    const topicName = await getTopicName(topicSlug);
 
     return {
       props: {
-        topicId,
+        topicId: topicSlug,
         topicName,
       },
     };
