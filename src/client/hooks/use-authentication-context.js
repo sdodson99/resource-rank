@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import useFirebaseAppContext from './use-firebase-app-context';
 import constate from 'constate';
 
-function useAuthentication() {
+export function useAuthentication() {
   const firebaseApp = useFirebaseAppContext();
   const [authenticationState, setAuthenticationState] = useState({
     isLoggedIn: false,
