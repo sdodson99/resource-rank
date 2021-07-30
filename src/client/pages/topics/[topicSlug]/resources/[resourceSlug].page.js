@@ -56,10 +56,12 @@ const TopicResourceDetails = ({
   }, [userRatingData]);
 
   const { execute: executeCreateRatingMutation, isLoading: isCreatingRating } =
-    useCreateRatingMutation(topicId, resourceId);
+    useCreateRatingMutation();
 
   const createRating = async () => {
     const { data: createRatingData } = await executeCreateRatingMutation(
+      topicId,
+      resourceId,
       selectedRatingValue
     );
 
@@ -123,7 +125,8 @@ const TopicResourceDetails = ({
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
-  const resourceCreatedBy = topicResource?.resource?.createdBy?.username ?? 'Unknown';
+  const resourceCreatedBy =
+    topicResource?.resource?.createdBy?.username ?? 'Unknown';
   const ratingAverage = ratingSum / ratingCount;
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;
