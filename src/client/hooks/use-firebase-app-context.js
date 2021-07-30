@@ -2,7 +2,7 @@ import constate from 'constate';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-function useFirebaseApp({ firebaseConfig, useAuthenticationEmulator }) {
+export function useFirebaseApp({ firebaseConfig, useAuthenticationEmulator }) {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 
