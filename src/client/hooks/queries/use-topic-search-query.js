@@ -1,12 +1,10 @@
-import getTopicsQuery from '@/graphql/queries/topics-query';
+import topicsQuery from '@/graphql/queries/topics-query';
 import useLazyGraphQLRequest from '../graphql/use-lazy-graphql-request';
 
 export default function useTopicSearchQuery() {
-  const { execute, ...others } = useLazyGraphQLRequest(getTopicsQuery);
+  const { execute, ...others } = useLazyGraphQLRequest(topicsQuery);
 
-  const executeSearch = async (search) => {
-    execute({ search });
-  };
+  const executeSearch = (search) => execute({ search });
 
   return {
     execute: executeSearch,

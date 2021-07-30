@@ -1,14 +1,13 @@
-import getTopicResourceListingQuery from '@/graphql/queries/topic-resource-listing-query';
+import topicResourceListingQuery from '@/graphql/queries/topic-resource-listing-query';
 import useLazyGraphQLRequest from '../graphql/use-lazy-graphql-request';
 
 export default function useTopicResourceSearchQuery(topicId) {
   const { execute, ...others } = useLazyGraphQLRequest(
-    getTopicResourceListingQuery
+    topicResourceListingQuery
   );
 
-  const executeSearch = async (resourceSearch) => {
+  const executeSearch = (resourceSearch) =>
     execute({ topicId, resourceSearch });
-  };
 
   return {
     execute: executeSearch,

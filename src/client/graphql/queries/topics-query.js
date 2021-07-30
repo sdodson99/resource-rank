@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export default gql`
+const topicsQuery = gql`
   query GetTopics($search: String) {
     topics(search: $search) {
       id
@@ -9,3 +9,5 @@ export default gql`
     }
   }
 `;
+
+export default topicsQuery;
