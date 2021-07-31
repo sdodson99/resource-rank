@@ -1,7 +1,9 @@
 import { gql } from 'graphql-request';
 
-export default gql`
+const createTopicResourceMutation = gql`
   mutation CreateTopicResource($topicId: ID!, $resourceId: ID!) {
     createTopicResource(topicId: $topicId, resourceId: $resourceId)
   }
 `;
+
+export default createTopicResourceMutation;

@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 const topicResourceBySlugQuery = gql`
-  query TopicResourceBySlugQuery($topicSlug: String!, $resourceSlug: String!) {
+  query TopicResourceBySlug($topicSlug: String!, $resourceSlug: String!) {
     topicResourceBySlug(topicSlug: $topicSlug, resourceSlug: $resourceSlug) {
       topic {
         id

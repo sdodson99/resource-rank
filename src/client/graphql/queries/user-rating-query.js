@@ -1,10 +1,12 @@
 import { gql } from 'graphql-request';
 
-export default gql`
-  query GetUserRating($topicId: ID!, $resourceId: ID!) {
+const userRatingQuery = gql`
+  query UserRating($topicId: ID!, $resourceId: ID!) {
     userRating(topicId: $topicId, resourceId: $resourceId) {
       id
       value
     }
   }
 `;
+
+export default userRatingQuery;
