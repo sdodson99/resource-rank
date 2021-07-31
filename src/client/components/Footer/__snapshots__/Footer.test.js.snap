@@ -66,6 +66,7 @@ exports[`<Footer /> should render correctly 1`] = `
       >
         <img
           alt="Resource Rank Logo"
+          className="max-w-none"
           height="75"
           src="/img/logo.svg"
           width="75"

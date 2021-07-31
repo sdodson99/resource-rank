@@ -21,6 +21,7 @@ const Footer = () => (
         </div>
         <div className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start">
           <img
+            className="max-w-none"
             src="/img/logo.svg"
             alt="Resource Rank Logo"
             height="75"

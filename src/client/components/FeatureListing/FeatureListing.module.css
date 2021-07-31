@@ -2,7 +2,7 @@
 }
 
 .FeatureItem {
-  min-height: 300px;
+  min-height: 250px;
 
   @apply py-10 flex items-center;
 }

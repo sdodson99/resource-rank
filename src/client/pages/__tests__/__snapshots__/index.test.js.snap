@@ -18,7 +18,7 @@ exports[`home page should render correctly 1`] = `
             </strong>
              for learning about a specific topic.
           </div>,
-          "imageSrc": "/img/clock.svg",
+          "imageSrc": "/img/instantly-find.svg",
           "title": "Instant",
         },
         Object {
@@ -28,7 +28,7 @@ exports[`home page should render correctly 1`] = `
             </strong>
              to find your next learning journey.
           </div>,
-          "imageSrc": "/img/mag-glass.svg",
+          "imageSrc": "/img/explore.svg",
           "title": "Explore",
         },
         Object {
@@ -38,7 +38,7 @@ exports[`home page should render correctly 1`] = `
             </strong>
              based on helpfulness for learning a topic.
           </div>,
-          "imageSrc": "/img/star.svg",
+          "imageSrc": "/img/rate-resources.svg",
           "title": "Rate",
         },
         Object {
@@ -48,7 +48,7 @@ exports[`home page should render correctly 1`] = `
             </strong>
              that are useful.
           </div>,
-          "imageSrc": "/img/add.svg",
+          "imageSrc": "/img/add-your-own.svg",
           "title": "Contribute",
         },
       ]
