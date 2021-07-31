@@ -4,7 +4,7 @@ import styles from './Alert.module.css';
 
 const Alert = ({ children, icon, border, className, scrollTo }) => {
   const alertRef = useRef();
-  
+
   useEffect(() => {
     if (scrollTo) {
       alertRef.current?.scrollIntoView();

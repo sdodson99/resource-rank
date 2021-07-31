@@ -9,6 +9,7 @@ import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import TextInput from '@/components/TextInput/TextInput';
 import getErrorCode from '@/graphql/errors/get-error-code';
 import ErrorCode from '@/graphql/errors/error-code';
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -90,6 +91,14 @@ export default function NewTopic() {
 
       <div className="text-4xl">New Topic</div>
 
+      {createTopicError && (
+        <div className="mt-10">
+          <ErrorAlert border={true} scrollTo={!!createTopicError}>
+            Failed to create topic.
+          </ErrorAlert>
+        </div>
+      )}
+
       <form className="mt-10" onSubmit={handleSubmit(onSubmit, onInvalid)}>
         <TextInput
           name={FormField.TOPIC_NAME}
@@ -119,12 +128,6 @@ export default function NewTopic() {
             <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
               <LoadingSpinner height={30} width={30} />
             </div>
-          )}
-        </div>
-
-        <div className="text-center sm:text-left">
-          {createTopicError && (
-            <div className="mt-6 error-text">Failed to create topic.</div>
           )}
         </div>
       </form>

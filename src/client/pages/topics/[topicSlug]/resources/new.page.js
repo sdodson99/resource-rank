@@ -12,6 +12,7 @@ import useCreateTopicResourceMutation from '@/hooks/mutations/use-create-topic-r
 import getErrorCode from '@/graphql/errors/get-error-code';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import ErrorCode from '@/graphql/errors/error-code';
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -124,6 +125,22 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
 
       <div className="text-4xl">New Topic Resource</div>
 
+      {createResourceError && (
+        <div className="mt-10">
+          <ErrorAlert border={true} scrollTo={!!createResourceError}>
+            Failed to create resource.
+          </ErrorAlert>
+        </div>
+      )}
+
+      {createTopicResourceError && (
+        <div className="mt-10">
+          <ErrorAlert border={true} scrollTo={!!createTopicResourceError}>
+            Failed to create topic resource.
+          </ErrorAlert>
+        </div>
+      )}
+
       <form className="mt-10" onSubmit={handleSubmit(onSubmit, onInvalid)}>
         <div>
           <TextInput
@@ -166,18 +183,6 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
           {isSubmitting && (
             <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
               <LoadingSpinner height={30} width={30} />
-            </div>
-          )}
-        </div>
-
-        <div className="text-center sm:text-left">
-          {createResourceError && (
-            <div className="mt-6 error-text">Failed to create resource.</div>
-          )}
-
-          {createTopicResourceError && (
-            <div className="mt-6 error-text">
-              Failed to create topic resource.
             </div>
           )}
         </div>
