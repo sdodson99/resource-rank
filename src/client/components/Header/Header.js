@@ -3,12 +3,12 @@ import styles from './Header.module.css';
 import Link from 'next/link';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import firebase from 'firebase/app';
-import useAuthenticationContext from '@/hooks/authentication/use-authentication-context';
-import useFirebaseApp from '@/hooks/use-firebase-app';
+import useAuthenticationContext from '@/hooks/use-authentication-context';
+import useFirebaseAppContext from '@/hooks/use-firebase-app-context';
 import ActiveLink from '../ActiveLink/ActiveLink';
 
 const Header = () => {
-  const firebaseApp = useFirebaseApp();
+  const firebaseApp = useFirebaseAppContext();
   const { isLoggedIn } = useAuthenticationContext();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);

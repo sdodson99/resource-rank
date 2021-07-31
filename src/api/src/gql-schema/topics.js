@@ -5,6 +5,7 @@ exports.typeDefs = gql`
     topics(search: String): [Topic]
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
+    topicBySlug(slug: String!): Topic
   }
 
   type Mutation {
@@ -14,6 +15,7 @@ exports.typeDefs = gql`
   type Topic {
     id: ID!
     name: String!
+    slug: String
     resources: [TopicResource]
     createdBy: User
   }
@@ -24,6 +26,8 @@ exports.resolvers = {
     topics: (_, { search = '' }, { dataSources }) =>
       dataSources.topics.search(search),
     topic: (_, { id }, { dataSources }) => dataSources.topics.getById(id),
+    topicBySlug: (_, { slug }, { dataSources }) =>
+      dataSources.topics.getBySlug(slug),
     topicExists: (_, { name }, { dataSources }) =>
       dataSources.topics.nameExists(name),
   },

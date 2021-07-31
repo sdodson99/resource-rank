@@ -38,7 +38,7 @@ describe('<AvailableResourceListingItem />', () => {
 
     fireEvent.click(addResourceButton);
 
-    expect(onAdd).toBeCalledWith('123');
+    expect(onAdd).toBeCalledWith(resource);
   });
 
   describe('with error on add', () => {

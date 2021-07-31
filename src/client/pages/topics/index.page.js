@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import useAuthenticationState from '@/hooks/authentication/use-authentication-context';
+import useAuthenticationState from '@/hooks/use-authentication-context';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import useTopicSearchQuery from '@/hooks/use-topic-search-query';
+import useTopicSearchQuery from '@/hooks/queries/use-topic-search-query';
 import TopicListing from '@/components/TopicListing/TopicListing';
 import useDebounce from '@/hooks/use-debounce';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 
 export default function Topics() {
   const router = useRouter();
-  const { q: searchQuery } = router.query;
   const { isLoggedIn } = useAuthenticationState();
+
+  const { q: searchQuery } = router.query;
   const [search, setSearch] = useState(searchQuery || '');
   const [currentSearch, setCurrentSearch] = useState('');
+
   const {
-    data: topics,
+    data: topicsData,
     error: topicsError,
     isLoading: isLoadingTopics,
     execute: executeTopicSearchQuery,
@@ -41,7 +43,9 @@ export default function Topics() {
     debounceExecuteTopicSearch(searchInput);
   };
 
+  const topics = topicsData?.topics.filter((t) => t.slug) ?? [];
   const hasTopics = topics?.length > 0;
+
   const breadcrumbs = [
     {
       to: '/topics',

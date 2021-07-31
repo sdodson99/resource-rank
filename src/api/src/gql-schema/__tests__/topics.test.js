@@ -66,6 +66,23 @@ describe('topics resolvers', () => {
     });
   });
 
+  describe('topic slug query', () => {
+    let slug;
+
+    beforeEach(() => {
+      slug = 'topic-name123';
+    });
+
+    it('should return topic', () => {
+      const expected = { slug };
+      topicsDataSource.getBySlug = () => expected;
+
+      const actual = resolvers.Query.topicBySlug(null, { slug }, context);
+
+      expect(expected).toBe(actual);
+    });
+  });
+
   describe('topic exists query', () => {
     let name;
 

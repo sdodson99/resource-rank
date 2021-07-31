@@ -2,6 +2,8 @@ const { DataSource } = require('apollo-datasource');
 const { Topic } = require('../../mongoose/models/topic');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
+const slugify = require('../../services/slugify');
+const isProfane = require('../../validators/profanity');
 
 /**
  * Data source for topics from a Mongo database.
@@ -57,6 +59,24 @@ class MongoTopicsDataSource extends DataSource {
   }
 
   /**
+   * Find a topic by slug.
+   * @param {string} slug The slug of the topic to find.
+   * @return {Promise<object>} The topic matching the slug. Null if topic not found.
+   * @throws {Error} Thrown if query fails.
+   */
+  async getBySlug(slug) {
+    const topic = await this.topicModel.findOne({
+      slug,
+    });
+
+    if (!topic) {
+      return null;
+    }
+
+    return topic;
+  }
+
+  /**
    * Search for topics.
    * @param {string} query The topic query to search for.
    * @return {Promise<object>} The topics matching the query.
@@ -90,13 +110,31 @@ class MongoTopicsDataSource extends DataSource {
     if (!this.user) {
       throw new AuthenticationError();
     }
+
     const { uid } = this.user;
+
+    if (isProfane(name)) {
+      throw new ApolloError(
+        'Topic name contains profanity.',
+        'TOPIC_NAME_ERROR'
+      );
+    }
 
     if (await this.nameExists(name)) {
       throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
     }
 
-    return await this.topicModel.create({ name, createdBy: uid });
+    const slug = slugify(name);
+    const slugExists = await this.topicModel.exists({ slug });
+
+    if (slugExists) {
+      throw new ApolloError(
+        'Topic slug already exists.',
+        'TOPIC_ALREADY_EXISTS'
+      );
+    }
+
+    return await this.topicModel.create({ name, slug, createdBy: uid });
   }
 
   /**

@@ -22,10 +22,12 @@ describe('topic resources resolvers', () => {
     resourceSearch = 'search123';
     topicsDataSource = {
       getById: jest.fn(),
+      getBySlug: jest.fn(),
       addResource: jest.fn(),
     };
     resourcesDataSource = {
       getById: jest.fn(),
+      getBySlug: jest.fn(),
       getByIds: jest.fn(),
       search: jest.fn(),
     };
@@ -95,6 +97,73 @@ describe('topic resources resolvers', () => {
       });
 
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('topic resource by slug query', () => {
+    it('should return topic resource', async () => {
+      const expected = {
+        topicId: '123',
+        resourceId: '456',
+        topic: {
+          id: '123',
+          slug: 'topic-name',
+        },
+        resource: {
+          id: '456',
+          slug: 'resource-name',
+        },
+      };
+      topicsDataSource.getBySlug.mockReturnValue({
+        id: '123',
+        slug: 'topic-name',
+      });
+      resourcesDataSource.getBySlug.mockReturnValue({
+        id: '456',
+        slug: 'resource-name',
+      });
+
+      const actual = await resolvers.Query.topicResourceBySlug(
+        null,
+        {
+          topicId,
+          resourceId,
+        },
+        context
+      );
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should throw topic resource not found error when topic not found', async () => {
+      topicsDataSource.getBySlug.mockReturnValue(null);
+
+      await expect(async () => {
+        await resolvers.Query.topicResourceBySlug(
+          null,
+          {
+            topicId,
+            resourceId,
+          },
+          context
+        );
+      }).rejects.toThrow('Topic resource not found.');
+    });
+
+    it('should throw topic resource not found error when resource not found', async () => {
+      topicsDataSource.getBySlug.mockReturnValue({});
+      resourcesDataSource.getBySlug.mockReturnValue(null);
+
+      await expect(async () => {
+        await resolvers.Query.topicResourceBySlug(
+          null,
+          {
+            topicId,
+            resourceId,
+          },
+          context
+        );
+      }).rejects.toThrow('Topic resource not found.');
     });
   });
 

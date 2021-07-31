@@ -5,12 +5,12 @@ import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-const TopicListingItem = ({ id, name }) => {
-  const resourcesLink = `/topics/${id}`;
+const TopicListingItem = ({ name, slug }) => {
+  const detailsLink = `/topics/${slug}`;
 
   return (
     <div className={styles.TopicListingItem} data-testid="TopicListingItem">
-      <Link href={resourcesLink}>
+      <Link href={detailsLink}>
         <a>
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between sm:text-left text-center">
@@ -27,13 +27,13 @@ const TopicListingItem = ({ id, name }) => {
 };
 
 TopicListingItem.propTypes = {
-  id: PropTypes.string,
   name: PropTypes.string,
+  slug: PropTypes.string,
 };
 
 TopicListingItem.defaultProps = {
-  id: '',
   name: '',
+  slug: '',
 };
 
 export default TopicListingItem;

@@ -5,9 +5,9 @@ import ListingItem from '../ListingItem/ListingItem';
 import { Add } from '@material-ui/icons';
 
 const AvailableResourceListingItem = ({ resource, onAdd }) => {
-  const { id, name, alreadyAdded, hasAddError } = resource;
+  const { name, alreadyAdded, hasAddError } = resource;
 
-  const onAddClick = () => onAdd(id);
+  const onAddClick = () => onAdd(resource);
 
   const calculateNameDisplayClassName = () => {
     if (alreadyAdded) {

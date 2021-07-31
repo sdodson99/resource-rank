@@ -5,6 +5,7 @@ export default gql`
     createTopic(name: $name) {
       id
       name
+      slug
     }
   }
 `;

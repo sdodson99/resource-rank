@@ -2,17 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Layout from './Layout';
-import useReadOnlyModeStatus from '../../hooks/use-read-only-mode-status';
+import useReadOnlyModeEnabledQuery from '../../hooks/queries/use-read-only-mode-enabled-query';
 import renderer from 'react-test-renderer';
 import { useRouter } from 'next/router';
 
-jest.mock('../../hooks/use-read-only-mode-status');
-jest.mock('../../hooks/use-firebase-app');
+jest.mock('../../hooks/queries/use-read-only-mode-enabled-query');
+jest.mock('../../hooks/use-firebase-app-context');
 jest.mock('next/router');
 
 describe('<Layout />', () => {
   beforeEach(() => {
-    useReadOnlyModeStatus.mockReturnValue(true);
+    useReadOnlyModeEnabledQuery.mockReturnValue(true);
 
     useRouter.mockReturnValue({
       route: '/',
@@ -20,7 +20,7 @@ describe('<Layout />', () => {
   });
 
   afterEach(() => {
-    useReadOnlyModeStatus.mockReset();
+    useReadOnlyModeEnabledQuery.mockReset();
     useRouter.mockReset();
   });
 
@@ -34,11 +34,11 @@ describe('<Layout />', () => {
 
   describe('with read only mode enabled', () => {
     beforeEach(() => {
-      useReadOnlyModeStatus.mockReturnValue(true);
+      useReadOnlyModeEnabledQuery.mockReturnValue(true);
     });
 
     afterEach(() => {
-      useReadOnlyModeStatus.mockReset();
+      useReadOnlyModeEnabledQuery.mockReset();
     });
 
     it('should render correctly', () => {
@@ -50,11 +50,11 @@ describe('<Layout />', () => {
 
   describe('with read only mode disabled', () => {
     beforeEach(() => {
-      useReadOnlyModeStatus.mockReturnValue(false);
+      useReadOnlyModeEnabledQuery.mockReturnValue(false);
     });
 
     afterEach(() => {
-      useReadOnlyModeStatus.mockReset();
+      useReadOnlyModeEnabledQuery.mockReset();
     });
 
     it('should render correctly', () => {

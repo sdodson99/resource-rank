@@ -2,6 +2,8 @@ const { DataSource } = require('apollo-datasource');
 const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
+const slugify = require('../../services/slugify');
+const isProfane = require('../../validators/profanity');
 
 /**
  * Data source for resources from a Mongo database.
@@ -48,6 +50,24 @@ class MongoResourcesDataSource extends DataSource {
    */
   async getById(id) {
     const resource = await this.resourceDataLoader.load(id);
+
+    if (!resource) {
+      return null;
+    }
+
+    return resource;
+  }
+
+  /**
+   * Find a resource by slug.
+   * @param {string} slug The slug of the resource to find.
+   * @return {Promise<object>} The resource matching the slug. Null if resource not found.
+   * @throws {Error} Thrown if query fails.
+   */
+  async getBySlug(slug) {
+    const resource = await this.resourceModel.findOne({
+      slug,
+    });
 
     if (!resource) {
       return null;
@@ -119,6 +139,13 @@ class MongoResourcesDataSource extends DataSource {
     }
     const { uid } = this.user;
 
+    if (isProfane(name)) {
+      throw new ApolloError(
+        'Resource name contains profanity.',
+        'RESOURCE_NAME_ERROR'
+      );
+    }
+
     if (await this.nameExists(name)) {
       throw new ApolloError(
         'Resource already exists.',
@@ -126,7 +153,22 @@ class MongoResourcesDataSource extends DataSource {
       );
     }
 
-    return await this.resourceModel.create({ name, link, createdBy: uid });
+    const slug = slugify(name);
+    const slugExists = await this.resourceModel.exists({ slug });
+
+    if (slugExists) {
+      throw new ApolloError(
+        'Resource slug already exists.',
+        'RESOURCE_ALREADY_EXISTS'
+      );
+    }
+
+    return await this.resourceModel.create({
+      name,
+      slug,
+      link,
+      createdBy: uid,
+    });
   }
 }
 

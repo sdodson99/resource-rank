@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Alert /> should render correctly 1`] = `
+<div
+  className="Alert"
+  data-testid="Alert"
+>
+  <div
+    className="inline-block align-middle"
+  >
+    Message
+  </div>
+</div>
+`;
+
+exports[`<Alert /> should render correctly when border is true 1`] = `
+<div
+  className="Alert border rounded"
+  data-testid="Alert"
+>
+  <div
+    className="inline-block align-middle"
+  >
+    Message
+  </div>
+</div>
+`;
+
+exports[`<Alert /> should render correctly when className provided 1`] = `
+<div
+  className="Alert border-red-700"
+  data-testid="Alert"
+>
+  <div
+    className="inline-block align-middle"
+  >
+    Message
+  </div>
+</div>
+`;
+
+exports[`<Alert /> should render correctly when icon provided 1`] = `
+<div
+  className="Alert"
+  data-testid="Alert"
+>
+  <div
+    className="mr-2 inline-block align-middle"
+  >
+    <div>
+      Icon
+    </div>
+  </div>
+  <div
+    className="inline-block align-middle"
+  >
+    Message
+  </div>
+</div>
+`;

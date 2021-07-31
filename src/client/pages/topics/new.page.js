@@ -4,10 +4,12 @@ import { useRouter } from 'next/router';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
-import useCreateTopicMutation from '@/hooks/use-create-topic-mutation';
+import useCreateTopicMutation from '@/hooks/mutations/use-create-topic-mutation';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import TextInput from '@/components/TextInput/TextInput';
-import getErrorCode from '@/graphql/errors/getErrorCode';
+import getErrorCode from '@/graphql/errors/get-error-code';
+import ErrorCode from '@/graphql/errors/error-code';
+import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -32,12 +34,6 @@ export default function NewTopic() {
 
   const { execute: executeCreateTopicMutation } = useCreateTopicMutation();
 
-  const isTopicAlreadyExistsError = (error) => {
-    const errorCode = getErrorCode(error);
-
-    return errorCode === 'TOPIC_ALREADY_EXISTS';
-  };
-
   const onSubmit = async (formData) => {
     setCreateTopicError(null);
 
@@ -46,22 +42,30 @@ export default function NewTopic() {
     const { data, error } = await executeCreateTopicMutation(name);
 
     if (error) {
-      if (isTopicAlreadyExistsError(error)) {
+      const errorCode = getErrorCode(error);
+
+      if (errorCode === ErrorCode.TOPIC_ALREADY_EXISTS) {
         return setError(FormField.TOPIC_NAME, {
           message: 'Name already exists.',
         });
-      } else {
-        return setCreateTopicError(error);
       }
+
+      if (errorCode === ErrorCode.TOPIC_NAME_ERROR) {
+        return setError(FormField.TOPIC_NAME, {
+          message: 'Invalid name.',
+        });
+      }
+
+      return setCreateTopicError(error);
     }
 
-    const createdTopicId = data?.createTopic?.id;
+    const createdTopicSlug = data?.createTopic?.slug;
 
-    if (!createdTopicId) {
+    if (!createdTopicSlug) {
       return setCreateTopicError(new Error('Failed to create topic.'));
     }
 
-    router.push(`/topics/${createdTopicId}`);
+    router.push(`/topics/${createdTopicSlug}`);
   };
 
   const onInvalid = () => setCreateTopicError(null);
@@ -86,6 +90,14 @@ export default function NewTopic() {
       </Head>
 
       <div className="text-4xl">New Topic</div>
+
+      {createTopicError && (
+        <div className="mt-10">
+          <ErrorAlert border={true} scrollTo={!!createTopicError}>
+            Failed to create topic.
+          </ErrorAlert>
+        </div>
+      )}
 
       <form className="mt-10" onSubmit={handleSubmit(onSubmit, onInvalid)}>
         <TextInput
@@ -116,12 +128,6 @@ export default function NewTopic() {
             <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
               <LoadingSpinner height={30} width={30} />
             </div>
-          )}
-        </div>
-
-        <div className="text-center sm:text-left">
-          {createTopicError && (
-            <div className="mt-6 error-text">Failed to create topic.</div>
           )}
         </div>
       </form>

@@ -16,21 +16,30 @@ describe('<TopicResourceListing />', () => {
   describe('with multiple topic resources', () => {
     const topicResources = [
       {
-        id: '123',
         resource: {
           id: '123',
+          slug: 'resource-name',
+        },
+        ratingList: {
+          average: 1,
         },
       },
       {
-        id: '456',
         resource: {
           id: '123',
+          slug: 'resource-name2',
+        },
+        ratingList: {
+          average: 3,
         },
       },
       {
-        id: '789',
         resource: {
           id: '123',
+          slug: 'resource-name3',
+        },
+        ratingList: {
+          average: 5,
         },
       },
     ];
@@ -38,7 +47,11 @@ describe('<TopicResourceListing />', () => {
     it('should render correctly', () => {
       const tree = renderer
         .create(
-          <TopicResourceListing topicId={'123'} topics={topicResources} />
+          <TopicResourceListing
+            topicId={'123'}
+            topicSlug="topic-name"
+            topicResources={topicResources}
+          />
         )
         .toJSON();
 
@@ -49,7 +62,7 @@ describe('<TopicResourceListing />', () => {
   describe('without topic resources', () => {
     it('should render correctly', () => {
       const tree = renderer
-        .create(<TopicResourceListing topicId={'123'} />)
+        .create(<TopicResourceListing topicId={'123'} topicSlug="topic-name" />)
         .toJSON();
 
       expect(tree).toMatchSnapshot();

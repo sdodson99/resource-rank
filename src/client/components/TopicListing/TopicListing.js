@@ -10,7 +10,7 @@ const TopicListing = ({ topics }) => {
 
     return (
       <div key={t.id} className={className}>
-        <TopicListingItem id={t.id} name={t.name} />
+        <TopicListingItem name={t.name} slug={t.slug} />
       </div>
     );
   });
