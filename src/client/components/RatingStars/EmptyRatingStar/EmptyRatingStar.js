@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './EmptyRatingStar.module.css';
+import { StarRounded } from '@material-ui/icons';
 
-const EmptyRatingStar = () => (
+const EmptyRatingStar = ({ size }) => (
   <div className={styles.EmptyRatingStar} data-testid="EmptyRatingStar">
-    EmptyRatingStar Component
+    <StarRounded htmlColor={'#d6d6d6'} style={{ fontSize: size }} />
   </div>
 );
 
-EmptyRatingStar.propTypes = {};
+EmptyRatingStar.propTypes = {
+  size: PropTypes.number,
+};
 
-EmptyRatingStar.defaultProps = {};
+EmptyRatingStar.defaultProps = {
+  size: 20,
+};
 
 export default EmptyRatingStar;

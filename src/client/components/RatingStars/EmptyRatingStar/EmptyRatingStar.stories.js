@@ -10,3 +10,8 @@ const Template = (args) => <EmptyRatingStar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const Size = Template.bind({});
+Size.args = {
+  size: '100',
+};
