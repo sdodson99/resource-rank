@@ -1,6 +1,5 @@
 import React from 'react';
 import Alert from './Alert';
-import './Alert.module.css';
 import { Info } from '@material-ui/icons';
 
 export default {
