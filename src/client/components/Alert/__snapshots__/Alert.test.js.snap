@@ -15,7 +15,7 @@ exports[`<Alert /> should render correctly 1`] = `
 
 exports[`<Alert /> with border should render correctly 1`] = `
 <div
-  className="Alert border rounded-sm"
+  className="Alert border rounded"
   data-testid="Alert"
 >
   <div

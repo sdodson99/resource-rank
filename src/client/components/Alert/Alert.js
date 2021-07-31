@@ -7,7 +7,7 @@ const Alert = ({ children, icon, border, className }) => {
     let totalClassName = styles.Alert;
 
     if (border) {
-      totalClassName += ' border rounded-sm';
+      totalClassName += ' border rounded';
     }
 
     if (className) {

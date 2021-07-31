@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorAlert /> should render correctly 1`] = `
+<div
+  className="ErrorAlert"
+  data-testid="ErrorAlert"
+>
+  <Alert
+    className="text-red-700 border-red-200 bg-red-50"
+    icon={<Memo />}
+  >
+    Message
+  </Alert>
+</div>
+`;
+
+exports[`<ErrorAlert /> with border should render correctly 1`] = `
+<div
+  className="ErrorAlert"
+  data-testid="ErrorAlert"
+>
+  <Alert
+    border={true}
+    className="text-red-700 border-red-200 bg-red-50"
+    icon={<Memo />}
+  >
+    Message
+  </Alert>
+</div>
+`;
