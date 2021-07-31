@@ -15,7 +15,9 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/coverage/',
+    '<rootDir>/.storybook/',
     '.config.js',
+    '.stories.js'
   ],
   coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {

@@ -6,7 +6,7 @@
   "main": "functions/index.js",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "dev:storybook": "start-storybook -p 6006",
+    "dev:storybook": "start-storybook -p 6006 --ci",
     "lint:eslint": "eslint \"./**/*.js\"",
     "lint:prettier": "prettier --check \"./**/*.js\"",
     "lint": "npm run lint:eslint && npm run lint:prettier",
@@ -68,6 +68,7 @@
     "prettier": "^2.3.1",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^17.0.2",
+    "storybook-css-modules-preset": "^1.1.1",
     "tailwindcss": "^2.1.1"
   }
 }
