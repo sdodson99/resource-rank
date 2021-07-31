@@ -14,7 +14,7 @@ exports[`<ErrorAlert /> should render correctly 1`] = `
 </div>
 `;
 
-exports[`<ErrorAlert /> with border should render correctly 1`] = `
+exports[`<ErrorAlert /> should render correctly when border is true 1`] = `
 <div
   className="ErrorAlert"
   data-testid="ErrorAlert"
@@ -23,6 +23,21 @@ exports[`<ErrorAlert /> with border should render correctly 1`] = `
     border={true}
     className="text-red-700 border-red-200 bg-red-50"
     icon={<Memo />}
+  >
+    Message
+  </Alert>
+</div>
+`;
+
+exports[`<ErrorAlert /> should render correctly when scrollTo is true 1`] = `
+<div
+  className="ErrorAlert"
+  data-testid="ErrorAlert"
+>
+  <Alert
+    className="text-red-700 border-red-200 bg-red-50"
+    icon={<Memo />}
+    scrollTo={true}
   >
     Message
   </Alert>

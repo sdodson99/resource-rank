@@ -19,13 +19,19 @@ describe('<ErrorAlert />', () => {
     expect(page).toMatchSnapshot();
   });
 
-  describe('with border', () => {
-    it('should render correctly', () => {
-      const page = createRenderer().render(
-        <ErrorAlert border={true}>Message</ErrorAlert>
-      );
+  it('should render correctly when border is true', () => {
+    const page = createRenderer().render(
+      <ErrorAlert border={true}>Message</ErrorAlert>
+    );
 
-      expect(page).toMatchSnapshot();
-    });
+    expect(page).toMatchSnapshot();
+  });
+
+  it('should render correctly when scrollTo is true', () => {
+    const page = createRenderer().render(
+      <ErrorAlert scrollTo={true}>Message</ErrorAlert>
+    );
+
+    expect(page).toMatchSnapshot();
   });
 });

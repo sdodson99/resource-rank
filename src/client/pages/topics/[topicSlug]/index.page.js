@@ -84,7 +84,7 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
 
       <div className="mt-3 text-xs text-gray-800">Created by {topicCreator}</div>
 
-      <div className="mt-10 flex justify-between">
+      <div className="mt-10 flex items-center justify-between">
         <div className="text-3xl">Resources</div>
 
         {isLoggedIn && (
