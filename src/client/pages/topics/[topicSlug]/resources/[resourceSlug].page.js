@@ -158,7 +158,7 @@ const TopicResourceDetails = ({
       <div className="sm:flex justify-between items-center">
         <div className="text-4xl">{resourceName}</div>
         <div className="mt-3 sm:mt-0">
-          <RatingStarGroup rating={ratingAverage} />
+          <RatingStarGroup rating={ratingAverage} starSize={25} />
         </div>
       </div>
 
@@ -212,7 +212,7 @@ const TopicResourceDetails = ({
                   <SelectableRatingStarGroup
                     rating={selectedRatingValue}
                     onRatingChanged={onSelectedRatingValueChanged}
-                    starSize={25}
+                    starSize={40}
                   />
 
                   <div className="mt-6 flex items-center">

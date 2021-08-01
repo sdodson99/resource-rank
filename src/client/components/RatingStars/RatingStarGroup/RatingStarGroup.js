@@ -13,7 +13,6 @@ const RatingStarGroup = ({ rating, maxRating, starSize, onStarClick }) => {
         <div
           key={i}
           data-testid="RatingStarGroup_RatingStar"
-          className="mr-1"
           onClick={() => onStarClick && onStarClick(i)}
         >
           <RatingStar fill={fill} size={starSize} color={'orange'} />

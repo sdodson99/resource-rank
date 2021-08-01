@@ -6,7 +6,6 @@ exports[`<RatingStarGroup /> should render correctly 1`] = `
   data-testid="RatingStarGroup"
 >
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -17,7 +16,6 @@ exports[`<RatingStarGroup /> should render correctly 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -28,7 +26,6 @@ exports[`<RatingStarGroup /> should render correctly 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -39,7 +36,6 @@ exports[`<RatingStarGroup /> should render correctly 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -50,7 +46,6 @@ exports[`<RatingStarGroup /> should render correctly 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -69,7 +64,6 @@ exports[`<RatingStarGroup /> should render correctly with empty rating 1`] = `
   data-testid="RatingStarGroup"
 >
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -80,7 +74,6 @@ exports[`<RatingStarGroup /> should render correctly with empty rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -91,7 +84,6 @@ exports[`<RatingStarGroup /> should render correctly with empty rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -102,7 +94,6 @@ exports[`<RatingStarGroup /> should render correctly with empty rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -113,7 +104,6 @@ exports[`<RatingStarGroup /> should render correctly with empty rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -132,7 +122,6 @@ exports[`<RatingStarGroup /> should render correctly with full rating 1`] = `
   data-testid="RatingStarGroup"
 >
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -143,7 +132,6 @@ exports[`<RatingStarGroup /> should render correctly with full rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -154,7 +142,6 @@ exports[`<RatingStarGroup /> should render correctly with full rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -165,7 +152,6 @@ exports[`<RatingStarGroup /> should render correctly with full rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -176,7 +162,6 @@ exports[`<RatingStarGroup /> should render correctly with full rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -195,7 +180,6 @@ exports[`<RatingStarGroup /> should render correctly with half rating 1`] = `
   data-testid="RatingStarGroup"
 >
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -206,7 +190,6 @@ exports[`<RatingStarGroup /> should render correctly with half rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -217,7 +200,6 @@ exports[`<RatingStarGroup /> should render correctly with half rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -228,7 +210,6 @@ exports[`<RatingStarGroup /> should render correctly with half rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >
@@ -239,7 +220,6 @@ exports[`<RatingStarGroup /> should render correctly with half rating 1`] = `
     />
   </div>
   <div
-    className="mr-1"
     data-testid="RatingStarGroup_RatingStar"
     onClick={[Function]}
   >

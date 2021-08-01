@@ -29,7 +29,7 @@ const TopicResourceListingItem = ({
               <div className="col-sm-auto flex flex-col items-center sm:items-start">
                 <div>{name}</div>
                 <div className="mt-1">
-                  <RatingStarGroup rating={rating} />
+                  <RatingStarGroup rating={rating} starSize={25} />
                 </div>
               </div>
               <div className="mt-5 sm:mt-0">

@@ -36,7 +36,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                   data-testid="RatingStarGroup"
                 >
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -55,7 +54,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -68,7 +67,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -87,7 +85,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -100,7 +98,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -119,7 +116,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -132,7 +129,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -151,7 +147,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -164,7 +160,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -183,7 +178,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -248,7 +243,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                   data-testid="RatingStarGroup"
                 >
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -267,7 +261,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -280,7 +274,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -299,7 +292,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -312,7 +305,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -331,7 +323,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -344,7 +336,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -363,7 +354,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -376,7 +367,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -395,7 +385,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -460,7 +450,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                   data-testid="RatingStarGroup"
                 >
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -479,7 +468,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -492,7 +481,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -511,7 +499,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -524,7 +512,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -543,7 +530,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -556,7 +543,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -575,7 +561,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"
@@ -588,7 +574,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                     </div>
                   </div>
                   <div
-                    className="mr-1"
                     data-testid="RatingStarGroup_RatingStar"
                     onClick={[Function]}
                   >
@@ -607,7 +592,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
                           focusable="false"
                           style={
                             Object {
-                              "fontSize": 20,
+                              "fontSize": 25,
                             }
                           }
                           viewBox="0 0 24 24"

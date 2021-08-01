@@ -29,7 +29,6 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
               data-testid="RatingStarGroup"
             >
               <div
-                className="mr-1"
                 data-testid="RatingStarGroup_RatingStar"
                 onClick={[Function]}
               >
@@ -48,7 +47,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                       focusable="false"
                       style={
                         Object {
-                          "fontSize": 20,
+                          "fontSize": 25,
                         }
                       }
                       viewBox="0 0 24 24"
@@ -61,7 +60,6 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mr-1"
                 data-testid="RatingStarGroup_RatingStar"
                 onClick={[Function]}
               >
@@ -80,7 +78,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                       focusable="false"
                       style={
                         Object {
-                          "fontSize": 20,
+                          "fontSize": 25,
                         }
                       }
                       viewBox="0 0 24 24"
@@ -93,7 +91,6 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mr-1"
                 data-testid="RatingStarGroup_RatingStar"
                 onClick={[Function]}
               >
@@ -112,7 +109,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                       focusable="false"
                       style={
                         Object {
-                          "fontSize": 20,
+                          "fontSize": 25,
                         }
                       }
                       viewBox="0 0 24 24"
@@ -125,7 +122,6 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mr-1"
                 data-testid="RatingStarGroup_RatingStar"
                 onClick={[Function]}
               >
@@ -144,7 +140,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                       focusable="false"
                       style={
                         Object {
-                          "fontSize": 20,
+                          "fontSize": 25,
                         }
                       }
                       viewBox="0 0 24 24"
@@ -157,7 +153,6 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mr-1"
                 data-testid="RatingStarGroup_RatingStar"
                 onClick={[Function]}
               >
@@ -176,7 +171,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
                       focusable="false"
                       style={
                         Object {
-                          "fontSize": 20,
+                          "fontSize": 25,
                         }
                       }
                       viewBox="0 0 24 24"
