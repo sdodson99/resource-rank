@@ -3,7 +3,7 @@ const { Topic } = require('../../mongoose/models/topic');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
 const slugify = require('../../services/slugify');
-const isProfane = require('../../validators/profanity');
+const validateTopic = require('../../validators/topic');
 
 /**
  * Data source for topics from a Mongo database.
@@ -112,20 +112,24 @@ class MongoTopicsDataSource extends DataSource {
     }
 
     const { uid } = this.user;
+    const slug = slugify(name);
+    const topic = {
+      name,
+      slug,
+      createdBy: uid,
+    };
 
-    if (isProfane(name)) {
-      throw new ApolloError(
-        'Topic name contains profanity.',
-        'TOPIC_NAME_ERROR'
-      );
+    const { isValid, message } = validateTopic(topic);
+
+    if (!isValid) {
+      throw new ApolloError(message, 'TOPIC_VALIDATION_ERROR');
     }
 
-    if (await this.nameExists(name)) {
+    if (await this.nameExists(topic.name)) {
       throw new ApolloError('Topic already exists.', 'TOPIC_ALREADY_EXISTS');
     }
 
-    const slug = slugify(name);
-    const slugExists = await this.topicModel.exists({ slug });
+    const slugExists = await this.topicModel.exists({ slug: topic.slug });
 
     if (slugExists) {
       throw new ApolloError(
@@ -134,7 +138,7 @@ class MongoTopicsDataSource extends DataSource {
       );
     }
 
-    return await this.topicModel.create({ name, slug, createdBy: uid });
+    return await this.topicModel.create(topic);
   }
 
   /**

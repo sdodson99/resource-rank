@@ -2,11 +2,11 @@ const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
 const { Topic } = require('../../../mongoose/models/topic');
 const slugify = require('../../../services/slugify');
-const isProfane = require('../../../validators/profanity');
+const validateTopic = require('../../../validators/topic');
 
 jest.mock('../../../mongoose/models/topic');
 jest.mock('../../../services/slugify');
-jest.mock('../../../validators/profanity');
+jest.mock('../../../validators/topic');
 
 describe('MongoTopicsDataSource', () => {
   let mongoTopicsDataSource;
@@ -24,7 +24,7 @@ describe('MongoTopicsDataSource', () => {
     Topic.updateOne.mockReset();
 
     slugify.mockReset();
-    isProfane.mockReset();
+    validateTopic.mockReset();
   });
 
   describe('initialize', () => {
@@ -203,15 +203,26 @@ describe('MongoTopicsDataSource', () => {
         mongoTopicsDataSource.user = { uid: userId };
       });
 
-      it('should throw topic name error if name contains profanity', async () => {
-        isProfane.mockReturnValue(true);
+      it('should throw topic validation error if topic is invalid', async () => {
+        const code = 'TOPIC_VALIDATION_ERROR';
+        const message = 'error message';
+        validateTopic.mockReturnValue({
+          isValid: false,
+          message,
+        });
 
-        await expect(async () => {
+        try {
           await mongoTopicsDataSource.create(name);
-        }).rejects.toThrow('Topic name contains profanity.');
+
+          fail();
+        } catch (error) {
+          expect(error.message).toBe(message);
+          expect(error.extensions.code).toBe(code);
+        }
       });
 
       it('should throw topic exists error if name already exists', async () => {
+        validateTopic.mockReturnValue({ isValid: true });
         Topic.exists.mockReturnValue(true);
 
         await expect(async () => {
@@ -220,6 +231,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should throw topic slug exists error if slug already exists', async () => {
+        validateTopic.mockReturnValue({ isValid: true });
         Topic.exists.mockReturnValueOnce(false);
         Topic.exists.mockReturnValueOnce(true);
 
@@ -229,6 +241,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should throw error if topic creation fails', async () => {
+        validateTopic.mockReturnValue({ isValid: true });
         Topic.create.mockImplementation(() => {
           throw new Error();
         });
@@ -239,6 +252,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should create topic if successful', async () => {
+        validateTopic.mockReturnValue({ isValid: true });
         slugify.mockReturnValue(slug);
 
         await mongoTopicsDataSource.create(name);
@@ -251,6 +265,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should return created topic if successful', async () => {
+        validateTopic.mockReturnValue({ isValid: true });
         slugify.mockReturnValue(slug);
         const expected = { name, slug, createdBy: userId };
         Topic.create.mockReturnValue(expected);
