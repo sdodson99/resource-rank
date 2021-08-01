@@ -112,6 +112,10 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       title: topicName,
     },
     {
+      to: `/topics/${topicSlug}/resources/add`,
+      title: 'Add',
+    },
+    {
       to: `/topics/${topicSlug}/resources/new`,
       title: 'New',
     },
