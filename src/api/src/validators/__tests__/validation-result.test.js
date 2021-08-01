@@ -13,13 +13,19 @@ describe('validation result', () => {
   });
 
   describe('createInvalidResult', () => {
-    it('should return invalid result for code', () => {
+    it('should return invalid result for code and message', () => {
       const expectedCode = 'ERROR_CODE';
+      const expectedMessage = 'error message';
 
-      const { isValid, code: actualCode } = createInvalidResult(expectedCode);
+      const {
+        isValid,
+        code: actualCode,
+        message: actualMessage,
+      } = createInvalidResult(expectedCode, expectedMessage);
 
       expect(isValid).toBeFalsy();
       expect(actualCode).toBe(expectedCode);
+      expect(actualMessage).toBe(expectedMessage);
     });
   });
 });

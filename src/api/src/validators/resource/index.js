@@ -36,37 +36,61 @@ function exceedsMaxLength(value, maxLength) {
  */
 function validateResource(resource) {
   if (!resource) {
-    return createInvalidResult(ResourceErrorCode.RESOURCE_REQUIRED);
+    return (
+      createInvalidResult(ResourceErrorCode.RESOURCE_REQUIRED),
+      'Resource is required.'
+    );
   }
 
   const { name, slug, link } = resource;
 
   if (!name) {
-    return createInvalidResult(ResourceErrorCode.NAME_REQUIRED);
+    return createInvalidResult(
+      ResourceErrorCode.NAME_REQUIRED,
+      'Resource name is required.'
+    );
   }
 
   if (exceedsMaxLength(name, NAME_MAX_LENGTH)) {
-    return createInvalidResult(ResourceErrorCode.NAME_LENGTH);
+    return createInvalidResult(
+      ResourceErrorCode.NAME_LENGTH,
+      `Resource name exceeds max length of ${NAME_MAX_LENGTH}.`
+    );
   }
 
   if (!hasAlphaNumericCharacter(name)) {
-    return createInvalidResult(ResourceErrorCode.NAME_NO_ALPHA_NUMERIC);
+    return createInvalidResult(
+      ResourceErrorCode.NAME_NO_ALPHA_NUMERIC,
+      'Resource name must contain an alpha numeric character.'
+    );
   }
 
   if (isProfane(name)) {
-    return createInvalidResult(ResourceErrorCode.NAME_PROFANITY);
+    return createInvalidResult(
+      ResourceErrorCode.NAME_PROFANITY,
+      'Resource name cannot contain profanity.'
+    );
   }
 
   if (!slug) {
-    return createInvalidResult(ResourceErrorCode.SLUG_REQUIRED);
+    return createInvalidResult(
+      ResourceErrorCode.SLUG_REQUIRED,
+      'Resource slug is required.'
+    );
   }
 
   if (!link) {
-    return createInvalidResult(ResourceErrorCode.LINK_REQUIRED);
+    return createInvalidResult(
+      ResourceErrorCode.LINK_REQUIRED,
+      'Resource link is required.'
+    );
   }
 
   if (!isURL(link)) {
-    return createInvalidResult(ResourceErrorCode.LINK_INVALID_URL);
+    return createInvalidResult(
+      ResourceErrorCode.LINK_INVALID_URL,
+      'Resource link must be a valid URL.'
+    );
   }
 
   return createValidResult();

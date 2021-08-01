@@ -33,29 +33,47 @@ function exceedsMaxLength(value, maxLength) {
  */
 function validateTopic(topic) {
   if (!topic) {
-    return createInvalidResult(TopicErrorCode.TOPIC_REQUIRED);
+    return createInvalidResult(
+      TopicErrorCode.TOPIC_REQUIRED,
+      'Topic is required.'
+    );
   }
 
   const { name, slug } = topic;
 
   if (!name) {
-    return createInvalidResult(TopicErrorCode.NAME_REQUIRED);
+    return createInvalidResult(
+      TopicErrorCode.NAME_REQUIRED,
+      'Topic name is required.'
+    );
   }
 
   if (exceedsMaxLength(name, NAME_MAX_LENGTH)) {
-    return createInvalidResult(TopicErrorCode.NAME_LENGTH);
+    return createInvalidResult(
+      TopicErrorCode.NAME_LENGTH,
+      `Topic name exceeds max length of ${NAME_MAX_LENGTH}.`
+    );
   }
 
   if (!hasAlphaNumericCharacter(name)) {
-    return createInvalidResult(TopicErrorCode.NAME_NO_ALPHA_NUMERIC);
+    return createInvalidResult(
+      TopicErrorCode.NAME_NO_ALPHA_NUMERIC,
+      'Topic name must contain an alpha numeric character.'
+    );
   }
 
   if (isProfane(name)) {
-    return createInvalidResult(TopicErrorCode.NAME_PROFANITY);
+    return createInvalidResult(
+      TopicErrorCode.NAME_PROFANITY,
+      'Topic name cannot contain profanity.'
+    );
   }
 
   if (!slug) {
-    return createInvalidResult(TopicErrorCode.SLUG_REQUIRED);
+    return createInvalidResult(
+      TopicErrorCode.SLUG_REQUIRED,
+      'Topic slug is required.'
+    );
   }
 
   return createValidResult();
