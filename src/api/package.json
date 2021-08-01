@@ -55,6 +55,7 @@
     "firebase-functions": "^3.11.0",
     "graphql": "^15.5.0",
     "mongoose": "^5.12.5",
-    "slugify": "^1.6.0"
+    "slugify": "^1.6.0",
+    "validator": "^13.6.0"
   }
 }
