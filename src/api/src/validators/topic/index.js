@@ -1,5 +1,9 @@
 const hasAlphaNumericCharacter = require('../alpha-numeric');
 const isProfane = require('../profanity/index');
+const {
+  createInvalidResult,
+  createValidResult,
+} = require('../validation-result');
 
 const TopicErrorCode = {
   TOPIC_REQUIRED: 'TOPIC_REQUIRED',
@@ -11,18 +15,6 @@ const TopicErrorCode = {
 };
 
 const NAME_MAX_LENGTH = 50;
-
-/**
- * Create an invalid result for an error code.
- * @param {string} code The topic error code.
- * @return {object} The invalid result.
- */
-function createInvalidResult(code) {
-  return {
-    isValid: false,
-    code,
-  };
-}
 
 /**
  * Check if a string exceeds the max length.
@@ -66,9 +58,7 @@ function validateTopic(topic) {
     return createInvalidResult(TopicErrorCode.SLUG_REQUIRED);
   }
 
-  return {
-    isValid: true,
-  };
+  return createValidResult();
 }
 
 module.exports = validateTopic;
