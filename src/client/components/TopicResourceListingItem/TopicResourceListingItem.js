@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './TopicResourceListingItem.module.css';
 import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
-import RatingStars from '../RatingStars/rating-stars';
+import RatingStarGroup from '../RatingStars/RatingStarGroup/RatingStarGroup';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const TopicResourceListingItem = ({
@@ -29,7 +29,7 @@ const TopicResourceListingItem = ({
               <div className="col-sm-auto flex flex-col items-center sm:items-start">
                 <div>{name}</div>
                 <div className="mt-1">
-                  <RatingStars rating={rating} />
+                  <RatingStarGroup rating={rating} />
                 </div>
               </div>
               <div className="mt-5 sm:mt-0">

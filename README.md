@@ -115,6 +115,12 @@ npm install
 npm run dev
 ```
 
+4. (Optional) Run Storybook to explore and develop components.
+
+```
+npm run dev:storybook
+```
+
 # Contributing
 
 Please create a new issue if you have any questions, problems, or suggestions. Feel free to open a
