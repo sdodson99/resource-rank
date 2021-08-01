@@ -1,1 +1,3 @@
-.RatingStarGroup {}
+.RatingStarGroup {
+  @apply flex;
+}

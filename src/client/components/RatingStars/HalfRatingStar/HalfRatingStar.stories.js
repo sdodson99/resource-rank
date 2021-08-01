@@ -4,6 +4,9 @@ import HalfRatingStar from './HalfRatingStar';
 export default {
   component: HalfRatingStar,
   title: 'Components/RatingStars/HalfRatingStar',
+  args: {
+    size: 50,
+  },
 };
 
 const Template = (args) => <HalfRatingStar {...args} />;
@@ -19,5 +22,5 @@ Color.args = {
 export const Size = Template.bind({});
 Size.args = {
   ...Color.args,
-  size: '100',
+  size: 100,
 };

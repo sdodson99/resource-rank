@@ -4,6 +4,9 @@ import RatingStar from './RatingStar';
 export default {
   component: RatingStar,
   title: 'Components/RatingStars/RatingStar',
+  args: {
+    size: 50,
+  },
 };
 
 const Template = (args) => <RatingStar {...args} />;
@@ -20,7 +23,7 @@ Color.args = {
 export const Size = Template.bind({});
 Size.args = {
   ...Color.args,
-  size: '100',
+  size: 100,
   fill: 1,
 };
 

@@ -4,6 +4,9 @@ import EmptyRatingStar from './EmptyRatingStar';
 export default {
   component: EmptyRatingStar,
   title: 'Components/RatingStars/EmptyRatingStar',
+  args: {
+    size: 50,
+  },
 };
 
 const Template = (args) => <EmptyRatingStar {...args} />;
@@ -13,5 +16,5 @@ Default.args = {};
 
 export const Size = Template.bind({});
 Size.args = {
-  size: '100',
+  size: 100,
 };
