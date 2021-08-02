@@ -103,6 +103,7 @@ class MongoTopicsDataSource extends DataSource {
    * @param {string} name The name of the topic.
    * @return {Promise<object>} The created topic.
    * @throws {ApolloError} Thrown if topic name already exists.
+   * @throws {ApolloError} Thrown if topic validation fails.
    * @throws {AuthenticationError} Thrown if user is not authenticated.
    * @throws {Error} Thrown if create fails.
    */
