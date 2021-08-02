@@ -7,7 +7,7 @@ import { createRenderer } from 'react-test-renderer/shallow';
 describe('<HalfRatingStar />', () => {
   test('it should mount', () => {
     render(<HalfRatingStar />);
-    
+
     const halfRatingStar = screen.getByTestId('HalfRatingStar');
 
     expect(halfRatingStar).toBeInTheDocument();

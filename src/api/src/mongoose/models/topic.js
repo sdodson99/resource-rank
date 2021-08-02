@@ -31,6 +31,10 @@ const topicSchema = new Schema({
   createdBy: {
     type: String,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Topic = model('Topic', topicSchema);

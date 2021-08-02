@@ -36,8 +36,8 @@ function exceedsMaxLength(value, maxLength) {
  */
 function validateResource(resource) {
   if (!resource) {
-    return (
-      createInvalidResult(ResourceErrorCode.RESOURCE_REQUIRED),
+    return createInvalidResult(
+      ResourceErrorCode.RESOURCE_REQUIRED,
       'Resource is required.'
     );
   }

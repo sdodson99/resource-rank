@@ -183,12 +183,14 @@ describe('topic resources resolvers', () => {
             name: 'resource1',
             link: 'resource1.com',
             createdBy: userId,
+            verified: true,
           },
           {
             _id: 'resource456',
             name: 'resource2',
             link: 'resource2.com',
             createdBy: userId,
+            verified: false,
           },
         ]);
     });
@@ -201,6 +203,7 @@ describe('topic resources resolvers', () => {
           link: 'resource1.com',
           alreadyAdded: true,
           createdBy: userId,
+          verified: true,
         },
         {
           id: 'resource456',
@@ -208,6 +211,7 @@ describe('topic resources resolvers', () => {
           link: 'resource2.com',
           alreadyAdded: false,
           createdBy: userId,
+          verified: false,
         },
       ];
       when(topicsDataSource.getById)

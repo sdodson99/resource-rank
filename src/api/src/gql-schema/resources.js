@@ -18,6 +18,7 @@ exports.typeDefs = gql`
     slug: String
     link: String
     createdBy: User
+    verified: Boolean
   }
 `;
 

@@ -18,6 +18,7 @@ exports.typeDefs = gql`
     slug: String
     resources: [TopicResource]
     createdBy: User
+    verified: Boolean
   }
 `;
 

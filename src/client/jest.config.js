@@ -17,7 +17,7 @@ module.exports = {
     '<rootDir>/coverage/',
     '<rootDir>/.storybook/',
     '.config.js',
-    '.stories.js'
+    '.stories.js',
   ],
   coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {
