@@ -50,12 +50,6 @@ export default function NewTopic() {
         });
       }
 
-      if (errorCode === ErrorCode.TOPIC_NAME_ERROR) {
-        return setError(FormField.TOPIC_NAME, {
-          message: 'Invalid name.',
-        });
-      }
-
       return setCreateTopicError(error);
     }
 

@@ -63,12 +63,6 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
         });
       }
 
-      if (errorCode === ErrorCode.RESOURCE_NAME_ERROR) {
-        return setError(FormField.RESOURCE_NAME, {
-          message: 'Invalid name.',
-        });
-      }
-
       return setCreateResourceError(resourceError);
     }
 
