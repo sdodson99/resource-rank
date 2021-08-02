@@ -90,7 +90,7 @@ npm install
 5. Start the application w/ Firebase emulators.
 
 ```
-npm run serve
+npm run dev
 ```
 
 ## Client
@@ -113,6 +113,12 @@ npm install
 
 ```
 npm run dev
+```
+
+4. (Optional) Run Storybook to explore and develop components.
+
+```
+npm run dev:storybook
 ```
 
 # Contributing

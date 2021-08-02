@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RatingStar /> should render correctly 1`] = `
+<div
+  className="RatingStar"
+  data-testid="RatingStar"
+>
+  <HalfRatingStar
+    color="orange"
+    size={50}
+  />
+</div>
+`;
+
+exports[`<RatingStar /> should render correctly for empty rating 1`] = `
+<div
+  className="RatingStar"
+  data-testid="RatingStar"
+>
+  <EmptyRatingStar
+    size={20}
+  />
+</div>
+`;
+
+exports[`<RatingStar /> should render correctly for full rating 1`] = `
+<div
+  className="RatingStar"
+  data-testid="RatingStar"
+>
+  <FullRatingStar
+    color="black"
+    size={20}
+  />
+</div>
+`;
+
+exports[`<RatingStar /> should render correctly for half rating 1`] = `
+<div
+  className="RatingStar"
+  data-testid="RatingStar"
+>
+  <HalfRatingStar
+    color="black"
+    size={20}
+  />
+</div>
+`;

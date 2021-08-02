@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FullRatingStar /> should render correctly 1`] = `
+<div
+  className="FullRatingStar"
+  data-testid="FullRatingStar"
+>
+  <Memo
+    htmlColor="black"
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`<FullRatingStar /> should render correctly with custom color 1`] = `
+<div
+  className="FullRatingStar"
+  data-testid="FullRatingStar"
+>
+  <Memo
+    htmlColor="yellow"
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`<FullRatingStar /> should render correctly with custom size 1`] = `
+<div
+  className="FullRatingStar"
+  data-testid="FullRatingStar"
+>
+  <Memo
+    htmlColor="black"
+    style={
+      Object {
+        "fontSize": 100,
+      }
+    }
+  />
+</div>
+`;

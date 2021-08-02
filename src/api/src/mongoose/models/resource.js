@@ -17,6 +17,10 @@ const resourceSchema = new Schema({
   createdBy: {
     type: String,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Resource = model('Resource', resourceSchema);

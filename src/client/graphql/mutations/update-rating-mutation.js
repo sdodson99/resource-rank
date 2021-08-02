@@ -1,7 +1,9 @@
 import { gql } from 'graphql-request';
 
-export default gql`
-  mutation UpdateRatingMutation($ratingId: ID!, $value: Int!) {
+const updateRatingMutation = gql`
+  mutation UpdateRating($ratingId: ID!, $value: Int!) {
     updateRating(ratingId: $ratingId, value: $value)
   }
 `;
+
+export default updateRatingMutation;

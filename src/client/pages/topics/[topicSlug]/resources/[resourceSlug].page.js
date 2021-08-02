@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
 import Head from 'next/head';
-import RatingStars from '@/components/RatingStars/rating-stars';
+import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStarGroup';
+import SelectableRatingStarGroup from '@/components/RatingStars/SelectableRatingStarGroup/SelectableRatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceUserRatingQuery from '@/hooks/queries/use-topic-resource-user-rating-query';
-import SelectableRatingStars from '@/components/RatingStars/selectable-rating-stars';
 import useCreateRatingMutation from '@/hooks/mutations/use-create-rating-mutation';
 import useUpdateRatingMutation from '@/hooks/mutations/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
@@ -158,7 +158,7 @@ const TopicResourceDetails = ({
       <div className="sm:flex justify-between items-center">
         <div className="text-4xl">{resourceName}</div>
         <div className="mt-3 sm:mt-0">
-          <RatingStars rating={ratingAverage} />
+          <RatingStarGroup rating={ratingAverage} starSize={25} />
         </div>
       </div>
 
@@ -209,10 +209,10 @@ const TopicResourceDetails = ({
               }
               dataDisplay={
                 <div>
-                  <SelectableRatingStars
-                    selectedRating={selectedRatingValue}
-                    selectedRatingChanged={onSelectedRatingValueChanged}
-                    starWidth={25}
+                  <SelectableRatingStarGroup
+                    rating={selectedRatingValue}
+                    onRatingChanged={onSelectedRatingValueChanged}
+                    starSize={40}
                   />
 
                   <div className="mt-6 flex items-center">

@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export default gql`
+const createResourceMutation = gql`
   mutation CreateResource($name: String!, $link: String!) {
     createResource(name: $name, link: $link) {
       id
@@ -8,3 +8,5 @@ export default gql`
     }
   }
 `;
+
+export default createResourceMutation;

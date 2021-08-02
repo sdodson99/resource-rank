@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
-export default gql`
-  query GetAvailableResources(
+const availableTopicResourcesQuery = gql`
+  query AvailableTopicResources(
     $topicId: ID!
     $search: String
     $offset: Int
@@ -20,3 +20,5 @@ export default gql`
     }
   }
 `;
+
+export default availableTopicResourcesQuery;

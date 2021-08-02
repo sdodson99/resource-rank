@@ -38,6 +38,7 @@ exports.typeDefs = gql`
     link: String
     alreadyAdded: Boolean
     createdBy: User
+    verified: Boolean
   }
 `;
 
@@ -103,6 +104,7 @@ exports.resolvers = {
         name: r.name,
         slug: r.slug,
         link: r.link,
+        verified: r.verified,
         alreadyAdded: false,
         createdBy: r.createdBy,
       }));

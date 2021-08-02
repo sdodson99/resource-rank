@@ -15,7 +15,7 @@ export default function Index() {
           a specific topic.
         </div>
       ),
-      imageSrc: '/img/clock.svg',
+      imageSrc: '/img/instantly-find.svg',
     },
     {
       title: 'Explore',
@@ -24,7 +24,7 @@ export default function Index() {
           <strong>Explore topics</strong> to find your next learning journey.
         </div>
       ),
-      imageSrc: '/img/mag-glass.svg',
+      imageSrc: '/img/explore.svg',
     },
     {
       title: 'Rate',
@@ -34,7 +34,7 @@ export default function Index() {
           topic.
         </div>
       ),
-      imageSrc: '/img/star.svg',
+      imageSrc: '/img/rate-resources.svg',
     },
     {
       title: 'Contribute',
@@ -44,7 +44,7 @@ export default function Index() {
           useful.
         </div>
       ),
-      imageSrc: '/img/add.svg',
+      imageSrc: '/img/add-your-own.svg',
     },
   ];
 

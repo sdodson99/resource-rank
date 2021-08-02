@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmptyRatingStar /> should render correctly 1`] = `
+<div
+  className="EmptyRatingStar"
+  data-testid="EmptyRatingStar"
+>
+  <Memo
+    htmlColor="#d6d6d6"
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`<EmptyRatingStar /> should render correctly with custom size 1`] = `
+<div
+  className="EmptyRatingStar"
+  data-testid="EmptyRatingStar"
+>
+  <Memo
+    htmlColor="#d6d6d6"
+    style={
+      Object {
+        "fontSize": 100,
+      }
+    }
+  />
+</div>
+`;

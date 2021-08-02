@@ -123,7 +123,7 @@ describe('MongoRatingsDataSource', () => {
 
     it('should throw authentication error on update', async () => {
       await expect(async () => {
-        await mongoRatingsDataSource.create('rating123', 123);
+        await mongoRatingsDataSource.update('rating123', 123);
       }).rejects.toThrow(AuthenticationError);
     });
   });

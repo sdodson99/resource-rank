@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 const topicsQuery = gql`
-  query GetTopics($search: String) {
+  query Topics($search: String) {
     topics(search: $search) {
       id
       name

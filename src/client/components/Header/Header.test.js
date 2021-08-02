@@ -16,6 +16,8 @@ describe('<Header />', () => {
   let mockFirebaseApp;
   let mockSignIn;
   let mockSignOut;
+  let mockConsoleError;
+  let originalConsoleError;
 
   beforeEach(() => {
     useRouter.mockReturnValue({
@@ -33,12 +35,17 @@ describe('<Header />', () => {
     useFirebaseAppContext.mockReturnValue(mockFirebaseApp);
 
     useAuthenticationContext.mockReturnValue({ isLoggedIn: false });
+
+    mockConsoleError = jest.fn();
+    originalConsoleError = console.error;
+    console.error = mockConsoleError;
   });
 
   afterEach(() => {
     useRouter.mockReset();
     useFirebaseAppContext.mockReset();
     useAuthenticationContext.mockReset();
+    console.error = originalConsoleError;
   });
 
   it('should mount', () => {
@@ -64,6 +71,18 @@ describe('<Header />', () => {
 
       expect(mockSignIn).toBeCalled();
     });
+
+    it('should log error on login failure', () => {
+      mockSignIn.mockImplementation(() => {
+        throw new Error();
+      });
+      render(<Header />);
+      const loginButton = screen.getByText('Login');
+
+      loginButton.click();
+
+      expect(mockConsoleError).toBeCalled();
+    });
   });
 
   describe('with logged in', () => {
@@ -84,6 +103,18 @@ describe('<Header />', () => {
       logoutButton.click();
 
       expect(mockSignOut).toBeCalled();
+    });
+
+    it('should log error on logout failure', () => {
+      mockSignOut.mockImplementation(() => {
+        throw new Error();
+      });
+      render(<Header />);
+      const logoutButton = screen.getByText('Logout');
+
+      logoutButton.click();
+
+      expect(mockConsoleError).toBeCalled();
     });
   });
 });

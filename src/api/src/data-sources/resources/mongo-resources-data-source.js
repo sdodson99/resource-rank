@@ -3,7 +3,7 @@ const DataLoader = require('dataloader');
 const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
 const slugify = require('../../services/slugify');
-const isProfane = require('../../validators/profanity');
+const validateResource = require('../../validators/resource');
 
 /**
  * Data source for resources from a Mongo database.
@@ -129,7 +129,8 @@ class MongoResourcesDataSource extends DataSource {
    * @param {string} name The name of the resource.
    * @param {string} link The link to the resource.
    * @return {Promise<object>} The created resource.
-   * @throws {ApolloError} Thrown if resource name alredy exists.
+   * @throws {ApolloError} Thrown if resource name already exists.
+   * @throws {ApolloError} Thrown if resource validation fails.
    * @throws {AuthenticationError} Thrown if user is not authenticated.
    * @throws {Error} Thrown if create fails.
    */
@@ -137,24 +138,30 @@ class MongoResourcesDataSource extends DataSource {
     if (!this.user) {
       throw new AuthenticationError();
     }
-    const { uid } = this.user;
 
-    if (isProfane(name)) {
-      throw new ApolloError(
-        'Resource name contains profanity.',
-        'RESOURCE_NAME_ERROR'
-      );
+    const { uid } = this.user;
+    const slug = slugify(name);
+    const resource = {
+      name,
+      slug,
+      link,
+      createdBy: uid,
+    };
+
+    const { isValid, message } = validateResource(resource);
+
+    if (!isValid) {
+      throw new ApolloError(message, 'RESOURCE_VALIDATION_ERROR');
     }
 
-    if (await this.nameExists(name)) {
+    if (await this.nameExists(resource.name)) {
       throw new ApolloError(
         'Resource already exists.',
         'RESOURCE_ALREADY_EXISTS'
       );
     }
 
-    const slug = slugify(name);
-    const slugExists = await this.resourceModel.exists({ slug });
+    const slugExists = await this.resourceModel.exists({ slug: resource.slug });
 
     if (slugExists) {
       throw new ApolloError(
@@ -163,12 +170,7 @@ class MongoResourcesDataSource extends DataSource {
       );
     }
 
-    return await this.resourceModel.create({
-      name,
-      slug,
-      link,
-      createdBy: uid,
-    });
+    return await this.resourceModel.create(resource);
   }
 }
 

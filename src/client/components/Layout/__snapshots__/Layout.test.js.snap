@@ -141,6 +141,7 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
         >
           <img
             alt="Resource Rank Logo"
+            className="max-w-none"
             height="75"
             src="/img/logo.svg"
             width="75"
@@ -298,6 +299,7 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
         >
           <img
             alt="Resource Rank Logo"
+            className="max-w-none"
             height="75"
             src="/img/logo.svg"
             width="75"

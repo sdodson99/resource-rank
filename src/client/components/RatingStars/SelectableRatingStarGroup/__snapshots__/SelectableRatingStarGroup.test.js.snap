@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectableRatingStarGroup /> should render correctly 1`] = `
+<div
+  className="SelectableRatingStarGroup"
+  data-testid="SelectableRatingStarGroup"
+>
+  <RatingStarGroup
+    maxRating={5}
+    onStarClick={[Function]}
+    rating={3}
+    starSize={50}
+  />
+</div>
+`;

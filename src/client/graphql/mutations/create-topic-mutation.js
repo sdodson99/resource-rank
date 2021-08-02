@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export default gql`
+const createTopicMutation = gql`
   mutation CreateTopic($name: String!) {
     createTopic(name: $name) {
       id
@@ -9,3 +9,5 @@ export default gql`
     }
   }
 `;
+
+export default createTopicMutation;

@@ -13,6 +13,9 @@ import getErrorCode from '@/graphql/errors/get-error-code';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import ErrorCode from '@/graphql/errors/error-code';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import hasAlphaNumericCharacter from 'validators/alpha-numeric';
+import isProfane from 'validators/profanity';
+import { isURL } from 'validator';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -34,6 +37,27 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       [FormField.RESOURCE_LINK]: '',
     },
   });
+
+  const nameFieldOptions = {
+    required: 'Required',
+    maxLength: {
+      value: 50,
+      message: 'Must be less than 50 characters',
+    },
+    validate: {
+      hasAlphaNumericCharacter: (name) =>
+        hasAlphaNumericCharacter(name) ||
+        'Must contain an alpha-numeric character',
+      isNotProfane: (name) => !isProfane(name) || 'Must not contain profanity',
+    },
+  };
+
+  const linkFieldOptions = {
+    required: 'Required',
+    validate: {
+      isURL: (link) => isURL(link) || 'Must be a valid URL',
+    },
+  };
 
   const [createResourceError, setCreateResourceError] = useState(null);
   const [createTopicResourceError, setCreateTopicResourceError] =
@@ -60,12 +84,6 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       if (errorCode === ErrorCode.RESOURCE_ALREADY_EXISTS) {
         return setError(FormField.RESOURCE_NAME, {
           message: 'Name already exists.',
-        });
-      }
-
-      if (errorCode === ErrorCode.RESOURCE_NAME_ERROR) {
-        return setError(FormField.RESOURCE_NAME, {
-          message: 'Invalid name.',
         });
       }
 
@@ -112,6 +130,10 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       title: topicName,
     },
     {
+      to: `/topics/${topicSlug}/resources/add`,
+      title: 'Add',
+    },
+    {
       to: `/topics/${topicSlug}/resources/new`,
       title: 'New',
     },
@@ -145,12 +167,10 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
         <div>
           <TextInput
             name={FormField.RESOURCE_NAME}
-            label="Resource Name"
+            label="Name"
             errorMessage={nameError}
             autoComplete="off"
-            {...register(FormField.RESOURCE_NAME, {
-              required: 'Required',
-            })}
+            {...register(FormField.RESOURCE_NAME, nameFieldOptions)}
           />
         </div>
 
@@ -160,9 +180,7 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
             label="Link"
             errorMessage={linkError}
             autoComplete="off"
-            {...register(FormField.RESOURCE_LINK, {
-              required: 'Required',
-            })}
+            {...register(FormField.RESOURCE_LINK, linkFieldOptions)}
           />
         </div>
 

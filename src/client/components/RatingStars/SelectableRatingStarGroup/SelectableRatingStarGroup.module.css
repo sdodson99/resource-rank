@@ -1,0 +1,3 @@
+.SelectableRatingStarGroup {
+  @apply cursor-pointer;
+}

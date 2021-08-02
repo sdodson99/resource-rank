@@ -1,7 +1,9 @@
 import { gql } from 'graphql-request';
 
-export default gql`
-  query ReadOnlyModeEnabledQuery {
+const readOnlyModeEnabledQuery = gql`
+  query ReadOnlyModeEnabled {
     readOnlyModeEnabled
   }
 `;
+
+export default readOnlyModeEnabledQuery;

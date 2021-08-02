@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
-export default gql`
-  query GetTopicResourceListingQuery($topicId: ID!, $resourceSearch: String) {
+const topicResourceListingQuery = gql`
+  query TopicResourceListing($topicId: ID!, $resourceSearch: String) {
     topicResourceList(topicId: $topicId, resourceSearch: $resourceSearch) {
       topicResources {
         resource {
@@ -16,3 +16,5 @@ export default gql`
     }
   }
 `;
+
+export default topicResourceListingQuery;

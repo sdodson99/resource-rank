@@ -29,7 +29,7 @@ const Hero = () => {
             onChange={onSearchTopicsQueryChange}
           />
           <button
-            className="mt-5 sm:mt-0 sm:ml-8 btn btn-primary"
+            className="mt-5 sm:mt-0 sm:ml-3 btn btn-primary"
             onClick={onSearchTopics}
           >
             Search

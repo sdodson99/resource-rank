@@ -1,0 +1,5 @@
+.RatingStarGroup {
+  margin-left: -3px;
+  
+  @apply flex;
+}

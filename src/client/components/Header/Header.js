@@ -21,7 +21,7 @@ const Header = () => {
 
       await firebaseApp.auth().signInWithPopup(googleAuthProvider);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoggingIn(false);
     }
@@ -33,7 +33,7 @@ const Header = () => {
     try {
       await firebaseApp.auth().signOut();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoggingOut(false);
     }
