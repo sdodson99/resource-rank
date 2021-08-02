@@ -10,6 +10,8 @@ import TextInput from '@/components/TextInput/TextInput';
 import getErrorCode from '@/graphql/errors/get-error-code';
 import ErrorCode from '@/graphql/errors/error-code';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import hasAlphaNumericCharacter from 'validators/alpha-numeric';
+import isProfane from 'validators/profanity';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -29,6 +31,20 @@ export default function NewTopic() {
       [FormField.TOPIC_NAME]: '',
     },
   });
+
+  const nameFieldOptions = {
+    required: 'Required',
+    maxLength: {
+      value: 50,
+      message: 'Must be less than 50 characters',
+    },
+    validate: {
+      hasAlphaNumericCharacter: (name) =>
+        hasAlphaNumericCharacter(name) ||
+        'Must contain an alpha-numeric character',
+      isNotProfane: (name) => !isProfane(name) || 'Must not contain profanity',
+    },
+  };
 
   const [createTopicError, setCreateTopicError] = useState();
 
@@ -99,9 +115,7 @@ export default function NewTopic() {
           label="Topic Name"
           errorMessage={nameError}
           autoComplete="off"
-          {...register(FormField.TOPIC_NAME, {
-            required: 'Required',
-          })}
+          {...register(FormField.TOPIC_NAME, nameFieldOptions)}
         />
 
         <div className="mt-10 flex flex-col sm:flex-row">
