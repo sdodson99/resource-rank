@@ -5,6 +5,12 @@
   "testLibrary": "Testing Library",
   "component": {
     "default": {
+      "customTemplates": {
+        "component": "templates/component/TemplateName.js",
+        "story":  "templates/component/TemplateName.stories.js",
+        "style": "templates/component/TemplateName.module.css",
+        "test":  "templates/component/TemplateName.test.js"
+      },
       "path": "components",
       "withStyle": true,
       "withTest": true,
