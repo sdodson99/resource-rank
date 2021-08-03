@@ -1,25 +1,44 @@
-import useGraphQLQuery from '@/hooks/graphql/use-graphql-query';
-import readOnlyModeEnabledQuery from '@/graphql/queries/read-only-mode-enabled-query';
 import useReadOnlyModeEnabledQuery from '../use-read-only-mode-enabled-query';
+import readOnlyModeEnabledQuery from '@/graphql/queries/read-only-mode-enabled-query';
+import useSWR from 'swr';
+import useGraphQLFetcherContext from '../../graphql/use-graphql-fetcher';
 
-jest.mock('@/hooks/graphql/use-graphql-query');
+jest.mock('swr');
+jest.mock('../../graphql/use-graphql-fetcher');
 
 describe('useReadOnlyModeEnabledQuery', () => {
-  afterEach(() => {
-    useGraphQLQuery.mockReset();
+  let mockGraphQLFetch;
+
+  beforeEach(() => {
+    mockGraphQLFetch = jest.fn();
+    useGraphQLFetcherContext.mockReturnValue(mockGraphQLFetch);
   });
 
-  it('should return GraphQL query for read only mode', () => {
-    const expected = true;
-    useGraphQLQuery.mockReturnValue({
+  afterEach(() => {
+    useSWR.mockReset();
+    useGraphQLFetcherContext.mockReset();
+  });
+
+  it('should return read only mode status', () => {
+    useSWR.mockReturnValue({
       data: {
-        readOnlyModeEnabled: expected,
+        readOnlyModeEnabled: true,
       },
     });
 
-    const actual = useReadOnlyModeEnabledQuery();
+    const result = useReadOnlyModeEnabledQuery();
 
-    expect(actual).toBe(expected);
-    expect(useGraphQLQuery).toBeCalledWith(readOnlyModeEnabledQuery);
+    expect(result).toBeTruthy();
+    expect(useSWR).toBeCalledWith(readOnlyModeEnabledQuery, mockGraphQLFetch);
+  });
+
+  it('should return false if data not available', () => {
+    useSWR.mockReturnValue({
+      data: null,
+    });
+
+    const result = useReadOnlyModeEnabledQuery();
+
+    expect(result).toBeFalsy();
   });
 });
