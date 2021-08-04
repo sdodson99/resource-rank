@@ -1,14 +1,20 @@
 import React from 'react';
 import Layout from '@/components/Layout/Layout';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 function _404_() {
   return (
     <Layout>
-      <Head>
-        <title>Page Not Found - Resource Rank</title>
-      </Head>
-      <div className="text-xl mt-10 text-center">Uh-oh! Page not found.</div>
+      <NextSeo
+        title="Page Not Found"
+        openGraph={{
+          title: 'Page Not Found - Resource Rank',
+          description: 'This page does not exist.',
+        }}
+      />
+      <div className="text-xl mt-10 text-center">
+        Uh-oh! This page does not exist.
+      </div>
     </Layout>
   );
 }

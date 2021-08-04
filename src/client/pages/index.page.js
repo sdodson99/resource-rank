@@ -3,7 +3,7 @@ import FeatureListing from '@/components/FeatureListing/FeatureListing';
 import CallToAction from '@/components/CallToAction/CallToAction';
 import Layout from '@/components/Layout/Layout';
 import Hero from '@/components/Hero/Hero';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 export default function Index() {
   const features = [
@@ -50,9 +50,12 @@ export default function Index() {
 
   return (
     <Layout>
-      <Head>
-        <title>Home - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title="Home"
+        openGraph={{
+          title: 'Home - Resource Rank',
+        }}
+      />
       <Hero />
       <FeatureListing features={features} />
       <CallToAction />

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/TextInput/TextInput';
@@ -16,6 +15,7 @@ import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 import hasAlphaNumericCharacter from 'validators/alpha-numeric';
 import isProfane from 'validators/profanity';
 import { isURL } from 'validator';
+import { NextSeo } from 'next-seo';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -141,9 +141,13 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>New Topic Resource - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title="New Topic Resource"
+        openGraph={{
+          title: 'New Topic Resource - Resource Rank',
+          description: `Create a new topic resource for ${topicName}.`,
+        }}
+      />
 
       <div className="text-4xl">New Topic Resource</div>
 

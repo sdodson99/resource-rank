@@ -2,15 +2,19 @@
 
 exports[`404 page should render correctly 1`] = `
 <Layout>
-  <Head>
-    <title>
-      Page Not Found - Resource Rank
-    </title>
-  </Head>
+  <NextSeo
+    openGraph={
+      Object {
+        "description": "This page does not exist.",
+        "title": "Page Not Found - Resource Rank",
+      }
+    }
+    title="Page Not Found"
+  />
   <div
     className="text-xl mt-10 text-center"
   >
-    Uh-oh! Page not found.
+    Uh-oh! This page does not exist.
   </div>
 </Layout>
 `;

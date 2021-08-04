@@ -2,11 +2,14 @@
 
 exports[`home page should render correctly 1`] = `
 <Layout>
-  <Head>
-    <title>
-      Home - Resource Rank
-    </title>
-  </Head>
+  <NextSeo
+    openGraph={
+      Object {
+        "title": "Home - Resource Rank",
+      }
+    }
+    title="Home"
+  />
   <Hero />
   <FeatureListing
     features={
