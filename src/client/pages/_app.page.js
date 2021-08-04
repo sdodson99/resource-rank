@@ -14,7 +14,7 @@ function App({ Component, pageProps }) {
   const { asPath } = useRouter();
 
   const currentUrl = `${configuration.HTTPS_BASE_URL}${asPath}`;
-  const imageUrl = `${configuration.HTTP_BASE_URL}/img/logo.jpg`;
+  const imageUrl = `${configuration.HTTP_BASE_URL}/img/og-logo.jpg`;
 
   return (
     <FirebaseAppProvider
@@ -36,8 +36,8 @@ function App({ Component, pageProps }) {
               images: [
                 {
                   url: imageUrl,
-                  width: 300,
-                  height: 300,
+                  width: 1200,
+                  height: 630,
                   alt: 'Resource Rank Logo',
                 },
               ],
