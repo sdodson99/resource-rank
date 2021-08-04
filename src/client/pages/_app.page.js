@@ -6,28 +6,44 @@ import { FirebaseAppProvider } from '@/hooks/use-firebase-app-context';
 import '@fontsource/magra';
 import '@fontsource/magra/700.css';
 import { GraphQLFetcherProvider } from '@/hooks/graphql/use-graphql-fetcher';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',
-  authDomain: 'resource-rank.firebaseapp.com',
-  databaseURL: 'https://resource-rank-default-rtdb.firebaseio.com',
-  projectId: 'resource-rank',
-  storageBucket: 'resource-rank.appspot.com',
-  messagingSenderId: '489304913015',
-  appId: '1:489304913015:web:71f38a965ccde83db54272',
-  measurementId: 'G-D18DVJ4168',
-};
-const useAuthenticationEmulator =
-  process.env.NEXT_PUBLIC_USE_AUTHENTICATION_EMULATOR === 'true';
+import { DefaultSeo } from 'next-seo';
+import { useRouter } from 'next/router';
+import configuration from '@/configuration/index';
+import path from 'path';
 
 function App({ Component, pageProps }) {
+  const { asPath } = useRouter();
+
+  const currentUrl = path.join(configuration.BASE_URL, asPath);
+  const imageUrl = path.join(configuration.BASE_URL, 'img/logo.svg');
+
   return (
     <FirebaseAppProvider
-      firebaseConfig={firebaseConfig}
-      useAuthenticationEmulator={useAuthenticationEmulator}
+      firebaseConfig={configuration.FIREBASE_CONFIG}
+      useAuthenticationEmulator={configuration.USE_AUTHENTICATION_EMULATOR}
     >
       <AuthenticationProvider>
         <GraphQLFetcherProvider>
+          <DefaultSeo
+            titleTemplate="%s - Resource Rank"
+            title="Simplify Learning"
+            description="Find the best resources to simplify your learning journey."
+            openGraph={{
+              title: 'Simplify Learning - Resource Rank',
+              description:
+                'Find the best resources to simplify your learning journey.',
+              url: currentUrl,
+              type: 'website',
+              images: [
+                {
+                  url: imageUrl,
+                  width: 300,
+                  height: 300,
+                  alt: 'Resource Rank Logo',
+                },
+              ],
+            }}
+          />
           <Component {...pageProps} />
         </GraphQLFetcherProvider>
       </AuthenticationProvider>

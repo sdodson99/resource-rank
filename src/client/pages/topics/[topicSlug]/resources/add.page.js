@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
@@ -11,6 +10,7 @@ import AvailableResourceListing from '@/components/AvailableResourceListing/Avai
 import useCreateTopicResourceMutation from '@/hooks/mutations/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
+import { NextSeo } from 'next-seo';
 
 const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const router = useRouter();
@@ -114,9 +114,13 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>Add Topic Resource - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title="Add Topic Resource"
+        openGraph={{
+          title: 'Add Topic Resource - Resource Rank',
+          description: `Add a new topic resource to ${topicName}.`,
+        }}
+      />
 
       <PageHeaderButton
         title="Add Resource"

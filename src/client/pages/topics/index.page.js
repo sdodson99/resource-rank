@@ -4,11 +4,11 @@ import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayou
 import useAuthenticationState from '@/hooks/use-authentication-context';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import useTopicSearchQuery from '@/hooks/queries/use-topic-search-query';
 import TopicListing from '@/components/TopicListing/TopicListing';
 import useDebounce from '@/hooks/use-debounce';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
+import { NextSeo } from 'next-seo';
 
 export default function Topics() {
   const router = useRouter();
@@ -55,9 +55,14 @@ export default function Topics() {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>Topics - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title="Topics"
+        openGraph={{
+          title: 'Browse Topics - Resource Rank',
+          description:
+            'Find the topic you are planning to learn, or find a new topic to learn!',
+        }}
+      />
 
       <PageHeaderButton
         title="Topics"

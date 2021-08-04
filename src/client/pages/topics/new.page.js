@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import useCreateTopicMutation from '@/hooks/mutations/use-create-topic-mutation';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
@@ -12,6 +11,7 @@ import ErrorCode from '@/graphql/errors/error-code';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 import hasAlphaNumericCharacter from 'validators/alpha-numeric';
 import isProfane from 'validators/profanity';
+import { NextSeo } from 'next-seo';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -95,9 +95,13 @@ export default function NewTopic() {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>New Topic - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title="New Topic"
+        openGraph={{
+          title: 'New Topic - Resource Rank',
+          description: 'Create a new topic.',
+        }}
+      />
 
       <div className="text-4xl">New Topic</div>
 

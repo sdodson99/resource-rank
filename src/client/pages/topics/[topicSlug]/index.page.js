@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import Head from 'next/head';
 import Link from 'next/link';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
@@ -10,6 +9,7 @@ import useDebounce from '@/hooks/use-debounce';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
+import { NextSeo } from 'next-seo';
 
 const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
   const { isLoggedIn } = useAuthenticationContext();
@@ -76,9 +76,13 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>{topicName} - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title={topicName}
+        openGraph={{
+          title: `${topicName} - Resource Rank`,
+          description: `Find the best resources for learning ${topicName}.`,
+        }}
+      />
 
       <div className="text-4xl">{topicName}</div>
 

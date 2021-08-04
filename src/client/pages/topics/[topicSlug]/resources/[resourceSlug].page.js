@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
-import Head from 'next/head';
 import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStarGroup';
 import SelectableRatingStarGroup from '@/components/RatingStars/SelectableRatingStarGroup/SelectableRatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
@@ -12,6 +11,7 @@ import useUpdateRatingMutation from '@/hooks/mutations/use-update-rating-mutatio
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
+import { NextSeo } from 'next-seo';
 
 const TopicResourceDetails = ({
   topicId,
@@ -151,9 +151,13 @@ const TopicResourceDetails = ({
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <Head>
-        <title>{resourceName} - Resource Rank</title>
-      </Head>
+      <NextSeo
+        title={resourceName}
+        openGraph={{
+          title: `${resourceName} - Resource Rank`,
+          description: `Learn about ${resourceName} and See how effective ${resourceName} is for learning ${topicName}.`,
+        }}
+      />
 
       <div className="sm:flex justify-between items-center">
         <div className="text-4xl">{resourceName}</div>
