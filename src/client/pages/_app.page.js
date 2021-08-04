@@ -15,7 +15,7 @@ function App({ Component, pageProps }) {
   const { asPath } = useRouter();
 
   const currentUrl = path.join(configuration.BASE_URL, asPath);
-  const imageUrl = path.join(configuration.BASE_URL, 'img/logo.svg');
+  const imageUrl = path.join(configuration.BASE_URL, 'img/logo.jpg');
 
   return (
     <FirebaseAppProvider
