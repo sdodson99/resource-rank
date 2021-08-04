@@ -1,6 +1,7 @@
 const configuration = {
   GRAPHQL_URL: process.env.NEXT_PUBLIC_GQL_URL,
-  BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+  HTTP_BASE_URL: `http://${process.env.NEXT_PUBLIC_DOMAIN}`,
+  HTTPS_BASE_URL: `https://${process.env.NEXT_PUBLIC_DOMAIN}`,
   FIREBASE_CONFIG: {
     apiKey: 'AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8',
     authDomain: 'resource-rank.firebaseapp.com',

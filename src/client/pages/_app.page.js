@@ -9,13 +9,12 @@ import { GraphQLFetcherProvider } from '@/hooks/graphql/use-graphql-fetcher';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import configuration from '@/configuration/index';
-import path from 'path';
 
 function App({ Component, pageProps }) {
   const { asPath } = useRouter();
 
-  const currentUrl = path.join(configuration.BASE_URL, asPath);
-  const imageUrl = path.join(configuration.BASE_URL, 'img/logo.jpg');
+  const currentUrl = `${configuration.HTTPS_BASE_URL}${asPath}`;
+  const imageUrl = `${configuration.HTTP_BASE_URL}/img/logo.jpg`;
 
   return (
     <FirebaseAppProvider
