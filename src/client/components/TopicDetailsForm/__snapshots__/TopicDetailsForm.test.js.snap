@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicDetailsForm /> should render correctly 1`] = `
+<div
+  className="TopicDetailsForm"
+  data-testid="TopicDetailsForm"
+>
+  <form>
+    
+    <div
+      className="mt-10"
+    >
+      <ForwardRef(WrappedTextInput)
+        autoComplete="off"
+        label="Topic Name"
+        name="NAME"
+      />
+    </div>
+    <div
+      className="mt-10 flex flex-col sm:flex-row"
+    >
+      <button
+        className="btn btn-primary w-100"
+        disabled={false}
+        type="submit"
+      >
+        Submit
+      </button>
+      <Link
+        href="/back"
+      >
+        <a
+          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+        >
+          Cancel
+        </a>
+      </Link>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`<TopicDetailsForm /> should render correctly when submitting 1`] = `
+<div
+  className="TopicDetailsForm"
+  data-testid="TopicDetailsForm"
+>
+  <form>
+    
+    <div
+      className="mt-10"
+    >
+      <ForwardRef(WrappedTextInput)
+        autoComplete="off"
+        label="Topic Name"
+        name="NAME"
+      />
+    </div>
+    <div
+      className="mt-10 flex flex-col sm:flex-row"
+    >
+      <button
+        className="btn btn-primary w-100"
+        disabled={true}
+        type="submit"
+      >
+        Submit
+      </button>
+      <Link
+        href="/back"
+      >
+        <a
+          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+        >
+          Cancel
+        </a>
+      </Link>
+      <div
+        className="mt-5 sm:mt-0 sm:ml-3 self-center"
+      >
+        <LoadingSpinner
+          color="#292929"
+          size={30}
+        />
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`<TopicDetailsForm /> should render correctly with error message 1`] = `
+<div
+  className="TopicDetailsForm"
+  data-testid="TopicDetailsForm"
+>
+  <form>
+    <div
+      className="mt-10"
+    >
+      <ErrorAlert
+        border={true}
+        scrollTo={true}
+      >
+        Error message.
+      </ErrorAlert>
+    </div>
+    <div
+      className="mt-10"
+    >
+      <ForwardRef(WrappedTextInput)
+        autoComplete="off"
+        label="Topic Name"
+        name="NAME"
+      />
+    </div>
+    <div
+      className="mt-10 flex flex-col sm:flex-row"
+    >
+      <button
+        className="btn btn-primary w-100"
+        disabled={false}
+        type="submit"
+      >
+        Submit
+      </button>
+      <Link
+        href="/back"
+      >
+        <a
+          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+        >
+          Cancel
+        </a>
+      </Link>
+    </div>
+  </form>
+</div>
+`;

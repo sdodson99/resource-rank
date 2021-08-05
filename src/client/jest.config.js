@@ -9,6 +9,7 @@ module.exports = {
     '^@/styles(.*)$': '<rootDir>/styles/$1',
     '^@/configuration(.*)$': '<rootDir>/configuration/$1',
     '^@/errors(.*)$': '<rootDir>/errors/$1',
+    '^@/validators(.*)$': '<rootDir>/validators/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/templates/'],

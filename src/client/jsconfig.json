@@ -8,7 +8,8 @@
       "@/services/*": ["./services/*"],
       "@/styles/*": ["./styles/*"],
       "@/configuration/*": ["./configuration/*"],
-      "@/errors/*": ["./errors/*"]
+      "@/errors/*": ["./errors/*"],
+      "@/validators/*": ["./validators/*"]
     }
   },
   "typeAcquisition": {
