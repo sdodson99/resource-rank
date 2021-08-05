@@ -231,7 +231,7 @@ const TopicResourceDetails = ({
 
                     {isSubmittingRating && (
                       <div className="ml-4">
-                        <LoadingSpinner height={25} width={25} />
+                        <LoadingSpinner size={25} />
                       </div>
                     )}
                   </div>

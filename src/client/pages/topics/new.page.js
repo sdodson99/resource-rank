@@ -138,7 +138,7 @@ export default function NewTopic() {
 
           {isSubmitting && (
             <div className="mt-5 sm:mt-0 sm:ml-3 self-center">
-              <LoadingSpinner height={30} width={30} />
+              <LoadingSpinner size={30} />
             </div>
           )}
         </div>
