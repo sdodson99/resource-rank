@@ -1,11 +1,11 @@
 import 'regenerator-runtime';
 import React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
-import Index from '../index.page';
+import Home from '../index.page';
 
-describe('home page', () => {
+describe('<Home />', () => {
   it('should render correctly', () => {
-    const page = createRenderer().render(<Index />);
+    const page = createRenderer().render(<Home />);
 
     expect(page).toMatchSnapshot();
   });

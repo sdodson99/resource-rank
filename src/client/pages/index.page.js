@@ -5,7 +5,7 @@ import Layout from '@/components/Layout/Layout';
 import Hero from '@/components/Hero/Hero';
 import { NextSeo } from 'next-seo';
 
-export default function Index() {
+const Home = () => {
   const features = [
     {
       title: 'Instant',
@@ -61,4 +61,6 @@ export default function Index() {
       <CallToAction />
     </Layout>
   );
-}
+};
+
+export default Home;
