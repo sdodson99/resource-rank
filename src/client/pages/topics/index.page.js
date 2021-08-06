@@ -41,58 +41,61 @@ export default function Topics() {
   ];
 
   return (
-    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <NextSeo
-        title="Topics"
-        openGraph={{
-          title: 'Browse Topics - Resource Rank',
-          description:
-            'Find the topic you are planning to learn, or find a new topic to learn!',
-        }}
-      />
-
-      <PageHeaderButton
-        title="Topics"
-        linkTo="/topics/new"
-        buttonContent="New"
-        hideButton={!isLoggedIn}
-      />
-
-      <div className="mt-8 flex flex-col">
-        <input
-          className="flex-grow form-control-lg"
-          placeholder="Search topics..."
-          value={search}
-          onChange={onSearchChange}
-          type="text"
+    <div data-testid="Topics">
+      <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+        <NextSeo
+          title="Topics"
+          openGraph={{
+            title: 'Browse Topics - Resource Rank',
+            description:
+              'Find the topic you are planning to learn, or find a new topic to learn!',
+          }}
         />
 
-        <div className="mt-8">
-          <LoadingErrorEmptyDataLayout
-            isLoading={isLoadingTopics}
-            loadingDisplay={
-              <div className="text-center">
-                <LoadingSpinner />
-              </div>
-            }
-            hasError={!!topicsError}
-            errorDisplay={
-              <div className="text-center sm:text-left error-text">
-                Failed to load topics.
-              </div>
-            }
-            hasData={hasTopics}
-            noDataDisplay={
-              <div className="text-center sm:text-left">
-                {!currentSearch && 'No topics have been created.'}
-                {currentSearch &&
-                  `No topics matching '${currentSearch}' have been created.`}
-              </div>
-            }
-            dataDisplay={<TopicListing topics={topics} />}
+        <PageHeaderButton
+          title="Topics"
+          linkTo="/topics/new"
+          buttonContent="New"
+          hideButton={!isLoggedIn}
+        />
+
+        <div className="mt-8 flex flex-col">
+          <input
+            data-testid="SearchInput"
+            className="flex-grow form-control-lg"
+            placeholder="Search topics..."
+            value={search}
+            onChange={onSearchChange}
+            type="text"
           />
+
+          <div className="mt-8">
+            <LoadingErrorEmptyDataLayout
+              isLoading={isLoadingTopics}
+              loadingDisplay={
+                <div className="text-center">
+                  <LoadingSpinner />
+                </div>
+              }
+              hasError={!!topicsError}
+              errorDisplay={
+                <div className="text-center sm:text-left error-text">
+                  Failed to load topics.
+                </div>
+              }
+              hasData={hasTopics}
+              noDataDisplay={
+                <div className="text-center sm:text-left">
+                  {!currentSearch && 'No topics have been created.'}
+                  {currentSearch &&
+                    `No topics matching '${currentSearch}' have been created.`}
+                </div>
+              }
+              dataDisplay={<TopicListing topics={topics} />}
+            />
+          </div>
         </div>
-      </div>
-    </BreadcrumbLayout>
+      </BreadcrumbLayout>
+    </div>
   );
 }

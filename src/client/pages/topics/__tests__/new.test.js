@@ -75,23 +75,23 @@ describe('<NewTopic />', () => {
   it('should mount', () => {
     render(<NewTopic />);
 
-    const topicDetailsForm = screen.getByTestId('NewTopic');
+    const page = screen.getByTestId('NewTopic');
 
-    expect(topicDetailsForm).toBeInTheDocument();
+    expect(page).toBeInTheDocument();
   });
 
   it('should render correctly', () => {
-    const component = createRenderer().render(<NewTopic />);
+    const page = createRenderer().render(<NewTopic />);
 
-    expect(component).toMatchSnapshot();
+    expect(page).toMatchSnapshot();
   });
 
   it('should render correctly with create topic error', () => {
     useState.mockReturnValue([new Error(), mockSetCreateTopicError]);
 
-    const component = createRenderer().render(<NewTopic />);
+    const page = createRenderer().render(<NewTopic />);
 
-    expect(component).toMatchSnapshot();
+    expect(page).toMatchSnapshot();
   });
 
   describe('on valid submit', () => {
