@@ -4,7 +4,7 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { FormProvider, useForm } from 'react-hook-form';
 import { NextSeo } from 'next-seo';
 import useTopicCreator from '@/hooks/topics/use-topic-creator';
-import TopicExistsError from 'errors/topic-exists-error';
+import TopicExistsError from '@/errors/topic-exists-error';
 import TopicDetailsForm from '@/components/TopicDetailsForm/TopicDetailsForm';
 
 const FormField = {
@@ -61,29 +61,31 @@ const NewTopic = () => {
   ];
 
   return (
-    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <NextSeo
-        title="New Topic"
-        openGraph={{
-          title: 'New Topic - Resource Rank',
-          description: 'Create a new topic.',
-        }}
-      />
+    <div data-testid="NewTopic">
+      <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+        <NextSeo
+          title="New Topic"
+          openGraph={{
+            title: 'New Topic - Resource Rank',
+            description: 'Create a new topic.',
+          }}
+        />
 
-      <div className="text-4xl">New Topic</div>
+        <div className="text-4xl">New Topic</div>
 
-      <div className="mt-10">
-        <FormProvider {...methods}>
-          <TopicDetailsForm
-            onSubmit={onSubmit}
-            onInvalid={onInvalid}
-            cancelHref={'/topics'}
-            errorMessage={createTopicErrorMessage}
-            nameFieldName={FormField.TOPIC_NAME}
-          />
-        </FormProvider>
-      </div>
-    </BreadcrumbLayout>
+        <div className="mt-10">
+          <FormProvider {...methods}>
+            <TopicDetailsForm
+              onSubmit={onSubmit}
+              onInvalid={onInvalid}
+              cancelHref={'/topics'}
+              errorMessage={createTopicErrorMessage}
+              nameFieldName={FormField.TOPIC_NAME}
+            />
+          </FormProvider>
+        </div>
+      </BreadcrumbLayout>
+    </div>
   );
 };
 
