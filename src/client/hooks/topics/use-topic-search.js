@@ -3,16 +3,11 @@ import useSearch from '../use-search';
 
 export default function useTopicSearch({ initialSearch } = {}) {
   const { execute: executeTopicSearchQuery, ...others } = useTopicSearchQuery();
-  
-  const { search, currentSearch, processSearch } = useSearch(
-    executeTopicSearchQuery,
-    { initialSearch }
-  );
+
+  const search = useSearch(executeTopicSearchQuery, { initialSearch });
 
   return {
-    search,
-    currentSearch,
-    processSearch,
+    ...search,
     ...others,
   };
 }

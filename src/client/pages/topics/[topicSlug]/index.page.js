@@ -1,48 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import Link from 'next/link';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
-import useTopicResourceSearchQuery from '@/hooks/queries/use-topic-resource-search-query';
-import useDebounce from '@/hooks/use-debounce';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
+import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 
 const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
   const { isLoggedIn } = useAuthenticationContext();
-
-  const [search, setSearch] = useState('');
-  const [currentSearch, setCurrentSearch] = useState('');
 
   const {
     data: topicResourcesData,
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
-    execute: executeTopicResourceSearchQuery,
-  } = useTopicResourceSearchQuery(topicId);
-
-  const executeTopicResourceSearch = (search) => {
-    setCurrentSearch(search);
-    executeTopicResourceSearchQuery(search);
-  };
-
-  useEffect(() => {
-    executeTopicResourceSearch(search);
-  }, []);
-
-  const debounceExecuteTopicResourceSearch = useDebounce(
-    executeTopicResourceSearch,
-    1000
-  );
+    search,
+    currentSearch,
+    processSearch,
+  } = useTopicResourceSearch(topicId);
 
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    setSearch(searchInput);
-
-    debounceExecuteTopicResourceSearch(searchInput);
+    processSearch(searchInput);
   };
 
   const getNoDataDisplay = () => {
@@ -90,6 +72,7 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
         Created by {topicCreator}
       </div>
 
+      {/* Convert to PageHeaderButton */}
       <div className="mt-10 flex items-center justify-between">
         <div className="text-3xl">Resources</div>
 
