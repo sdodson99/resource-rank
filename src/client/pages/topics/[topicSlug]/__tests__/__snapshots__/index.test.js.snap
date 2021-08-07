@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicDetails /> page should render correctly 1`] = `
+<div
+  data-testid="TopicsDetails"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "name",
+          "to": "/topics/slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Find the best resources for learning name.",
+          "title": "name - Resource Rank",
+        }
+      }
+      title="name"
+    />
+    <div
+      className="text-4xl"
+    >
+      name
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      creator
+    </div>
+    <div
+      className="mt-10"
+    >
+      <PageHeaderButton
+        buttonContent="Add"
+        hideButton={false}
+        linkTo="/topics/slug/resources/add"
+        title="Resources"
+        titleClassName="text-3xl"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <input
+        className="w-full form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+        value="search"
+      />
+      <div
+        className="mt-8"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <TopicResourceListing
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
+          }
+          errorDisplay={
+            <div
+              className="text-center sm:text-left error-text"
+            >
+              Failed to load topic resources.
+            </div>
+          }
+          hasData={false}
+          hasError={true}
+          isLoading={true}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+          noDataDisplay={
+            <div
+              className="text-center sm:text-left"
+            >
+              No topic resources matching 'currentSearch' have been added.
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<TopicDetails /> page should render correctly with data 1`] = `
+<div
+  data-testid="TopicsDetails"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "name",
+          "to": "/topics/slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Find the best resources for learning name.",
+          "title": "name - Resource Rank",
+        }
+      }
+      title="name"
+    />
+    <div
+      className="text-4xl"
+    >
+      name
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      creator
+    </div>
+    <div
+      className="mt-10"
+    >
+      <PageHeaderButton
+        buttonContent="Add"
+        hideButton={false}
+        linkTo="/topics/slug/resources/add"
+        title="Resources"
+        titleClassName="text-3xl"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <input
+        className="w-full form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+        value="search"
+      />
+      <div
+        className="mt-8"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <TopicResourceListing
+              topicId="123"
+              topicResources={
+                Array [
+                  Object {
+                    "ratingList": Object {
+                      "average": 5,
+                    },
+                    "resource": Object {
+                      "slug": "slug-1",
+                    },
+                  },
+                  Object {
+                    "ratingList": Object {
+                      "average": 1,
+                    },
+                    "resource": Object {
+                      "slug": "slug-2",
+                    },
+                  },
+                ]
+              }
+              topicSlug="slug"
+            />
+          }
+          errorDisplay={
+            <div
+              className="text-center sm:text-left error-text"
+            >
+              Failed to load topic resources.
+            </div>
+          }
+          hasData={true}
+          hasError={false}
+          isLoading={false}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+          noDataDisplay={
+            <div
+              className="text-center sm:text-left"
+            >
+              No topic resources matching 'currentSearch' have been added.
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<TopicDetails /> page should render correctly with no data and no current search 1`] = `
+<div
+  data-testid="TopicsDetails"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "name",
+          "to": "/topics/slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Find the best resources for learning name.",
+          "title": "name - Resource Rank",
+        }
+      }
+      title="name"
+    />
+    <div
+      className="text-4xl"
+    >
+      name
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      creator
+    </div>
+    <div
+      className="mt-10"
+    >
+      <PageHeaderButton
+        buttonContent="Add"
+        hideButton={false}
+        linkTo="/topics/slug/resources/add"
+        title="Resources"
+        titleClassName="text-3xl"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <input
+        className="w-full form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+        value="search"
+      />
+      <div
+        className="mt-8"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <TopicResourceListing
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
+          }
+          errorDisplay={
+            <div
+              className="text-center sm:text-left error-text"
+            >
+              Failed to load topic resources.
+            </div>
+          }
+          hasData={false}
+          hasError={true}
+          isLoading={true}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+          noDataDisplay={
+            <div
+              className="text-center sm:text-left"
+            >
+              No topic resources have been added.
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

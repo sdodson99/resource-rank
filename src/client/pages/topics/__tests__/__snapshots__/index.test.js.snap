@@ -28,6 +28,7 @@ exports[`<Topics /> should render correctly 1`] = `
       hideButton={true}
       linkTo="/topics/new"
       title="Topics"
+      titleClassName="text-4xl"
     />
     <div
       className="mt-8 flex flex-col"

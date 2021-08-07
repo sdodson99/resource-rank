@@ -14,7 +14,9 @@ describe('<PageHeaderButton />', () => {
   });
 
   it('should render correctly', () => {
-    const tree = renderer.create(<PageHeaderButton />).toJSON();
+    const tree = renderer
+      .create(<PageHeaderButton titleClassName="text-3xl" />)
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
