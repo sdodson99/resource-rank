@@ -5,12 +5,12 @@ import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStar
 import SelectableRatingStarGroup from '@/components/RatingStars/SelectableRatingStarGroup/SelectableRatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceUserRatingQuery from '@/hooks/queries/use-topic-resource-user-rating-query';
-import useCreateRatingMutation from '@/hooks/mutations/use-create-rating-mutation';
-import useUpdateRatingMutation from '@/hooks/mutations/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
+import useRatingCreator from '@/hooks/ratings/use-rating-creator';
+import useRatingUpdater from '@/hooks/ratings/use-rating-updater';
 
 const TopicResourceDetails = ({
   topicId,
@@ -54,22 +54,16 @@ const TopicResourceDetails = ({
     setSelectedRatingValue(ratingValue);
   }, [userRatingData]);
 
-  const { execute: executeCreateRatingMutation, isLoading: isCreatingRating } =
-    useCreateRatingMutation();
+  const { createRating: executeCreateRating, isCreatingRating } =
+    useRatingCreator();
 
   const createRating = async () => {
-    const { data: createRatingData } = await executeCreateRatingMutation(
+    const { id } = await executeCreateRating({
       topicId,
       resourceId,
-      selectedRatingValue
-    );
+      ratingValue: selectedRatingValue,
+    });
 
-    const createdRating = createRatingData?.createRating;
-    if (!createdRating) {
-      throw new Error('Failed to create rating.');
-    }
-
-    const { id } = createdRating;
     setExistingRating({
       id,
       value: selectedRatingValue,
@@ -79,21 +73,16 @@ const TopicResourceDetails = ({
     setRatingCount(ratingCount + 1);
   };
 
-  const { execute: executeUpdateRatingMutation, isLoading: isUpdatingRating } =
-    useUpdateRatingMutation();
+  const { updateRating: executeUpdateRating, isUpdatingRating } =
+    useRatingUpdater();
 
   const updateRating = async () => {
     const ratingId = existingRating?.id;
 
-    const { data: updateRatingData } = await executeUpdateRatingMutation(
+    await executeUpdateRating({
       ratingId,
-      selectedRatingValue
-    );
-
-    const success = updateRatingData?.updateRating;
-    if (!success) {
-      throw new Error('Failed to update rating.');
-    }
+      ratingValue: selectedRatingValue,
+    });
 
     setExistingRating({ id: ratingId, value: selectedRatingValue });
 
