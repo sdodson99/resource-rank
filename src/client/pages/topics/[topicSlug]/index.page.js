@@ -139,12 +139,6 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
     const topic = await getTopicBySlug(topicSlug);
 
-    if (!topic) {
-      return {
-        notFound: true,
-      };
-    }
-
     return {
       props: {
         topicId: topic.id,

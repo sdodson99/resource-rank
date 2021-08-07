@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import { createGraphQLClient } from '@/graphql/clients/graphql-client-factory';
 import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStarGroup';
 import SelectableRatingStarGroup from '@/components/RatingStars/SelectableRatingStarGroup/SelectableRatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
@@ -10,8 +9,8 @@ import useCreateRatingMutation from '@/hooks/mutations/use-create-rating-mutatio
 import useUpdateRatingMutation from '@/hooks/mutations/use-update-rating-mutation';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
 import { NextSeo } from 'next-seo';
+import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
 
 const TopicResourceDetails = ({
   topicId,
@@ -263,24 +262,8 @@ export async function getServerSideProps({
   req,
   params: { topicSlug, resourceSlug },
 }) {
-  const graphqlFetcher = createGraphQLClient();
-
   try {
-    const topicResourceResult = await graphqlFetcher.fetch(
-      topicResourceBySlugQuery,
-      {
-        topicSlug,
-        resourceSlug,
-      }
-    );
-
-    const topicResource = topicResourceResult?.topicResourceBySlug;
-
-    if (!topicResource) {
-      return {
-        notFound: true,
-      };
-    }
+    const topicResource = await getTopicResourceBySlug(topicSlug, resourceSlug);
 
     return {
       props: {

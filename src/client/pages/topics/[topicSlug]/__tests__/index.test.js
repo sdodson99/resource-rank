@@ -150,15 +150,7 @@ describe('<TopicDetails />', () => {
     afterEach(() => {
       getTopicBySlug.mockReset();
     });
-
-    it('should return not found if topic is null', async () => {
-      when(getTopicBySlug).calledWith(topicSlug).mockReturnValue(null);
-
-      const { notFound } = await getServerSideProps({ req, params });
-
-      expect(notFound).toBeTruthy();
-    });
-
+    
     it('should return not found if topic query fails', async () => {
       when(getTopicBySlug)
         .calledWith(topicSlug)
