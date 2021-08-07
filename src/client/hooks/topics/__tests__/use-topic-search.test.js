@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react';
 import useTopicSearchQuery from '../../queries/use-topic-search-query';
+import useSearch from '../../use-search';
 import useTopicSearch from '../use-topic-search';
-import useDebounce from '../../use-debounce';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useEffect: jest.fn(),
-  useState: jest.fn(),
-}));
 jest.mock('../../queries/use-topic-search-query');
-jest.mock('../../use-debounce');
+jest.mock('../../use-search');
 
 describe('useTopicSearch', () => {
-  let mockSetSearch;
-  let mockSetCurrentSearch;
   let mockExecute;
   let mockData;
   let mockIsLoading;
   let mockError;
+  let mockSearch;
+  let mockCurrentSearch;
+  let mockProcessSearch;
 
   let initialSearch;
 
@@ -33,31 +28,39 @@ describe('useTopicSearch', () => {
       error: mockError,
     });
 
-    mockSetSearch = jest.fn();
-    mockSetCurrentSearch = jest.fn();
-    useState.mockReturnValueOnce(['search', mockSetSearch]);
-    useState.mockReturnValueOnce(['currentSearch', mockSetCurrentSearch]);
+    mockSearch = 'search';
+    mockProcessSearch = 'currentSearch';
+    mockProcessSearch = jest.fn();
+    useSearch.mockReturnValue({
+      search: mockSearch,
+      currentSearch: mockCurrentSearch,
+      processSearch: mockProcessSearch,
+    });
 
     initialSearch = 'search';
   });
 
   afterEach(() => {
     useTopicSearchQuery.mockReset();
-    useState.mockReset();
-    useEffect.mockReset();
-    useDebounce.mockReset();
+    useSearch.mockReset();
   });
 
   it('should use initial search', () => {
     useTopicSearch({ initialSearch });
 
-    expect(useState).toBeCalledWith(initialSearch);
+    expect(useSearch.mock.calls[0][1]).toEqual({ initialSearch });
   });
 
-  it('should use empty string if no initial search', () => {
+  it('should use undefined string if no initial search', () => {
     useTopicSearch();
 
-    expect(useState).toBeCalledWith('');
+    expect(useSearch.mock.calls[0][1]).toEqual({ initialSearch: undefined });
+  });
+
+  it('should use topic search query for search', () => {
+    useTopicSearch({ initialSearch });
+
+    expect(useSearch.mock.calls[0][0]).toBe(mockExecute);
   });
 
   describe('return value', () => {
@@ -66,9 +69,9 @@ describe('useTopicSearch', () => {
         initialSearch,
       });
 
-      expect(search).toBe('search');
-      expect(currentSearch).toBe('currentSearch');
-      expect(processSearch).toBeDefined();
+      expect(search).toBe(mockSearch);
+      expect(currentSearch).toBe(mockCurrentSearch);
+      expect(processSearch).toBe(mockProcessSearch);
     });
 
     it('should have query data', () => {
@@ -77,36 +80,6 @@ describe('useTopicSearch', () => {
       expect(data).toBe(mockData);
       expect(isLoading).toBe(mockIsLoading);
       expect(error).toBe(mockError);
-    });
-  });
-
-  it('should execute topic search query on mount', () => {
-    useEffect.mockImplementation((cb) => cb());
-
-    useTopicSearch({ initialSearch });
-
-    expect(mockSetCurrentSearch).toBeCalledWith(initialSearch);
-    expect(mockExecute).toBeCalledWith(initialSearch);
-  });
-
-  describe('processSearch', () => {
-    it('should set search state', () => {
-      useDebounce.mockReturnValue(jest.fn());
-      const { processSearch } = useTopicSearch({ initialSearch });
-
-      processSearch('search');
-
-      expect(mockSetSearch).toBeCalledWith('search');
-    });
-
-    it('should execute debounced topic search', () => {
-      const mockDebounceExecute = jest.fn();
-      useDebounce.mockReturnValue(mockDebounceExecute);
-      const { processSearch } = useTopicSearch({ initialSearch });
-
-      processSearch('search');
-
-      expect(mockDebounceExecute).toBeCalledWith('search');
     });
   });
 });
