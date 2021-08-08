@@ -4,12 +4,12 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStarGroup';
 import SelectableRatingStarGroup from '@/components/RatingStars/SelectableRatingStarGroup/SelectableRatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
-import useTopicResourceUserRatingQuery from '@/hooks/queries/use-topic-resource-user-rating-query';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
 import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
+import useRating from '@/hooks/ratings/use-rating';
 
 const TopicResourceDetails = ({
   topicId,
@@ -18,39 +18,22 @@ const TopicResourceDetails = ({
   resourceSlug,
   topicResource,
 }) => {
-  const { isLoggedIn } = useAuthenticationContext();
-
   const [ratingSum, setRatingSum] = useState(topicResource?.ratingList?.sum);
   const [ratingCount, setRatingCount] = useState(
     topicResource?.ratingList?.count
   );
 
-  const [existingRating, setExistingRating] = useState();
-  const [selectedRatingValue, setSelectedRatingValue] = useState();
-  const hasExistingRating = !!existingRating;
-
+  const { isLoggedIn } = useAuthenticationContext();
   const {
-    execute: executeGetUserRatingQuery,
-    data: userRatingData,
-    error: userRatingLoadError,
-    isLoading: isLoadingUserRating,
-  } = useTopicResourceUserRatingQuery(topicId, resourceId);
-
-  useEffect(async () => {
-    if (isLoggedIn) {
-      await executeGetUserRatingQuery();
-    } else {
-      setExistingRating(null);
-    }
-  }, [isLoggedIn]);
-
+    rating,
+    isLoading: isLoadingRating,
+    error: ratingError,
+  } = useRating(topicId, resourceId, isLoggedIn);
+  const [existingRating, setExistingRating] = useState();
   useEffect(() => {
-    const rating = userRatingData?.userRating;
     setExistingRating(rating);
-
-    const ratingValue = rating?.value;
-    setSelectedRatingValue(ratingValue);
-  }, [userRatingData]);
+  }, [rating]);
+  const [selectedRatingValue, setSelectedRatingValue] = useState();
 
   const { submitRating: executeSubmitRating, isSubmittingRating } =
     useRatingSubmitter(topicId, resourceId, existingRating);
@@ -90,7 +73,7 @@ const TopicResourceDetails = ({
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;
   const canSubmitRating = ratingChanged && validRating;
-  const ratingTitle = hasExistingRating ? 'Update Rating' : 'Add Rating';
+  const ratingTitle = existingRating ? 'Update Rating' : 'Add Rating';
 
   const breadcrumbs = [
     {
@@ -157,13 +140,13 @@ const TopicResourceDetails = ({
 
           {isLoggedIn && (
             <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingUserRating}
+              isLoading={isLoadingRating}
               loadingDisplay={
                 <div className="text-center">
                   <LoadingSpinner />
                 </div>
               }
-              hasError={!!userRatingLoadError}
+              hasError={!!ratingError}
               errorDisplay={
                 <div className="error-text">
                   Failed to load your rating for this topic resource.
