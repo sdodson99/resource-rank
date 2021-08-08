@@ -9,8 +9,7 @@ import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayou
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
-import useRatingCreator from '@/hooks/ratings/use-rating-creator';
-import useRatingUpdater from '@/hooks/ratings/use-rating-updater';
+import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
 
 const TopicResourceDetails = ({
   topicId,
@@ -28,7 +27,6 @@ const TopicResourceDetails = ({
 
   const [existingRating, setExistingRating] = useState();
   const [selectedRatingValue, setSelectedRatingValue] = useState();
-  const [submitRatingError, setSubmitRatingError] = useState();
   const hasExistingRating = !!existingRating;
 
   const {
@@ -54,52 +52,25 @@ const TopicResourceDetails = ({
     setSelectedRatingValue(ratingValue);
   }, [userRatingData]);
 
-  const { createRating: executeCreateRating, isCreatingRating } =
-    useRatingCreator();
-
-  const createRating = async () => {
-    const { id } = await executeCreateRating({
-      topicId,
-      resourceId,
-      ratingValue: selectedRatingValue,
-    });
-
-    setExistingRating({
-      id,
-      value: selectedRatingValue,
-    });
-
-    setRatingSum(ratingSum + selectedRatingValue);
-    setRatingCount(ratingCount + 1);
-  };
-
-  const { updateRating: executeUpdateRating, isUpdatingRating } =
-    useRatingUpdater();
-
-  const updateRating = async () => {
-    const ratingId = existingRating?.id;
-
-    await executeUpdateRating({
-      ratingId,
-      ratingValue: selectedRatingValue,
-    });
-
-    setExistingRating({ id: ratingId, value: selectedRatingValue });
-
-    const existingRatingValue = existingRating?.value ?? 0;
-    const ratingChange = selectedRatingValue - existingRatingValue;
-    setRatingSum(ratingSum + ratingChange);
-  };
+  const { submitRating: executeSubmitRating, isSubmittingRating } =
+    useRatingSubmitter(topicId, resourceId, existingRating);
+  const [submitRatingError, setSubmitRatingError] = useState();
 
   const submitRating = async () => {
     setSubmitRatingError(null);
 
     try {
-      if (!hasExistingRating) {
-        await createRating();
-      } else {
-        await updateRating();
+      const submittedRating = await executeSubmitRating(selectedRatingValue);
+
+      if (!existingRating) {
+        setRatingCount(ratingCount + 1);
       }
+
+      const existingRatingValue = existingRating?.value ?? 0;
+      const ratingChange = selectedRatingValue - existingRatingValue;
+      setRatingSum(ratingSum + ratingChange);
+
+      setExistingRating(submittedRating);
     } catch (error) {
       setSubmitRatingError(error);
     }
@@ -119,7 +90,6 @@ const TopicResourceDetails = ({
   const ratingChanged = selectedRatingValue !== existingRating?.value;
   const validRating = selectedRatingValue > 0;
   const canSubmitRating = ratingChanged && validRating;
-  const isSubmittingRating = isUpdatingRating || isCreatingRating;
   const ratingTitle = hasExistingRating ? 'Update Rating' : 'Add Rating';
 
   const breadcrumbs = [
