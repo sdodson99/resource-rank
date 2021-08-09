@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RatingForm /> should render correctly 1`] = `
+<div
+  className="RatingForm"
+  data-testid="RatingForm"
+>
+  <SelectableRatingStarGroup
+    maxRating={5}
+    onRatingChanged={[MockFunction]}
+    rating={null}
+    starSize={40}
+  />
+  <div
+    className="mt-6 flex items-center"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<RatingForm /> should render correctly when submitting 1`] = `
+<div
+  className="RatingForm"
+  data-testid="RatingForm"
+>
+  <SelectableRatingStarGroup
+    maxRating={5}
+    onRatingChanged={[MockFunction]}
+    rating={null}
+    starSize={40}
+  />
+  <div
+    className="mt-6 flex items-center"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+    <div
+      className="ml-4"
+    >
+      <LoadingSpinner
+        color="#292929"
+        size={25}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<RatingForm /> should render correctly with error 1`] = `
+<div
+  className="RatingForm"
+  data-testid="RatingForm"
+>
+  <SelectableRatingStarGroup
+    maxRating={5}
+    onRatingChanged={[MockFunction]}
+    rating={null}
+    starSize={40}
+  />
+  <div
+    className="mt-6 flex items-center"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+  <div
+    className="mt-4 error-text"
+  >
+    Failed to submit rating.
+  </div>
+</div>
+`;

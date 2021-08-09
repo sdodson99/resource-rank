@@ -41,14 +41,14 @@ const TopicDetailsForm = ({
     <div className={styles.TopicDetailsForm} data-testid="TopicDetailsForm">
       <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
         {errorMessage && (
-          <div className="mt-10">
+          <div className="mb-10">
             <ErrorAlert border={true} scrollTo={!!errorMessage}>
               {errorMessage}
             </ErrorAlert>
           </div>
         )}
 
-        <div className="mt-10">
+        <div>
           <TextInput
             name={nameFieldName}
             label="Topic Name"

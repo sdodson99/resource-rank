@@ -7,9 +7,7 @@ exports[`<TopicDetailsForm /> should render correctly 1`] = `
 >
   <form>
     
-    <div
-      className="mt-10"
-    >
+    <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
         label="Topic Name"
@@ -47,9 +45,7 @@ exports[`<TopicDetailsForm /> should render correctly when submitting 1`] = `
 >
   <form>
     
-    <div
-      className="mt-10"
-    >
+    <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
         label="Topic Name"
@@ -95,7 +91,7 @@ exports[`<TopicDetailsForm /> should render correctly with error message 1`] = `
 >
   <form>
     <div
-      className="mt-10"
+      className="mb-10"
     >
       <ErrorAlert
         border={true}
@@ -104,9 +100,7 @@ exports[`<TopicDetailsForm /> should render correctly with error message 1`] = `
         Error message.
       </ErrorAlert>
     </div>
-    <div
-      className="mt-10"
-    >
+    <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
         label="Topic Name"
