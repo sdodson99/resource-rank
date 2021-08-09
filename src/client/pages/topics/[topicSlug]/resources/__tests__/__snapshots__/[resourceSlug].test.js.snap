@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicResourceDetails /> page should render correctly 1`] = `
+<div
+  data-testid="TopicResourceDetailsPage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug/resources/resource-slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Learn about undefined and See how effective undefined is for learning undefined.",
+          "title": "undefined - Resource Rank",
+        }
+      }
+    />
+    <div
+      className="sm:flex justify-between items-center"
+    >
+      <div
+        className="text-4xl"
+      />
+      <div
+        className="mt-3 sm:mt-0"
+      >
+        <RatingStarGroup
+          maxRating={5}
+          rating={NaN}
+          starSize={25}
+        />
+      </div>
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      Unknown
+    </div>
+    <div
+      className="mt-10"
+    >
+      <div
+        className="text-2xl"
+      >
+        Details
+      </div>
+      <div
+        className="mt-4"
+      >
+        <ResourceDetails />
+      </div>
+    </div>
+    <div
+      className="mt-8"
+    >
+      <div
+        className="text-2xl"
+      >
+        Add Rating
+      </div>
+      <div
+        className="mt-4"
+      >
+        <div>
+          You must login to add a rating.
+        </div>
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<TopicResourceDetails /> page should render correctly when logged in 1`] = `
+<div
+  data-testid="TopicResourceDetailsPage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug/resources/resource-slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Learn about undefined and See how effective undefined is for learning undefined.",
+          "title": "undefined - Resource Rank",
+        }
+      }
+    />
+    <div
+      className="sm:flex justify-between items-center"
+    >
+      <div
+        className="text-4xl"
+      />
+      <div
+        className="mt-3 sm:mt-0"
+      >
+        <RatingStarGroup
+          maxRating={5}
+          rating={NaN}
+          starSize={25}
+        />
+      </div>
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      Unknown
+    </div>
+    <div
+      className="mt-10"
+    >
+      <div
+        className="text-2xl"
+      >
+        Details
+      </div>
+      <div
+        className="mt-4"
+      >
+        <ResourceDetails />
+      </div>
+    </div>
+    <div
+      className="mt-8"
+    >
+      <div
+        className="text-2xl"
+      >
+        Add Rating
+      </div>
+      <div
+        className="mt-4"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <Unknown
+              isSubmittingRating={false}
+              onSubmit={[Function]}
+              submitRatingError={null}
+            />
+          }
+          errorDisplay={
+            <div
+              className="error-text"
+            >
+              Failed to load your rating for this topic resource.
+            </div>
+          }
+          hasData={true}
+          hasError={false}
+          isLoading={false}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<TopicResourceDetails /> page should render correctly with existing rating 1`] = `
+<div
+  data-testid="TopicResourceDetailsPage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug/resources/resource-slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Learn about undefined and See how effective undefined is for learning undefined.",
+          "title": "undefined - Resource Rank",
+        }
+      }
+    />
+    <div
+      className="sm:flex justify-between items-center"
+    >
+      <div
+        className="text-4xl"
+      />
+      <div
+        className="mt-3 sm:mt-0"
+      >
+        <RatingStarGroup
+          maxRating={5}
+          rating={NaN}
+          starSize={25}
+        />
+      </div>
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      Unknown
+    </div>
+    <div
+      className="mt-10"
+    >
+      <div
+        className="text-2xl"
+      >
+        Details
+      </div>
+      <div
+        className="mt-4"
+      >
+        <ResourceDetails />
+      </div>
+    </div>
+    <div
+      className="mt-8"
+    >
+      <div
+        className="text-2xl"
+      >
+        Update Rating
+      </div>
+      <div
+        className="mt-4"
+      >
+        <div>
+          You must login to add a rating.
+        </div>
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

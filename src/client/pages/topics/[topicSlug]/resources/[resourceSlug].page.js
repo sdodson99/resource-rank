@@ -84,67 +84,69 @@ const TopicResourceDetails = ({
   ];
 
   return (
-    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <NextSeo
-        title={resourceName}
-        openGraph={{
-          title: `${resourceName} - Resource Rank`,
-          description: `Learn about ${resourceName} and See how effective ${resourceName} is for learning ${topicName}.`,
-        }}
-      />
+    <div data-testid="TopicResourceDetailsPage">
+      <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+        <NextSeo
+          title={resourceName}
+          openGraph={{
+            title: `${resourceName} - Resource Rank`,
+            description: `Learn about ${resourceName} and See how effective ${resourceName} is for learning ${topicName}.`,
+          }}
+        />
 
-      <div className="sm:flex justify-between items-center">
-        <div className="text-4xl">{resourceName}</div>
-        <div className="mt-3 sm:mt-0">
-          <RatingStarGroup rating={ratingAverage} starSize={25} />
+        <div className="sm:flex justify-between items-center">
+          <div className="text-4xl">{resourceName}</div>
+          <div className="mt-3 sm:mt-0">
+            <RatingStarGroup rating={ratingAverage} starSize={25} />
+          </div>
         </div>
-      </div>
 
-      <div className="mt-3 text-xs text-gray-800">
-        Created by {resourceCreatedBy}
-      </div>
-
-      <div className="mt-10">
-        <div className="text-2xl">Details</div>
-
-        <div className="mt-4">
-          <ResourceDetails link={resourceLink} />
+        <div className="mt-3 text-xs text-gray-800">
+          Created by {resourceCreatedBy}
         </div>
-      </div>
 
-      <div className="mt-8">
-        <div className="text-2xl">{ratingTitle}</div>
+        <div className="mt-10">
+          <div className="text-2xl">Details</div>
 
-        <div className="mt-4">
-          {!isLoggedIn && <div>You must login to add a rating.</div>}
-
-          {isLoggedIn && (
-            <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingRating}
-              loadingDisplay={
-                <div className="text-center">
-                  <LoadingSpinner />
-                </div>
-              }
-              hasError={!!ratingError}
-              errorDisplay={
-                <div className="error-text">
-                  Failed to load your rating for this topic resource.
-                </div>
-              }
-              dataDisplay={
-                <RatingForm
-                  onSubmit={submitRating}
-                  isSubmittingRating={isSubmittingRating}
-                  submitRatingError={submitRatingError}
-                  existingRating={existingRating?.value}
-                />
-              }
-            />
-          )}
+          <div className="mt-4">
+            <ResourceDetails link={resourceLink} />
+          </div>
         </div>
-      </div>
-    </BreadcrumbLayout>
+
+        <div className="mt-8">
+          <div className="text-2xl">{ratingTitle}</div>
+
+          <div className="mt-4">
+            {!isLoggedIn && <div>You must login to add a rating.</div>}
+
+            {isLoggedIn && (
+              <LoadingErrorEmptyDataLayout
+                isLoading={isLoadingRating}
+                loadingDisplay={
+                  <div className="text-center">
+                    <LoadingSpinner />
+                  </div>
+                }
+                hasError={!!ratingError}
+                errorDisplay={
+                  <div className="error-text">
+                    Failed to load your rating for this topic resource.
+                  </div>
+                }
+                dataDisplay={
+                  <RatingForm
+                    onSubmit={submitRating}
+                    isSubmittingRating={isSubmittingRating}
+                    submitRatingError={submitRatingError}
+                    existingRating={existingRating?.value}
+                  />
+                }
+              />
+            )}
+          </div>
+        </div>
+      </BreadcrumbLayout>
+    </div>
   );
 };
 
