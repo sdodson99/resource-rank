@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResourceDetails /> should render correctly 1`] = `
+<div
+  className="ResourceDetails"
+  data-testid="ResourceDetails"
+>
+  <div
+    className="flex"
+  >
+    <div>
+      Link:
+    </div>
+    <div
+      className="ml-4"
+    >
+      No resource link added.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ResourceDetails /> should render correctly with link 1`] = `
+<div
+  className="ResourceDetails"
+  data-testid="ResourceDetails"
+>
+  <div
+    className="flex"
+  >
+    <div>
+      Link:
+    </div>
+    <div
+      className="ml-4"
+    >
+      <a
+        className="hyperlink break-all"
+        href="http://test.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        http://test.com
+      </a>
+    </div>
+  </div>
+</div>
+`;
