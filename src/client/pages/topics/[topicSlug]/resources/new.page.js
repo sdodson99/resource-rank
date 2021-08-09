@@ -12,8 +12,8 @@ import getErrorCode from '@/graphql/errors/get-error-code';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import ErrorCode from '@/graphql/errors/error-code';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
-import hasAlphaNumericCharacter from 'validators/alpha-numeric';
-import isProfane from 'validators/profanity';
+import hasAlphaNumericCharacter from '@/validators/alpha-numeric';
+import isProfane from '@/validators/profanity';
 import { isURL } from 'validator';
 import { NextSeo } from 'next-seo';
 
@@ -222,12 +222,6 @@ NewTopicResource.propTypes = {
 export async function getServerSideProps({ req, params: { topicSlug } }) {
   try {
     const topic = await getTopicBySlug(topicSlug);
-
-    if (!topic) {
-      return {
-        notFound: true,
-      };
-    }
 
     return {
       props: {
