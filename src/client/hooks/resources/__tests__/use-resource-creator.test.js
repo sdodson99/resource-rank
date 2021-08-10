@@ -48,7 +48,9 @@ describe('useResourceCreator', () => {
     });
 
     it('should throw error if request returns error', async () => {
-      when(mockExecuteMutation).calledWith({ name, link }).mockReturnValue({ error });
+      when(mockExecuteMutation)
+        .calledWith({ name, link })
+        .mockReturnValue({ error });
 
       const { createResource } = useResourceCreator();
 

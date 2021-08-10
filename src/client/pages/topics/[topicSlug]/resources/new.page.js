@@ -67,7 +67,10 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
     }
   };
 
-  const onInvalid = () => setCreateTopicResourceError(null);
+  const onInvalid = () => {
+    setCreateResourceError(null);
+    setCreateTopicResourceError(null);
+  };
 
   const breadcrumbs = [
     {
@@ -92,38 +95,40 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
     createResourceError && 'Failed to create resource.';
 
   return (
-    <BreadcrumbLayout breadcrumbs={breadcrumbs}>
-      <NextSeo
-        title="New Topic Resource"
-        openGraph={{
-          title: 'New Topic Resource - Resource Rank',
-          description: `Create a new topic resource for ${topicName}.`,
-        }}
-      />
+    <div data-testid="NewTopicResourcePage">
+      <BreadcrumbLayout breadcrumbs={breadcrumbs}>
+        <NextSeo
+          title="New Topic Resource"
+          openGraph={{
+            title: 'New Topic Resource - Resource Rank',
+            description: `Create a new topic resource for ${topicName}.`,
+          }}
+        />
 
-      <div className="text-4xl">New Topic Resource</div>
+        <div className="text-4xl">New Topic Resource</div>
 
-      {createTopicResourceError && (
+        {createTopicResourceError && (
+          <div className="mt-10">
+            <ErrorAlert border={true} scrollTo={!!createTopicResourceError}>
+              Failed to create topic resource.
+            </ErrorAlert>
+          </div>
+        )}
+
         <div className="mt-10">
-          <ErrorAlert border={true} scrollTo={!!createTopicResourceError}>
-            Failed to create topic resource.
-          </ErrorAlert>
+          <FormProvider {...methods}>
+            <ResourceDetailsForm
+              onSubmit={onSubmit}
+              onInvalid={onInvalid}
+              cancelHref={`/topics/${topicSlug}/resources/add`}
+              errorMessage={createResourceErrorMessage}
+              nameFieldName={FormField.RESOURCE_NAME}
+              linkFieldName={FormField.RESOURCE_LINK}
+            />
+          </FormProvider>
         </div>
-      )}
-
-      <div className="mt-10">
-        <FormProvider {...methods}>
-          <ResourceDetailsForm
-            onSubmit={onSubmit}
-            onInvalid={onInvalid}
-            cancelHref={`/topics/${topicSlug}/resources/add`}
-            errorMessage={createResourceErrorMessage}
-            nameFieldName={FormField.RESOURCE_NAME}
-            linkFieldName={FormField.RESOURCE_LINK}
-          />
-        </FormProvider>
-      </div>
-    </BreadcrumbLayout>
+      </BreadcrumbLayout>
+    </div>
   );
 };
 

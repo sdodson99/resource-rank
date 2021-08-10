@@ -4,12 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './RatingForm.module.css';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const RatingForm = ({
-  onSubmit,
-  isSubmitting,
-  error,
-  existingRating,
-}) => {
+const RatingForm = ({ onSubmit, isSubmitting, error, existingRating }) => {
   const [selectedRating, setSelectedRating] = useState();
 
   const submitRating = () => {
@@ -51,9 +46,7 @@ const RatingForm = ({
         )}
       </div>
 
-      {error && (
-        <div className="mt-4 error-text">Failed to submit rating.</div>
-      )}
+      {error && <div className="mt-4 error-text">Failed to submit rating.</div>}
     </div>
   );
 };

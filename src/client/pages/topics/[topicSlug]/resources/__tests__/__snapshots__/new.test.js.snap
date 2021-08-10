@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewTopicResource /> page should render correctly 1`] = `
+<div
+  data-testid="NewTopicResourcePage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "topic-name",
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": "Add",
+          "to": "/topics/topic-slug/resources/add",
+        },
+        Object {
+          "title": "New",
+          "to": "/topics/topic-slug/resources/new",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Create a new topic resource for topic-name.",
+          "title": "New Topic Resource - Resource Rank",
+        }
+      }
+      title="New Topic Resource"
+    />
+    <div
+      className="text-4xl"
+    >
+      New Topic Resource
+    </div>
+    <div
+      className="mt-10"
+    >
+      <Unknown>
+        <Unknown
+          cancelHref="/topics/topic-slug/resources/add"
+          errorMessage={null}
+          linkFieldName="link"
+          nameFieldName="name"
+          onInvalid={[Function]}
+          onSubmit={[Function]}
+        />
+      </Unknown>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<NewTopicResource /> page should render correctly with create errors 1`] = `
+<div
+  data-testid="NewTopicResourcePage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "topic-name",
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": "Add",
+          "to": "/topics/topic-slug/resources/add",
+        },
+        Object {
+          "title": "New",
+          "to": "/topics/topic-slug/resources/new",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Create a new topic resource for topic-name.",
+          "title": "New Topic Resource - Resource Rank",
+        }
+      }
+      title="New Topic Resource"
+    />
+    <div
+      className="text-4xl"
+    >
+      New Topic Resource
+    </div>
+    <div
+      className="mt-10"
+    >
+      <ErrorAlert
+        border={true}
+        scrollTo={true}
+      >
+        Failed to create topic resource.
+      </ErrorAlert>
+    </div>
+    <div
+      className="mt-10"
+    >
+      <Unknown>
+        <Unknown
+          cancelHref="/topics/topic-slug/resources/add"
+          errorMessage="Failed to create resource."
+          linkFieldName="link"
+          nameFieldName="name"
+          onInvalid={[Function]}
+          onSubmit={[Function]}
+        />
+      </Unknown>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

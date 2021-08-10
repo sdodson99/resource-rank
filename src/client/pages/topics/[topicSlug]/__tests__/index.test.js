@@ -150,7 +150,7 @@ describe('<TopicDetails />', () => {
     afterEach(() => {
       getTopicBySlug.mockReset();
     });
-    
+
     it('should return not found if topic query fails', async () => {
       when(getTopicBySlug)
         .calledWith(topicSlug)

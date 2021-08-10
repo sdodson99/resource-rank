@@ -4,7 +4,7 @@ import ResourceDetailsForm from './ResourceDetailsForm';
 
 export default {
   component: ResourceDetailsForm,
-  title: 'Components/ResourceDetailsForm', 
+  title: 'Components/ResourceDetailsForm',
   // Fixes a storybook issue for maximum call stack exceeding.
   parameters: { docs: { source: { type: 'code' } } },
   decorators: [
