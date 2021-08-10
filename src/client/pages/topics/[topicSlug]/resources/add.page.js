@@ -110,6 +110,7 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
         <div className="mt-8 flex flex-col">
           <input
+            data-testid="SearchInput"
             className="flex-grow form-control-lg"
             placeholder="Search resources..."
             value={search}
