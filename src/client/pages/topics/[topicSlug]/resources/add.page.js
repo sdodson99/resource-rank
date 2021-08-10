@@ -4,27 +4,25 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
-import useAvailableTopicResourcesQuery from '@/hooks/queries/use-available-topic-resources-query';
-import useDebounce from '@/hooks/use-debounce';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
 import useCreateTopicResourceMutation from '@/hooks/mutations/use-create-topic-resource-mutation';
 import { useRouter } from 'next/router';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
+import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 
 const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const router = useRouter();
 
   const [resources, setResources] = useState([]);
-  const [search, setSearch] = useState('');
-  const [currentSearch, setCurrentSearch] = useState('');
-
   const {
     data: resourcesData,
     error: resourcesError,
     isLoading: isLoadingResources,
-    execute: executeResourcesQuery,
-  } = useAvailableTopicResourcesQuery();
+    search,
+    currentSearch,
+    processSearch,
+  } = useAvailableTopicResourceSearch(topicId);
 
   useEffect(() => {
     const availableResources = resourcesData?.availableResources?.filter(
@@ -34,31 +32,14 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
     setResources(availableResources);
   }, [resourcesData]);
 
-  const executeResourcesSearch = async (search) => {
-    setCurrentSearch(search);
-    executeResourcesQuery({ topicId, search });
-  };
-
-  useEffect(() => {
-    executeResourcesSearch(search);
-  }, []);
-
-  const debounceExecuteResourcesSearch = useDebounce(
-    executeResourcesSearch,
-    1000
-  );
-
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    setSearch(searchInput);
-
-    debounceExecuteResourcesSearch(searchInput);
+    processSearch(searchInput);
   };
 
   const { execute: executeCreateTopicResourceMutation } =
     useCreateTopicResourceMutation();
 
-  // TBD: Move this logic into resource listing/listing item components?
   const setAddResourceError = (resourceId, status) => {
     const nextResources = [...resources];
 
