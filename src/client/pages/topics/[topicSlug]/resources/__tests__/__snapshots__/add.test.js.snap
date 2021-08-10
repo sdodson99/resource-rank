@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddTopicResource /> page should render correctly 1`] = `
+<div
+  data-testid="AddTopicResourcePage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "topic-name",
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": "Add",
+          "to": "/topics/topic-slug/resources/add",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Add a new topic resource to topic-name.",
+          "title": "Add Topic Resource - Resource Rank",
+        }
+      }
+      title="Add Topic Resource"
+    />
+    <PageHeaderButton
+      buttonContent="New"
+      linkTo="/topics/topic-slug/resources/new"
+      title="Add Resource"
+      titleClassName="text-4xl"
+    />
+    <div
+      className="mt-8 flex flex-col"
+    >
+      <input
+        className="flex-grow form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <LoadingErrorEmptyDataLayout
+        dataDisplay={
+          <AvailableResourceListing
+            onAddResource={[Function]}
+            resources={null}
+          />
+        }
+        errorDisplay={
+          <div
+            className="text-center sm:text-left error-text"
+          >
+            Failed to load available resources.
+          </div>
+        }
+        hasData={false}
+        hasError={false}
+        loadingDisplay={
+          <div
+            className="text-center"
+          >
+            <LoadingSpinner
+              color="#292929"
+              size={50}
+            />
+          </div>
+        }
+        noDataDisplay={
+          <div
+            className="text-center sm:text-left"
+          >
+            No resources have been created.
+          </div>
+        }
+      />
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<AddTopicResource /> page should render correctly with current search 1`] = `
+<div
+  data-testid="AddTopicResourcePage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "topic-name",
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": "Add",
+          "to": "/topics/topic-slug/resources/add",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Add a new topic resource to topic-name.",
+          "title": "Add Topic Resource - Resource Rank",
+        }
+      }
+      title="Add Topic Resource"
+    />
+    <PageHeaderButton
+      buttonContent="New"
+      linkTo="/topics/topic-slug/resources/new"
+      title="Add Resource"
+      titleClassName="text-4xl"
+    />
+    <div
+      className="mt-8 flex flex-col"
+    >
+      <input
+        className="flex-grow form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <LoadingErrorEmptyDataLayout
+        dataDisplay={
+          <AvailableResourceListing
+            onAddResource={[Function]}
+            resources={null}
+          />
+        }
+        errorDisplay={
+          <div
+            className="text-center sm:text-left error-text"
+          >
+            Failed to load available resources.
+          </div>
+        }
+        hasData={false}
+        hasError={false}
+        loadingDisplay={
+          <div
+            className="text-center"
+          >
+            <LoadingSpinner
+              color="#292929"
+              size={50}
+            />
+          </div>
+        }
+        noDataDisplay={
+          <div
+            className="text-center sm:text-left"
+          >
+            No resources matching 'CURRENT_SEARCH' have been created.
+          </div>
+        }
+      />
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

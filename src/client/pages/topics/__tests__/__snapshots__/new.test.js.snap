@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewTopic /> should render correctly 1`] = `
+<div
+  data-testid="NewTopic"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "New",
+          "to": "/topics/new",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Create a new topic.",
+          "title": "New Topic - Resource Rank",
+        }
+      }
+      title="New Topic"
+    />
+    <div
+      className="text-4xl"
+    >
+      New Topic
+    </div>
+    <div
+      className="mt-10"
+    >
+      <Unknown
+        setError={[MockFunction]}
+      >
+        <Unknown
+          cancelHref="/topics"
+          errorMessage={null}
+          nameFieldName="name"
+          onInvalid={[Function]}
+          onSubmit={[Function]}
+        />
+      </Unknown>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<NewTopic /> should render correctly with create topic error 1`] = `
+<div
+  data-testid="NewTopic"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "New",
+          "to": "/topics/new",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Create a new topic.",
+          "title": "New Topic - Resource Rank",
+        }
+      }
+      title="New Topic"
+    />
+    <div
+      className="text-4xl"
+    >
+      New Topic
+    </div>
+    <div
+      className="mt-10"
+    >
+      <Unknown
+        setError={[MockFunction]}
+      >
+        <Unknown
+          cancelHref="/topics"
+          errorMessage="Failed to create topic."
+          nameFieldName="name"
+          onInvalid={[Function]}
+          onSubmit={[Function]}
+        />
+      </Unknown>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

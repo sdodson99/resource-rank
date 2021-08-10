@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> should render correctly 1`] = `
+<Constate
+  firebaseConfig={
+    Object {
+      "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
+      "appId": "1:489304913015:web:71f38a965ccde83db54272",
+      "authDomain": "resource-rank.firebaseapp.com",
+      "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
+      "measurementId": "G-D18DVJ4168",
+      "messagingSenderId": "489304913015",
+      "projectId": "resource-rank",
+      "storageBucket": "resource-rank.appspot.com",
+    }
+  }
+  useAuthenticationEmulator={false}
+>
+  <Constate>
+    <Constate>
+      <DefaultSeo
+        description="Find the best resources to simplify your learning journey."
+        openGraph={
+          Object {
+            "description": "Find the best resources to simplify your learning journey.",
+            "images": Array [
+              Object {
+                "alt": "Resource Rank Logo",
+                "height": 630,
+                "url": "http://undefined/img/og-logo.jpg",
+                "width": 1200,
+              },
+            ],
+            "title": "Simplify Learning - Resource Rank",
+            "type": "website",
+            "url": "https://undefined/path",
+          }
+        }
+        title="Simplify Learning"
+        titleTemplate="%s - Resource Rank"
+      />
+      <MockComponent />
+    </Constate>
+  </Constate>
+</Constate>
+`;

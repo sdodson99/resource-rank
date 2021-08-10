@@ -7,7 +7,9 @@
       "@/graphql/*": ["./graphql/*"],
       "@/services/*": ["./services/*"],
       "@/styles/*": ["./styles/*"],
-      "@/configuration/*": ["./configuration/*"]
+      "@/configuration/*": ["./configuration/*"],
+      "@/errors/*": ["./errors/*"],
+      "@/validators/*": ["./validators/*"]
     }
   },
   "typeAcquisition": {

@@ -4,20 +4,7 @@ const { typeDefs, resolvers } = require('../gql-schema/index');
 const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
 const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
 const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
-
-const isMutation = (req) => {
-  const { body } = req;
-  if (!body) {
-    return false;
-  }
-
-  const { query } = body;
-  if (!query) {
-    return false;
-  }
-
-  return query.trim().startsWith('mutation');
-};
+const createReadOnlyModeHandler = require('../middleware/handle-read-only-mode');
 
 exports.createGQLServer = ({
   readOnlyModeDataSource,
@@ -49,12 +36,7 @@ exports.createGQLServer = ({
     },
   });
 
-  app.use(async (req, res, next) => {
-    if (isMutation(req) && (await readOnlyModeDataSource.isReadOnlyEnabled())) {
-      return res.sendStatus(403);
-    }
-    next();
-  });
+  app.use(createReadOnlyModeHandler(readOnlyModeDataSource));
 
   apolloServer.applyMiddleware({ app, path: '/', cors: true });
 

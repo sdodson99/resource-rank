@@ -9,7 +9,7 @@ exports[`<PageHeaderButton /> should render correctly 1`] = `
     className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
   >
     <div
-      className="text-4xl"
+      className="text-3xl"
     />
     <div
       className="mt-3 flex sm:mt-0 sm:ml-3"

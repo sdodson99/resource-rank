@@ -34,7 +34,7 @@ describe('useCreateTopicMutation', () => {
     });
 
     const { execute } = useCreateTopicMutation();
-    await execute(name);
+    await execute({ name });
 
     expect(mockExecute).toBeCalledWith({ name });
   });

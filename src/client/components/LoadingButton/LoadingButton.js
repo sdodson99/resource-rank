@@ -10,7 +10,7 @@ const LoadingButton = ({ isLoading, onClick, children }) => (
   >
     {isLoading && (
       <div>
-        <LoadingSpinner width={20} height={20} />
+        <LoadingSpinner size={20} color="white" />
       </div>
     )}
     {!isLoading && children}

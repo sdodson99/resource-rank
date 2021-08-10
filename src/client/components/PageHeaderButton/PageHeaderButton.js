@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import styles from './PageHeaderButton.module.css';
 import Link from 'next/link';
 
-const PageHeaderButton = ({ title, buttonContent, hideButton, linkTo }) => (
+const PageHeaderButton = ({
+  title,
+  buttonContent,
+  hideButton,
+  linkTo,
+  titleClassName,
+}) => (
   <div className={styles.PageHeaderButton} data-testid="PageHeaderButton">
     <div className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left">
-      <div className="text-4xl">{title}</div>
+      <div className={titleClassName}>{title}</div>
 
       {!hideButton && (
         <div className="mt-3 flex sm:mt-0 sm:ml-3">
@@ -24,10 +30,12 @@ PageHeaderButton.propTypes = {
   buttonContent: PropTypes.string,
   hideButton: PropTypes.bool,
   linkTo: PropTypes.string,
+  titleClassName: PropTypes.string,
 };
 
 PageHeaderButton.defaultProps = {
   linkTo: '',
+  titleClassName: 'text-4xl',
 };
 
 export default PageHeaderButton;

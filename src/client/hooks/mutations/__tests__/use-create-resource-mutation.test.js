@@ -36,7 +36,7 @@ describe('useCreateResourceMutation', () => {
     });
 
     const { execute } = useCreateResourceMutation();
-    await execute(name, link);
+    await execute({ name, link });
 
     expect(mockExecute).toBeCalledWith({ name, link });
   });

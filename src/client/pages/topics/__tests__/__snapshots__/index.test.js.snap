@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Topics /> should render correctly 1`] = `
+<div
+  data-testid="Topics"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Find the topic you are planning to learn, or find a new topic to learn!",
+          "title": "Browse Topics - Resource Rank",
+        }
+      }
+      title="Topics"
+    />
+    <PageHeaderButton
+      buttonContent="New"
+      hideButton={true}
+      linkTo="/topics/new"
+      title="Topics"
+      titleClassName="text-4xl"
+    />
+    <div
+      className="mt-8 flex flex-col"
+    >
+      <input
+        className="flex-grow form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search topics..."
+        type="text"
+        value=""
+      />
+      <div
+        className="mt-8"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <TopicListing
+              topics={
+                Array [
+                  Object {
+                    "id": "1",
+                    "name": "name",
+                    "slug": "slug",
+                  },
+                ]
+              }
+            />
+          }
+          errorDisplay={
+            <div
+              className="text-center sm:text-left error-text"
+            >
+              Failed to load topics.
+            </div>
+          }
+          hasData={true}
+          hasError={false}
+          isLoading={false}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+          noDataDisplay={
+            <div
+              className="text-center sm:text-left"
+            >
+              No topics have been created.
+              
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;

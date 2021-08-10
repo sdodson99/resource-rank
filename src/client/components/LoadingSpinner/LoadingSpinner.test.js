@@ -14,7 +14,9 @@ describe('<LoadingSpinner />', () => {
   });
 
   it('should render correctly', () => {
-    const tree = renderer.create(<LoadingSpinner />).toJSON();
+    const tree = renderer
+      .create(<LoadingSpinner size={100} color={'red'} />)
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
