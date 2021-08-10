@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
-import useCreateResourceMutation from '@/hooks/mutations/use-create-resource-mutation';
-import useCreateTopicResourceMutation from '@/hooks/mutations/use-create-topic-resource-mutation';
-import getErrorCode from '@/graphql/errors/get-error-code';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
-import ErrorCode from '@/graphql/errors/error-code';
 import { NextSeo } from 'next-seo';
 import ResourceDetailsForm from '@/components/ResourceDetailsForm/ResourceDetailsForm';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
+import useResourceCreator from '@/hooks/resources/use-resource-creator';
+import ResourceExistsError from '@/errors/resource-exists-error';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -33,10 +32,8 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
   const [createTopicResourceError, setCreateTopicResourceError] =
     useState(null);
 
-  const { execute: executeCreateResourceMutation } =
-    useCreateResourceMutation();
-  const { execute: executeCreateTopicResourceMutation } =
-    useCreateTopicResourceMutation();
+  const { createResource } = useResourceCreator();
+  const { createTopicResource } = useTopicResourceCreator();
 
   const onSubmit = async (formData) => {
     setCreateResourceError(null);
@@ -45,44 +42,29 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
     const name = formData[FormField.RESOURCE_NAME];
     const link = formData[FormField.RESOURCE_LINK];
 
-    const { data: resourceData, error: resourceError } =
-      await executeCreateResourceMutation(name, link);
+    try {
+      const { id: resourceId, slug: resourceSlug } = await createResource({
+        name,
+        link,
+      });
+      const success = await createTopicResource(topicId, resourceId);
 
-    if (resourceError) {
-      const errorCode = getErrorCode(resourceError);
+      if (!success) {
+        return setCreateTopicResourceError(
+          new Error('Failed to create topic resource.')
+        );
+      }
 
-      if (errorCode === ErrorCode.RESOURCE_ALREADY_EXISTS) {
+      router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
+    } catch (error) {
+      if (error instanceof ResourceExistsError) {
         return setError(FormField.RESOURCE_NAME, {
           message: 'Name already exists.',
         });
       }
 
-      return setCreateResourceError(resourceError);
+      return setCreateResourceError(error);
     }
-
-    const resourceId = resourceData?.createResource?.id;
-
-    if (!resourceId) {
-      return setCreateResourceError(new Error('Failed to create resource.'));
-    }
-
-    const { data: topicResourceData, error: topicResourceError } =
-      await executeCreateTopicResourceMutation(topicId, resourceId);
-
-    if (topicResourceError) {
-      return setCreateTopicResourceError(topicResourceError);
-    }
-
-    const success = topicResourceData?.createTopicResource;
-
-    if (!success) {
-      return setCreateTopicResourceError(
-        new Error('Failed to create topic resource.')
-      );
-    }
-
-    const resourceSlug = resourceData?.createResource?.slug;
-    router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
   };
 
   const onInvalid = () => setCreateTopicResourceError(null);
@@ -106,7 +88,8 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
     },
   ];
 
-  const createResourceErrorMessage = createResourceError && 'Failed to create resource.';
+  const createResourceErrorMessage =
+    createResourceError && 'Failed to create resource.';
 
   return (
     <BreadcrumbLayout breadcrumbs={breadcrumbs}>
