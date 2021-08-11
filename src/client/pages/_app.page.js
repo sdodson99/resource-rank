@@ -9,6 +9,7 @@ import { GraphQLFetcherProvider } from '@/hooks/graphql/use-graphql-fetcher';
 import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import configuration from '@/configuration/index';
+import Head from 'next/head';
 
 function App({ Component, pageProps }) {
   const { asPath } = useRouter();
@@ -23,6 +24,12 @@ function App({ Component, pageProps }) {
     >
       <AuthenticationProvider>
         <GraphQLFetcherProvider>
+          <Head>
+            <link
+              href="https://fonts.googleapis.com/css?family=Kanit:100,400,700,400i,700i"
+              rel="stylesheet"
+            />
+          </Head>
           <DefaultSeo
             titleTemplate="%s - Resource Rank"
             title="Simplify Learning"

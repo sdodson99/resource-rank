@@ -51,7 +51,7 @@ const TopicDetailsForm = ({
         <div>
           <TextInput
             name={nameFieldName}
-            label="Topic Name"
+            label="Name"
             errorMessage={nameFieldErrorMessage}
             autoComplete="off"
             {...register(nameFieldName, nameFieldOptions)}

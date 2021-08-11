@@ -12,7 +12,7 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <div className="p-5" style={{ fontFamily: 'Magra, sans-serif' }}>
+    <div className="p-5" style={{ fontFamily: 'Kanit, sans-serif' }}>
       <Story />
     </div>
   ),
