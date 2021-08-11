@@ -7,7 +7,7 @@ import { Add } from '@material-ui/icons';
 const AvailableResourceListingItem = ({ resource, onAdd }) => {
   const { name, alreadyAdded, hasAddError } = resource;
 
-  const onAddClick = () => onAdd(resource);
+  const onAddClick = () => onAdd && onAdd(resource);
 
   const calculateNameDisplayClassName = () => {
     if (alreadyAdded) {
@@ -53,12 +53,18 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
 };
 
 AvailableResourceListingItem.propTypes = {
-  resource: PropTypes.object,
+  resource: PropTypes.shape({
+    name: PropTypes.string,
+    alreadyAdded: PropTypes.bool,
+    hasAddError: PropTypes.bool,
+  }),
   onAdd: PropTypes.func,
 };
 
 AvailableResourceListingItem.defaultProps = {
-  resource: {},
+  resource: {
+    name: '',
+  },
 };
 
 export default AvailableResourceListingItem;

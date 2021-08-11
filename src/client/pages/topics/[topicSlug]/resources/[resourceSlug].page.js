@@ -155,7 +155,22 @@ TopicResourceDetails.propTypes = {
   resourceId: PropTypes.string,
   topicSlug: PropTypes.string,
   resourceSlug: PropTypes.string,
-  topicResource: PropTypes.object,
+  topicResource: PropTypes.shape({
+    topic: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    resource: PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+      createdBy: PropTypes.shape({
+        username: PropTypes.string,
+      }),
+    }),
+    ratingList: PropTypes.shape({
+      count: PropTypes.number,
+      sum: PropTypes.number,
+    }),
+  }),
 };
 
 export async function getServerSideProps({

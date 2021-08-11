@@ -40,7 +40,12 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
 
 BreadcrumbLayout.propTypes = {
   children: PropTypes.node,
-  breadcrumbs: PropTypes.array,
+  breadcrumbs: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string,
+      title: PropTypes.string,
+    })
+  ),
 };
 
 BreadcrumbLayout.defaultProps = {

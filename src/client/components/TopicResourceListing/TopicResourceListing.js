@@ -36,7 +36,19 @@ const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
 TopicResourceListing.propTypes = {
   topicId: PropTypes.string,
   topicSlug: PropTypes.string,
-  topicResources: PropTypes.array,
+  topicResources: PropTypes.arrayOf(
+    PropTypes.shape({
+      resource: PropTypes.shape({
+        id: PropTypes.string,
+        slug: PropTypes.string,
+        name: PropTypes.string,
+        link: PropTypes.string,
+      }),
+      ratingList: PropTypes.shape({
+        average: PropTypes.number,
+      }),
+    })
+  ),
 };
 
 TopicResourceListing.defaultProps = {

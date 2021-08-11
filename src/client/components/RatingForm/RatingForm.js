@@ -7,11 +7,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 const RatingForm = ({ onSubmit, isSubmitting, error, existingRating }) => {
   const [selectedRating, setSelectedRating] = useState();
 
-  const submitRating = () => {
-    if (onSubmit) {
-      onSubmit(selectedRating);
-    }
-  };
+  const submitRating = () => onSubmit && onSubmit(selectedRating);
 
   useEffect(() => {
     setSelectedRating(existingRating);

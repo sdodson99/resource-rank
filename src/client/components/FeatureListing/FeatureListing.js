@@ -20,7 +20,12 @@ const FeatureListing = ({ features }) => {
 };
 
 FeatureListing.propTypes = {
-  features: PropTypes.array,
+  features: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.node.isRequired,
+      imageSrc: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 FeatureListing.defaultProps = {

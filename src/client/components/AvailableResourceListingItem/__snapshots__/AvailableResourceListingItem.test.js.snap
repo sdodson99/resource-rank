@@ -43,7 +43,7 @@ exports[`<AvailableResourceListingItem /> should render correctly 1`] = `
 </div>
 `;
 
-exports[`<AvailableResourceListingItem /> with already added resource should render correctly 1`] = `
+exports[`<AvailableResourceListingItem /> should render correctly when resource already added 1`] = `
 <div
   className="AvailableResourceListingItem"
   data-testid="AvailableResourceListingItem"
@@ -92,7 +92,7 @@ exports[`<AvailableResourceListingItem /> with already added resource should ren
 </div>
 `;
 
-exports[`<AvailableResourceListingItem /> with error on add should render correctly 1`] = `
+exports[`<AvailableResourceListingItem /> should render correctly when resource has add error 1`] = `
 <div
   className="AvailableResourceListingItem"
   data-testid="AvailableResourceListingItem"

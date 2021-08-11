@@ -41,27 +41,23 @@ describe('<AvailableResourceListingItem />', () => {
     expect(onAdd).toBeCalledWith(resource);
   });
 
-  describe('with error on add', () => {
-    it('should render correctly', () => {
-      resource.hasAddError = true;
+  it('should render correctly when resource has add error', () => {
+    resource.hasAddError = true;
 
-      const tree = renderer
-        .create(<AvailableResourceListingItem resource={resource} />)
-        .toJSON();
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 
-  describe('with already added resource', () => {
-    it('should render correctly', () => {
-      resource.alreadyAdded = true;
+  it('should render correctly when resource already added', () => {
+    resource.alreadyAdded = true;
 
-      const tree = renderer
-        .create(<AvailableResourceListingItem resource={resource} />)
-        .toJSON();
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 });

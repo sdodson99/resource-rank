@@ -23,7 +23,12 @@ const TopicListing = ({ topics }) => {
 };
 
 TopicListing.propTypes = {
-  topics: PropTypes.array,
+  topics: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      slug: PropTypes.string,
+    })
+  ),
 };
 
 TopicListing.defaultProps = {
