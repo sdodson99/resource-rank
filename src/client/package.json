@@ -16,15 +16,12 @@
     "build": "next build",
     "build:storybook": "build-storybook",
     "start": "next start",
-    "serve": "firebase emulators:start --only hosting,functions",
     "test": "jest --watch",
     "test:cover": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "generate": "npx generate-react-cli component",
     "clean": "npm run clean:next",
-    "clean:next": "rm -rf .next",
-    "deploy": "npm run deploy:firebase",
-    "deploy:firebase": "firebase deploy --only functions:nextjs,hosting"
+    "clean:next": "rm -rf .next"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -32,8 +29,6 @@
     "bad-words": "^3.0.4",
     "constate": "^3.2.0",
     "firebase": "^8.6.8",
-    "firebase-admin": "^9.11.0",
-    "firebase-functions": "^3.14.1",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "lodash.debounce": "^4.0.8",
