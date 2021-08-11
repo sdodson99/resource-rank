@@ -1,6 +1,4 @@
 import '@/styles/globals.css';
-import '@fontsource/magra/index.css';
-import '@fontsource/magra/700.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthenticationProvider } from '@/hooks/use-authentication-context';
