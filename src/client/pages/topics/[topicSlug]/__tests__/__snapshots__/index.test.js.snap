@@ -29,6 +29,7 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
     />
     <div
       className="text-4xl"
+      data-testid="TopicTitle"
     >
       name
     </div>
@@ -134,6 +135,7 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
     />
     <div
       className="text-4xl"
+      data-testid="TopicTitle"
     >
       name
     </div>
@@ -258,6 +260,7 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
     />
     <div
       className="text-4xl"
+      data-testid="TopicTitle"
     >
       name
     </div>
