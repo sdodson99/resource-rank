@@ -67,7 +67,9 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
           }}
         />
 
-        <div className="text-4xl">{topicName}</div>
+        <div className="text-4xl" data-testid="TopicTitle">
+          {topicName}
+        </div>
 
         <div className="mt-3 text-xs text-gray-800">
           Created by {topicCreator}

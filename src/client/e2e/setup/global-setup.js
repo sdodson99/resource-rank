@@ -14,7 +14,7 @@ module.exports = async () => {
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = 200;
 
-    const mockData = fs.readFileSync(path.join(__dirname, '../mocks/mock.json'));
+    const mockData = fs.readFileSync(path.join(__dirname, '../mock.json'));
     res.write(mockData);
 
     res.end();
