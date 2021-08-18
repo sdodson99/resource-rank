@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VerifiedIcon /> should render correctly 1`] = `
+<div
+  className="VerifiedIcon"
+  data-testid="VerifiedIcon"
+>
+  <Memo
+    htmlColor="#6f99f2"
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`<VerifiedIcon /> should render correctly with custom size 1`] = `
+<div
+  className="VerifiedIcon"
+  data-testid="VerifiedIcon"
+>
+  <Memo
+    htmlColor="#6f99f2"
+    style={
+      Object {
+        "fontSize": 100,
+      }
+    }
+  />
+</div>
+`;
