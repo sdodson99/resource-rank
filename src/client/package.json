@@ -6,7 +6,7 @@
   "main": "functions/index.js",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "dev:storybook": "start-storybook -p 6006 --ci",
+    "dev:storybook": "start-storybook -s ./public -p 6006 --ci",
     "lint:eslint": "eslint \"./**/*.js\"",
     "lint:prettier": "prettier --check \"./**/*.js\"",
     "lint": "npm run lint:eslint && npm run lint:prettier",
@@ -14,7 +14,7 @@
     "fix:prettier": "prettier --write \"./**/*.js\"",
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "build": "next build",
-    "build:storybook": "build-storybook",
+    "build:storybook": "build-storybook -s ./public",
     "start": "next start",
     "test": "jest --watch",
     "test:cover": "jest --coverage",

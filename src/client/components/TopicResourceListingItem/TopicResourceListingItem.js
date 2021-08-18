@@ -12,7 +12,6 @@ const TopicResourceListingItem = ({
   topicSlug,
   resourceSlug,
   name,
-  link,
   rating,
 }) => {
   const topicResourceLink = `/topics/${topicSlug}/resources/${resourceSlug}`;
@@ -49,7 +48,6 @@ TopicResourceListingItem.propTypes = {
   topicSlug: PropTypes.string,
   resourceSlug: PropTypes.string,
   name: PropTypes.string,
-  link: PropTypes.string,
   rating: PropTypes.number,
 };
 
