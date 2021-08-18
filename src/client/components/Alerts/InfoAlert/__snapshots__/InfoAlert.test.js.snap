@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InfoAlert /> should render correctly 1`] = `
+<div
+  className="InfoAlert"
+  data-testid="InfoAlert"
+>
+  <Alert
+    className="text-blue-800 border-blue-200 bg-blue-50"
+    icon={<Memo />}
+  />
+</div>
+`;
