@@ -235,7 +235,7 @@ exports[`<TopicResourceListingItem /> should render correctly when verified 1`] 
           >
             <div />
             <div
-              className="ml-3"
+              className="ml-2"
             >
               <div
                 className="VerifiedIcon"

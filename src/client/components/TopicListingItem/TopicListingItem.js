@@ -18,7 +18,7 @@ const TopicListingItem = ({ name, slug, verified }) => {
               <div className="flex items-center">
                 <div>{name}</div>
                 {verified && (
-                  <div className="ml-3">
+                  <div className="ml-2">
                     <VerifiedIcon />
                   </div>
                 )}

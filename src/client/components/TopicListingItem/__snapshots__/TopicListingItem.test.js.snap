@@ -56,7 +56,7 @@ exports[`<TopicListingItem /> should render correctly when verified 1`] = `
               Topic1
             </div>
             <div
-              className="ml-3"
+              className="ml-2"
             >
               <VerifiedIcon
                 size={20}

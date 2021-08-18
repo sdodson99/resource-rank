@@ -172,7 +172,7 @@ exports[`<AvailableResourceListingItem /> should render correctly when resource 
             className=""
           />
           <div
-            className="ml-3"
+            className="ml-2"
           >
             <div
               className="VerifiedIcon"

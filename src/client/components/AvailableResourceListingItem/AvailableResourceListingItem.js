@@ -29,7 +29,7 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
             <div className="flex items-center">
               <div className={calculateNameDisplayClassName()}>{name}</div>
               {verified && (
-                <div className="ml-3">
+                <div className="ml-2">
                   <VerifiedIcon />
                 </div>
               )}
