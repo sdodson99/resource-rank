@@ -15,11 +15,28 @@ Default.args = {
   },
 };
 
+export const Verified = Template.bind({});
+Verified.args = {
+  resource: {
+    name: 'Resource 1',
+    verified: true,
+  },
+};
+
 export const AlreadyAdded = Template.bind({});
 AlreadyAdded.args = {
   resource: {
     name: 'Resource 1',
     alreadyAdded: true,
+  },
+};
+
+export const VerifiedAlreadyAdded = Template.bind({});
+VerifiedAlreadyAdded.args = {
+  resource: {
+    name: 'Resource 1',
+    alreadyAdded: true,
+    verified: true,
   },
 };
 

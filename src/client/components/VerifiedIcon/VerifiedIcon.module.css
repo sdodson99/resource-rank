@@ -1,1 +1,3 @@
-.VerifiedIcon {}
+.VerifiedIcon {
+  @apply flex items-center;
+}

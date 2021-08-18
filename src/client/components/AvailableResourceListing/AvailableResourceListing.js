@@ -31,6 +31,7 @@ AvailableResourceListing.propTypes = {
   resources: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
+      verified: PropTypes.bool,
       alreadyAdded: PropTypes.bool,
       hasAddError: PropTypes.bool,
     })

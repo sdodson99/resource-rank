@@ -29,4 +29,20 @@ describe('<TopicResourceListingItem />', () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it('should render correctly when verified', () => {
+    const tree = renderer
+      .create(
+        <TopicResourceListingItem
+          topicId={'123'}
+          topicSlug={'topic-name'}
+          resourceSlug={'resource-name'}
+          rating={3}
+          verified={true}
+        />
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

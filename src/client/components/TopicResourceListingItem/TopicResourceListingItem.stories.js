@@ -22,3 +22,9 @@ Default.args = {
   name: 'Resource 1',
   rating: 5,
 };
+
+export const Verified = Template.bind({});
+Verified.args = {
+  ...Default.args,
+  verified: true,
+};

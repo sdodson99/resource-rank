@@ -31,6 +31,16 @@ describe('<AvailableResourceListingItem />', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should render correctly when resource verified', () => {
+    resource.verified = true;
+
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
   it('should call onAdd when added', () => {
     const onAdd = jest.fn();
     render(<AvailableResourceListingItem resource={resource} onAdd={onAdd} />);

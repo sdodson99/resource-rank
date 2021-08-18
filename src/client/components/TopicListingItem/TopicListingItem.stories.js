@@ -18,3 +18,9 @@ Default.args = {
   name: 'Topic 1',
   slug: 'topic-1',
 };
+
+export const Verified = Template.bind({});
+Verified.args = {
+  ...Default.args,
+  verified: true,
+};

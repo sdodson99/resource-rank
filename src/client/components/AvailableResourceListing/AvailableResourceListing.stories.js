@@ -25,6 +25,7 @@ Default.args = {
       name: 'Resource 3',
       alreadyAdded: false,
       hasAddError: true,
+      verified: true,
     },
   ],
 };

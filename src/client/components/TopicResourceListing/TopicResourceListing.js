@@ -17,6 +17,7 @@ const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
           resourceSlug={r.resource.slug}
           name={r.resource.name}
           rating={r.ratingList.average}
+          verified={r.resource.verified}
         />
       </div>
     );
@@ -41,6 +42,7 @@ TopicResourceListing.propTypes = {
         id: PropTypes.string,
         slug: PropTypes.string,
         name: PropTypes.string,
+        verified: PropTypes.bool,
       }),
       ratingList: PropTypes.shape({
         average: PropTypes.number,

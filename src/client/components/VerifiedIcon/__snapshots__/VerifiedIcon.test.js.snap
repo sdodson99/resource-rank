@@ -5,14 +5,21 @@ exports[`<VerifiedIcon /> should render correctly 1`] = `
   className="VerifiedIcon"
   data-testid="VerifiedIcon"
 >
-  <Memo
-    htmlColor="#6f99f2"
-    style={
-      Object {
-        "fontSize": 20,
+  <WithStyles(ForwardRef(Tooltip))
+    aria-label="verified"
+    arrow="true"
+    placement="right"
+    title="Verified"
+  >
+    <Memo
+      htmlColor="#6f99f2"
+      style={
+        Object {
+          "fontSize": 20,
+        }
       }
-    }
-  />
+    />
+  </WithStyles(ForwardRef(Tooltip))>
 </div>
 `;
 
@@ -21,13 +28,20 @@ exports[`<VerifiedIcon /> should render correctly with custom size 1`] = `
   className="VerifiedIcon"
   data-testid="VerifiedIcon"
 >
-  <Memo
-    htmlColor="#6f99f2"
-    style={
-      Object {
-        "fontSize": 100,
+  <WithStyles(ForwardRef(Tooltip))
+    aria-label="verified"
+    arrow="true"
+    placement="right"
+    title="Verified"
+  >
+    <Memo
+      htmlColor="#6f99f2"
+      style={
+        Object {
+          "fontSize": 100,
+        }
       }
-    }
-  />
+    />
+  </WithStyles(ForwardRef(Tooltip))>
 </div>
 `;

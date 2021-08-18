@@ -10,7 +10,7 @@ const TopicListing = ({ topics }) => {
 
     return (
       <div key={t.id} className={className}>
-        <TopicListingItem name={t.name} slug={t.slug} />
+        <TopicListingItem name={t.name} slug={t.slug} verified={t.verified} />
       </div>
     );
   });
@@ -27,6 +27,7 @@ TopicListing.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       slug: PropTypes.string,
+      verified: PropTypes.bool,
     })
   ),
 };

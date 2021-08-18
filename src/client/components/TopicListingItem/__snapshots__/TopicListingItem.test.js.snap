@@ -15,8 +15,53 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
         <div
           className="sm:flex sm:justify-between sm:text-left text-center"
         >
-          <div>
-            Topic1
+          <div
+            className="flex items-center"
+          >
+            <div>
+              Topic1
+            </div>
+          </div>
+          <div
+            className="mt-5 sm:mt-0"
+          >
+            <Memo />
+          </div>
+        </div>
+      </ListingItem>
+    </a>
+  </Link>
+</div>
+`;
+
+exports[`<TopicListingItem /> should render correctly when verified 1`] = `
+<div
+  className="TopicListingItem"
+  data-testid="TopicListingItem"
+>
+  <Link
+    href="/topics/topic1"
+  >
+    <a>
+      <ListingItem
+        hover={true}
+      >
+        <div
+          className="sm:flex sm:justify-between sm:text-left text-center"
+        >
+          <div
+            className="flex items-center"
+          >
+            <div>
+              Topic1
+            </div>
+            <div
+              className="ml-3"
+            >
+              <VerifiedIcon
+                size={20}
+              />
+            </div>
           </div>
           <div
             className="mt-5 sm:mt-0"

@@ -23,6 +23,7 @@ Default.args = {
         id: '1',
         slug: 'resource-1',
         name: 'Resource 1',
+        verified: true,
       },
       ratingList: {
         average: 1,

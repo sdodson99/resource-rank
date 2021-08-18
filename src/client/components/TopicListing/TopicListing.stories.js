@@ -23,6 +23,7 @@ Default.args = {
     {
       name: 'Topic 2',
       slug: 'topic-2',
+      verified: true,
     },
     {
       name: 'Topic 3',
