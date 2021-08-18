@@ -9,8 +9,15 @@ import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
+import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 
-const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
+const TopicDetails = ({
+  topicId,
+  topicName,
+  topicSlug,
+  topicCreator,
+  topicVerified,
+}) => {
   const { isLoggedIn } = useAuthenticationContext();
 
   const {
@@ -67,8 +74,16 @@ const TopicDetails = ({ topicId, topicName, topicSlug, topicCreator }) => {
           }}
         />
 
-        <div className="text-4xl" data-testid="TopicTitle">
-          {topicName}
+        <div className="flex items-center">
+          <div className="text-4xl" data-testid="TopicTitle">
+            {topicName}
+          </div>
+
+          {topicVerified && (
+            <div className="ml-2">
+              <VerifiedIcon size={25} />
+            </div>
+          )}
         </div>
 
         <div className="mt-3 text-xs text-gray-800">
@@ -134,6 +149,7 @@ TopicDetails.propTypes = {
   topicId: PropTypes.string,
   topicName: PropTypes.string,
   topicSlug: PropTypes.string,
+  topicVerified: PropTypes.bool,
   topicCreator: PropTypes.string,
 };
 
@@ -146,6 +162,7 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
         topicId: topic.id,
         topicName: topic.name,
         topicSlug: topic.slug,
+        topicVerified: topic.verified,
         topicCreator: topic.createdBy?.username ?? 'Unknown',
       },
     };

@@ -6,12 +6,7 @@ import { Tooltip } from '@material-ui/core';
 
 const VerifiedIcon = ({ size }) => (
   <div className={styles.VerifiedIcon} data-testid="VerifiedIcon">
-    <Tooltip
-      title="Verified"
-      aria-label="verified"
-      arrow="true"
-      placement="right"
-    >
+    <Tooltip title="Verified" aria-label="verified" placement="right" arrow>
       <CheckCircle htmlColor={'#6f99f2'} style={{ fontSize: size }} />
     </Tooltip>
   </div>

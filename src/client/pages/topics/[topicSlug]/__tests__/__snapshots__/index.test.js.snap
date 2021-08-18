@@ -28,10 +28,131 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
       title="name"
     />
     <div
-      className="text-4xl"
-      data-testid="TopicTitle"
+      className="flex items-center"
     >
-      name
+      <div
+        className="text-4xl"
+        data-testid="TopicTitle"
+      >
+        name
+      </div>
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      creator
+    </div>
+    <div
+      className="mt-10"
+    >
+      <PageHeaderButton
+        buttonContent="Add"
+        hideButton={false}
+        linkTo="/topics/slug/resources/add"
+        title="Resources"
+        titleClassName="text-3xl"
+      />
+    </div>
+    <div
+      className="mt-8"
+    >
+      <input
+        className="w-full form-control-lg"
+        data-testid="SearchInput"
+        onChange={[Function]}
+        placeholder="Search resources..."
+        type="text"
+        value="search"
+      />
+      <div
+        className="mt-8"
+      >
+        <LoadingErrorEmptyDataLayout
+          dataDisplay={
+            <TopicResourceListing
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
+          }
+          errorDisplay={
+            <div
+              className="text-center sm:text-left error-text"
+            >
+              Failed to load topic resources.
+            </div>
+          }
+          hasData={false}
+          hasError={true}
+          isLoading={true}
+          loadingDisplay={
+            <div
+              className="text-center"
+            >
+              <LoadingSpinner
+                color="#292929"
+                size={50}
+              />
+            </div>
+          }
+          noDataDisplay={
+            <div
+              className="text-center sm:text-left"
+            >
+              No topic resources matching 'currentSearch' have been added.
+            </div>
+          }
+        />
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
+exports[`<TopicDetails /> page should render correctly when topic verified 1`] = `
+<div
+  data-testid="TopicsDetails"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": "name",
+          "to": "/topics/slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Find the best resources for learning name.",
+          "title": "name - Resource Rank",
+        }
+      }
+      title="name"
+    />
+    <div
+      className="flex items-center"
+    >
+      <div
+        className="text-4xl"
+        data-testid="TopicTitle"
+      >
+        name
+      </div>
+      <div
+        className="ml-2"
+      >
+        <VerifiedIcon
+          size={25}
+        />
+      </div>
     </div>
     <div
       className="mt-3 text-xs text-gray-800"
@@ -134,10 +255,14 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
       title="name"
     />
     <div
-      className="text-4xl"
-      data-testid="TopicTitle"
+      className="flex items-center"
     >
-      name
+      <div
+        className="text-4xl"
+        data-testid="TopicTitle"
+      >
+        name
+      </div>
     </div>
     <div
       className="mt-3 text-xs text-gray-800"
@@ -259,10 +384,14 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
       title="name"
     />
     <div
-      className="text-4xl"
-      data-testid="TopicTitle"
+      className="flex items-center"
     >
-      name
+      <div
+        className="text-4xl"
+        data-testid="TopicTitle"
+      >
+        name
+      </div>
     </div>
     <div
       className="mt-3 text-xs text-gray-800"

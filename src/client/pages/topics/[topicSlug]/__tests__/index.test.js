@@ -68,6 +68,14 @@ describe('<TopicDetails />', () => {
       expect(page).toMatchSnapshot();
     });
 
+    it('should render correctly when topic verified', () => {
+      props.topicVerified = true;
+
+      const page = createRenderer().render(<TopicDetails {...props} />);
+
+      expect(page).toMatchSnapshot();
+    });
+
     it('should render correctly with data', () => {
       useTopicResourceSearch.mockReturnValue({
         data: {

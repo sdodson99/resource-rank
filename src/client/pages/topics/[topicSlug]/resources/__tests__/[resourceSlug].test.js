@@ -70,7 +70,9 @@ describe('<TopicResourceDetails />', () => {
       resourceId = '456';
       topicSlug = 'topic-slug';
       resourceSlug = 'resource-slug';
-      topicResource = {};
+      topicResource = {
+        resource: {},
+      };
       props = {
         topicId,
         resourceId,
@@ -197,6 +199,14 @@ describe('<TopicResourceDetails />', () => {
     });
 
     it('should render correctly', () => {
+      const page = createRenderer().render(<TopicResourceDetails {...props} />);
+
+      expect(page).toMatchSnapshot();
+    });
+
+    it('should render correctly when verified', () => {
+      props.topicResource.resource.verified = true;
+
       const page = createRenderer().render(<TopicResourceDetails {...props} />);
 
       expect(page).toMatchSnapshot();

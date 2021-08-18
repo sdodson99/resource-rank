@@ -7,7 +7,7 @@ exports[`<VerifiedIcon /> should render correctly 1`] = `
 >
   <WithStyles(ForwardRef(Tooltip))
     aria-label="verified"
-    arrow="true"
+    arrow={true}
     placement="right"
     title="Verified"
   >
@@ -30,7 +30,7 @@ exports[`<VerifiedIcon /> should render correctly with custom size 1`] = `
 >
   <WithStyles(ForwardRef(Tooltip))
     aria-label="verified"
-    arrow="true"
+    arrow={true}
     placement="right"
     title="Verified"
   >

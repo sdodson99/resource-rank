@@ -28,7 +28,7 @@ const TopicResourceListingItem = ({
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between items-center sm:text-left text-center">
               <div className="col-sm-auto flex flex-col items-center sm:items-start">
-                <div className="flex items-center">
+                <div className="flex items-center justify-center sm:justify-start">
                   <div>{name}</div>
                   {verified && (
                     <div className="ml-2">

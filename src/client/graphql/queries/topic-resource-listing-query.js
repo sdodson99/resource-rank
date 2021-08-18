@@ -8,6 +8,7 @@ const topicResourceListingQuery = gql`
           id
           name
           slug
+          verified
         }
         ratingList {
           average

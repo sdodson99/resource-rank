@@ -26,7 +26,7 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
       <ListingItem>
         <div className="text-center sm:text-left sm:flex sm:justify-between sm:items-center">
           <div>
-            <div className="flex items-center">
+            <div className="flex items-center justify-center sm:justify-start">
               <div className={calculateNameDisplayClassName()}>{name}</div>
               {verified && (
                 <div className="ml-2">

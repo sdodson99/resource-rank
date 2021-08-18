@@ -21,7 +21,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
           className="col-sm-auto flex flex-col items-center sm:items-start"
         >
           <div
-            className="flex items-center"
+            className="flex items-center justify-center sm:justify-start"
           >
             <div />
           </div>
@@ -231,7 +231,7 @@ exports[`<TopicResourceListingItem /> should render correctly when verified 1`] 
           className="col-sm-auto flex flex-col items-center sm:items-start"
         >
           <div
-            className="flex items-center"
+            className="flex items-center justify-center sm:justify-start"
           >
             <div />
             <div

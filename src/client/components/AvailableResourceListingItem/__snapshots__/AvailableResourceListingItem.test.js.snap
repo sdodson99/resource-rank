@@ -14,7 +14,7 @@ exports[`<AvailableResourceListingItem /> should render correctly 1`] = `
     >
       <div>
         <div
-          className="flex items-center"
+          className="flex items-center justify-center sm:justify-start"
         >
           <div
             className=""
@@ -61,7 +61,7 @@ exports[`<AvailableResourceListingItem /> should render correctly when resource 
     >
       <div>
         <div
-          className="flex items-center"
+          className="flex items-center justify-center sm:justify-start"
         >
           <div
             className="line-through"
@@ -114,7 +114,7 @@ exports[`<AvailableResourceListingItem /> should render correctly when resource 
     >
       <div>
         <div
-          className="flex items-center"
+          className="flex items-center justify-center sm:justify-start"
         >
           <div
             className=""
@@ -166,7 +166,7 @@ exports[`<AvailableResourceListingItem /> should render correctly when resource 
     >
       <div>
         <div
-          className="flex items-center"
+          className="flex items-center justify-center sm:justify-start"
         >
           <div
             className=""

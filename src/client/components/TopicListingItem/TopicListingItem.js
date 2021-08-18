@@ -15,7 +15,7 @@ const TopicListingItem = ({ name, slug, verified }) => {
         <a>
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between sm:text-left text-center">
-              <div className="flex items-center">
+              <div className="flex items-center justify-center sm:justify-start">
                 <div>{name}</div>
                 {verified && (
                   <div className="ml-2">

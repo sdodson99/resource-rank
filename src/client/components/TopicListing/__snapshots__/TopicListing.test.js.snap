@@ -25,7 +25,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div
-              className="flex items-center"
+              className="flex items-center justify-center sm:justify-start"
             >
               <div>
                 Topic1
@@ -70,7 +70,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div
-              className="flex items-center"
+              className="flex items-center justify-center sm:justify-start"
             >
               <div>
                 Topic2
@@ -115,7 +115,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
             <div
-              className="flex items-center"
+              className="flex items-center justify-center sm:justify-start"
             >
               <div>
                 Topic3
