@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import ErrorAlert from '../Alerts/ErrorAlert/ErrorAlert';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import TextInput from '../TextInput/TextInput';
 import PropTypes from 'prop-types';

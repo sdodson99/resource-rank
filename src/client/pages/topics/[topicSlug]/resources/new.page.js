@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import ResourceDetailsForm from '@/components/ResourceDetailsForm/ResourceDetailsForm';
-import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import ErrorAlert from '@/components/Alerts/ErrorAlert/ErrorAlert';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import useResourceCreator from '@/hooks/resources/use-resource-creator';
 import ResourceExistsError from '@/errors/resource-exists-error';

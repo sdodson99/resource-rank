@@ -3,7 +3,7 @@ import ErrorAlert from './ErrorAlert';
 
 export default {
   component: ErrorAlert,
-  title: 'Components/ErrorAlert',
+  title: 'Components/Alerts/ErrorAlert',
   decorators: [
     (Story) => {
       return <Story />;
