@@ -55,7 +55,7 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
         );
       }
 
-      router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
+      router.push(`/topics/${topicSlug}/resources/${resourceSlug}?new=true`);
     } catch (error) {
       if (error instanceof ResourceExistsError) {
         return setError(FormField.RESOURCE_NAME, {

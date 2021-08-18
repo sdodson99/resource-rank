@@ -63,7 +63,7 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
       return setAddResourceError(resourceId, true);
     }
 
-    router.push(`/topics/${topicSlug}/resources/${resourceSlug}`);
+    router.push(`/topics/${topicSlug}/resources/${resourceSlug}?new=true`);
   };
 
   const getSearchDisplay = () => {

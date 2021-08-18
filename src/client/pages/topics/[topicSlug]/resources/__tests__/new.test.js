@@ -128,7 +128,7 @@ describe('<NewTopicResource />', () => {
 
         await waitFor(() => {
           expect(mockPush).toBeCalledWith(
-            '/topics/topic-slug/resources/resource-slug'
+            '/topics/topic-slug/resources/resource-slug?new=true'
           );
         });
       });
