@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -12,6 +12,7 @@ import TopicResourceDetails, {
 import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
 import useRating from '@/hooks/ratings/use-rating';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
+import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -29,6 +30,9 @@ jest.mock('@/components/RatingForm/RatingForm', () => ({ onSubmit }) => (
     </button>
   </div>
 ));
+
+jest.mock('react-intersection-observer-hook');
+useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicResourceDetails />', () => {
   describe('page', () => {
@@ -96,6 +100,26 @@ describe('<TopicResourceDetails />', () => {
       const page = screen.getByTestId('TopicResourceDetailsPage');
 
       expect(page).toBeInTheDocument();
+    });
+
+    describe('new resource alert', () => {
+      it('should display new resource alert when isNew is true', () => {
+        props.isNew = true;
+        render(<TopicResourceDetails {...props} />);
+
+        const alert = screen.getByTestId('InfoAlert');
+
+        expect(alert).toBeInTheDocument();
+      });
+
+      it('should not display new resource alert when isNew is not true', () => {
+        props.isNew = false;
+        render(<TopicResourceDetails {...props} />);
+
+        const alert = screen.queryByTestId('InfoAlert');
+
+        expect(alert).not.toBeInTheDocument();
+      });
     });
 
     it('should update existing rating on rating load', () => {
@@ -236,6 +260,9 @@ describe('<TopicResourceDetails />', () => {
     let topicSlug;
     let resourceSlug;
     let params;
+    let topicId;
+    let resourceId;
+    let topicResource;
 
     beforeEach(() => {
       req = {};
@@ -245,16 +272,9 @@ describe('<TopicResourceDetails />', () => {
         topicSlug,
         resourceSlug,
       };
-    });
-
-    afterEach(() => {
-      getTopicResourceBySlug.mockReset();
-    });
-
-    it('should return props when topic resource found', async () => {
-      const topicId = '123';
-      const resourceId = '456';
-      const topicResource = {
+      topicId = '123';
+      resourceId = '456';
+      topicResource = {
         topic: {
           id: topicId,
         },
@@ -262,12 +282,20 @@ describe('<TopicResourceDetails />', () => {
           id: resourceId,
         },
       };
+    });
+
+    afterEach(() => {
+      getTopicResourceBySlug.mockReset();
+    });
+
+    it('should return props when topic resource found', async () => {
       const expectedProps = {
         topicId,
         resourceId,
         topicSlug,
         resourceSlug,
         topicResource,
+        isNew: false,
       };
       when(getTopicResourceBySlug)
         .calledWith(topicSlug, resourceSlug)
@@ -288,6 +316,18 @@ describe('<TopicResourceDetails />', () => {
       const { notFound } = await getServerSideProps({ req, params });
 
       expect(notFound).toBeTruthy();
+    });
+
+    it('should return isNew if resource is new', async () => {
+      when(getTopicResourceBySlug)
+        .calledWith(topicSlug, resourceSlug)
+        .mockReturnValue(topicResource);
+
+      const {
+        props: { isNew },
+      } = await getServerSideProps({ req, params, query: { new: 'true' } });
+
+      expect(isNew).toBeTruthy();
     });
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -7,10 +7,14 @@ import { when } from 'jest-when';
 import TopicDetails, { getServerSideProps } from '../index.page';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
+import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
 jest.mock('@/hooks/use-authentication-context');
 jest.mock('@/hooks/topics/use-topic-resource-search');
+
+jest.mock('react-intersection-observer-hook');
+useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicDetails />', () => {
   describe('page', () => {
@@ -60,6 +64,26 @@ describe('<TopicDetails />', () => {
       const page = screen.getByTestId('TopicsDetails');
 
       expect(page).toBeInTheDocument();
+    });
+
+    describe('new topic alert', () => {
+      it('should display new topic alert when isNew is true', () => {
+        props.isNew = true;
+        render(<TopicDetails {...props} />);
+
+        const alert = screen.getByTestId('InfoAlert');
+
+        expect(alert).toBeInTheDocument();
+      });
+
+      it('should not display new topic alert when isNew is not true', () => {
+        props.isNew = false;
+        render(<TopicDetails {...props} />);
+
+        const alert = screen.queryByTestId('InfoAlert');
+
+        expect(alert).not.toBeInTheDocument();
+      });
     });
 
     it('should render correctly', () => {
@@ -176,12 +200,14 @@ describe('<TopicDetails />', () => {
       let name;
       let slug;
       let creator;
+      let verified;
 
       beforeEach(() => {
         id = '123';
         name = 'name';
         slug = 'slug';
         creator = 'creator';
+        verified = true;
       });
 
       it('should return topic props', async () => {
@@ -191,6 +217,7 @@ describe('<TopicDetails />', () => {
             id,
             name,
             slug,
+            verified,
             createdBy: {
               username: creator,
             },
@@ -203,6 +230,8 @@ describe('<TopicDetails />', () => {
           topicName: name,
           topicSlug: slug,
           topicCreator: creator,
+          topicVerified: verified,
+          isNew: false,
         });
       });
 
@@ -218,6 +247,16 @@ describe('<TopicDetails />', () => {
         } = await getServerSideProps({ req, params });
 
         expect(topicCreator).toBe('Unknown');
+      });
+
+      it('should return isNew if topic is new', async () => {
+        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({});
+
+        const {
+          props: { isNew },
+        } = await getServerSideProps({ req, params, query: { new: 'true' } });
+
+        expect(isNew).toBeTruthy();
       });
     });
   });

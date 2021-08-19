@@ -12,6 +12,7 @@ import useRating from '@/hooks/ratings/use-rating';
 import RatingForm from '@/components/RatingForm/RatingForm';
 import ResourceDetails from '@/components/ResourceDetails/ResourceDetails';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
+import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
 
 const TopicResourceDetails = ({
   topicId,
@@ -19,6 +20,7 @@ const TopicResourceDetails = ({
   topicSlug,
   resourceSlug,
   topicResource,
+  isNew,
 }) => {
   const [ratingSum, setRatingSum] = useState(topicResource?.ratingList?.sum);
   const [ratingCount, setRatingCount] = useState(
@@ -95,6 +97,14 @@ const TopicResourceDetails = ({
             description: `Learn about ${resourceName} and See how effective ${resourceName} is for learning ${topicName}.`,
           }}
         />
+
+        {isNew && (
+          <div className="mb-8">
+            <InfoAlert border>
+              Successfully added resource to {topicName}.
+            </InfoAlert>
+          </div>
+        )}
 
         <div className="sm:flex justify-between items-center">
           <div className="flex items-center">
@@ -184,11 +194,13 @@ TopicResourceDetails.propTypes = {
       sum: PropTypes.number,
     }),
   }),
+  isNew: PropTypes.bool,
 };
 
 export async function getServerSideProps({
   req,
   params: { topicSlug, resourceSlug },
+  query,
 }) {
   try {
     const topicResource = await getTopicResourceBySlug(topicSlug, resourceSlug);
@@ -200,6 +212,7 @@ export async function getServerSideProps({
         topicSlug,
         resourceSlug,
         topicResource,
+        isNew: query?.new == 'true',
       },
     };
   } catch (error) {

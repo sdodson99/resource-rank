@@ -10,6 +10,7 @@ import { NextSeo } from 'next-seo';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
+import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
 
 const TopicDetails = ({
   topicId,
@@ -17,6 +18,7 @@ const TopicDetails = ({
   topicSlug,
   topicCreator,
   topicVerified,
+  isNew,
 }) => {
   const { isLoggedIn } = useAuthenticationContext();
 
@@ -73,6 +75,12 @@ const TopicDetails = ({
             description: `Find the best resources for learning ${topicName}.`,
           }}
         />
+
+        {isNew && (
+          <div className="mb-8">
+            <InfoAlert border>Successfully created topic.</InfoAlert>
+          </div>
+        )}
 
         <div className="flex items-center">
           <div className="text-4xl" data-testid="TopicTitle">
@@ -151,9 +159,14 @@ TopicDetails.propTypes = {
   topicSlug: PropTypes.string,
   topicVerified: PropTypes.bool,
   topicCreator: PropTypes.string,
+  isNew: PropTypes.bool,
 };
 
-export async function getServerSideProps({ req, params: { topicSlug } }) {
+export async function getServerSideProps({
+  req,
+  params: { topicSlug },
+  query,
+}) {
   try {
     const topic = await getTopicBySlug(topicSlug);
 
@@ -164,6 +177,7 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
         topicSlug: topic.slug,
         topicVerified: topic.verified,
         topicCreator: topic.createdBy?.username ?? 'Unknown',
+        isNew: query?.new === 'true',
       },
     };
   } catch (error) {
