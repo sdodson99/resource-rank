@@ -32,13 +32,8 @@ exports.typeDefs = gql`
   }
 
   type AvailableResource {
-    id: ID!
-    name: String!
-    slug: String
-    link: String
+    resource: Resource!
     alreadyAdded: Boolean
-    createdBy: User
-    verified: Boolean
   }
 `;
 
@@ -100,18 +95,13 @@ exports.resolvers = {
       );
 
       const availableResources = resourceDTOs.map((r) => ({
-        id: r._id,
-        name: r.name,
-        slug: r.slug,
-        link: r.link,
-        verified: r.verified,
+        resource: r,
         alreadyAdded: false,
-        createdBy: r.createdBy,
       }));
 
       const resourceMap = {};
       availableResources.forEach((r) => {
-        resourceMap[r.id] = r;
+        resourceMap[r.resource.id] = r;
       });
 
       const topic = await dataSources.topics.getById(topicId);
@@ -134,10 +124,6 @@ exports.resolvers = {
   Mutation: {
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
       dataSources.topics.addResource(topicId, resourceId),
-  },
-  AvailableResource: {
-    createdBy: ({ createdBy }, _, { dataSources }) =>
-      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>

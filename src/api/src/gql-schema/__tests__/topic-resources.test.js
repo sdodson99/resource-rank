@@ -179,14 +179,14 @@ describe('topic resources resolvers', () => {
         .calledWith(resourceSearch, offset, limit)
         .mockReturnValue([
           {
-            _id: 'resource123',
+            id: 'resource123',
             name: 'resource1',
             link: 'resource1.com',
             createdBy: userId,
             verified: true,
           },
           {
-            _id: 'resource456',
+            id: 'resource456',
             name: 'resource2',
             link: 'resource2.com',
             createdBy: userId,
@@ -198,20 +198,24 @@ describe('topic resources resolvers', () => {
     it('should return available resources for topic', async () => {
       const expected = [
         {
-          id: 'resource123',
-          name: 'resource1',
-          link: 'resource1.com',
+          resource: {
+            id: 'resource123',
+            name: 'resource1',
+            link: 'resource1.com',
+            createdBy: userId,
+            verified: true,
+          },
           alreadyAdded: true,
-          createdBy: userId,
-          verified: true,
         },
         {
-          id: 'resource456',
-          name: 'resource2',
-          link: 'resource2.com',
+          resource: {
+            id: 'resource456',
+            name: 'resource2',
+            link: 'resource2.com',
+            createdBy: userId,
+            verified: false,
+          },
           alreadyAdded: false,
-          createdBy: userId,
-          verified: false,
         },
       ];
       when(topicsDataSource.getById)
@@ -266,23 +270,6 @@ describe('topic resources resolvers', () => {
       const actual = resolvers.Mutation.createTopicResource(
         null,
         { topicId, resourceId },
-        context
-      );
-
-      expect(actual).toBe(expected);
-    });
-  });
-
-  describe('available resource created by resolver', () => {
-    it('should return user for user id', () => {
-      const expected = { id: userId };
-      when(usersDataSource.getUser)
-        .calledWith(userId)
-        .mockReturnValue(expected);
-
-      const actual = resolvers.AvailableResource.createdBy(
-        { createdBy: userId },
-        null,
         context
       );
 
