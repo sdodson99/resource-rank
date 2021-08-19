@@ -20,4 +20,12 @@ describe('<TopicListingItem />', () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it('should render correctly when verified', () => {
+    const tree = createRenderer().render(
+      <TopicListingItem name="Topic1" slug="topic1" verified={true} />
+    );
+
+    expect(tree).toMatchSnapshot();
+  });
 });

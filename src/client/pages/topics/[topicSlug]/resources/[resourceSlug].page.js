@@ -11,6 +11,8 @@ import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
 import useRating from '@/hooks/ratings/use-rating';
 import RatingForm from '@/components/RatingForm/RatingForm';
 import ResourceDetails from '@/components/ResourceDetails/ResourceDetails';
+import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
+import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
 
 const TopicResourceDetails = ({
   topicId,
@@ -18,6 +20,7 @@ const TopicResourceDetails = ({
   topicSlug,
   resourceSlug,
   topicResource,
+  isNew,
 }) => {
   const [ratingSum, setRatingSum] = useState(topicResource?.ratingList?.sum);
   const [ratingCount, setRatingCount] = useState(
@@ -63,6 +66,7 @@ const TopicResourceDetails = ({
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
+  const resourceVerified = topicResource?.resource?.verified;
   const resourceCreatedBy =
     topicResource?.resource?.createdBy?.username ?? 'Unknown';
   const ratingAverage = ratingSum / ratingCount;
@@ -94,8 +98,26 @@ const TopicResourceDetails = ({
           }}
         />
 
+        {isNew && (
+          <div className="mb-8">
+            <InfoAlert border>
+              Successfully added resource to {topicName}.
+            </InfoAlert>
+          </div>
+        )}
+
         <div className="sm:flex justify-between items-center">
-          <div className="text-4xl">{resourceName}</div>
+          <div className="flex items-center">
+            <div className="text-4xl" data-testid="ResourceTitle">
+              {resourceName}
+            </div>
+
+            {resourceVerified && (
+              <div className="ml-2">
+                <VerifiedIcon size={25} />
+              </div>
+            )}
+          </div>
           <div className="mt-3 sm:mt-0">
             <RatingStarGroup rating={ratingAverage} starSize={25} />
           </div>
@@ -155,12 +177,30 @@ TopicResourceDetails.propTypes = {
   resourceId: PropTypes.string,
   topicSlug: PropTypes.string,
   resourceSlug: PropTypes.string,
-  topicResource: PropTypes.object,
+  topicResource: PropTypes.shape({
+    topic: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    resource: PropTypes.shape({
+      name: PropTypes.string,
+      link: PropTypes.string,
+      verified: PropTypes.bool,
+      createdBy: PropTypes.shape({
+        username: PropTypes.string,
+      }),
+    }),
+    ratingList: PropTypes.shape({
+      count: PropTypes.number,
+      sum: PropTypes.number,
+    }),
+  }),
+  isNew: PropTypes.bool,
 };
 
 export async function getServerSideProps({
   req,
   params: { topicSlug, resourceSlug },
+  query,
 }) {
   try {
     const topicResource = await getTopicResourceBySlug(topicSlug, resourceSlug);
@@ -172,6 +212,7 @@ export async function getServerSideProps({
         topicSlug,
         resourceSlug,
         topicResource,
+        isNew: query?.new == 'true',
       },
     };
   } catch (error) {

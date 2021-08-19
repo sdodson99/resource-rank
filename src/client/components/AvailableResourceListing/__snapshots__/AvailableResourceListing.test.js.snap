@@ -21,9 +21,13 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         >
           <div>
             <div
-              className=""
+              className="flex items-center justify-center sm:justify-start"
             >
-              Resource2
+              <div
+                className=""
+              >
+                Resource2
+              </div>
             </div>
           </div>
           <div
@@ -68,9 +72,13 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         >
           <div>
             <div
-              className="line-through"
+              className="flex items-center justify-center sm:justify-start"
             >
-              Resource1
+              <div
+                className="line-through"
+              >
+                Resource1
+              </div>
             </div>
             <div
               className="error-text italic text-xs"
@@ -120,9 +128,13 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         >
           <div>
             <div
-              className="line-through"
+              className="flex items-center justify-center sm:justify-start"
             >
-              Resource3
+              <div
+                className="line-through"
+              >
+                Resource3
+              </div>
             </div>
             <div
               className="error-text italic text-xs"

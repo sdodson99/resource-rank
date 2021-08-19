@@ -4,7 +4,7 @@ import { Info } from '@material-ui/icons';
 
 export default {
   component: Alert,
-  title: 'Components/Alert',
+  title: 'Components/Alerts/Alert',
 };
 
 const Template = (args) => <Alert {...args}>This is an alert!</Alert>;

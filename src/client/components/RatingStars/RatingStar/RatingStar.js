@@ -34,6 +34,7 @@ RatingStar.propTypes = {
 };
 
 RatingStar.defaultProps = {
+  fill: 0,
   size: 20,
   color: 'black',
 };

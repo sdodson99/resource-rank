@@ -41,17 +41,22 @@ exports[`<Header /> with logged in should render correctly 1`] = `
         </a>
       </div>
       <div
-        className="NavItem NavLink"
-        data-testid="ActiveLink"
+        className="NavItem"
+        data-testid="TopicsNavItem"
       >
-        <a
-          className=""
-          href="/topics"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
+        <div
+          className="NavLink"
+          data-testid="ActiveLink"
         >
-          Topics
-        </a>
+          <a
+            className=""
+            href="/topics"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Topics
+          </a>
+        </div>
       </div>
       <div
         className="NavItem"
@@ -110,17 +115,22 @@ exports[`<Header /> with not logged in should render correctly 1`] = `
         </a>
       </div>
       <div
-        className="NavItem NavLink"
-        data-testid="ActiveLink"
+        className="NavItem"
+        data-testid="TopicsNavItem"
       >
-        <a
-          className=""
-          href="/topics"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
+        <div
+          className="NavLink"
+          data-testid="ActiveLink"
         >
-          Topics
-        </a>
+          <a
+            className=""
+            href="/topics"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            Topics
+          </a>
+        </div>
       </div>
       <div
         className="NavItem"

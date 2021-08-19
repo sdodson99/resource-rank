@@ -17,7 +17,7 @@ const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
           resourceSlug={r.resource.slug}
           name={r.resource.name}
           rating={r.ratingList.average}
-          link={r.resource.link}
+          verified={r.resource.verified}
         />
       </div>
     );
@@ -36,7 +36,19 @@ const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
 TopicResourceListing.propTypes = {
   topicId: PropTypes.string,
   topicSlug: PropTypes.string,
-  topicResources: PropTypes.array,
+  topicResources: PropTypes.arrayOf(
+    PropTypes.shape({
+      resource: PropTypes.shape({
+        id: PropTypes.string,
+        slug: PropTypes.string,
+        name: PropTypes.string,
+        verified: PropTypes.bool,
+      }),
+      ratingList: PropTypes.shape({
+        average: PropTypes.number,
+      }),
+    })
+  ),
 };
 
 TopicResourceListing.defaultProps = {

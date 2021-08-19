@@ -33,7 +33,7 @@ const NewTopic = () => {
     try {
       const { slug } = await createTopic({ name });
 
-      router.push(`/topics/${slug}`);
+      router.push(`/topics/${slug}?new=true`);
     } catch (error) {
       if (error instanceof TopicExistsError) {
         return setError(FormField.TOPIC_NAME, {

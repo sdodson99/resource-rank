@@ -16,6 +16,7 @@ const availableTopicResourcesQuery = gql`
       id
       name
       slug
+      verified
       alreadyAdded
     }
   }

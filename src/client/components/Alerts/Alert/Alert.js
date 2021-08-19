@@ -1,15 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Alert.module.css';
+import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 const Alert = ({ children, icon, border, className, scrollTo }) => {
-  const alertRef = useRef();
+  const [alertRef, { entry }] = useIntersectionObserver();
+  const isVisible = entry?.isIntersecting;
 
+  const [hasScrolledIntoView, setHasScrolledIntoView] = useState(false);
   useEffect(() => {
-    if (scrollTo) {
-      alertRef.current?.scrollIntoView();
-    }
+    setHasScrolledIntoView(false);
   }, [scrollTo]);
+  useEffect(() => {
+    if (!scrollTo) {
+      return;
+    }
+
+    if (hasScrolledIntoView) {
+      return;
+    }
+
+    if (!entry) {
+      return;
+    }
+
+    if (!isVisible) {
+      entry.target.scrollIntoView();
+    }
+
+    setHasScrolledIntoView(true);
+  }, [scrollTo, isVisible, hasScrolledIntoView, entry]);
 
   const calculateClassName = () => {
     let totalClassName = styles.Alert;

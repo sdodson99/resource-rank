@@ -26,8 +26,8 @@ const PageHeaderButton = ({
 );
 
 PageHeaderButton.propTypes = {
-  title: PropTypes.string,
-  buttonContent: PropTypes.string,
+  title: PropTypes.node,
+  buttonContent: PropTypes.node,
   hideButton: PropTypes.bool,
   linkTo: PropTypes.string,
   titleClassName: PropTypes.string,

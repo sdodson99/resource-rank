@@ -64,13 +64,15 @@ const Header = () => {
             Home
           </ActiveLink>
 
-          <ActiveLink
-            href="/topics"
-            className={`${styles.NavItem} ${styles.NavLink}`}
-            activeClassName={styles.ActiveNavLink}
-          >
-            Topics
-          </ActiveLink>
+          <div className={styles.NavItem} data-testid="TopicsNavItem">
+            <ActiveLink
+              href="/topics"
+              className={styles.NavLink}
+              activeClassName={styles.ActiveNavLink}
+            >
+              Topics
+            </ActiveLink>
+          </div>
 
           <div className={styles.NavItem}>
             {!isLoggedIn && (

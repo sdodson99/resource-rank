@@ -31,6 +31,16 @@ describe('<AvailableResourceListingItem />', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should render correctly when resource verified', () => {
+    resource.verified = true;
+
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
   it('should call onAdd when added', () => {
     const onAdd = jest.fn();
     render(<AvailableResourceListingItem resource={resource} onAdd={onAdd} />);
@@ -41,27 +51,23 @@ describe('<AvailableResourceListingItem />', () => {
     expect(onAdd).toBeCalledWith(resource);
   });
 
-  describe('with error on add', () => {
-    it('should render correctly', () => {
-      resource.hasAddError = true;
+  it('should render correctly when resource has add error', () => {
+    resource.hasAddError = true;
 
-      const tree = renderer
-        .create(<AvailableResourceListingItem resource={resource} />)
-        .toJSON();
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 
-  describe('with already added resource', () => {
-    it('should render correctly', () => {
-      resource.alreadyAdded = true;
+  it('should render correctly when resource already added', () => {
+    resource.alreadyAdded = true;
 
-      const tree = renderer
-        .create(<AvailableResourceListingItem resource={resource} />)
-        .toJSON();
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 });

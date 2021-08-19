@@ -18,6 +18,12 @@ exports[`<App /> should render correctly 1`] = `
 >
   <Constate>
     <Constate>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css?family=Kanit:100,400,700,400i,700i"
+          rel="stylesheet"
+        />
+      </Head>
       <DefaultSeo
         description="Find the best resources to simplify your learning journey."
         openGraph={

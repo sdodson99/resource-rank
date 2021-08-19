@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import ErrorAlert from '../Alerts/ErrorAlert/ErrorAlert';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import TextInput from '../TextInput/TextInput';
 import PropTypes from 'prop-types';
@@ -51,7 +51,7 @@ const TopicDetailsForm = ({
         <div>
           <TextInput
             name={nameFieldName}
-            label="Topic Name"
+            label="Name"
             errorMessage={nameFieldErrorMessage}
             autoComplete="off"
             {...register(nameFieldName, nameFieldOptions)}

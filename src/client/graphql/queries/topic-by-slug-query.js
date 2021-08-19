@@ -6,6 +6,7 @@ const topicBySlugQuery = gql`
       id
       name
       slug
+      verified
       createdBy {
         username
       }

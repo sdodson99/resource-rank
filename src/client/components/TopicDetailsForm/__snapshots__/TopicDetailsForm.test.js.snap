@@ -10,7 +10,7 @@ exports[`<TopicDetailsForm /> should render correctly 1`] = `
     <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
-        label="Topic Name"
+        label="Name"
         name="NAME"
       />
     </div>
@@ -48,7 +48,7 @@ exports[`<TopicDetailsForm /> should render correctly when submitting 1`] = `
     <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
-        label="Topic Name"
+        label="Name"
         name="NAME"
       />
     </div>
@@ -103,7 +103,7 @@ exports[`<TopicDetailsForm /> should render correctly with error message 1`] = `
     <div>
       <ForwardRef(WrappedTextInput)
         autoComplete="off"
-        label="Topic Name"
+        label="Name"
         name="NAME"
       />
     </div>

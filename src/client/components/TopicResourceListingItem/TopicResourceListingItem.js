@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
 import RatingStarGroup from '../RatingStars/RatingStarGroup/RatingStarGroup';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
 
 const TopicResourceListingItem = ({
   topicId,
@@ -12,8 +13,8 @@ const TopicResourceListingItem = ({
   topicSlug,
   resourceSlug,
   name,
-  link,
   rating,
+  verified,
 }) => {
   const topicResourceLink = `/topics/${topicSlug}/resources/${resourceSlug}`;
 
@@ -27,7 +28,14 @@ const TopicResourceListingItem = ({
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between items-center sm:text-left text-center">
               <div className="col-sm-auto flex flex-col items-center sm:items-start">
-                <div>{name}</div>
+                <div className="flex items-center justify-center sm:justify-start">
+                  <div>{name}</div>
+                  {verified && (
+                    <div className="ml-2">
+                      <VerifiedIcon />
+                    </div>
+                  )}
+                </div>
                 <div className="mt-1">
                   <RatingStarGroup rating={rating} starSize={25} />
                 </div>
@@ -49,8 +57,8 @@ TopicResourceListingItem.propTypes = {
   topicSlug: PropTypes.string,
   resourceSlug: PropTypes.string,
   name: PropTypes.string,
-  link: PropTypes.string,
   rating: PropTypes.number,
+  verified: PropTypes.bool,
 };
 
 TopicResourceListingItem.defaultProps = {};

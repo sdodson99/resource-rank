@@ -10,12 +10,10 @@ const Feature = ({ description, imageSrc }) => (
 );
 
 Feature.propTypes = {
-  description: PropTypes.node,
-  imageSrc: PropTypes.string,
+  description: PropTypes.node.isRequired,
+  imageSrc: PropTypes.string.isRequired,
 };
 
-Feature.defaultProps = {
-  description: '',
-};
+Feature.defaultProps = {};
 
 export default Feature;

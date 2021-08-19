@@ -12,7 +12,11 @@ module.exports = {
     '^@/validators(.*)$': '<rootDir>/validators/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/templates/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/templates/',
+    '<rootDir>/e2e/',
+  ],
   collectCoverageFrom: ['**/*.{js,jsx}'],
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -20,16 +24,17 @@ module.exports = {
     '<rootDir>/coverage/',
     '<rootDir>/.storybook/',
     '<rootDir>/templates/',
+    '<rootDir>/e2e/',
     '.config.js',
     '.stories.js',
   ],
   coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {
     global: {
-      branches: 25,
-      functions: 25,
-      lines: 25,
-      statements: 25,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
     },
   },
 };

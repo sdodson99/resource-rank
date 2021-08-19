@@ -6,6 +6,7 @@ const topicsQuery = gql`
       id
       name
       slug
+      verified
     }
   }
 `;

@@ -34,8 +34,13 @@ exports[`<TopicResourceDetails /> page should render correctly 1`] = `
       className="sm:flex justify-between items-center"
     >
       <div
-        className="text-4xl"
-      />
+        className="flex items-center"
+      >
+        <div
+          className="text-4xl"
+          data-testid="ResourceTitle"
+        />
+      </div>
       <div
         className="mt-3 sm:mt-0"
       >
@@ -120,8 +125,13 @@ exports[`<TopicResourceDetails /> page should render correctly when logged in 1`
       className="sm:flex justify-between items-center"
     >
       <div
-        className="text-4xl"
-      />
+        className="flex items-center"
+      >
+        <div
+          className="text-4xl"
+          data-testid="ResourceTitle"
+        />
+      </div>
       <div
         className="mt-3 sm:mt-0"
       >
@@ -198,6 +208,104 @@ exports[`<TopicResourceDetails /> page should render correctly when logged in 1`
 </div>
 `;
 
+exports[`<TopicResourceDetails /> page should render correctly when verified 1`] = `
+<div
+  data-testid="TopicResourceDetailsPage"
+>
+  <BreadcrumbLayout
+    breadcrumbs={
+      Array [
+        Object {
+          "title": "Topics",
+          "to": "/topics",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug",
+        },
+        Object {
+          "title": undefined,
+          "to": "/topics/topic-slug/resources/resource-slug",
+        },
+      ]
+    }
+  >
+    <NextSeo
+      openGraph={
+        Object {
+          "description": "Learn about undefined and See how effective undefined is for learning undefined.",
+          "title": "undefined - Resource Rank",
+        }
+      }
+    />
+    <div
+      className="sm:flex justify-between items-center"
+    >
+      <div
+        className="flex items-center"
+      >
+        <div
+          className="text-4xl"
+          data-testid="ResourceTitle"
+        />
+        <div
+          className="ml-2"
+        >
+          <VerifiedIcon
+            size={25}
+          />
+        </div>
+      </div>
+      <div
+        className="mt-3 sm:mt-0"
+      >
+        <RatingStarGroup
+          maxRating={5}
+          rating={NaN}
+          starSize={25}
+        />
+      </div>
+    </div>
+    <div
+      className="mt-3 text-xs text-gray-800"
+    >
+      Created by 
+      Unknown
+    </div>
+    <div
+      className="mt-10"
+    >
+      <div
+        className="text-2xl"
+      >
+        Details
+      </div>
+      <div
+        className="mt-4"
+      >
+        <ResourceDetails />
+      </div>
+    </div>
+    <div
+      className="mt-8"
+    >
+      <div
+        className="text-2xl"
+      >
+        Add Rating
+      </div>
+      <div
+        className="mt-4"
+      >
+        <div>
+          You must login to add a rating.
+        </div>
+      </div>
+    </div>
+  </BreadcrumbLayout>
+</div>
+`;
+
 exports[`<TopicResourceDetails /> page should render correctly with existing rating 1`] = `
 <div
   data-testid="TopicResourceDetailsPage"
@@ -232,8 +340,13 @@ exports[`<TopicResourceDetails /> page should render correctly with existing rat
       className="sm:flex justify-between items-center"
     >
       <div
-        className="text-4xl"
-      />
+        className="flex items-center"
+      >
+        <div
+          className="text-4xl"
+          data-testid="ResourceTitle"
+        />
+      </div>
       <div
         className="mt-3 sm:mt-0"
       >

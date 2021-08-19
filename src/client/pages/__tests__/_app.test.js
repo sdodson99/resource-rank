@@ -3,8 +3,6 @@ import App from '../_app.page';
 import { createRenderer } from 'react-test-renderer/shallow';
 import { useRouter } from 'next/router';
 
-jest.mock('@fontsource/magra');
-jest.mock('@fontsource/magra/700.css');
 jest.mock('next/router');
 
 describe('<App />', () => {

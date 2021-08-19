@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VerifiedIcon /> should render correctly 1`] = `
+<div
+  className="VerifiedIcon"
+  data-testid="VerifiedIcon"
+>
+  <WithStyles(ForwardRef(Tooltip))
+    aria-label="verified"
+    arrow={true}
+    placement="right"
+    title="Verified"
+  >
+    <Memo
+      htmlColor="#6f99f2"
+      style={
+        Object {
+          "fontSize": 20,
+        }
+      }
+    />
+  </WithStyles(ForwardRef(Tooltip))>
+</div>
+`;
+
+exports[`<VerifiedIcon /> should render correctly with custom size 1`] = `
+<div
+  className="VerifiedIcon"
+  data-testid="VerifiedIcon"
+>
+  <WithStyles(ForwardRef(Tooltip))
+    aria-label="verified"
+    arrow={true}
+    placement="right"
+    title="Verified"
+  >
+    <Memo
+      htmlColor="#6f99f2"
+      style={
+        Object {
+          "fontSize": 100,
+        }
+      }
+    />
+  </WithStyles(ForwardRef(Tooltip))>
+</div>
+`;

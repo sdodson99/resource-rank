@@ -27,7 +27,11 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
             <div
               className="col-sm-auto flex flex-col items-center sm:items-start"
             >
-              <div />
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div />
+              </div>
               <div
                 className="mt-1"
               >
@@ -234,7 +238,11 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
             <div
               className="col-sm-auto flex flex-col items-center sm:items-start"
             >
-              <div />
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div />
+              </div>
               <div
                 className="mt-1"
               >
@@ -441,7 +449,11 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
             <div
               className="col-sm-auto flex flex-col items-center sm:items-start"
             >
-              <div />
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div />
+              </div>
               <div
                 className="mt-1"
               >

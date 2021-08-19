@@ -24,8 +24,12 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           <div
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
-            <div>
-              Topic1
+            <div
+              className="flex items-center justify-center sm:justify-start"
+            >
+              <div>
+                Topic1
+              </div>
             </div>
             <div
               className="mt-5 sm:mt-0"
@@ -65,8 +69,12 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           <div
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
-            <div>
-              Topic2
+            <div
+              className="flex items-center justify-center sm:justify-start"
+            >
+              <div>
+                Topic2
+              </div>
             </div>
             <div
               className="mt-5 sm:mt-0"
@@ -106,8 +114,12 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
           <div
             className="sm:flex sm:justify-between sm:text-left text-center"
           >
-            <div>
-              Topic3
+            <div
+              className="flex items-center justify-center sm:justify-start"
+            >
+              <div>
+                Topic3
+              </div>
             </div>
             <div
               className="mt-5 sm:mt-0"

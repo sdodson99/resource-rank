@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import ErrorAlert from '../ErrorAlert/ErrorAlert';
+import ErrorAlert from '../Alerts/ErrorAlert/ErrorAlert';
 import TextInput from '../TextInput/TextInput';
 import PropTypes from 'prop-types';
 import styles from './ResourceDetailsForm.module.css';

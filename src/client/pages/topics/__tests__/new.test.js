@@ -109,7 +109,7 @@ describe('<NewTopic />', () => {
       renderAndSubmit();
 
       await waitFor(() => {
-        expect(mockPush).toBeCalledWith('/topics/name-slug');
+        expect(mockPush).toBeCalledWith('/topics/name-slug?new=true');
       });
     });
 

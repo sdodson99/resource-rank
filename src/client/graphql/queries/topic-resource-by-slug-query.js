@@ -11,6 +11,7 @@ const topicResourceBySlugQuery = gql`
         id
         name
         link
+        verified
         createdBy {
           username
         }

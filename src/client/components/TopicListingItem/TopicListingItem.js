@@ -4,8 +4,9 @@ import styles from './TopicListingItem.module.css';
 import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
 
-const TopicListingItem = ({ name, slug }) => {
+const TopicListingItem = ({ name, slug, verified }) => {
   const detailsLink = `/topics/${slug}`;
 
   return (
@@ -14,7 +15,14 @@ const TopicListingItem = ({ name, slug }) => {
         <a>
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between sm:text-left text-center">
-              <div>{name}</div>
+              <div className="flex items-center justify-center sm:justify-start">
+                <div>{name}</div>
+                {verified && (
+                  <div className="ml-2">
+                    <VerifiedIcon />
+                  </div>
+                )}
+              </div>
               <div className="mt-5 sm:mt-0">
                 <ArrowForwardIcon />
               </div>
@@ -29,6 +37,7 @@ const TopicListingItem = ({ name, slug }) => {
 TopicListingItem.propTypes = {
   name: PropTypes.string,
   slug: PropTypes.string,
+  verified: PropTypes.bool,
 };
 
 TopicListingItem.defaultProps = {

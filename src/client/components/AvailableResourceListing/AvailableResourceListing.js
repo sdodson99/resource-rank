@@ -28,7 +28,14 @@ const AvailableResourceListing = ({ resources, onAddResource }) => {
 };
 
 AvailableResourceListing.propTypes = {
-  resources: PropTypes.array,
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      verified: PropTypes.bool,
+      alreadyAdded: PropTypes.bool,
+      hasAddError: PropTypes.bool,
+    })
+  ),
   onAddResource: PropTypes.func,
 };
 

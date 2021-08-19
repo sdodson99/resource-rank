@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import styles from './AvailableResourceListingItem.module.css';
 import ListingItem from '../ListingItem/ListingItem';
 import { Add } from '@material-ui/icons';
+import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
 
 const AvailableResourceListingItem = ({ resource, onAdd }) => {
-  const { name, alreadyAdded, hasAddError } = resource;
+  const { name, verified, alreadyAdded, hasAddError } = resource;
 
-  const onAddClick = () => onAdd(resource);
+  const onAddClick = () => onAdd && onAdd(resource);
 
   const calculateNameDisplayClassName = () => {
     if (alreadyAdded) {
@@ -25,7 +26,14 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
       <ListingItem>
         <div className="text-center sm:text-left sm:flex sm:justify-between sm:items-center">
           <div>
-            <div className={calculateNameDisplayClassName()}>{name}</div>
+            <div className="flex items-center justify-center sm:justify-start">
+              <div className={calculateNameDisplayClassName()}>{name}</div>
+              {verified && (
+                <div className="ml-2">
+                  <VerifiedIcon />
+                </div>
+              )}
+            </div>
             {alreadyAdded && (
               <div className="error-text italic text-xs">Already added</div>
             )}
@@ -53,12 +61,19 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
 };
 
 AvailableResourceListingItem.propTypes = {
-  resource: PropTypes.object,
+  resource: PropTypes.shape({
+    name: PropTypes.string,
+    verified: PropTypes.bool,
+    alreadyAdded: PropTypes.bool,
+    hasAddError: PropTypes.bool,
+  }),
   onAdd: PropTypes.func,
 };
 
 AvailableResourceListingItem.defaultProps = {
-  resource: {},
+  resource: {
+    name: '',
+  },
 };
 
 export default AvailableResourceListingItem;

@@ -2,7 +2,7 @@
 
 A platform to rank resources for various educational topics.
 
-Website: https://resource-rank.web.app/
+Website: https://resource-rank.vercel.app/
 
 # Table of Contents
 
@@ -20,7 +20,7 @@ Website: https://resource-rank.web.app/
 
 Need to learn something as efficiently as possible? Looking for a new skill to learn? Rather than sifting through the web for the best courses and information, check out Resource Rank to instantly find the best courses and find new topics to learn about!
 
-Website: https://resource-rank.web.app/
+Website: https://resource-rank.vercel.app/
 
 # Features
 
@@ -45,8 +45,9 @@ Website: https://resource-rank.web.app/
 - React
 - NextJS
 - Tailwind
-- Firebase (Hosting, Authentication)
+- Firebase (Authentication)
 - Unit Testing w/ Jest
+- Vercel (Hosting)
 
 # How to Run Locally
 

@@ -44,7 +44,6 @@ ActiveLink.propTypes = {
 };
 
 ActiveLink.defaultProps = {
-  href: '#',
   className: '',
   activeClassName: 'active',
   linkClassName: '',

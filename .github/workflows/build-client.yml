@@ -41,6 +41,12 @@ jobs:
         run: 'npm run test:ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
-      - name: 'Build'
-        run: 'npm run build'
+      - name: 'Install E2E Browsers'
+        run: 'npx playwright install'
+
+      - name: 'E2E'
+        run: 'npm run e2e:ci'
         working-directory: ${{ env.CLIENT_PATH }}
+
+      - name: 'Build'
+        run: 'echo "Skipping build. E2E already handles build."'
