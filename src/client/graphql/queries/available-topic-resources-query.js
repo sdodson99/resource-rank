@@ -13,10 +13,12 @@ const availableTopicResourcesQuery = gql`
       offset: $offset
       limit: $limit
     ) {
-      id
-      name
-      slug
-      verified
+      resource {
+        id
+        name
+        slug
+        verified
+      }
       alreadyAdded
     }
   }

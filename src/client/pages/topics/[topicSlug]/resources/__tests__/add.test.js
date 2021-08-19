@@ -82,11 +82,21 @@ describe('<AddTopicResource />', () => {
       const expected = [
         {
           slug: 'slug',
+          alreadyAdded: true,
         },
       ];
       useAvailableTopicResourceSearch.mockReturnValue({
         data: {
-          availableResources: [{}, ...expected, {}],
+          availableResources: [
+            {},
+            {
+              resource: {
+                slug: 'slug',
+              },
+              alreadyAdded: true,
+            },
+            {},
+          ],
         },
       });
 
