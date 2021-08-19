@@ -176,9 +176,9 @@ exports[`<TopicResourceDetails /> page should render correctly when logged in 1`
         <LoadingErrorEmptyDataLayout
           dataDisplay={
             <Unknown
+              error={null}
               isSubmittingRating={false}
               onSubmit={[Function]}
-              submitRatingError={null}
             />
           }
           errorDisplay={

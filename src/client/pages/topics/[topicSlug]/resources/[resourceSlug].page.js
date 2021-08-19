@@ -159,7 +159,7 @@ const TopicResourceDetails = ({
                   <RatingForm
                     onSubmit={submitRating}
                     isSubmittingRating={isSubmittingRating}
-                    submitRatingError={submitRatingError}
+                    error={submitRatingError}
                     existingRating={existingRating?.value}
                   />
                 }
