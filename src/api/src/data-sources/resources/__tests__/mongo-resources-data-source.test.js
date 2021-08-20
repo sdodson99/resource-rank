@@ -3,6 +3,7 @@ const { AuthenticationError } = require('apollo-server');
 const { Resource } = require('../../../mongoose/models/resource');
 const slugify = require('../../../services/slugify');
 const validateResource = require('../../../validators/resource');
+const { when } = require('jest-when');
 
 jest.mock('../../../mongoose/models/resource');
 jest.mock('../../../services/slugify');
@@ -18,6 +19,7 @@ describe('MongoResourcesDataSource', () => {
   afterEach(() => {
     Resource.mockReset();
     Resource.find.mockReset();
+    Resource.paginate.mockReset();
     Resource.findOne.mockReset();
     Resource.exists.mockReset();
     Resource.create.mockReset();
@@ -101,57 +103,77 @@ describe('MongoResourcesDataSource', () => {
   });
 
   describe('search', () => {
-    const query = 'resource-name';
+    let query;
+    let offset;
+    let limit;
 
-    it('should return resources if successful', async () => {
-      const expected = [{ _id: '123123' }];
-      Resource.find.mockReturnValue(expected);
-
-      const actual = await mongoResourcesDataSource.search(query);
-
-      expect(actual).toBe(expected);
+    beforeEach(() => {
+      query = 'some-resource';
+      offset = 10;
+      limit = 5;
     });
 
-    it('should call find with query', async () => {
-      await mongoResourcesDataSource.search(query);
+    it('should return paginated resources if query succeeds', async () => {
+      const expected = {
+        items: [{ id: '123' }, { id: '456' }],
+        totalCount: 1,
+      };
+      when(Resource.paginate)
+        .calledWith(
+          {
+            name: { $regex: query, $options: 'i' },
+          },
+          {
+            offset,
+            limit,
+          }
+        )
+        .mockReturnValue({
+          docs: [{ id: '123' }, { id: '456' }],
+          total: 1,
+        });
 
-      expect(Resource.find.mock.calls[0][0]).toEqual({
-        name: { $regex: query, $options: 'i' },
+      const actual = await mongoResourcesDataSource.search(query, {
+        offset,
+        limit,
       });
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should return default paginated resources when no options provided', async () => {
+      const expected = {
+        items: [{ id: '123' }, { id: '456' }],
+        totalCount: 1,
+      };
+      when(Resource.paginate)
+        .calledWith(
+          {
+            name: { $regex: '', $options: 'i' },
+          },
+          {
+            offset: 0,
+            limit: 20,
+          }
+        )
+        .mockReturnValue({
+          docs: [{ id: '123' }, { id: '456' }],
+          total: 1,
+        });
+
+      const actual = await mongoResourcesDataSource.search();
+
+      expect(actual).toEqual(expected);
     });
 
     it('should throw if query fails', async () => {
-      Resource.find.mockImplementation(() => {
+      Resource.paginate.mockImplementation(() => {
         throw new Error();
       });
 
       await expect(async () => {
         await mongoResourcesDataSource.search(query);
       }).rejects.toThrow();
-    });
-
-    it('should skip resources if skip requested', async () => {
-      const expectedSkip = 10;
-      const mockSkip = jest.fn();
-      Resource.find.mockReturnValue({
-        skip: mockSkip,
-      });
-
-      await mongoResourcesDataSource.search(query, expectedSkip);
-
-      expect(mockSkip.mock.calls[0][0]).toBe(expectedSkip);
-    });
-
-    it('should limit resources if limit requested', async () => {
-      const expectedLimit = 10;
-      const mockLimit = jest.fn();
-      Resource.find.mockReturnValue({
-        limit: mockLimit,
-      });
-
-      await mongoResourcesDataSource.search(query, 0, expectedLimit);
-
-      expect(mockLimit.mock.calls[0][0]).toBe(expectedLimit);
     });
   });
 
