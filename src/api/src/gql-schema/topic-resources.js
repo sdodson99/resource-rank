@@ -2,7 +2,12 @@ const { gql, ApolloError } = require('apollo-server');
 
 exports.typeDefs = gql`
   type Query {
-    topicResourceList(topicId: ID!, resourceSearch: String): TopicResourceList
+    topicResources(
+      topicId: ID!
+      resourceSearch: String
+      offset: Int
+      limit: Int
+    ): TopicResourceListing
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
     topicResourceBySlug(
       topicSlug: String!
@@ -10,9 +15,9 @@ exports.typeDefs = gql`
     ): TopicResource
     availableResources(
       topicId: ID!
+      search: String
       offset: Int
       limit: Int
-      search: String
     ): [AvailableResource]
   }
 
@@ -27,8 +32,9 @@ exports.typeDefs = gql`
     createdBy: User
   }
 
-  type TopicResourceList {
-    topicResources: [TopicResource]
+  type TopicResourceListing {
+    items: [TopicResource]
+    totalCount: Int!
   }
 
   type AvailableResource {
@@ -39,9 +45,9 @@ exports.typeDefs = gql`
 
 exports.resolvers = {
   Query: {
-    topicResourceList: async (
+    topicResources: async (
       _,
-      { topicId, resourceSearch = '' },
+      { topicId, resourceSearch, offset, limit },
       { dataSources }
     ) => {
       const topic = await dataSources.topics.getById(topicId);
@@ -55,6 +61,8 @@ exports.resolvers = {
         resourceIds,
         topicId,
         resourceSearch,
+        offset,
+        limit,
       };
     },
     topicResource: (_, { topicId, resourceId }) => ({
@@ -135,14 +143,15 @@ exports.resolvers = {
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
   },
-  TopicResourceList: {
-    topicResources: async (
-      { resourceIds, topicId, resourceSearch },
+  TopicResourceListing: {
+    items: async (
+      { resourceIds, topicId, resourceSearch, offset = 0, limit = 20 },
       _,
       { dataSources }
     ) => {
+      const paginatedResourceIds = resourceIds.slice(offset, offset + limit);
       const filteredResources = await dataSources.resources.getByIds(
-        resourceIds,
+        paginatedResourceIds,
         resourceSearch
       );
 
@@ -153,5 +162,6 @@ exports.resolvers = {
         createdBy: r.createdBy,
       }));
     },
+    totalCount: ({ resourceIds }) => resourceIds.length,
   },
 };

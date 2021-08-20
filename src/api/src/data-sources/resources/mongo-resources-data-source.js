@@ -107,7 +107,7 @@ class MongoResourcesDataSource extends DataSource {
    * @return {Array} The resources matching the search.
    * @throws {Error} Thrown if query fails.
    */
-  getByIds(ids, search) {
+  getByIds(ids, search = '') {
     return this.resourceModel.find({
       _id: { $in: ids },
       name: { $regex: search, $options: 'i' },

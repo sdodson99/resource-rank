@@ -183,20 +183,30 @@ describe('MongoResourcesDataSource', () => {
 
     it('should return resources if successful', async () => {
       const expected = [{ _id: '123' }];
-      Resource.find.mockReturnValue(expected);
+      when(Resource.find)
+        .calledWith({
+          _id: { $in: ids },
+          name: { $regex: search, $options: 'i' },
+        })
+        .mockReturnValue(expected);
 
       const actual = await mongoResourcesDataSource.getByIds(ids, search);
 
       expect(actual).toBe(expected);
     });
 
-    it('should call find with query', async () => {
-      await mongoResourcesDataSource.getByIds(ids, search);
+    it('should return resources for default search when no search provided', async () => {
+      const expected = [{ _id: '123' }];
+      when(Resource.find)
+        .calledWith({
+          _id: { $in: ids },
+          name: { $regex: '', $options: 'i' },
+        })
+        .mockReturnValue(expected);
 
-      expect(Resource.find.mock.calls[0][0]).toEqual({
-        _id: { $in: ids },
-        name: { $regex: search, $options: 'i' },
-      });
+      const actual = await mongoResourcesDataSource.getByIds(ids);
+
+      expect(actual).toBe(expected);
     });
 
     it('should throw if query fails', async () => {
