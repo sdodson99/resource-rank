@@ -18,7 +18,7 @@ exports.typeDefs = gql`
       search: String
       offset: Int
       limit: Int
-    ): [AvailableResource]
+    ): AvailableResourceListing
   }
 
   type Mutation {
@@ -40,6 +40,11 @@ exports.typeDefs = gql`
   type AvailableResource {
     resource: Resource!
     alreadyAdded: Boolean
+  }
+
+  type AvailableResourceListing {
+    items: [AvailableResource]
+    totalCount: Int
   }
 `;
 
@@ -93,23 +98,22 @@ exports.resolvers = {
     },
     availableResources: async (
       _,
-      { topicId, search = '', offset = 0, limit = 20 },
+      { topicId, search, offset, limit },
       { dataSources }
     ) => {
-      const resourceDTOs = await dataSources.resources.search(
-        search,
+      const { items, totalCount } = await dataSources.resources.search(search, {
         offset,
-        limit
-      );
+        limit,
+      });
 
-      const availableResources = resourceDTOs.map((r) => ({
-        resource: r,
+      const availableResourceItems = items.map((resource) => ({
+        resource,
         alreadyAdded: false,
       }));
 
-      const resourceMap = {};
-      availableResources.forEach((r) => {
-        resourceMap[r.resource.id] = r;
+      const availableResourceMap = {};
+      availableResourceItems.forEach((a) => {
+        availableResourceMap[a.resource.id] = a;
       });
 
       const topic = await dataSources.topics.getById(topicId);
@@ -121,12 +125,15 @@ exports.resolvers = {
       topic.resources.forEach((resource) => {
         const { resource: resourceId } = resource;
 
-        if (resourceMap[resourceId]) {
-          resourceMap[resourceId].alreadyAdded = true;
+        if (availableResourceMap[resourceId]) {
+          availableResourceMap[resourceId].alreadyAdded = true;
         }
       });
 
-      return availableResources;
+      return {
+        items: availableResourceItems,
+        totalCount,
+      };
     },
   },
   Mutation: {

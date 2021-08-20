@@ -183,54 +183,63 @@ describe('topic resources resolvers', () => {
       limit = 5;
 
       when(resourcesDataSource.search)
-        .calledWith(resourceSearch, offset, limit)
-        .mockReturnValue([
-          {
-            id: 'resource123',
-            name: 'resource1',
-            link: 'resource1.com',
-            createdBy: userId,
-            verified: true,
-          },
-          {
-            id: 'resource456',
-            name: 'resource2',
-            link: 'resource2.com',
-            createdBy: userId,
-            verified: false,
-          },
-        ]);
+        .calledWith(resourceSearch, { offset, limit })
+        .mockReturnValue({
+          items: [
+            {
+              id: 'resource123',
+              name: 'resource1',
+              link: 'resource1.com',
+              createdBy: userId,
+              verified: true,
+            },
+            {
+              id: 'resource456',
+              name: 'resource2',
+              link: 'resource2.com',
+              createdBy: userId,
+              verified: false,
+            },
+          ],
+          totalCount: 2,
+        });
     });
 
     it('should return available resources for topic', async () => {
-      const expected = [
-        {
-          resource: {
-            id: 'resource123',
-            name: 'resource1',
-            link: 'resource1.com',
-            createdBy: userId,
-            verified: true,
+      const expected = {
+        items: [
+          {
+            resource: {
+              id: 'resource123',
+              name: 'resource1',
+              link: 'resource1.com',
+              createdBy: userId,
+              verified: true,
+            },
+            alreadyAdded: true,
           },
-          alreadyAdded: true,
-        },
-        {
-          resource: {
-            id: 'resource456',
-            name: 'resource2',
-            link: 'resource2.com',
-            createdBy: userId,
-            verified: false,
+          {
+            resource: {
+              id: 'resource456',
+              name: 'resource2',
+              link: 'resource2.com',
+              createdBy: userId,
+              verified: false,
+            },
+            alreadyAdded: false,
           },
-          alreadyAdded: false,
-        },
-      ];
+        ],
+        totalCount: 2,
+      };
       when(topicsDataSource.getById)
         .calledWith(topicId)
         .mockReturnValue({
           resources: [
             {
               resource: 'resource123',
+            },
+            {
+              resource: 'other456',
             },
           ],
         });
