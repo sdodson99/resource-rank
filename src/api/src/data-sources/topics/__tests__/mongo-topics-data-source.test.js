@@ -3,6 +3,7 @@ const { AuthenticationError } = require('apollo-server');
 const { Topic } = require('../../../mongoose/models/topic');
 const slugify = require('../../../services/slugify');
 const validateTopic = require('../../../validators/topic');
+const { when } = require('jest-when');
 
 jest.mock('../../../mongoose/models/topic');
 jest.mock('../../../services/slugify');
@@ -22,6 +23,7 @@ describe('MongoTopicsDataSource', () => {
     Topic.exists.mockReset();
     Topic.create.mockReset();
     Topic.updateOne.mockReset();
+    Topic.paginate.mockReset();
 
     slugify.mockReset();
     validateTopic.mockReset();
@@ -111,30 +113,70 @@ describe('MongoTopicsDataSource', () => {
 
   describe('search', () => {
     let query;
+    let offset;
+    let limit;
 
     beforeEach(() => {
       query = 'some-query';
+      offset = 10;
+      limit = 5;
     });
 
-    it('should return topics if query succeeds', async () => {
-      const expected = [{ name: 'topic' }];
-      Topic.find.mockReturnValue(expected);
+    it('should return paginated topics if query succeeds', async () => {
+      const expected = {
+        items: [{ id: '123' }, { id: '456' }],
+        totalCount: 1,
+      };
+      when(Topic.paginate)
+        .calledWith(
+          {
+            name: { $regex: query, $options: 'i' },
+          },
+          {
+            offset,
+            limit,
+          }
+        )
+        .mockReturnValue({
+          docs: [{ id: '123' }, { id: '456' }],
+          total: 1,
+        });
 
-      const actual = await mongoTopicsDataSource.search(query);
-
-      expect(actual).toBe(expected);
-    });
-
-    it('should call topic model with query', async () => {
-      await mongoTopicsDataSource.search(query);
-
-      expect(Topic.find.mock.calls[0][0]).toEqual({
-        name: { $regex: query, $options: 'i' },
+      const actual = await mongoTopicsDataSource.search(query, {
+        offset,
+        limit,
       });
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should return default paginated topics when no options provided', async () => {
+      const expected = {
+        items: [{ id: '123' }, { id: '456' }],
+        totalCount: 1,
+      };
+      when(Topic.paginate)
+        .calledWith(
+          {
+            name: { $regex: '', $options: 'i' },
+          },
+          {
+            offset: 0,
+            limit: 20,
+          }
+        )
+        .mockReturnValue({
+          docs: [{ id: '123' }, { id: '456' }],
+          total: 1,
+        });
+
+      const actual = await mongoTopicsDataSource.search();
+
+      expect(actual).toEqual(expected);
     });
 
     it('should throw if query fails', async () => {
-      Topic.find.mockImplementation(() => {
+      Topic.paginate.mockImplementation(() => {
         throw new Error();
       });
 
