@@ -299,26 +299,7 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
           dataDisplay={
             <TopicResourceListing
               topicId="123"
-              topicResources={
-                Array [
-                  Object {
-                    "ratingList": Object {
-                      "average": 5,
-                    },
-                    "resource": Object {
-                      "slug": "slug-1",
-                    },
-                  },
-                  Object {
-                    "ratingList": Object {
-                      "average": 1,
-                    },
-                    "resource": Object {
-                      "slug": "slug-2",
-                    },
-                  },
-                ]
-              }
+              topicResources={Array []}
               topicSlug="slug"
             />
           }
@@ -329,7 +310,7 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
               Failed to load topic resources.
             </div>
           }
-          hasData={true}
+          hasData={false}
           hasError={false}
           isLoading={false}
           loadingDisplay={

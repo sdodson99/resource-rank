@@ -30,7 +30,7 @@ export default function Topics() {
     processSearch(searchInput);
   };
 
-  const topics = topicsData?.topics.filter((t) => t.slug) ?? [];
+  const topics = topicsData?.topics?.items?.filter((t) => t.slug) ?? [];
   const hasTopics = topics?.length > 0;
 
   const breadcrumbs = [

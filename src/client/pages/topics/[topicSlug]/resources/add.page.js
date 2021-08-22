@@ -25,8 +25,8 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   } = useAvailableTopicResourceSearch(topicId);
 
   useEffect(() => {
-    const availableResources = resourcesData?.availableResources
-      .map((r) => ({
+    const availableResources = resourcesData?.availableResources?.items
+      ?.map((r) => ({
         ...r.resource,
         alreadyAdded: r.alreadyAdded,
       }))

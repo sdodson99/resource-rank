@@ -45,7 +45,7 @@ const TopicDetails = ({
   };
 
   const topicResources =
-    topicResourcesData?.topicResourceList?.topicResources?.filter(
+    topicResourcesData?.topicResources?.items?.filter(
       (r) => r.resource?.slug
     ) ?? [];
   const hasTopicResources = topicResources.length > 0;

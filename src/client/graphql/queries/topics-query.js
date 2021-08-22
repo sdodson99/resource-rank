@@ -3,10 +3,13 @@ import { gql } from 'graphql-request';
 const topicsQuery = gql`
   query Topics($search: String) {
     topics(search: $search) {
-      id
-      name
-      slug
-      verified
+      items {
+        id
+        name
+        slug
+        verified
+      }
+      totalCount
     }
   }
 `;

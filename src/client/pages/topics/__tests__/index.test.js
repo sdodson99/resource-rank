@@ -28,17 +28,19 @@ describe('<Topics />', () => {
     mockProcessSearch = jest.fn();
     useTopicSearch.mockReturnValue({
       data: {
-        topics: [
-          {
-            id: '1',
-            name: 'name',
-            slug: 'slug',
-          },
-          {
-            id: '2',
-            name: 'name',
-          },
-        ],
+        topics: {
+          items: [
+            {
+              id: '1',
+              name: 'name',
+              slug: 'slug',
+            },
+            {
+              id: '2',
+              name: 'name',
+            },
+          ],
+        },
       },
       error: null,
       isLoading: false,

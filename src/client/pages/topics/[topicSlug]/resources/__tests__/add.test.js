@@ -87,16 +87,18 @@ describe('<AddTopicResource />', () => {
       ];
       useAvailableTopicResourceSearch.mockReturnValue({
         data: {
-          availableResources: [
-            {},
-            {
-              resource: {
-                slug: 'slug',
+          availableResources: {
+            items: [
+              {},
+              {
+                resource: {
+                  slug: 'slug',
+                },
+                alreadyAdded: true,
               },
-              alreadyAdded: true,
-            },
-            {},
-          ],
+              {},
+            ],
+          },
         },
       });
 

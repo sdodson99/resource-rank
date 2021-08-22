@@ -1,4 +1,4 @@
-import topicResourceListingQuery from '@/graphql/queries/topic-resource-listing-query';
+import topicResourcesQuery from '@/graphql/queries/topic-resources-query';
 import useLazyGraphQLRequest from '@/hooks/graphql/use-lazy-graphql-request';
 import useTopicResourceSearchQuery from '../use-topic-resource-search-query';
 
@@ -24,7 +24,7 @@ describe('useTopicResourceSearchQuery', () => {
     const { data: actual } = useTopicResourceSearchQuery(topicId);
 
     expect(actual).toBe(expected);
-    expect(useLazyGraphQLRequest).toBeCalledWith(topicResourceListingQuery);
+    expect(useLazyGraphQLRequest).toBeCalledWith(topicResourcesQuery);
   });
 
   it('should execute topic resource search on execute', async () => {

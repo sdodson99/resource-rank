@@ -13,13 +13,16 @@ const availableTopicResourcesQuery = gql`
       offset: $offset
       limit: $limit
     ) {
-      resource {
-        id
-        name
-        slug
-        verified
+      items {
+        resource {
+          id
+          name
+          slug
+          verified
+        }
+        alreadyAdded
       }
-      alreadyAdded
+      totalCount
     }
   }
 `;
