@@ -103,7 +103,7 @@ describe('<TopicDetails />', () => {
     it('should render correctly with data', () => {
       useTopicResourceSearch.mockReturnValue({
         data: {
-          topicsResources: {
+          topicResources: {
             items: [
               {
                 resource: {
