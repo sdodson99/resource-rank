@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageRange /> should render correctly 1`] = `
+Array [
+  <Page
+    number={1}
+  />,
+  <Page
+    number={2}
+  />,
+]
+`;
+
+exports[`<PageRange /> should render correctly with many pages 1`] = `
+Array [
+  <Page
+    number={1}
+  />,
+  <Page
+    number={2}
+  />,
+  <Page
+    number={3}
+  />,
+  <Page
+    number={4}
+  />,
+  <Page
+    number={5}
+  />,
+  <Page
+    number={6}
+  />,
+  <Page
+    number={7}
+  />,
+  <Page
+    number={8}
+  />,
+  <Page
+    number={9}
+  />,
+  <Page
+    number={10}
+  />,
+  <Page
+    number={11}
+  />,
+  <Page
+    number={12}
+  />,
+  <Page
+    number={13}
+  />,
+  <Page
+    number={14}
+  />,
+  <Page
+    number={15}
+  />,
+  <Page
+    number={16}
+  />,
+  <Page
+    number={17}
+  />,
+  <Page
+    number={18}
+  />,
+  <Page
+    number={19}
+  />,
+  <Page
+    number={20}
+  />,
+]
+`;
