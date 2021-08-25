@@ -87,6 +87,7 @@ class MongoTopicsDataSource extends DataSource {
     const { docs, total } = await this.topicModel.paginate(
       {
         name: { $regex: query, $options: 'i' },
+        slug: { $ne: null },
       },
       {
         offset,

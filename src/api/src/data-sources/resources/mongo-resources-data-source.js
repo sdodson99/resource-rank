@@ -87,6 +87,7 @@ class MongoResourcesDataSource extends DataSource {
     const { docs, total } = await this.resourceModel.paginate(
       {
         name: { $regex: query, $options: 'i' },
+        slug: { $ne: null },
       },
       {
         offset,

@@ -122,6 +122,7 @@ describe('MongoResourcesDataSource', () => {
         .calledWith(
           {
             name: { $regex: query, $options: 'i' },
+            slug: { $ne: null },
           },
           {
             offset,
@@ -150,6 +151,7 @@ describe('MongoResourcesDataSource', () => {
         .calledWith(
           {
             name: { $regex: '', $options: 'i' },
+            slug: { $ne: null },
           },
           {
             offset: 0,
