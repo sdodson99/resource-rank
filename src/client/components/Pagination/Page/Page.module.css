@@ -3,5 +3,5 @@
 }
 
 .SelectedPage {
-  @apply px-3;
+  @apply px-3 cursor-default;
 }

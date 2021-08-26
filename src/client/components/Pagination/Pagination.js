@@ -9,7 +9,7 @@ import PageRange from './PageRange/PageRange';
 const Pagination = ({
   selectedPage,
   pageCount,
-  onPageClicked,
+  onPageClick,
   selectedPageRange,
   selectedPageGapMinRange,
 }) => {
@@ -32,42 +32,42 @@ const Pagination = ({
   return (
     <div className={styles.Pagination} data-testid="Pagination">
       {showPreSelectedPageGap && (
-        <div className="flex">
-          <Page number={firstPage} onClick={onPageClicked} />
+        <>
+          <Page number={firstPage} onClick={onPageClick} />
           <PageGap />
           <PageRange
             first={preSelectedFirstPage}
             last={coercedSelectedPage - 1}
-            onClick={onPageClicked}
+            onClick={onPageClick}
           />
-        </div>
+        </>
       )}
       {!showPreSelectedPageGap && (
         <PageRange
           first={firstPage}
           last={coercedSelectedPage - 1}
-          onClick={onPageClicked}
+          onClick={onPageClick}
         />
       )}
 
       <Page number={coercedSelectedPage} isSelected={true} />
 
       {showPostSelectedPageGap && (
-        <div className="flex">
+        <>
           <PageRange
             first={coercedSelectedPage + 1}
             last={postSelectedLastPage}
-            onClick={onPageClicked}
+            onClick={onPageClick}
           />
           <PageGap />
-          <Page number={lastPage} onClick={onPageClicked} />
-        </div>
+          <Page number={lastPage} onClick={onPageClick} />
+        </>
       )}
       {!showPostSelectedPageGap && (
         <PageRange
           first={coercedSelectedPage + 1}
           last={lastPage}
-          onClick={onPageClicked}
+          onClick={onPageClick}
         />
       )}
     </div>
@@ -77,7 +77,7 @@ const Pagination = ({
 Pagination.propTypes = {
   selectedPage: PropTypes.number,
   pageCount: PropTypes.number,
-  onPageClicked: PropTypes.func,
+  onPageClick: PropTypes.func,
   selectedPageRange: PropTypes.number,
   selectedPageGapMinRange: PropTypes.number,
 };

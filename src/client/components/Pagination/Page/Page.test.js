@@ -17,10 +17,17 @@ describe('<Page />', () => {
     const mockOnClick = jest.fn();
     render(<Page number={5} onClick={mockOnClick} />);
     const page = screen.getByTestId('Page');
-    
+
     page.click();
 
     expect(mockOnClick).toBeCalledWith(5);
+  });
+
+  it('should not cause error when clicked with no handler', () => {
+    render(<Page number={5} />);
+    const page = screen.getByTestId('Page');
+
+    expect(() => page.click()).not.toThrow();
   });
 
   it('should render correctly', () => {

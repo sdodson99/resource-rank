@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Page.module.css';
 
 const Page = ({ number, onClick, isSelected }) => {
-  const onPageClick = () => onClick(number);
+  const onPageClick = () => onClick && onClick(number);
 
   const calculateClassName = () => {
     if (isSelected) {
