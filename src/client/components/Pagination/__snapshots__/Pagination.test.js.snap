@@ -5,9 +5,7 @@ exports[`<Pagination /> should render correctly when gaps needed and selected pa
   className="Pagination"
   data-testid="Pagination"
 >
-  <div
-    className="flex"
-  >
+  <React.Fragment>
     <Page
       number={1}
     />
@@ -16,14 +14,12 @@ exports[`<Pagination /> should render correctly when gaps needed and selected pa
       first={9}
       last={9}
     />
-  </div>
+  </React.Fragment>
   <Page
     isSelected={true}
     number={10}
   />
-  <div
-    className="flex"
-  >
+  <React.Fragment>
     <PageRange
       first={11}
       last={11}
@@ -32,7 +28,7 @@ exports[`<Pagination /> should render correctly when gaps needed and selected pa
     <Page
       number={20}
     />
-  </div>
+  </React.Fragment>
 </div>
 `;
 
@@ -89,9 +85,7 @@ exports[`<Pagination /> should render correctly when post-selected page gap need
     isSelected={true}
     number={3}
   />
-  <div
-    className="flex"
-  >
+  <React.Fragment>
     <PageRange
       first={4}
       last={5}
@@ -100,7 +94,7 @@ exports[`<Pagination /> should render correctly when post-selected page gap need
     <Page
       number={20}
     />
-  </div>
+  </React.Fragment>
 </div>
 `;
 
@@ -109,9 +103,7 @@ exports[`<Pagination /> should render correctly when pre-selected page gap neede
   className="Pagination"
   data-testid="Pagination"
 >
-  <div
-    className="flex"
-  >
+  <React.Fragment>
     <Page
       number={1}
     />
@@ -120,7 +112,7 @@ exports[`<Pagination /> should render correctly when pre-selected page gap neede
       first={16}
       last={17}
     />
-  </div>
+  </React.Fragment>
   <Page
     isSelected={true}
     number={18}

@@ -1,20 +1,20 @@
 import useTopicSearchQuery from '../../queries/use-topic-search-query';
-import useSearch from '../../use-search';
+import usePaginatedSearch from '../../use-paginated-search';
 import useTopicSearch from '../use-topic-search';
 
 jest.mock('../../queries/use-topic-search-query');
-jest.mock('../../use-search');
+jest.mock('../../use-paginated-search');
 
 describe('useTopicSearch', () => {
   let mockExecute;
   let mockData;
   let mockIsLoading;
   let mockError;
-  let mockSearch;
-  let mockCurrentSearch;
-  let mockProcessSearch;
+  let mockSearchVariables;
+  let mockCurrentSearchVariables;
+  let mockDebounceProcessSearch;
 
-  let initialSearch;
+  let initialSearchVariables;
 
   beforeEach(() => {
     mockExecute = jest.fn();
@@ -28,54 +28,63 @@ describe('useTopicSearch', () => {
       error: mockError,
     });
 
-    mockSearch = 'search';
-    mockProcessSearch = 'currentSearch';
-    mockProcessSearch = jest.fn();
-    useSearch.mockReturnValue({
-      search: mockSearch,
-      currentSearch: mockCurrentSearch,
-      processSearch: mockProcessSearch,
+    mockSearchVariables = 'search';
+    mockCurrentSearchVariables = 'currentSearch';
+    mockDebounceProcessSearch = jest.fn();
+    usePaginatedSearch.mockReturnValue({
+      searchVariables: mockSearchVariables,
+      currentSearchVariables: mockCurrentSearchVariables,
+      debounceProcessSearch: mockDebounceProcessSearch,
     });
 
-    initialSearch = 'search';
+    initialSearchVariables = {
+      search: 'search',
+    };
   });
 
   afterEach(() => {
     useTopicSearchQuery.mockReset();
-    useSearch.mockReset();
+    usePaginatedSearch.mockReset();
   });
 
   it('should use initial search', () => {
-    useTopicSearch({ initialSearch });
+    useTopicSearch({ initialSearchVariables });
 
-    expect(useSearch.mock.calls[0][1]).toEqual({ initialSearch });
+    expect(usePaginatedSearch.mock.calls[0][1]).toEqual({
+      initialSearchVariables,
+    });
   });
 
   it('should use undefined string if no initial search', () => {
     useTopicSearch();
 
-    expect(useSearch.mock.calls[0][1]).toEqual({ initialSearch: undefined });
+    expect(usePaginatedSearch.mock.calls[0][1]).toEqual({
+      initialSearchVariables: undefined,
+    });
   });
 
   it('should use topic search query for search', () => {
-    useTopicSearch({ initialSearch });
+    useTopicSearch({ initialSearchVariables });
 
-    expect(useSearch.mock.calls[0][0]).toBe(mockExecute);
+    expect(usePaginatedSearch.mock.calls[0][0]).toBe(mockExecute);
   });
 
   describe('return value', () => {
     it('should have search data', () => {
-      const { search, currentSearch, processSearch } = useTopicSearch({
-        initialSearch,
-      });
+      const { searchVariables, currentSearchVariables, debounceProcessSearch } =
+        useTopicSearch({
+          initialSearchVariables,
+        });
 
-      expect(search).toBe(mockSearch);
-      expect(currentSearch).toBe(mockCurrentSearch);
-      expect(processSearch).toBe(mockProcessSearch);
+      expect(searchVariables).toBe(mockSearchVariables);
+      expect(currentSearchVariables).toBe(mockCurrentSearchVariables);
+      expect(debounceProcessSearch).toBe(mockDebounceProcessSearch);
     });
 
     it('should have query data', () => {
-      const { data, isLoading, error } = useTopicSearch({ initialSearch });
+      const { data, isLoading, error } = useTopicSearch({
+        initialSearchVariables,
+      });
 
       expect(data).toBe(mockData);
       expect(isLoading).toBe(mockIsLoading);

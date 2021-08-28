@@ -39,24 +39,41 @@ exports[`<Topics /> should render correctly 1`] = `
         onChange={[Function]}
         placeholder="Search topics..."
         type="text"
-        value=""
+        value="search"
       />
       <div
         className="mt-8"
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <TopicListing
-              topics={
-                Array [
-                  Object {
-                    "id": "1",
-                    "name": "name",
-                    "slug": "slug",
-                  },
-                ]
-              }
-            />
+            <div>
+              <TopicListing
+                topics={
+                  Array [
+                    Object {
+                      "id": "1",
+                      "name": "name",
+                      "slug": "slug",
+                    },
+                    Object {
+                      "id": "2",
+                      "name": "name",
+                    },
+                  ]
+                }
+              />
+              <div
+                className="mt-8 flex justify-center"
+              >
+                <Pagination
+                  onPageClick={[MockFunction]}
+                  pageCount={NaN}
+                  selectedPage={1}
+                  selectedPageGapMinRange={3}
+                  selectedPageRange={2}
+                />
+              </div>
+            </div>
           }
           errorDisplay={
             <div
@@ -82,8 +99,7 @@ exports[`<Topics /> should render correctly 1`] = `
             <div
               className="text-center sm:text-left"
             >
-              No topics have been created.
-              
+              No topics matching 'currentSearch' have been created.
             </div>
           }
         />

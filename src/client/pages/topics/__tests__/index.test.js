@@ -13,7 +13,7 @@ jest.mock('@/hooks/topics/use-topic-search');
 
 describe('<Topics />', () => {
   let searchQuery;
-  let mockProcessSearch;
+  let mockDebounceProcessSearch;
 
   beforeEach(() => {
     searchQuery = 'search';
@@ -25,7 +25,7 @@ describe('<Topics />', () => {
 
     useAuthenticationState.mockReturnValue({ isLoggedIn: false });
 
-    mockProcessSearch = jest.fn();
+    mockDebounceProcessSearch = jest.fn();
     useTopicSearch.mockReturnValue({
       data: {
         topics: {
@@ -44,9 +44,11 @@ describe('<Topics />', () => {
       },
       error: null,
       isLoading: false,
-      search: '',
-      currentSearch: '',
-      processSearch: mockProcessSearch,
+      searchVariables: { search: 'search' },
+      currentSearchVariables: { search: 'currentSearch', limit: 10 },
+      debounceProcessSearch: mockDebounceProcessSearch,
+      currentPage: 1,
+      processPageNumber: jest.fn(),
     });
   });
 
@@ -81,6 +83,10 @@ describe('<Topics />', () => {
       },
     });
 
-    expect(mockProcessSearch).toBeCalledWith(search);
+    expect(mockDebounceProcessSearch).toBeCalledWith({
+      search,
+      offset: 0,
+      limit: 10,
+    });
   });
 });
