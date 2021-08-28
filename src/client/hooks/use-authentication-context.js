@@ -7,6 +7,7 @@ export function useAuthentication() {
   const [authenticationState, setAuthenticationState] = useState({
     isLoggedIn: false,
     currentUser: null,
+    initialized: false,
   });
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export function useAuthentication() {
       setAuthenticationState({
         isLoggedIn,
         currentUser: user,
+        initialized: true,
       });
     });
 
