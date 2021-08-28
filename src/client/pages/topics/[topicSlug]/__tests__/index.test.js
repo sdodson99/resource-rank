@@ -18,32 +18,24 @@ useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicDetails />', () => {
   describe('page', () => {
-    let mockData;
-    let mockError;
-    let mockIsLoading;
-    let mockSearch;
-    let mockCurrentSearch;
-    let mockProcessSearch;
+    let mockTopicResourceSearch;
 
     let props;
 
     beforeEach(() => {
       useAuthenticationContext.mockReturnValue({ isLoggedIn: true });
 
-      mockData = {};
-      mockError = new Error();
-      mockIsLoading = true;
-      mockSearch = 'search';
-      mockCurrentSearch = 'currentSearch';
-      mockProcessSearch = jest.fn();
-      useTopicResourceSearch.mockReturnValue({
-        data: mockData,
-        error: mockError,
-        isLoading: mockIsLoading,
-        search: mockSearch,
-        currentSearch: mockCurrentSearch,
-        processSearch: mockProcessSearch,
-      });
+      mockTopicResourceSearch = {
+        data: {},
+        error: new Error(),
+        isLoading: true,
+        searchVariables: { resourceSearch: 'search' },
+        currentSearchVariables: { resourceSearch: 'currentSearch', limit: 10 },
+        debounceProcessSearch: jest.fn(),
+        currentPage: 1,
+        processPageNumber: jest.fn(),
+      };
+      useTopicResourceSearch.mockReturnValue(mockTopicResourceSearch);
 
       props = {
         topicId: '123',
@@ -102,6 +94,7 @@ describe('<TopicDetails />', () => {
 
     it('should render correctly with data', () => {
       useTopicResourceSearch.mockReturnValue({
+        ...mockTopicResourceSearch,
         data: {
           topicResources: {
             items: [
@@ -126,9 +119,6 @@ describe('<TopicDetails />', () => {
         },
         error: null,
         isLoading: false,
-        search: mockSearch,
-        currentSearch: mockCurrentSearch,
-        processSearch: mockProcessSearch,
       });
 
       const page = createRenderer().render(<TopicDetails {...props} />);
@@ -147,17 +137,17 @@ describe('<TopicDetails />', () => {
         },
       });
 
-      expect(mockProcessSearch).toBeCalledWith(search);
+      expect(mockTopicResourceSearch.debounceProcessSearch).toBeCalledWith({
+        resourceSearch: search,
+        offset: 0,
+        limit: 10,
+      });
     });
 
     it('should render correctly with no data and no current search', () => {
       useTopicResourceSearch.mockReturnValue({
-        data: mockData,
-        error: mockError,
-        isLoading: mockIsLoading,
-        search: mockSearch,
-        currentSearch: null,
-        processSearch: mockProcessSearch,
+        ...mockTopicResourceSearch,
+        currentSearchVariables: {},
       });
 
       const page = createRenderer().render(<TopicDetails {...props} />);

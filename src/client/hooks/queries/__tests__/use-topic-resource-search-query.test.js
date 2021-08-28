@@ -1,42 +1,27 @@
 import topicResourcesQuery from '@/graphql/queries/topic-resources-query';
 import useLazyGraphQLRequest from '@/hooks/graphql/use-lazy-graphql-request';
+import { when } from 'jest-when';
 import useTopicResourceSearchQuery from '../use-topic-resource-search-query';
 
 jest.mock('@/hooks/graphql/use-lazy-graphql-request');
 
 describe('useTopicResourceSearchQuery', () => {
-  let topicId;
-
-  beforeEach(() => {
-    topicId = '123';
-  });
-
   afterEach(() => {
     useLazyGraphQLRequest.mockReset();
   });
 
   it('should return lazy GraphQL request for topic resource search', () => {
-    const expected = 'topic_resources';
-    useLazyGraphQLRequest.mockReturnValue({
-      data: expected,
-    });
+    const expected = {
+      data: {},
+      error: {},
+      isLoading: false,
+    };
+    when(useLazyGraphQLRequest)
+      .calledWith(topicResourcesQuery)
+      .mockReturnValue(expected);
 
-    const { data: actual } = useTopicResourceSearchQuery(topicId);
+    const actual = useTopicResourceSearchQuery();
 
     expect(actual).toBe(expected);
-    expect(useLazyGraphQLRequest).toBeCalledWith(topicResourcesQuery);
-  });
-
-  it('should execute topic resource search on execute', async () => {
-    const resourceSearch = 'resource_name';
-    const mockExecute = jest.fn();
-    useLazyGraphQLRequest.mockReturnValue({
-      execute: mockExecute,
-    });
-
-    const { execute } = useTopicResourceSearchQuery(topicId);
-    await execute(resourceSearch);
-
-    expect(mockExecute).toBeCalledWith({ topicId, resourceSearch });
   });
 });

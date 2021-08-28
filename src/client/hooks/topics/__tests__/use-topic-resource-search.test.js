@@ -1,20 +1,21 @@
 import useTopicResourceSearchQuery from '../../queries/use-topic-resource-search-query';
-import useSearch from '../../use-search';
+import usePaginatedSearch from '../../use-paginated-search';
 import useTopicResourceSearch from '../use-topic-resource-search';
 
 jest.mock('../../queries/use-topic-resource-search-query');
-jest.mock('../../use-search');
+jest.mock('../../use-paginated-search');
 
 describe('useTopicResourceSearch', () => {
   let mockExecute;
   let mockData;
   let mockIsLoading;
   let mockError;
-  let mockSearch;
-  let mockCurrentSearch;
-  let mockProcessSearch;
+  let mockSearchVariables;
+  let mockCurrentSearchVariables;
+  let mockDebounceProcessSearch;
 
   let topicId;
+  let initialSearchVariables;
 
   beforeEach(() => {
     mockExecute = jest.fn();
@@ -28,43 +29,44 @@ describe('useTopicResourceSearch', () => {
       error: mockError,
     });
 
-    mockSearch = 'search';
-    mockProcessSearch = 'currentSearch';
-    mockProcessSearch = jest.fn();
-    useSearch.mockReturnValue({
-      search: mockSearch,
-      currentSearch: mockCurrentSearch,
-      processSearch: mockProcessSearch,
+    mockSearchVariables = { resourceSearch: 'search' };
+    mockCurrentSearchVariables = { resourceSearch: 'currentSearch' };
+    mockDebounceProcessSearch = jest.fn();
+    usePaginatedSearch.mockReturnValue({
+      searchVariables: mockSearchVariables,
+      currentSearchVariables: mockCurrentSearchVariables,
+      debounceProcessSearch: mockDebounceProcessSearch,
     });
 
+    initialSearchVariables = {};
     topicId = '123';
   });
 
   afterEach(() => {
     useTopicResourceSearchQuery.mockReset();
-    useSearch.mockReset();
+    usePaginatedSearch.mockReset();
   });
 
-  it('should use search for topic id', () => {
+  it('should execute topic resource search query', () => {
     useTopicResourceSearch(topicId);
 
-    expect(useTopicResourceSearchQuery.mock.calls[0][0]).toBe(topicId);
-  });
+    const executePaginatedSearchQuery = usePaginatedSearch.mock.calls[0][0];
+    executePaginatedSearchQuery(initialSearchVariables);
 
-  it('should use topic resource search query', () => {
-    useTopicResourceSearch(topicId);
-
-    expect(useSearch.mock.calls[0][0]).toBe(mockExecute);
+    expect(mockExecute).toBeCalledWith({
+      ...initialSearchVariables,
+      topicId,
+    });
   });
 
   describe('return value', () => {
     it('should have search data', () => {
-      const { search, currentSearch, processSearch } =
-        useTopicResourceSearch(topicId);
+      const { searchVariables, currentSearchVariables, debounceProcessSearch } =
+        useTopicResourceSearch(topicId, { initialSearchVariables });
 
-      expect(search).toBe(mockSearch);
-      expect(currentSearch).toBe(mockCurrentSearch);
-      expect(processSearch).toBe(mockProcessSearch);
+      expect(searchVariables).toBe(mockSearchVariables);
+      expect(currentSearchVariables).toBe(mockCurrentSearchVariables);
+      expect(debounceProcessSearch).toBe(mockDebounceProcessSearch);
     });
 
     it('should have query data', () => {

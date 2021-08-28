@@ -11,6 +11,9 @@ import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
+import Pagination from '@/components/Pagination/Pagination';
+
+const DEFAULT_SEARCH_LIMIT = 10;
 
 const TopicDetails = ({
   topicId,
@@ -26,14 +29,26 @@ const TopicDetails = ({
     data: topicResourcesData,
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
-    search,
-    currentSearch,
-    processSearch,
-  } = useTopicResourceSearch(topicId);
+    searchVariables: { resourceSearch: search },
+    currentSearchVariables: { resourceSearch: currentSearch, limit },
+    debounceProcessSearch,
+    currentPage,
+    processPageNumber,
+  } = useTopicResourceSearch(topicId, {
+    initialSearchVariables: {
+      resourceSearch: '',
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    },
+  });
 
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    processSearch(searchInput);
+    debounceProcessSearch({
+      resourceSearch: searchInput,
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    });
   };
 
   const getNoDataDisplay = () => {
@@ -44,10 +59,9 @@ const TopicDetails = ({
     return 'No topic resources have been added.';
   };
 
-  const topicResources =
-    topicResourcesData?.topicResources?.items?.filter(
-      (r) => r.resource?.slug
-    ) ?? [];
+  const topicResources = topicResourcesData?.topicResources?.items ?? [];
+  const totalTopicResourcesCount = topicResourcesData?.topicResources?.totalCount;
+  const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
   const orderedResources = topicResources.sort(
     (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
@@ -139,11 +153,21 @@ const TopicDetails = ({
                 </div>
               }
               dataDisplay={
-                <TopicResourceListing
-                  topicId={topicId}
-                  topicSlug={topicSlug}
-                  topicResources={orderedResources}
-                />
+                <div>
+                  <TopicResourceListing
+                    topicId={topicId}
+                    topicSlug={topicSlug}
+                    topicResources={orderedResources}
+                  />
+
+                  <div className="mt-8 flex justify-center">
+                    <Pagination
+                      selectedPage={currentPage}
+                      pageCount={topicResourcesPageCount}
+                      onPageClick={processPageNumber}
+                    />
+                  </div>
+                </div>
               }
             />
           </div>

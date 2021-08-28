@@ -1,11 +1,22 @@
 import useTopicResourceSearchQuery from '../queries/use-topic-resource-search-query';
-import useSearch from '../use-search';
+import usePaginatedSearch from '../use-paginated-search';
 
-export default function useTopicResourceSearch(topicId) {
-  const { execute: executeTopicResourceSearchQuery, ...others } =
-    useTopicResourceSearchQuery(topicId);
+export default function useTopicResourceSearch(
+  topicId,
+  { initialSearchVariables } = {}
+) {
+  const { execute, ...others } = useTopicResourceSearchQuery();
 
-  const search = useSearch(executeTopicResourceSearchQuery);
+  const executeTopicResourceSearchQuery = (searchVariables) => {
+    execute({
+      ...searchVariables,
+      topicId,
+    });
+  };
+
+  const search = usePaginatedSearch(executeTopicResourceSearchQuery, {
+    initialSearchVariables,
+  });
 
   return {
     ...search,
