@@ -26,9 +26,24 @@ describe('<AddTopicResource />', () => {
     let topicSlug;
     let props;
 
+    let mockAvailableTopicResourceSearch;
+
     beforeEach(() => {
       useState.mockReturnValue([null, jest.fn()]);
-      useAvailableTopicResourceSearch.mockReturnValue({});
+
+      mockAvailableTopicResourceSearch = {
+        data: {},
+        error: null,
+        isLoading: false,
+        searchVariables: { search: 'search' },
+        currentSearchVariables: { search: null, limit: 10 },
+        debounceProcessSearch: jest.fn(),
+        currentPage: 1,
+        processPageNumber: jest.fn(),
+      };
+      useAvailableTopicResourceSearch.mockReturnValue(
+        mockAvailableTopicResourceSearch
+      );
       useTopicResourceCreator.mockReturnValue({});
 
       topicId = '123';
@@ -58,10 +73,6 @@ describe('<AddTopicResource />', () => {
     });
 
     it('should process search on search input', () => {
-      const mockProcessSearch = jest.fn();
-      useAvailableTopicResourceSearch.mockReturnValue({
-        processSearch: mockProcessSearch,
-      });
       const search = '123';
       render(<AddTopicResource {...props} />);
       const searchInput = screen.getByTestId('SearchInput');
@@ -72,10 +83,16 @@ describe('<AddTopicResource />', () => {
         },
       });
 
-      expect(mockProcessSearch).toBeCalledWith(search);
+      expect(
+        mockAvailableTopicResourceSearch.debounceProcessSearch
+      ).toBeCalledWith({
+        search,
+        offset: 0,
+        limit: 10,
+      });
     });
 
-    it('should set resources without slugs when available resources data changes', () => {
+    it('should set resources when available resources data changes', () => {
       const mockSetResources = jest.fn();
       useState.mockReturnValueOnce([null, mockSetResources]);
       useEffect.mockImplementationOnce((cb) => cb());
@@ -85,22 +102,21 @@ describe('<AddTopicResource />', () => {
           alreadyAdded: true,
         },
       ];
-      useAvailableTopicResourceSearch.mockReturnValue({
-        data: {
-          availableResources: {
-            items: [
-              {},
-              {
-                resource: {
-                  slug: 'slug',
-                },
-                alreadyAdded: true,
+      mockAvailableTopicResourceSearch.data = {
+        availableResources: {
+          items: [
+            {
+              resource: {
+                slug: 'slug',
               },
-              {},
-            ],
-          },
+              alreadyAdded: true,
+            },
+          ],
         },
-      });
+      };
+      useAvailableTopicResourceSearch.mockReturnValue(
+        mockAvailableTopicResourceSearch
+      );
 
       render(<AddTopicResource {...props} />);
 
@@ -169,9 +185,12 @@ describe('<AddTopicResource />', () => {
     });
 
     it('should render correctly with current search', () => {
-      useAvailableTopicResourceSearch.mockReturnValue({
-        currentSearch: 'CURRENT_SEARCH',
-      });
+      mockAvailableTopicResourceSearch.currentSearchVariables = {
+        search: 'currentSearch',
+      };
+      useAvailableTopicResourceSearch.mockReturnValue(
+        mockAvailableTopicResourceSearch
+      );
 
       const page = createRenderer().render(<AddTopicResource {...props} />);
 
