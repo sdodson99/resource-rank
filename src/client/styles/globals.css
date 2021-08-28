@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url(./variables.css);
+@import url(./nprogress.css);
 
 body {
   font-family: 'Kanit', sans-serif;
