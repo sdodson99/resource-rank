@@ -52,7 +52,7 @@ exports.resolvers = {
   Query: {
     topicResources: async (
       _,
-      { topicId, resourceSearch, offset, limit },
+      { topicId, resourceSearch, offset = 0, limit = 20 },
       { dataSources }
     ) => {
       const topic = await dataSources.topics.getById(topicId);
@@ -62,12 +62,19 @@ exports.resolvers = {
         resourceIds = topic.resources.map((r) => r.resource);
       }
 
-      return {
+      const filteredResources = await dataSources.resources.getByIds(
         resourceIds,
-        topicId,
-        resourceSearch,
+        resourceSearch
+      );
+      const paginatedResources = filteredResources.slice(
         offset,
-        limit,
+        offset + limit
+      );
+
+      return {
+        topicResources: paginatedResources,
+        topicId,
+        totalCount: filteredResources.length,
       };
     },
     topicResource: (_, { topicId, resourceId }) => ({
@@ -151,24 +158,13 @@ exports.resolvers = {
       dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResourceListing: {
-    items: async (
-      { resourceIds, topicId, resourceSearch, offset = 0, limit = 20 },
-      _,
-      { dataSources }
-    ) => {
-      const paginatedResourceIds = resourceIds.slice(offset, offset + limit);
-      const filteredResources = await dataSources.resources.getByIds(
-        paginatedResourceIds,
-        resourceSearch
-      );
-
-      return filteredResources.map((r) => ({
+    items: ({ topicResources, topicId }, _, { dataSources }) => {
+      return topicResources.map((r) => ({
         resource: r,
         topicId,
         resourceId: r._id,
         createdBy: r.createdBy,
       }));
     },
-    totalCount: ({ resourceIds }) => resourceIds.length,
   },
 };
