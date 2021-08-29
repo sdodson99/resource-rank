@@ -1,15 +1,9 @@
 .CallToAction {
-  background: url('/img/hero.png');
-
-  @apply flex relative text-center text-white;
+  @apply py-16 bg-gray-100 text-center;
 }
 
-.Content {
-  @apply z-10 py-16;
-}
+.Search {
+  max-width: 600px;
 
-.ColorOverlay {
-  background-color: rgba(53, 53, 53, 0.9);
-
-  @apply w-full h-full absolute;
+  @apply mt-10 mx-auto flex flex-col sm:flex-row;
 }
