@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<AddTopicResource /> HOC page should require authentication 1`] = `
+<Layout>
+  <div
+    className="mt-8"
+  >
+    <LoadingSpinner
+      color="#292929"
+      size={50}
+    />
+  </div>
+</Layout>
+`;
+
 exports[`<AddTopicResource /> page should render correctly 1`] = `
 <div
   data-testid="AddTopicResourcePage"

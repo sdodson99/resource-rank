@@ -11,6 +11,7 @@ import { NextSeo } from 'next-seo';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import Pagination from '@/components/Pagination/Pagination';
+import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -206,4 +207,5 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
   }
 }
 
-export default AddTopicResource;
+export { AddTopicResource as Page };
+export default withAuthentication(AddTopicResource);

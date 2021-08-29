@@ -10,7 +10,9 @@ const withAuthentication = (Component) =>
     if (!initialized) {
       return (
         <Layout>
-          <LoadingSpinner />
+          <div className="mt-8">
+            <LoadingSpinner />
+          </div>
         </Layout>
       );
     }
@@ -18,7 +20,7 @@ const withAuthentication = (Component) =>
     if (!isLoggedIn) {
       return (
         <Layout>
-          <div>You must login to view this page.</div>
+          <div className="mt-8 text-center text-lg">You must login to view this page.</div>
         </Layout>
       );
     }

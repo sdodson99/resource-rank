@@ -6,6 +6,7 @@ import { NextSeo } from 'next-seo';
 import useTopicCreator from '@/hooks/topics/use-topic-creator';
 import TopicExistsError from '@/errors/topic-exists-error';
 import TopicDetailsForm from '@/components/TopicDetailsForm/TopicDetailsForm';
+import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 
 const FormField = {
   TOPIC_NAME: 'name',
@@ -89,4 +90,5 @@ const NewTopic = () => {
   );
 };
 
-export default NewTopic;
+export { NewTopic as Page };
+export default withAuthentication(NewTopic);

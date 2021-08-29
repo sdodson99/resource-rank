@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
-import AddTopicResource, { getServerSideProps } from '../add.page';
+import AddTopicResource, { Page, getServerSideProps } from '../add.page';
 import { useRouter } from 'next/router';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
@@ -65,7 +65,7 @@ describe('<AddTopicResource />', () => {
     });
 
     it('should mount', () => {
-      render(<AddTopicResource {...props} />);
+      render(<Page {...props} />);
 
       const page = screen.getByTestId('AddTopicResourcePage');
 
@@ -74,7 +74,7 @@ describe('<AddTopicResource />', () => {
 
     it('should process search on search input', () => {
       const search = '123';
-      render(<AddTopicResource {...props} />);
+      render(<Page {...props} />);
       const searchInput = screen.getByTestId('SearchInput');
 
       fireEvent.input(searchInput, {
@@ -118,7 +118,7 @@ describe('<AddTopicResource />', () => {
         mockAvailableTopicResourceSearch
       );
 
-      render(<AddTopicResource {...props} />);
+      render(<Page {...props} />);
 
       expect(mockSetResources).toBeCalledWith(expected);
     });
@@ -151,7 +151,7 @@ describe('<AddTopicResource />', () => {
           push: mockPush,
         });
         when(mockCreate).calledWith(topicId, resourceId).mockReturnValue(true);
-        render(<AddTopicResource {...props} />);
+        render(<Page {...props} />);
         const addResourceButton = screen.getByTestId('AddResourceButton');
 
         addResourceButton.click();
@@ -165,7 +165,7 @@ describe('<AddTopicResource />', () => {
 
       it('should set resource error if not successful', async () => {
         when(mockCreate).calledWith(topicId, resourceId).mockReturnValue(false);
-        render(<AddTopicResource {...props} />);
+        render(<Page {...props} />);
         const addResourceButton = screen.getByTestId('AddResourceButton');
 
         addResourceButton.click();
@@ -179,7 +179,7 @@ describe('<AddTopicResource />', () => {
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(<AddTopicResource {...props} />);
+      const page = createRenderer().render(<Page {...props} />);
 
       expect(page).toMatchSnapshot();
     });
@@ -192,7 +192,15 @@ describe('<AddTopicResource />', () => {
         mockAvailableTopicResourceSearch
       );
 
-      const page = createRenderer().render(<AddTopicResource {...props} />);
+      const page = createRenderer().render(<Page {...props} />);
+
+      expect(page).toMatchSnapshot();
+    });
+  });
+
+  describe('HOC page', () => {
+    it('should require authentication', () => {
+      const page = createRenderer().render(<AddTopicResource />);
 
       expect(page).toMatchSnapshot();
     });

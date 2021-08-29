@@ -13,7 +13,7 @@ jest.mock('@/hooks/topics/use-topic-search');
 
 describe('<Topics />', () => {
   let searchQuery;
-  let mockDebounceProcessSearch;
+  let mockTopicSearch;
 
   beforeEach(() => {
     searchQuery = 'search';
@@ -25,8 +25,7 @@ describe('<Topics />', () => {
 
     useAuthenticationState.mockReturnValue({ isLoggedIn: false });
 
-    mockDebounceProcessSearch = jest.fn();
-    useTopicSearch.mockReturnValue({
+    mockTopicSearch = {
       data: {
         topics: {
           items: [
@@ -46,10 +45,11 @@ describe('<Topics />', () => {
       isLoading: false,
       searchVariables: { search: 'search' },
       currentSearchVariables: { search: 'currentSearch', limit: 10 },
-      debounceProcessSearch: mockDebounceProcessSearch,
+      debounceProcessSearch: jest.fn(),
       currentPage: 1,
       processPageNumber: jest.fn(),
-    });
+    };
+    useTopicSearch.mockReturnValue(mockTopicSearch);
   });
 
   afterEach(() => {
@@ -72,6 +72,17 @@ describe('<Topics />', () => {
     expect(page).toMatchSnapshot();
   });
 
+  it('should render correctly with no current search', () => {
+    useRouter.mockReturnValue({ query: {} });
+    mockTopicSearch.currentSearchVariables = {};
+    mockTopicSearch.data = {};
+    useTopicSearch.mockReturnValue(mockTopicSearch);
+
+    const page = createRenderer().render(<Topics />);
+
+    expect(page).toMatchSnapshot();
+  });
+
   it('should process search on search input', () => {
     const search = '123';
     render(<Topics />);
@@ -83,7 +94,7 @@ describe('<Topics />', () => {
       },
     });
 
-    expect(mockDebounceProcessSearch).toBeCalledWith({
+    expect(mockTopicSearch.debounceProcessSearch).toBeCalledWith({
       search,
       offset: 0,
       limit: 10,
