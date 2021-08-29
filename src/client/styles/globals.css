@@ -16,7 +16,7 @@ body {
 }
 
 .btn {
-  @apply px-4 py-2 rounded transition duration-200 text-white;
+  @apply px-5 py-2 rounded transition duration-200 text-white;
 }
 
 .btn:disabled {
@@ -31,12 +31,12 @@ body {
   background-color: var(--color-secondary-dark);
 }
 
-.btn-danger-outline {
-  @apply border-2 border-red-700 text-red-700;
+.btn-cancel-outline {
+  @apply bg-gray-100 text-gray-900;
 }
 
-.btn-danger-outline:hover {
-  @apply bg-red-700 text-white;
+.btn-cancel-outline:hover {
+  @apply bg-gray-300;
 }
 
 input[type='text'] {

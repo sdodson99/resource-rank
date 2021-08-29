@@ -37,7 +37,7 @@ exports[`<ResourceDetailsForm /> should render correctly 1`] = `
         href="/back"
       >
         <a
-          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+          className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
         >
           Cancel
         </a>
@@ -84,7 +84,7 @@ exports[`<ResourceDetailsForm /> should render correctly when submitting 1`] = `
         href="/back"
       >
         <a
-          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+          className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
         >
           Cancel
         </a>
@@ -148,7 +148,7 @@ exports[`<ResourceDetailsForm /> should render correctly with error message 1`] 
         href="/back"
       >
         <a
-          className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3"
+          className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
         >
           Cancel
         </a>

@@ -68,7 +68,7 @@ const TopicDetailsForm = ({
           </button>
 
           <Link href={cancelHref}>
-            <a className="mt-3 text-center btn btn-danger-outline w-100 sm:mt-0 sm:ml-3">
+            <a className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3">
               Cancel
             </a>
           </Link>
