@@ -7,7 +7,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
 >
   <Layout>
     <div
-      className="LayoutContent content-container"
+      className="content-container"
     >
       <nav
         aria-label="breadcrumb"
@@ -47,9 +47,7 @@ exports[`<BreadcrumbLayout /> with multiple breadcrumbs should render correctly 
           </li>
         </ol>
       </nav>
-      <div
-        className="mt-8"
-      />
+      <div />
     </div>
   </Layout>
 </div>
@@ -62,7 +60,7 @@ exports[`<BreadcrumbLayout /> without breadcrumbs should render correctly 1`] = 
 >
   <Layout>
     <div
-      className="LayoutContent content-container"
+      className="content-container"
     >
       <nav
         aria-label="breadcrumb"
@@ -72,9 +70,7 @@ exports[`<BreadcrumbLayout /> without breadcrumbs should render correctly 1`] = 
           className="flex flex-wrap"
         />
       </nav>
-      <div
-        className="mt-8"
-      />
+      <div />
     </div>
   </Layout>
 </div>

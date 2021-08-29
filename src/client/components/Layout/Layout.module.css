@@ -3,6 +3,8 @@
 
 .Page {
   min-height: 100vh;
+
+  @apply pb-10;
 }
 
 .Alert {

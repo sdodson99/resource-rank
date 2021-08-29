@@ -27,11 +27,11 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
   return (
     <div className={styles.BreadcrumbLayout} data-testid="BreadcrumbLayout">
       <Layout>
-        <div className={`${styles.LayoutContent} content-container`}>
+        <div className="content-container">
           <nav className={styles.BreadcrumbContent} aria-label="breadcrumb">
             <ol className="flex flex-wrap">{breadcrumbItems}</ol>
           </nav>
-          <div className="mt-8">{children}</div>
+          <div>{children}</div>
         </div>
       </Layout>
     </div>
