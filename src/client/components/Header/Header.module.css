@@ -1,7 +1,7 @@
 .Header {
   background-color: var(--color-primary);
 
-  @apply py-5 text-white;
+  @apply py-5 text-white drop-shadow-md;
 }
 
 .NavItem {
