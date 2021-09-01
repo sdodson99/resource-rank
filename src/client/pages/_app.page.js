@@ -27,7 +27,7 @@ function App({ Component, pageProps }) {
         <GraphQLFetcherProvider>
           <Head>
             <link
-              href="https://fonts.googleapis.com/css?family=Kanit:100,400,700,400i,700i"
+              href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
               rel="stylesheet"
             />
           </Head>

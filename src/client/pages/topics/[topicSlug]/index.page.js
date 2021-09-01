@@ -109,14 +109,14 @@ const TopicDetails = ({
           )}
         </div>
 
-        <div className="mt-3 text-xs text-gray-800">
+        <div className="mt-2 text-xs text-gray-800 font-thin">
           Created by {topicCreator}
         </div>
 
         <div className="mt-10">
           <PageHeaderButton
             title={'Resources'}
-            titleClassName="text-3xl"
+            titleClassName="text-2xl"
             linkTo={`/topics/${topicSlug}/resources/add`}
             buttonContent={'Add'}
             hideButton={!isLoggedIn}

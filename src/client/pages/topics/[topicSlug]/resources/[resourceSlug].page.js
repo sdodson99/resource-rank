@@ -107,38 +107,40 @@ const TopicResourceDetails = ({
         )}
 
         <div className="sm:flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="text-4xl" data-testid="ResourceTitle">
-              {resourceName}
-            </div>
-
-            {resourceVerified && (
-              <div className="ml-2">
-                <VerifiedIcon size={25} />
+          <div>
+            <div className="flex items-center">
+              <div className="text-4xl" data-testid="ResourceTitle">
+                {resourceName}
               </div>
-            )}
+
+              {resourceVerified && (
+                <div className="ml-2">
+                  <VerifiedIcon size={25} />
+                </div>
+              )}
+            </div>
+            <div className="mt-2 text-xs text-gray-800 font-thin">
+              Created by {resourceCreatedBy}
+            </div>
           </div>
           <div className="mt-3 sm:mt-0">
             <RatingStarGroup rating={ratingAverage} starSize={25} />
           </div>
         </div>
-
-        <div className="mt-3 text-xs text-gray-800">
-          Created by {resourceCreatedBy}
-        </div>
-
-        <div className="mt-10">
+        <div className="mt-16">
           <div className="text-2xl">Details</div>
+          <hr className="mt-3" />
 
-          <div className="mt-4">
+          <div className="mt-6">
             <ResourceDetails link={resourceLink} />
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-16">
           <div className="text-2xl">{ratingTitle}</div>
+          <hr className="mt-3" />
 
-          <div className="mt-4">
+          <div className="mt-6">
             {!isLoggedIn && <div>You must login to add a rating.</div>}
 
             {isLoggedIn && (
