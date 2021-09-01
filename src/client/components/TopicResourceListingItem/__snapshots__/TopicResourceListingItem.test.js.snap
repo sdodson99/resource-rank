@@ -11,7 +11,7 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
     onMouseEnter={[Function]}
   >
     <div
-      className="ListingItem HoverListingItem"
+      className="ListingItem HoverListingItem px-3"
       data-testid="ListingItem"
     >
       <div
@@ -221,7 +221,7 @@ exports[`<TopicResourceListingItem /> should render correctly when verified 1`] 
     onMouseEnter={[Function]}
   >
     <div
-      className="ListingItem HoverListingItem"
+      className="ListingItem HoverListingItem px-3"
       data-testid="ListingItem"
     >
       <div

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ListingItem /> with hover disabled should render correctly 1`] = `
+exports[`<ListingItem /> should render correctly with xPadding disabled 1`] = `
 <div
   className="ListingItem"
   data-testid="ListingItem"
@@ -9,9 +9,18 @@ exports[`<ListingItem /> with hover disabled should render correctly 1`] = `
 </div>
 `;
 
+exports[`<ListingItem /> with hover disabled should render correctly 1`] = `
+<div
+  className="ListingItem px-3"
+  data-testid="ListingItem"
+>
+  Hello world.
+</div>
+`;
+
 exports[`<ListingItem /> with hover enabled should render correctly 1`] = `
 <div
-  className="ListingItem HoverListingItem"
+  className="ListingItem HoverListingItem px-3"
   data-testid="ListingItem"
 >
   Hello world.

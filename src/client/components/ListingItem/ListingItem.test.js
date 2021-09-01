@@ -32,4 +32,12 @@ describe('<ListingItem />', () => {
       expect(tree).toMatchSnapshot();
     });
   });
+
+  it('should render correctly with xPadding disabled', () => {
+    const tree = createRenderer().render(
+      <ListingItem xPadding={false}>Hello world.</ListingItem>
+    );
+
+    expect(tree).toMatchSnapshot();
+  });
 });

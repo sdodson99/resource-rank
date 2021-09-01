@@ -23,7 +23,7 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
       className={styles.AvailableResourceListingItem}
       data-testid="AvailableResourceListingItem"
     >
-      <ListingItem>
+      <ListingItem xPadding={false}>
         <div className="text-center sm:text-left sm:flex sm:justify-between sm:items-center">
           <div>
             <div className="flex items-center justify-center sm:justify-start">
