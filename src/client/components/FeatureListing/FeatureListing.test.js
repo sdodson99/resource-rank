@@ -21,10 +21,12 @@ describe('<FeatureListing />', () => {
         {
           title: '1',
           description: '123',
+          imageSrc: 'src',
         },
         {
           title: '2',
           description: '456',
+          imageSrc: 'src',
         },
       ];
     });

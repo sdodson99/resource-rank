@@ -15,42 +15,22 @@ exports[`<Home /> should render correctly 1`] = `
     features={
       Array [
         Object {
-          "description": <div>
-            <strong>
-              Instantly find the best resources
-            </strong>
-             for learning about a specific topic.
-          </div>,
+          "description": "We rank resources based on feedback from users. This allows you to quickly find the most useful resources.",
           "imageSrc": "/img/instantly-find.svg",
-          "title": "Instant",
+          "title": "Instantly Find the Best Resources",
         },
         Object {
-          "description": <div>
-            <strong>
-              Explore topics
-            </strong>
-             to find your next learning journey.
-          </div>,
+          "description": "Not sure where to start? Find your next learning journey by browsing through our list of topics.",
           "imageSrc": "/img/explore.svg",
-          "title": "Explore",
+          "title": "Explore Topics",
         },
         Object {
-          "description": <div>
-            <strong>
-              Rate resources
-            </strong>
-             based on helpfulness for learning a topic.
-          </div>,
+          "description": "Rate resources based on helpfulness for learning a topic.",
           "imageSrc": "/img/rate-resources.svg",
-          "title": "Rate",
+          "title": "Give Your Opinion",
         },
         Object {
-          "description": <div>
-            <strong>
-              Add your own new topics and resources
-            </strong>
-             that are useful.
-          </div>,
+          "description": "Add your own new topics and resources that are useful.",
           "imageSrc": "/img/add-your-own.svg",
           "title": "Contribute",
         },

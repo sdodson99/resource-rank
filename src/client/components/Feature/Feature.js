@@ -2,16 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Feature.module.css';
 
-const Feature = ({ description, imageSrc }) => (
-  <div className={styles.Feature} data-testid="Feature">
-    <div className={styles.FeatureDescription}>{description}</div>
-    <img src={imageSrc} className={styles.FeatureImage} alt="Feature Image" />
-  </div>
-);
+const Feature = ({ feature }) => {
+  const { title, description, imageSrc } = feature;
+
+  return (
+    <div className={styles.Feature} data-testid="Feature">
+      <div>
+        <img className={styles.Image} src={imageSrc} alt={title} />
+      </div>
+      <div className={styles.Title}>
+        <strong>{title}</strong>
+      </div>
+      <div className={styles.Description}>{description}</div>
+    </div>
+  );
+};
 
 Feature.propTypes = {
-  description: PropTypes.node.isRequired,
-  imageSrc: PropTypes.string.isRequired,
+  feature: PropTypes.shape({
+    title: PropTypes.node.isRequired,
+    description: PropTypes.node.isRequired,
+    imageSrc: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Feature.defaultProps = {};

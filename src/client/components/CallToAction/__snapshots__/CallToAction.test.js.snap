@@ -11,7 +11,13 @@ exports[`<CallToAction /> should render correctly 1`] = `
     <div
       className="text-6xl"
     >
-      What are you waiting for?
+      What are 
+      <span
+        className="Emphasis"
+      >
+        you
+      </span>
+       waiting for?
     </div>
     <div
       className="Search"

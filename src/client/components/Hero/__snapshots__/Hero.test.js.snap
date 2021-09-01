@@ -14,19 +14,21 @@ exports[`<Hero /> should render correctly 1`] = `
       <div
         className="Prompt"
       >
-        <span
-          className="Emphasis"
-        >
-          Level up
-        </span>
-         your
-         
-        <span
-          className="Emphasis"
-        >
-          learning
-        </span>
-        .
+        <strong>
+          <span
+            className="Emphasis"
+          >
+            Level up
+          </span>
+           your
+           
+          <span
+            className="Emphasis"
+          >
+            learning
+          </span>
+          .
+        </strong>
       </div>
       <div
         className="SubPrompt"

@@ -5,14 +5,24 @@ exports[`<Feature /> should render correctly 1`] = `
   className="Feature"
   data-testid="Feature"
 >
-  <div
-    className="FeatureDescription"
-  >
-    123
+  <div>
+    <img
+      alt="Title"
+      className="Image"
+      src="ImageSrc"
+    />
   </div>
-  <img
-    alt="Feature Image"
-    className="FeatureImage"
-  />
+  <div
+    className="Title"
+  >
+    <strong>
+      Title
+    </strong>
+  </div>
+  <div
+    className="Description"
+  >
+    Description
+  </div>
 </div>
 `;

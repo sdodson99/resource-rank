@@ -8,8 +8,10 @@ const Hero = () => (
     <div className="content-container md:flex items-center justify-between">
       <div className={styles.PromptSection}>
         <div className={styles.Prompt}>
-          <span className={styles.Emphasis}>Level up</span> your{' '}
-          <span className={styles.Emphasis}>learning</span>.
+          <strong>
+            <span className={styles.Emphasis}>Level up</span> your{' '}
+            <span className={styles.Emphasis}>learning</span>.
+          </strong>
         </div>
         <div className={styles.SubPrompt}>
           <span className={styles.Emphasis}>Resource Rank</span> helps you find

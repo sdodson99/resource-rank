@@ -7,3 +7,7 @@
 
   @apply mt-10 mx-auto flex flex-col sm:flex-row;
 }
+
+.Emphasis {
+  color: var(--color-primary);
+}

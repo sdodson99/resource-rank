@@ -13,8 +13,6 @@
 }
 
 .Prompt {
-  font-weight: bold;
-
   @apply text-7xl;
 }
 

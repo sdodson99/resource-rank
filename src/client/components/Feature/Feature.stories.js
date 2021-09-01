@@ -15,6 +15,9 @@ const Template = (args) => <Feature {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  description: 'Super fast!',
-  imageSrc: '/img/instantly-find.svg',
+  feature: {
+    title: 'Super Fast!',
+    description: 'We do our best to make things fast.',
+    imageSrc: '/img/instantly-find.svg',
+  },
 };

@@ -19,7 +19,9 @@ const CallToAction = () => {
   return (
     <div className={styles.CallToAction} data-testid="CallToAction">
       <div className="content-container">
-        <div className="text-6xl">What are you waiting for?</div>
+        <div className="text-6xl">
+          What are <span className={styles.Emphasis}>you</span> waiting for?
+        </div>
         <div className={styles.Search}>
           <input
             type="text"

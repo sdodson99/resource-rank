@@ -1,14 +1,16 @@
 .Feature {
-  @apply sm:flex flex-grow items-center;
 }
 
-.FeatureDescription {
-  @apply flex-1 text-center sm:text-left text-3xl;
+.Image {
+  max-height: 50px;
 }
 
-.FeatureImage {
-  max-height: 150px;
-  max-width: 150px;
+.Title {
+  color: var(--color-primary);
 
-  @apply sm:ml-10 mx-auto mt-8 sm:mt-0;
+  @apply text-4xl mt-5;
+}
+
+.Description {
+  @apply text-lg mt-3;
 }

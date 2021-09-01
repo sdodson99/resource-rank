@@ -5,8 +5,18 @@ import renderer from 'react-test-renderer';
 import Feature from './Feature';
 
 describe('<Feature />', () => {
+  let mockFeature;
+
+  beforeEach(() => {
+    mockFeature = {
+      title: 'Title',
+      description: 'Description',
+      imageSrc: 'ImageSrc',
+    };
+  });
+
   test('it should mount', () => {
-    render(<Feature />);
+    render(<Feature feature={mockFeature} />);
 
     const feature = screen.getByTestId('Feature');
 
@@ -14,7 +24,7 @@ describe('<Feature />', () => {
   });
 
   it('should render correctly', () => {
-    const tree = renderer.create(<Feature description="123" />).toJSON();
+    const tree = renderer.create(<Feature feature={mockFeature} />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
