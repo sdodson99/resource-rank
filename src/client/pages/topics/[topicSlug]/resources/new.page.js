@@ -10,6 +10,7 @@ import ErrorAlert from '@/components/Alerts/ErrorAlert/ErrorAlert';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import useResourceCreator from '@/hooks/resources/use-resource-creator';
 import ResourceExistsError from '@/errors/resource-exists-error';
+import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -156,4 +157,5 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
   }
 }
 
-export default NewTopicResource;
+export { NewTopicResource as Page };
+export default withAuthentication(NewTopicResource);

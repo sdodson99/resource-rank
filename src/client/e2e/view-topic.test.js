@@ -4,23 +4,25 @@ const test = require('./fixtures/mock-api');
 test('view topic', async ({ page, mockApi }) => {
   await page.goto('localhost:8000');
 
-  mockApi.mockResolver('topics', [
-    {
-      id: 'topic1',
-      name: 'Topic 1',
-      slug: 'topic-1',
-    },
-    {
-      id: 'topic2',
-      name: 'Topic 2',
-      slug: 'topic-2',
-    },
-    {
-      id: 'topic3',
-      name: 'Topic 3',
-      slug: 'topic-3',
-    },
-  ]);
+  mockApi.mockResolver('topics', {
+    items: [
+      {
+        id: 'topic1',
+        name: 'Topic 1',
+        slug: 'topic-1',
+      },
+      {
+        id: 'topic2',
+        name: 'Topic 2',
+        slug: 'topic-2',
+      },
+      {
+        id: 'topic3',
+        name: 'Topic 3',
+        slug: 'topic-3',
+      },
+    ],
+  });
   await page.click('data-testid=TopicsNavItem');
   await page.waitForURL('**/topics');
 
@@ -29,8 +31,8 @@ test('view topic', async ({ page, mockApi }) => {
     name: 'Topic 1',
     slug: 'topic-1',
   });
-  mockApi.mockResolver('topicResourceList', {
-    topicResources: [
+  mockApi.mockResolver('topicResources', {
+    items: [
       {
         resource: {
           id: 'resource1',

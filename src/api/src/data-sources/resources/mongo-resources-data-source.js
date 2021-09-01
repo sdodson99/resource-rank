@@ -79,25 +79,26 @@ class MongoResourcesDataSource extends DataSource {
   /**
    * Search for resources.
    * @param {string} query The resource query to search for.
-   * @param {number} skip The resources to skip in the search query.
-   * @param {number} limit The resource amount to limit to in the search query.
+   * @param {object} options Options for the seach.
    * @return {Promise<object>} The resources matching the query.
    * @throws {Error} Thrown if query fails.
    */
-  search(query, skip = 0, limit = 0) {
-    let request = this.resourceModel.find({
-      name: { $regex: query, $options: 'i' },
-    });
+  async search(query = '', { offset = 0, limit = 20 } = {}) {
+    const { docs, total } = await this.resourceModel.paginate(
+      {
+        name: { $regex: query, $options: 'i' },
+        slug: { $ne: null },
+      },
+      {
+        offset,
+        limit,
+      }
+    );
 
-    if (skip) {
-      request = request.skip(skip);
-    }
-
-    if (limit) {
-      request = request.limit(limit);
-    }
-
-    return request;
+    return {
+      items: docs,
+      totalCount: total,
+    };
   }
 
   /**
@@ -107,7 +108,7 @@ class MongoResourcesDataSource extends DataSource {
    * @return {Array} The resources matching the search.
    * @throws {Error} Thrown if query fails.
    */
-  getByIds(ids, search) {
+  getByIds(ids, search = '') {
     return this.resourceModel.find({
       _id: { $in: ids },
       name: { $regex: search, $options: 'i' },

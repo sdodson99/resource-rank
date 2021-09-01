@@ -15,15 +15,25 @@ exports[`<FeatureListing /> with features should render correctly 1`] = `
         className="Feature"
         data-testid="Feature"
       >
+        <div>
+          <img
+            alt="1"
+            className="Image"
+            src="src"
+          />
+        </div>
         <div
-          className="FeatureDescription"
+          className="Title"
+        >
+          <strong>
+            1
+          </strong>
+        </div>
+        <div
+          className="Description"
         >
           123
         </div>
-        <img
-          alt="Feature Image"
-          className="FeatureImage"
-        />
       </div>
     </div>
   </div>
@@ -37,15 +47,25 @@ exports[`<FeatureListing /> with features should render correctly 1`] = `
         className="Feature"
         data-testid="Feature"
       >
+        <div>
+          <img
+            alt="2"
+            className="Image"
+            src="src"
+          />
+        </div>
         <div
-          className="FeatureDescription"
+          className="Title"
+        >
+          <strong>
+            2
+          </strong>
+        </div>
+        <div
+          className="Description"
         >
           456
         </div>
-        <img
-          alt="Feature Image"
-          className="FeatureImage"
-        />
       </div>
     </div>
   </div>

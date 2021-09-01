@@ -1,12 +1,15 @@
 import { gql } from 'graphql-request';
 
 const topicsQuery = gql`
-  query Topics($search: String) {
-    topics(search: $search) {
-      id
-      name
-      slug
-      verified
+  query Topics($search: String, $offset: Int, $limit: Int) {
+    topics(search: $search, offset: $offset, limit: $limit) {
+      items {
+        id
+        name
+        slug
+        verified
+      }
+      totalCount
     }
   }
 `;

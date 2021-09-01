@@ -79,13 +79,26 @@ class MongoTopicsDataSource extends DataSource {
   /**
    * Search for topics.
    * @param {string} query The topic query to search for.
+   * @param {object} options Options for the seach.
    * @return {Promise<object>} The topics matching the query.
    * @throws {Error} Thrown if query fails.
    */
-  search(query) {
-    return this.topicModel.find({
-      name: { $regex: query, $options: 'i' },
-    });
+  async search(query = '', { offset = 0, limit = 20 } = {}) {
+    const { docs, total } = await this.topicModel.paginate(
+      {
+        name: { $regex: query, $options: 'i' },
+        slug: { $ne: null },
+      },
+      {
+        offset,
+        limit,
+      }
+    );
+
+    return {
+      items: docs,
+      totalCount: total,
+    };
   }
 
   /**

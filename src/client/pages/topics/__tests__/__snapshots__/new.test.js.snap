@@ -1,6 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NewTopic /> should render correctly 1`] = `
+exports[`<NewTopic /> HOC page should require authentication 1`] = `
+<Layout>
+  <div
+    className="mt-8"
+  >
+    <LoadingSpinner
+      color="#292929"
+      size={50}
+    />
+  </div>
+</Layout>
+`;
+
+exports[`<NewTopic /> page should render correctly 1`] = `
 <div
   data-testid="NewTopic"
 >
@@ -51,7 +64,7 @@ exports[`<NewTopic /> should render correctly 1`] = `
 </div>
 `;
 
-exports[`<NewTopic /> should render correctly with create topic error 1`] = `
+exports[`<NewTopic /> page should render correctly with create topic error 1`] = `
 <div
   data-testid="NewTopic"
 >

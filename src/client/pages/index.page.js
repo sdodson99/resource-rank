@@ -8,42 +8,25 @@ import { NextSeo } from 'next-seo';
 const Home = () => {
   const features = [
     {
-      title: 'Instant',
-      description: (
-        <div>
-          <strong>Instantly find the best resources</strong> for learning about
-          a specific topic.
-        </div>
-      ),
+      title: 'Instantly Find the Best Resources',
+      description:
+        'We rank resources based on feedback from users. This allows you to quickly find the most useful resources.',
       imageSrc: '/img/instantly-find.svg',
     },
     {
-      title: 'Explore',
-      description: (
-        <div>
-          <strong>Explore topics</strong> to find your next learning journey.
-        </div>
-      ),
+      title: 'Explore Topics',
+      description:
+        'Not sure where to start? Find your next learning journey by browsing through our list of topics.',
       imageSrc: '/img/explore.svg',
     },
     {
-      title: 'Rate',
-      description: (
-        <div>
-          <strong>Rate resources</strong> based on helpfulness for learning a
-          topic.
-        </div>
-      ),
+      title: 'Give Your Opinion',
+      description: 'Rate resources based on helpfulness for learning a topic.',
       imageSrc: '/img/rate-resources.svg',
     },
     {
       title: 'Contribute',
-      description: (
-        <div>
-          <strong>Add your own new topics and resources</strong> that are
-          useful.
-        </div>
-      ),
+      description: 'Add your own new topics and resources that are useful.',
       imageSrc: '/img/add-your-own.svg',
     },
   ];

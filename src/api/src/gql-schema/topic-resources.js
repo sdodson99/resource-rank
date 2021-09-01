@@ -2,7 +2,12 @@ const { gql, ApolloError } = require('apollo-server');
 
 exports.typeDefs = gql`
   type Query {
-    topicResourceList(topicId: ID!, resourceSearch: String): TopicResourceList
+    topicResources(
+      topicId: ID!
+      resourceSearch: String
+      offset: Int
+      limit: Int
+    ): TopicResourceListing
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
     topicResourceBySlug(
       topicSlug: String!
@@ -10,10 +15,10 @@ exports.typeDefs = gql`
     ): TopicResource
     availableResources(
       topicId: ID!
+      search: String
       offset: Int
       limit: Int
-      search: String
-    ): [AvailableResource]
+    ): AvailableResourceListing
   }
 
   type Mutation {
@@ -27,26 +32,27 @@ exports.typeDefs = gql`
     createdBy: User
   }
 
-  type TopicResourceList {
-    topicResources: [TopicResource]
+  type TopicResourceListing {
+    items: [TopicResource]
+    totalCount: Int!
   }
 
   type AvailableResource {
-    id: ID!
-    name: String!
-    slug: String
-    link: String
+    resource: Resource!
     alreadyAdded: Boolean
-    createdBy: User
-    verified: Boolean
+  }
+
+  type AvailableResourceListing {
+    items: [AvailableResource]
+    totalCount: Int
   }
 `;
 
 exports.resolvers = {
   Query: {
-    topicResourceList: async (
+    topicResources: async (
       _,
-      { topicId, resourceSearch = '' },
+      { topicId, resourceSearch, offset = 0, limit = 20 },
       { dataSources }
     ) => {
       const topic = await dataSources.topics.getById(topicId);
@@ -56,10 +62,19 @@ exports.resolvers = {
         resourceIds = topic.resources.map((r) => r.resource);
       }
 
-      return {
+      const filteredResources = await dataSources.resources.getByIds(
         resourceIds,
+        resourceSearch
+      );
+      const paginatedResources = filteredResources.slice(
+        offset,
+        offset + limit
+      );
+
+      return {
+        topicResources: paginatedResources,
         topicId,
-        resourceSearch,
+        totalCount: filteredResources.length,
       };
     },
     topicResource: (_, { topicId, resourceId }) => ({
@@ -90,28 +105,22 @@ exports.resolvers = {
     },
     availableResources: async (
       _,
-      { topicId, search = '', offset = 0, limit = 20 },
+      { topicId, search, offset, limit },
       { dataSources }
     ) => {
-      const resourceDTOs = await dataSources.resources.search(
-        search,
+      const { items, totalCount } = await dataSources.resources.search(search, {
         offset,
-        limit
-      );
+        limit,
+      });
 
-      const availableResources = resourceDTOs.map((r) => ({
-        id: r._id,
-        name: r.name,
-        slug: r.slug,
-        link: r.link,
-        verified: r.verified,
+      const availableResourceItems = items.map((resource) => ({
+        resource,
         alreadyAdded: false,
-        createdBy: r.createdBy,
       }));
 
-      const resourceMap = {};
-      availableResources.forEach((r) => {
-        resourceMap[r.id] = r;
+      const availableResourceMap = {};
+      availableResourceItems.forEach((a) => {
+        availableResourceMap[a.resource.id] = a;
       });
 
       const topic = await dataSources.topics.getById(topicId);
@@ -123,21 +132,20 @@ exports.resolvers = {
       topic.resources.forEach((resource) => {
         const { resource: resourceId } = resource;
 
-        if (resourceMap[resourceId]) {
-          resourceMap[resourceId].alreadyAdded = true;
+        if (availableResourceMap[resourceId]) {
+          availableResourceMap[resourceId].alreadyAdded = true;
         }
       });
 
-      return availableResources;
+      return {
+        items: availableResourceItems,
+        totalCount,
+      };
     },
   },
   Mutation: {
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
       dataSources.topics.addResource(topicId, resourceId),
-  },
-  AvailableResource: {
-    createdBy: ({ createdBy }, _, { dataSources }) =>
-      dataSources.usersDataSource.getUser(createdBy),
   },
   TopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
@@ -149,18 +157,9 @@ exports.resolvers = {
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
   },
-  TopicResourceList: {
-    topicResources: async (
-      { resourceIds, topicId, resourceSearch },
-      _,
-      { dataSources }
-    ) => {
-      const filteredResources = await dataSources.resources.getByIds(
-        resourceIds,
-        resourceSearch
-      );
-
-      return filteredResources.map((r) => ({
+  TopicResourceListing: {
+    items: ({ topicResources, topicId }, _, { dataSources }) => {
+      return topicResources.map((r) => ({
         resource: r,
         topicId,
         resourceId: r._id,

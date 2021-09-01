@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Page /> should render correctly 1`] = `
+<button
+  className="Page"
+  data-testid="Page"
+  onClick={[Function]}
+  type="button"
+>
+  3
+</button>
+`;
+
+exports[`<Page /> should render correctly when selected 1`] = `
+<button
+  className="SelectedPage"
+  data-testid="Page"
+  onClick={[Function]}
+  type="button"
+>
+  1
+</button>
+`;

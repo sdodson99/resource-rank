@@ -1,21 +1,29 @@
 .Hero {
-  background: url('/img/hero.png');
-
-  @apply flex relative text-white text-center;
+  @apply py-16 text-center bg-gray-100 md:text-left;
 }
 
-.Content {
-  @apply z-10 py-16;
+.PromptSection {
+  flex: 2;
 }
 
-.ColorOverlay {
-  background-color: rgba(53, 53, 53, 0.9);
+.IllustrationSection {
+  flex: 1;
 
-  @apply absolute w-full h-full;
+  @apply mt-16 md:mt-0 md:ml-10;
 }
 
-.Search {
-  max-width: 600px;
+.Prompt {
+  @apply text-7xl;
+}
 
-  @apply mx-auto flex flex-col sm:flex-row mt-12;
+.SubPrompt {
+  @apply mt-12 text-2xl;
+}
+
+.Emphasis {
+  color: var(--color-primary);
+}
+
+.Illustration {
+  max-height: 300px;
 }

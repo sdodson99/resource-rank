@@ -6,60 +6,92 @@ exports[`<Hero /> should render correctly 1`] = `
   data-testid="Hero"
 >
   <div
-    className="content-container Content"
+    className="content-container md:flex items-center justify-between"
   >
     <div
-      className="text-7xl"
-    >
-      What are you planning to learn?
-    </div>
-    <div
-      className="Search"
-    >
-      <input
-        className="flex-grow block form-control-lg"
-        onChange={[Function]}
-        placeholder="Search topics..."
-        type="text"
-        value=""
-      />
-      <button
-        className="mt-5 sm:mt-0 sm:ml-3 btn btn-primary"
-        onClick={[Function]}
-      >
-        Search
-      </button>
-    </div>
-    <div
-      className="mt-24"
+      className="PromptSection"
     >
       <div
-        className="text-2xl"
+        className="Prompt"
       >
         <strong>
-          Resource Rank
+          <span
+            className="Emphasis"
+          >
+            Level up
+          </span>
+           your
+           
+          <span
+            className="Emphasis"
+          >
+            learning
+          </span>
+          .
         </strong>
-         helps you find the
-         
-        <strong>
-          best
-        </strong>
-         resources for your learning journey.
       </div>
       <div
-        className="mt-8 flex justify-center"
+        className="SubPrompt"
+      >
+        <span
+          className="Emphasis"
+        >
+          Resource Rank
+        </span>
+         helps you find the 
+        <span
+          className="Emphasis"
+        >
+          best
+        </span>
+         resources for your
+         
+        <span
+          className="Emphasis"
+        >
+          learning journey
+        </span>
+        .
+      </div>
+      <div
+        className="mt-12 flex justify-center md:justify-start"
+      >
+        <a
+          className="btn btn-primary flex items-center"
+          href="/topics"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          Explore Topics
+          <span
+            className="ml-2"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+              />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      className="IllustrationSection"
+    >
+      <div
+        className="flex items-center justify-center"
       >
         <img
-          alt="Resource Rank Logo"
-          height="100"
-          src="/img/logo.svg"
-          width="100"
+          className="Illustration"
+          src="/img/hero.svg"
         />
       </div>
     </div>
   </div>
-  <div
-    className="ColorOverlay"
-  />
 </div>
 `;

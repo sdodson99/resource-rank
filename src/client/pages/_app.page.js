@@ -8,9 +8,12 @@ import { DefaultSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import configuration from '@/configuration/index';
 import Head from 'next/head';
+import useRouteLoadingEffect from '@/hooks/routing/use-route-loading-effect';
 
 function App({ Component, pageProps }) {
   const { asPath } = useRouter();
+
+  useRouteLoadingEffect();
 
   const currentUrl = `${configuration.HTTPS_BASE_URL}${asPath}`;
   const imageUrl = `${configuration.HTTP_BASE_URL}/img/og-logo.jpg`;

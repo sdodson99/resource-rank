@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
-import NewTopic from '../new.page';
+import NewTopic, { Page } from '../new.page';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import useTopicCreator from '@/hooks/topics/use-topic-creator';
@@ -41,115 +41,125 @@ jest.mock(
 );
 
 describe('<NewTopic />', () => {
-  let mockCreateTopic;
-  let mockSetError;
-  let mockPush;
-  let mockSetCreateTopicError;
+  describe('page', () => {
+    let mockCreateTopic;
+    let mockSetError;
+    let mockPush;
+    let mockSetCreateTopicError;
 
-  beforeEach(() => {
-    mockSetError = jest.fn();
-    useForm.mockReturnValue({
-      setError: mockSetError,
-    });
+    beforeEach(() => {
+      mockSetError = jest.fn();
+      useForm.mockReturnValue({
+        setError: mockSetError,
+      });
 
-    mockSetCreateTopicError = jest.fn();
-    useState.mockReturnValue([null, mockSetCreateTopicError]);
+      mockSetCreateTopicError = jest.fn();
+      useState.mockReturnValue([null, mockSetCreateTopicError]);
 
-    mockCreateTopic = jest.fn();
-    useTopicCreator.mockReturnValue({
-      createTopic: mockCreateTopic,
-    });
+      mockCreateTopic = jest.fn();
+      useTopicCreator.mockReturnValue({
+        createTopic: mockCreateTopic,
+      });
 
-    mockPush = jest.fn();
-    useRouter.mockReturnValue({
-      push: mockPush,
-    });
-  });
-
-  afterEach(() => {
-    useState.mockReset();
-    useRouter.mockReset();
-    useTopicCreator.mockReset();
-  });
-
-  it('should mount', () => {
-    render(<NewTopic />);
-
-    const page = screen.getByTestId('NewTopic');
-
-    expect(page).toBeInTheDocument();
-  });
-
-  it('should render correctly', () => {
-    const page = createRenderer().render(<NewTopic />);
-
-    expect(page).toMatchSnapshot();
-  });
-
-  it('should render correctly with create topic error', () => {
-    useState.mockReturnValue([new Error(), mockSetCreateTopicError]);
-
-    const page = createRenderer().render(<NewTopic />);
-
-    expect(page).toMatchSnapshot();
-  });
-
-  describe('on valid submit', () => {
-    function renderAndSubmit() {
-      render(<NewTopic />);
-      const submitButton = screen.getByTestId('SubmitButton');
-      submitButton.click();
-    }
-
-    it('should navigate with created topic slug if successful', async () => {
-      when(mockCreateTopic)
-        .calledWith({ name: 'name' })
-        .mockReturnValue({ slug: 'name-slug' });
-
-      renderAndSubmit();
-
-      await waitFor(() => {
-        expect(mockPush).toBeCalledWith('/topics/name-slug?new=true');
+      mockPush = jest.fn();
+      useRouter.mockReturnValue({
+        push: mockPush,
       });
     });
 
-    it('should set topic name exists error if topics exists error thrown', async () => {
-      when(mockCreateTopic)
-        .calledWith({ name: 'name' })
-        .mockImplementation(() => {
-          throw new TopicExistsError();
+    afterEach(() => {
+      useState.mockReset();
+      useRouter.mockReset();
+      useTopicCreator.mockReset();
+    });
+
+    it('should mount', () => {
+      render(<Page />);
+
+      const page = screen.getByTestId('NewTopic');
+
+      expect(page).toBeInTheDocument();
+    });
+
+    it('should render correctly', () => {
+      const page = createRenderer().render(<Page />);
+
+      expect(page).toMatchSnapshot();
+    });
+
+    it('should render correctly with create topic error', () => {
+      useState.mockReturnValue([new Error(), mockSetCreateTopicError]);
+
+      const page = createRenderer().render(<Page />);
+
+      expect(page).toMatchSnapshot();
+    });
+
+    describe('on valid submit', () => {
+      function renderAndSubmit() {
+        render(<Page />);
+        const submitButton = screen.getByTestId('SubmitButton');
+        submitButton.click();
+      }
+
+      it('should navigate with created topic slug if successful', async () => {
+        when(mockCreateTopic)
+          .calledWith({ name: 'name' })
+          .mockReturnValue({ slug: 'name-slug' });
+
+        renderAndSubmit();
+
+        await waitFor(() => {
+          expect(mockPush).toBeCalledWith('/topics/name-slug?new=true');
         });
+      });
 
-      renderAndSubmit();
+      it('should set topic name exists error if topics exists error thrown', async () => {
+        when(mockCreateTopic)
+          .calledWith({ name: 'name' })
+          .mockImplementation(() => {
+            throw new TopicExistsError();
+          });
 
-      await waitFor(() => {
-        expect(mockSetError).toBeCalledWith('name', {
-          message: 'Name already exists.',
+        renderAndSubmit();
+
+        await waitFor(() => {
+          expect(mockSetError).toBeCalledWith('name', {
+            message: 'Name already exists.',
+          });
+        });
+      });
+
+      it('should set general create topic error if general error thrown', async () => {
+        when(mockCreateTopic)
+          .calledWith({ name: 'name' })
+          .mockImplementation(() => {
+            throw new Error();
+          });
+
+        renderAndSubmit();
+
+        await waitFor(() => {
+          expect(mockSetCreateTopicError).toBeCalled();
         });
       });
     });
 
-    it('should set general create topic error if general error thrown', async () => {
-      when(mockCreateTopic)
-        .calledWith({ name: 'name' })
-        .mockImplementation(() => {
-          throw new Error();
-        });
+    it('should clear generic error on invalid submit', () => {
+      render(<Page />);
+      const invalidButton = screen.getByTestId('InvalidButton');
 
-      renderAndSubmit();
+      invalidButton.click();
 
-      await waitFor(() => {
-        expect(mockSetCreateTopicError).toBeCalled();
-      });
+      expect(mockSetCreateTopicError).toBeCalledWith(null);
     });
   });
 
-  it('should clear generic error on invalid submit', () => {
-    render(<NewTopic />);
-    const invalidButton = screen.getByTestId('InvalidButton');
+  describe('HOC page', () => {
+    it('should require authentication', () => {
+      const page = createRenderer().render(<NewTopic />);
 
-    invalidButton.click();
-
-    expect(mockSetCreateTopicError).toBeCalledWith(null);
+      expect(page).toMatchSnapshot();
+    });
   });
 });

@@ -30,6 +30,7 @@ const AvailableResourceListing = ({ resources, onAddResource }) => {
 AvailableResourceListing.propTypes = {
   resources: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       name: PropTypes.string,
       verified: PropTypes.bool,
       alreadyAdded: PropTypes.bool,

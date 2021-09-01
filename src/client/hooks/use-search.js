@@ -1,29 +1,40 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './use-debounce';
 
-export default function useSearch(executeSearchQuery, { initialSearch } = {}) {
-  const [search, setSearch] = useState(initialSearch || '');
-  const [currentSearch, setCurrentSearch] = useState('');
+export default function useSearch(
+  executeSearchQuery,
+  { initialSearchVariables } = {}
+) {
+  const [searchVariables, setSearchVariables] = useState(
+    initialSearchVariables || {}
+  );
+  const [currentSearchVariables, setCurrentSearchVariables] = useState({});
 
-  const executeSearch = async (search) => {
-    setCurrentSearch(search);
-    executeSearchQuery(search);
+  const executeSearch = async (searchVariables) => {
+    setCurrentSearchVariables(searchVariables);
+    executeSearchQuery(searchVariables);
   };
 
   useEffect(() => {
-    executeSearch(search);
+    executeSearch(searchVariables);
   }, []);
 
   const debounceExecuteSearch = useDebounce(executeSearch, 1000);
 
-  const processSearch = (searchInput) => {
-    setSearch(searchInput);
-    debounceExecuteSearch(searchInput);
+  const debounceProcessSearch = (searchVariables) => {
+    setSearchVariables(searchVariables);
+    debounceExecuteSearch(searchVariables);
+  };
+
+  const processSearch = (searchVariables) => {
+    setSearchVariables(searchVariables);
+    executeSearch(searchVariables);
   };
 
   return {
-    search,
-    currentSearch,
+    searchVariables,
+    currentSearchVariables,
+    debounceProcessSearch,
     processSearch,
   };
 }

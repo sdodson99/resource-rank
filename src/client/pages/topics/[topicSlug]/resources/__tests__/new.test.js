@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
-import NewTopicResource, { getServerSideProps } from '../new.page';
+import NewTopicResource, { Page, getServerSideProps } from '../new.page';
 import useResourceCreator from '@/hooks/resources/use-resource-creator';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import { useRouter } from 'next/router';
@@ -82,7 +82,7 @@ describe('<NewTopicResource />', () => {
     });
 
     it('should mount', () => {
-      render(<NewTopicResource {...props} />);
+      render(<Page {...props} />);
 
       const page = screen.getByTestId('NewTopicResourcePage');
 
@@ -121,7 +121,7 @@ describe('<NewTopicResource />', () => {
           slug: resourceSlug,
         });
         mockCreateTopicResource.mockReturnValue(true);
-        render(<NewTopicResource {...props} />);
+        render(<Page {...props} />);
         const submitButton = screen.getByTestId('SubmitButton');
 
         submitButton.click();
@@ -142,7 +142,7 @@ describe('<NewTopicResource />', () => {
           slug: resourceSlug,
         });
         mockCreateTopicResource.mockReturnValue(false);
-        render(<NewTopicResource {...props} />);
+        render(<Page {...props} />);
         const submitButton = screen.getByTestId('SubmitButton');
 
         submitButton.click();
@@ -160,7 +160,7 @@ describe('<NewTopicResource />', () => {
         mockCreateResource.mockImplementation(() => {
           throw new ResourceExistsError();
         });
-        render(<NewTopicResource {...props} />);
+        render(<Page {...props} />);
         const submitButton = screen.getByTestId('SubmitButton');
 
         submitButton.click();
@@ -178,7 +178,7 @@ describe('<NewTopicResource />', () => {
         mockCreateResource.mockImplementation(() => {
           throw new Error();
         });
-        render(<NewTopicResource {...props} />);
+        render(<Page {...props} />);
         const submitButton = screen.getByTestId('SubmitButton');
 
         submitButton.click();
@@ -197,7 +197,7 @@ describe('<NewTopicResource />', () => {
         new Error(),
         mockSetCreateTopicResourceError,
       ]);
-      render(<NewTopicResource {...props} />);
+      render(<Page {...props} />);
       const invalidButton = screen.getByTestId('InvalidButton');
 
       invalidButton.click();
@@ -207,7 +207,7 @@ describe('<NewTopicResource />', () => {
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(<NewTopicResource {...props} />);
+      const page = createRenderer().render(<Page {...props} />);
 
       expect(page).toMatchSnapshot();
     });
@@ -216,7 +216,15 @@ describe('<NewTopicResource />', () => {
       useState.mockReturnValueOnce([new Error(), jest.fn()]);
       useState.mockReturnValueOnce([new Error(), jest.fn()]);
 
-      const page = createRenderer().render(<NewTopicResource {...props} />);
+      const page = createRenderer().render(<Page {...props} />);
+
+      expect(page).toMatchSnapshot();
+    });
+  });
+
+  describe('HOC page', () => {
+    it('should require authentication', () => {
+      const page = createRenderer().render(<NewTopicResource />);
 
       expect(page).toMatchSnapshot();
     });

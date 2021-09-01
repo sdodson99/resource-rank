@@ -6,28 +6,36 @@ exports[`<CallToAction /> should render correctly 1`] = `
   data-testid="CallToAction"
 >
   <div
-    className="content-container Content"
+    className="content-container"
   >
     <div
       className="text-6xl"
     >
-      What are you waiting for?
+      What are 
+      <span
+        className="Emphasis"
+      >
+        you
+      </span>
+       waiting for?
     </div>
     <div
-      className="mt-10 flex justify-center"
+      className="Search"
     >
-      <a
-        className="btn btn-primary"
-        href="/topics"
+      <input
+        className="flex-grow block form-control-lg"
+        onChange={[Function]}
+        placeholder="Search..."
+        type="text"
+        value=""
+      />
+      <button
+        className="mt-5 sm:mt-0 sm:ml-3 btn btn-primary"
         onClick={[Function]}
-        onMouseEnter={[Function]}
       >
-        Explore Topics
-      </a>
+        Search Topics
+      </button>
     </div>
   </div>
-  <div
-    className="ColorOverlay"
-  />
 </div>
 `;

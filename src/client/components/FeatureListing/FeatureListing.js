@@ -7,7 +7,7 @@ const FeatureListing = ({ features }) => {
   const featureItems = features.map((f) => (
     <div className={styles.FeatureItem} key={f.title}>
       <div className="content-container flex-grow">
-        <Feature description={f.description} imageSrc={f.imageSrc} />
+        <Feature feature={f} />
       </div>
     </div>
   ));
@@ -22,6 +22,7 @@ const FeatureListing = ({ features }) => {
 FeatureListing.propTypes = {
   features: PropTypes.arrayOf(
     PropTypes.shape({
+      title: PropTypes.node.isRequired,
       description: PropTypes.node.isRequired,
       imageSrc: PropTypes.string.isRequired,
     })

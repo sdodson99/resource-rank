@@ -8,6 +8,9 @@ import TopicListing from '@/components/TopicListing/TopicListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
+import Pagination from '@/components/Pagination/Pagination';
+
+const DEFAULT_SEARCH_LIMIT = 10;
 
 export default function Topics() {
   const router = useRouter();
@@ -18,19 +21,31 @@ export default function Topics() {
     data: topicsData,
     error: topicsError,
     isLoading: isLoadingTopics,
-    search,
-    currentSearch,
-    processSearch,
+    searchVariables: { search },
+    currentSearchVariables: { search: currentSearch, limit },
+    debounceProcessSearch,
+    currentPage,
+    processPageNumber,
   } = useTopicSearch({
-    initialSearch: searchQuery,
+    initialSearchVariables: {
+      search: searchQuery ?? '',
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    },
   });
 
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    processSearch(searchInput);
+    debounceProcessSearch({
+      search: searchInput,
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    });
   };
 
-  const topics = topicsData?.topics.filter((t) => t.slug) ?? [];
+  const topics = topicsData?.topics?.items ?? [];
+  const totalTopicsCount = topicsData?.topics?.totalCount;
+  const topicsPageCount = Math.ceil(totalTopicsCount / limit);
   const hasTopics = topics?.length > 0;
 
   const breadcrumbs = [
@@ -91,7 +106,19 @@ export default function Topics() {
                     `No topics matching '${currentSearch}' have been created.`}
                 </div>
               }
-              dataDisplay={<TopicListing topics={topics} />}
+              dataDisplay={
+                <div>
+                  <TopicListing topics={topics} />
+
+                  <div className="mt-8 flex justify-center">
+                    <Pagination
+                      selectedPage={currentPage}
+                      pageCount={topicsPageCount}
+                      onPageClick={processPageNumber}
+                    />
+                  </div>
+                </div>
+              }
             />
           </div>
         </div>

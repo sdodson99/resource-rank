@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CallToAction.module.css';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const CallToAction = () => (
-  <div className={styles.CallToAction} data-testid="CallToAction">
-    <div className={`content-container ${styles.Content}`}>
-      <div className="text-6xl">What are you waiting for?</div>
-      <div className="mt-10 flex justify-center">
-        <Link href="/topics">
-          <a className="btn btn-primary">Explore Topics</a>
-        </Link>
+const CallToAction = () => {
+  const [searchTopicsQuery, setSearchTopicsQuery] = useState('');
+  const router = useRouter();
+
+  const onSearchTopicsQueryChange = (e) => {
+    const value = e.target.value;
+
+    setSearchTopicsQuery(value);
+  };
+
+  const onSearchTopics = () => {
+    router.push(`/topics?q=${searchTopicsQuery}`);
+  };
+
+  return (
+    <div className={styles.CallToAction} data-testid="CallToAction">
+      <div className="content-container">
+        <div className="text-6xl">
+          What are <span className={styles.Emphasis}>you</span> waiting for?
+        </div>
+        <div className={styles.Search}>
+          <input
+            type="text"
+            className="flex-grow block form-control-lg"
+            placeholder="Search..."
+            value={searchTopicsQuery}
+            onChange={onSearchTopicsQueryChange}
+          />
+          <button
+            className="mt-5 sm:mt-0 sm:ml-3 btn btn-primary"
+            onClick={onSearchTopics}
+          >
+            Search Topics
+          </button>
+        </div>
       </div>
     </div>
-    <div className={styles.ColorOverlay}></div>
-  </div>
-);
+  );
+};
 
 CallToAction.propTypes = {};
 

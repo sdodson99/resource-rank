@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 
 exports.typeDefs = gql`
   type Query {
-    topics(search: String): [Topic]
+    topics(search: String, offset: Int, limit: Int): TopicListing
     topicExists(name: String!): Boolean
     topic(id: ID!): Topic
     topicBySlug(slug: String!): Topic
@@ -10,6 +10,11 @@ exports.typeDefs = gql`
 
   type Mutation {
     createTopic(name: String!): Topic
+  }
+
+  type TopicListing {
+    items: [Topic]
+    totalCount: Int
   }
 
   type Topic {
@@ -24,8 +29,11 @@ exports.typeDefs = gql`
 
 exports.resolvers = {
   Query: {
-    topics: (_, { search = '' }, { dataSources }) =>
-      dataSources.topics.search(search),
+    topics: (_, { search, offset, limit }, { dataSources }) =>
+      dataSources.topics.search(search, {
+        offset,
+        limit,
+      }),
     topic: (_, { id }, { dataSources }) => dataSources.topics.getById(id),
     topicBySlug: (_, { slug }, { dataSources }) =>
       dataSources.topics.getBySlug(slug),

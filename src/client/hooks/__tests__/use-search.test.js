@@ -10,20 +10,32 @@ jest.mock('react', () => ({
 jest.mock('../use-debounce');
 
 describe('useSearch', () => {
-  let mockSetSearch;
-  let mockSetCurrentSearch;
+  let mockSetSearchVariables;
+  let mockSetCurrentSearchVariables;
 
   let mockExecute;
-  let initialSearch;
+  let initialSearchVariables;
 
   beforeEach(() => {
-    mockSetSearch = jest.fn();
-    mockSetCurrentSearch = jest.fn();
-    useState.mockReturnValueOnce(['search', mockSetSearch]);
-    useState.mockReturnValueOnce(['currentSearch', mockSetCurrentSearch]);
+    mockSetSearchVariables = jest.fn();
+    mockSetCurrentSearchVariables = jest.fn();
+    useState.mockReturnValueOnce([
+      {
+        search: 'search',
+      },
+      mockSetSearchVariables,
+    ]);
+    useState.mockReturnValueOnce([
+      {
+        search: 'currentSearch',
+      },
+      mockSetCurrentSearchVariables,
+    ]);
 
     mockExecute = jest.fn();
-    initialSearch = 'search';
+    initialSearchVariables = {
+      search: 'search',
+    };
   });
 
   afterEach(() => {
@@ -32,55 +44,88 @@ describe('useSearch', () => {
     useDebounce.mockReset();
   });
 
-  it('should use initial search', () => {
-    useSearch(mockExecute, { initialSearch });
+  it('should use initial search variables', () => {
+    useSearch(mockExecute, { initialSearchVariables });
 
-    expect(useState).toBeCalledWith(initialSearch);
+    expect(useState).toBeCalledWith(initialSearchVariables);
   });
 
-  it('should use empty string if no initial search', () => {
+  it('should use empty search variables if no initial search variables', () => {
     useSearch(mockExecute);
 
-    expect(useState.mock.calls[0][0]).toBe('');
+    expect(useState.mock.calls[0][0]).toEqual({});
   });
 
   it('should return search data', () => {
-    const { search, currentSearch, processSearch } = useSearch(mockExecute, {
-      initialSearch,
-    });
+    const { searchVariables, currentSearchVariables, processSearch } =
+      useSearch(mockExecute, {
+        initialSearchVariables,
+      });
 
-    expect(search).toBe('search');
-    expect(currentSearch).toBe('currentSearch');
+    expect(searchVariables).toEqual({
+      search: 'search',
+    });
+    expect(currentSearchVariables).toEqual({
+      search: 'currentSearch',
+    });
     expect(processSearch).toBeDefined();
   });
 
   it('should execute search query on mount', () => {
     useEffect.mockImplementation((cb) => cb());
 
-    useSearch(mockExecute, { initialSearch });
+    useSearch(mockExecute, { initialSearchVariables });
 
-    expect(mockSetCurrentSearch).toBeCalledWith(initialSearch);
-    expect(mockExecute).toBeCalledWith(initialSearch);
+    expect(mockSetCurrentSearchVariables).toBeCalledWith(
+      initialSearchVariables
+    );
+    expect(mockExecute).toBeCalledWith(initialSearchVariables);
   });
 
-  describe('processSearch', () => {
+  describe('debounceProcessSearch', () => {
     it('should set search state', () => {
       useDebounce.mockReturnValue(jest.fn());
-      const { processSearch } = useSearch(mockExecute, { initialSearch });
+      const { debounceProcessSearch } = useSearch(mockExecute, {
+        initialSearchVariables,
+      });
 
-      processSearch('search');
+      debounceProcessSearch('search');
 
-      expect(mockSetSearch).toBeCalledWith('search');
+      expect(mockSetSearchVariables).toBeCalledWith('search');
     });
 
     it('should execute debounced search', () => {
       const mockDebounceExecute = jest.fn();
       useDebounce.mockReturnValue(mockDebounceExecute);
-      const { processSearch } = useSearch(mockExecute, { initialSearch });
+      const { debounceProcessSearch } = useSearch(mockExecute, {
+        initialSearchVariables,
+      });
+
+      debounceProcessSearch('search');
+
+      expect(mockDebounceExecute).toBeCalledWith('search');
+    });
+  });
+
+  describe('processSearch', () => {
+    it('should set search state', () => {
+      const { processSearch } = useSearch(mockExecute, {
+        initialSearchVariables,
+      });
 
       processSearch('search');
 
-      expect(mockDebounceExecute).toBeCalledWith('search');
+      expect(mockSetSearchVariables).toBeCalledWith('search');
+    });
+
+    it('should execute search', () => {
+      const { processSearch } = useSearch(mockExecute, {
+        initialSearchVariables,
+      });
+
+      processSearch('search');
+
+      expect(mockExecute).toBeCalledWith('search');
     });
   });
 });

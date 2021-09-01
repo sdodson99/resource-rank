@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<AddTopicResource /> HOC page should require authentication 1`] = `
+<Layout>
+  <div
+    className="mt-8"
+  >
+    <LoadingSpinner
+      color="#292929"
+      size={50}
+    />
+  </div>
+</Layout>
+`;
+
 exports[`<AddTopicResource /> page should render correctly 1`] = `
 <div
   data-testid="AddTopicResourcePage"
@@ -46,6 +59,7 @@ exports[`<AddTopicResource /> page should render correctly 1`] = `
         onChange={[Function]}
         placeholder="Search resources..."
         type="text"
+        value="search"
       />
     </div>
     <div
@@ -53,10 +67,23 @@ exports[`<AddTopicResource /> page should render correctly 1`] = `
     >
       <LoadingErrorEmptyDataLayout
         dataDisplay={
-          <AvailableResourceListing
-            onAddResource={[Function]}
-            resources={null}
-          />
+          <div>
+            <AvailableResourceListing
+              onAddResource={[Function]}
+              resources={null}
+            />
+            <div
+              className="mt-8 flex justify-center"
+            >
+              <Pagination
+                onPageClick={[MockFunction]}
+                pageCount={NaN}
+                selectedPage={1}
+                selectedPageGapMinRange={3}
+                selectedPageRange={2}
+              />
+            </div>
+          </div>
         }
         errorDisplay={
           <div
@@ -67,6 +94,7 @@ exports[`<AddTopicResource /> page should render correctly 1`] = `
         }
         hasData={false}
         hasError={false}
+        isLoading={false}
         loadingDisplay={
           <div
             className="text-center"
@@ -136,6 +164,7 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
         onChange={[Function]}
         placeholder="Search resources..."
         type="text"
+        value="search"
       />
     </div>
     <div
@@ -143,10 +172,23 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
     >
       <LoadingErrorEmptyDataLayout
         dataDisplay={
-          <AvailableResourceListing
-            onAddResource={[Function]}
-            resources={null}
-          />
+          <div>
+            <AvailableResourceListing
+              onAddResource={[Function]}
+              resources={null}
+            />
+            <div
+              className="mt-8 flex justify-center"
+            >
+              <Pagination
+                onPageClick={[MockFunction]}
+                pageCount={NaN}
+                selectedPage={1}
+                selectedPageGapMinRange={3}
+                selectedPageRange={2}
+              />
+            </div>
+          </div>
         }
         errorDisplay={
           <div
@@ -157,6 +199,7 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
         }
         hasData={false}
         hasError={false}
+        isLoading={false}
         loadingDisplay={
           <div
             className="text-center"
@@ -171,7 +214,7 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
           <div
             className="text-center sm:text-left"
           >
-            No resources matching 'CURRENT_SEARCH' have been created.
+            No resources matching 'currentSearch' have been created.
           </div>
         }
       />

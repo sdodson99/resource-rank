@@ -18,8 +18,9 @@ describe('useAuthentication', () => {
 
   it('should return authentication state', () => {
     const expected = {
-      isLoggedIn: true,
+      isLoggedIn: false,
       currentUser: null,
+      initialized: false,
     };
     useState.mockReturnValue([expected]);
 
@@ -34,6 +35,7 @@ describe('useAuthentication', () => {
       currentUser: {
         username: 'test',
       },
+      initialized: true,
     };
     const mockSetAuthenticationState = jest.fn();
     useState.mockReturnValue([null, mockSetAuthenticationState]);

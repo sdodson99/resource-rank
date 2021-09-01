@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination /> should render correctly when gaps needed and selected page range configured 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <React.Fragment>
+    <Page
+      number={1}
+    />
+    <PageGap />
+    <PageRange
+      first={9}
+      last={9}
+    />
+  </React.Fragment>
+  <Page
+    isSelected={true}
+    number={10}
+  />
+  <React.Fragment>
+    <PageRange
+      first={11}
+      last={11}
+    />
+    <PageGap />
+    <Page
+      number={20}
+    />
+  </React.Fragment>
+</div>
+`;
+
+exports[`<Pagination /> should render correctly when no page gaps needed 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <PageRange
+    first={1}
+    last={2}
+  />
+  <Page
+    isSelected={true}
+    number={3}
+  />
+  <PageRange
+    first={4}
+    last={5}
+  />
+</div>
+`;
+
+exports[`<Pagination /> should render correctly when page gaps needed, but min gap range overriden 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <PageRange
+    first={1}
+    last={9}
+  />
+  <Page
+    isSelected={true}
+    number={10}
+  />
+  <PageRange
+    first={11}
+    last={20}
+  />
+</div>
+`;
+
+exports[`<Pagination /> should render correctly when post-selected page gap needed 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <PageRange
+    first={1}
+    last={2}
+  />
+  <Page
+    isSelected={true}
+    number={3}
+  />
+  <React.Fragment>
+    <PageRange
+      first={4}
+      last={5}
+    />
+    <PageGap />
+    <Page
+      number={20}
+    />
+  </React.Fragment>
+</div>
+`;
+
+exports[`<Pagination /> should render correctly when pre-selected page gap needed 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <React.Fragment>
+    <Page
+      number={1}
+    />
+    <PageGap />
+    <PageRange
+      first={16}
+      last={17}
+    />
+  </React.Fragment>
+  <Page
+    isSelected={true}
+    number={18}
+  />
+  <PageRange
+    first={19}
+    last={20}
+  />
+</div>
+`;
+
+exports[`<Pagination /> should render correctly with defaults 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <PageRange
+    first={1}
+    last={0}
+  />
+  <Page
+    isSelected={true}
+    number={1}
+  />
+  <PageRange
+    first={2}
+    last={1}
+  />
+</div>
+`;
+
+exports[`<Pagination /> should render correctly with selected page 1`] = `
+<div
+  className="Pagination"
+  data-testid="Pagination"
+>
+  <PageRange
+    first={1}
+    last={2}
+  />
+  <Page
+    isSelected={true}
+    number={3}
+  />
+  <PageRange
+    first={4}
+    last={5}
+  />
+</div>
+`;

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const resourceSchema = new Schema({
   name: {
@@ -22,6 +23,8 @@ const resourceSchema = new Schema({
     default: false,
   },
 });
+
+resourceSchema.plugin(mongoosePaginate);
 
 const Resource = model('Resource', resourceSchema);
 

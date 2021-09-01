@@ -10,6 +10,10 @@ import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
+import Pagination from '@/components/Pagination/Pagination';
+import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
+
+const DEFAULT_SEARCH_LIMIT = 10;
 
 const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const router = useRouter();
@@ -19,14 +23,25 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
     data: resourcesData,
     error: resourcesError,
     isLoading: isLoadingResources,
-    search,
-    currentSearch,
-    processSearch,
-  } = useAvailableTopicResourceSearch(topicId);
+    searchVariables: { search },
+    currentSearchVariables: { search: currentSearch, limit },
+    debounceProcessSearch,
+    currentPage,
+    processPageNumber,
+  } = useAvailableTopicResourceSearch(topicId, {
+    initialSearchVariables: {
+      search: '',
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    },
+  });
 
   useEffect(() => {
-    const availableResources = resourcesData?.availableResources?.filter(
-      (r) => r.slug
+    const availableResources = resourcesData?.availableResources?.items?.map(
+      (r) => ({
+        ...r.resource,
+        alreadyAdded: r.alreadyAdded,
+      })
     );
 
     setResources(availableResources);
@@ -34,7 +49,11 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
   const onSearchChange = (e) => {
     const searchInput = e.target.value;
-    processSearch(searchInput);
+    debounceProcessSearch({
+      search: searchInput,
+      offset: 0,
+      limit: DEFAULT_SEARCH_LIMIT,
+    });
   };
 
   const { createTopicResource } = useTopicResourceCreator();
@@ -74,6 +93,8 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
     return `No resources matching '${currentSearch}' have been created.`;
   };
 
+  const totalResourcesCount = resourcesData?.availableResources?.totalCount;
+  const resourcesPageCount = Math.ceil(totalResourcesCount / limit);
   const hasResources = resources?.length > 0;
 
   const breadcrumbs = [
@@ -140,10 +161,20 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
               </div>
             }
             dataDisplay={
-              <AvailableResourceListing
-                resources={resources}
-                onAddResource={onAddResource}
-              />
+              <div>
+                <AvailableResourceListing
+                  resources={resources}
+                  onAddResource={onAddResource}
+                />
+
+                <div className="mt-8 flex justify-center">
+                  <Pagination
+                    selectedPage={currentPage}
+                    pageCount={resourcesPageCount}
+                    onPageClick={processPageNumber}
+                  />
+                </div>
+              </div>
             }
           />
         </div>
@@ -176,4 +207,5 @@ export async function getServerSideProps({ req, params: { topicSlug } }) {
   }
 }
 
-export default AddTopicResource;
+export { AddTopicResource as Page };
+export default withAuthentication(AddTopicResource);

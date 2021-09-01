@@ -1,3 +1,4 @@
+const { when } = require('jest-when');
 const { resolvers } = require('../resources');
 
 describe('resources resolvers', () => {
@@ -6,7 +7,9 @@ describe('resources resolvers', () => {
   let context;
 
   beforeEach(() => {
-    resourcesDataSource = {};
+    resourcesDataSource = {
+      search: jest.fn(),
+    };
     usersDataSource = {};
     context = {
       dataSources: {
@@ -18,26 +21,31 @@ describe('resources resolvers', () => {
 
   describe('resources query', () => {
     let search;
+    let offset;
+    let limit;
 
     beforeEach(() => {
       search = 'search123';
+      offset = 10;
+      limit = 5;
     });
 
     it('should return search result', () => {
-      const expected = [{ id: 'resource123' }];
-      resourcesDataSource.search = () => expected;
+      const expected = {
+        items: [{ id: 'resource123' }],
+        totalCount: 1,
+      };
+      when(resourcesDataSource.search)
+        .calledWith(search, { offset, limit })
+        .mockReturnValue(expected);
 
-      const actual = resolvers.Query.resources(null, { search }, context);
+      const actual = resolvers.Query.resources(
+        null,
+        { search, offset, limit },
+        context
+      );
 
       expect(expected).toBe(actual);
-    });
-
-    it('should execute search', () => {
-      resourcesDataSource.search = jest.fn();
-
-      resolvers.Query.resources(null, { search }, context);
-
-      expect(resourcesDataSource.search.mock.calls[0][0]).toBe(search);
     });
   });
 

@@ -1,10 +1,12 @@
 import useTopicSearchQuery from '../queries/use-topic-search-query';
-import useSearch from '../use-search';
+import usePaginatedSearch from '../use-paginated-search';
 
-export default function useTopicSearch({ initialSearch } = {}) {
+export default function useTopicSearch({ initialSearchVariables } = {}) {
   const { execute: executeTopicSearchQuery, ...others } = useTopicSearchQuery();
 
-  const search = useSearch(executeTopicSearchQuery, { initialSearch });
+  const search = usePaginatedSearch(executeTopicSearchQuery, {
+    initialSearchVariables,
+  });
 
   return {
     ...search,
