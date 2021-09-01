@@ -60,7 +60,8 @@ const TopicDetails = ({
   };
 
   const topicResources = topicResourcesData?.topicResources?.items ?? [];
-  const totalTopicResourcesCount = topicResourcesData?.topicResources?.totalCount;
+  const totalTopicResourcesCount =
+    topicResourcesData?.topicResources?.totalCount;
   const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
   const orderedResources = topicResources.sort(

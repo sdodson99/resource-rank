@@ -20,7 +20,9 @@ const withAuthentication = (Component) =>
     if (!isLoggedIn) {
       return (
         <Layout>
-          <div className="mt-8 text-center text-lg">You must login to view this page.</div>
+          <div className="mt-8 text-center text-lg">
+            You must login to view this page.
+          </div>
         </Layout>
       );
     }
