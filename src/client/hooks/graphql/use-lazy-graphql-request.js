@@ -9,9 +9,9 @@ export default function useLazyGraphQLRequest(gqlDocument) {
   const gqlFetch = useGraphQLFetcherContext();
 
   const execute = async (variables) => {
+    setIsLoading(true);
     setData(null);
     setError(null);
-    setIsLoading(true);
 
     try {
       const responseData = await gqlFetch(gqlDocument, variables);
