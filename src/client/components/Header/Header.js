@@ -23,7 +23,7 @@ const Header = () => {
 
       await firebaseApp.auth().signInWithPopup(googleAuthProvider);
 
-      analytics.logEvent('login', {
+      analytics?.logEvent('login', {
         method: 'Google',
       });
     } catch (error) {
