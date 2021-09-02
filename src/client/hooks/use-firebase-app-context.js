@@ -1,6 +1,7 @@
 import constate from 'constate';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/analytics';
 
 export function useFirebaseApp({ firebaseConfig, useAuthenticationEmulator }) {
   if (!firebase.apps.length) {
