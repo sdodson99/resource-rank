@@ -6,9 +6,11 @@ import firebase from 'firebase/app';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useFirebaseAppContext from '@/hooks/use-firebase-app-context';
 import ActiveLink from '../ActiveLink/ActiveLink';
+import useFirebaseAnalytics from '@/hooks/use-firebase-analytics';
 
 const Header = () => {
   const firebaseApp = useFirebaseAppContext();
+  const analytics = useFirebaseAnalytics();
   const { isLoggedIn } = useAuthenticationContext();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -20,6 +22,10 @@ const Header = () => {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
       await firebaseApp.auth().signInWithPopup(googleAuthProvider);
+
+      analytics.logEvent('login', {
+        method: 'Google',
+      });
     } catch (error) {
       console.error(error);
     } finally {
