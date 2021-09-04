@@ -45,12 +45,11 @@ describe('FirebaseFeatureFlagLoader', () => {
       mockOn.mockImplementation((_, cb) => {
         cb({
           val: () => {
-            return [
-              {
-                name: 'test1',
+            return {
+              test1: {
                 is_enabled: true,
               },
-            ];
+            };
           },
         });
       });
@@ -82,7 +81,11 @@ describe('FirebaseFeatureFlagLoader', () => {
 
     it('should load and return feature flags if not already loaded', async () => {
       mockGet.mockReturnValue({
-        val: () => [{ name: 'test123', is_enabled: true }],
+        val: () => ({
+          test123: {
+            is_enabled: true,
+          },
+        }),
       });
 
       const featureFlags = await featureFlagLoader.load();

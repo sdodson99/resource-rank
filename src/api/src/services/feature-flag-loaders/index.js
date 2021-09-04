@@ -47,7 +47,7 @@ class FirebaseFeatureFlagLoader {
 
   /**
    * Map feature flag data to feature flags.
-   * @param {Array} featureFlagsData The raw feature flag data.
+   * @param {object} featureFlagsData The raw feature flag data.
    * @return {Array} The mapped feature flags.
    */
   toFeatureFlags(featureFlagsData) {
@@ -55,7 +55,9 @@ class FirebaseFeatureFlagLoader {
       return [];
     }
 
-    return featureFlagsData.map((f) => new FeatureFlag(f.name, f.is_enabled));
+    return Object.entries(featureFlagsData).map(
+      ([key, value]) => new FeatureFlag(key, value.is_enabled)
+    );
   }
 }
 
