@@ -11,6 +11,8 @@ jest.mock('../../mongoose/open-connection');
 jest.mock(
   '../../data-sources/read-only-mode/firebase-read-only-mode-data-source'
 );
+jest.mock('../../services/feature-flag-loaders');
+jest.mock('../../data-sources/feature-flags');
 
 describe('API Firebase Function', () => {
   let mockConnectionString;

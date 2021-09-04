@@ -7,7 +7,7 @@ class FeatureFlag {
    * @param {string} name The unique name of the feature flag.
    * @param {boolean} isEnabled True/false for is the feature flag is enabled.
    */
-  constructor(name, isEnabled) {
+  constructor(name, isEnabled = false) {
     this.name = name;
     this.isEnabled = isEnabled;
   }

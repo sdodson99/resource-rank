@@ -10,6 +10,7 @@ exports.createGQLServer = ({
   readOnlyModeDataSource,
   userDecoder,
   usersDataSource,
+  featureFlagsDataSource,
 }) => {
   const app = express();
 
@@ -32,6 +33,7 @@ exports.createGQLServer = ({
         topics: new MongoTopicsDataSource(),
         resources: new MongoResourcesDataSource(),
         ratings: new MongoRatingsDataSource(),
+        featureFlags: featureFlagsDataSource,
       };
     },
   });
