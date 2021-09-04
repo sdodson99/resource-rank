@@ -91,6 +91,16 @@ describe('FirebaseFeatureFlagLoader', () => {
       expect(featureFlags).toEqual([{ name: 'test123', isEnabled: true }]);
     });
 
+    it('should return empty feature flags if feature flag data is null', async () => {
+      mockGet.mockReturnValue({
+        val: () => null,
+      });
+
+      const featureFlags = await featureFlagLoader.load();
+
+      expect(featureFlags).toEqual([]);
+    });
+
     it('should return feature flags without loading if already loaded', async () => {
       featureFlagLoader.loaded = true;
       featureFlagLoader.featureFlags = [{ name: 'test' }];

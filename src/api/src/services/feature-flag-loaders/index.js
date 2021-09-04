@@ -51,6 +51,10 @@ class FirebaseFeatureFlagLoader {
    * @return {Array} The mapped feature flags.
    */
   toFeatureFlags(featureFlagsData) {
+    if (!featureFlagsData) {
+      return [];
+    }
+
     return featureFlagsData.map((f) => new FeatureFlag(f.name, f.is_enabled));
   }
 }
