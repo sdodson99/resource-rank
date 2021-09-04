@@ -13,7 +13,6 @@ exports.typeDefs = gql`
 
 exports.resolvers = {
   Query: {
-    featureFlags: (_, __, { dataSources }) =>
-      dataSources.featureFlags.getAll(),
+    featureFlags: (_, __, { dataSources }) => dataSources.featureFlags.getAll(),
   },
 };

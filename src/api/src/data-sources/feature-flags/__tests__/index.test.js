@@ -21,7 +21,9 @@ describe('FeatureFlagsDataSource', () => {
           isEnabled: true,
         },
       ];
-      featureFlagLoader.load.mockReturnValue(expected);
+      featureFlagLoader.load.mockReturnValue({
+        toArray: () => expected,
+      });
 
       const actual = await featureFlagsDataSource.getAll();
 

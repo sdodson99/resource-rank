@@ -15,7 +15,9 @@ class FeatureFlagsDataSource {
    * @return {Promise<Array>} The loaded feature flags.
    */
   async getAll() {
-    return await this.featureFlagLoader.load();
+    const featureFlagMap = await this.featureFlagLoader.load();
+
+    return featureFlagMap.toArray();
   }
 }
 

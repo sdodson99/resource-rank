@@ -15,9 +15,9 @@ class ReadOnlyModeDataSource {
    * @return {Promise<boolean>} True/false for if read only mode is enabled.
    */
   async isReadOnlyEnabled() {
-    const featureFlags = await this.featureFlagLoader.load();
-    
-    return featureFlags.some((f) => f.name === 'read_only_mode' && f.isEnabled);
+    const featureFlagMap = await this.featureFlagLoader.load();
+
+    return featureFlagMap.isEnabled('read_only_mode');
   }
 }
 

@@ -1,4 +1,4 @@
-const FeatureFlag = require('../../models/feature-flag');
+const FeatureFlagMap = require('../../models/feature-flags/feature-flag-map');
 
 /**
  * Service for loading feature flags with Firebase.
@@ -10,54 +10,41 @@ class FirebaseFeatureFlagLoader {
    * @param {string} featureFlagsDatabasePath The database path to the feature flag values.
    */
   constructor(app, featureFlagsDatabasePath) {
-    this.app = app;
-    this.featureFlagsDatabasePath = featureFlagsDatabasePath;
-    this.featureFlags = [];
+    this.featureFlagMap = new FeatureFlagMap();
     this.loaded = false;
+    this.featureFlagDatabaseRef = app.database().ref(featureFlagsDatabasePath);
 
-    this.app
-      .database()
-      .ref(this.featureFlagsDatabasePath)
-      .on('value', (data) => {
-        const featureFlagsData = data.val();
+    this.featureFlagDatabaseRef.on('value', (data) => {
+      const featureFlagData = data.val();
 
-        this.featureFlags = this.toFeatureFlags(featureFlagsData);
-        this.loaded = true;
-      });
+      this.featureFlagMap = this.toFeatureFlagMap(featureFlagData);
+      this.loaded = true;
+    });
   }
 
   /**
    * Load feature flags.
-   * @return {Promise<Array>} The loaded feature flags.
+   * @return {Promise<object>} The loaded feature flags.
    */
   async load() {
     if (!this.loaded) {
-      const data = await this.app
-        .database()
-        .ref(this.featureFlagsDatabasePath)
-        .get();
-      const featureFlagsData = data.val();
+      const data = await this.featureFlagDatabaseRef.get();
+      const featureFlagData = data.val();
 
-      this.featureFlags = this.toFeatureFlags(featureFlagsData);
+      this.featureFlagMap = this.toFeatureFlagMap(featureFlagData);
       this.loaded = true;
     }
 
-    return this.featureFlags;
+    return this.featureFlagMap;
   }
 
   /**
    * Map feature flag data to feature flags.
-   * @param {object} featureFlagsData The raw feature flag data.
-   * @return {Array} The mapped feature flags.
+   * @param {object} featureFlagData The raw feature flag data.
+   * @return {object} The feature flags map.
    */
-  toFeatureFlags(featureFlagsData) {
-    if (!featureFlagsData) {
-      return [];
-    }
-
-    return Object.entries(featureFlagsData).map(
-      ([key, value]) => new FeatureFlag(key, value.is_enabled)
-    );
+  toFeatureFlagMap(featureFlagData) {
+    return new FeatureFlagMap(featureFlagData);
   }
 }
 

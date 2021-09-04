@@ -1,5 +1,6 @@
 const { when } = require('jest-when');
 const FirebaseFeatureFlagLoader = require('..');
+const FeatureFlagMap = require('../../../models/feature-flags/feature-flag-map');
 
 describe('FirebaseFeatureFlagLoader', () => {
   let featureFlagsDatabasePath;
@@ -27,29 +28,16 @@ describe('FirebaseFeatureFlagLoader', () => {
   });
 
   describe('initialization', () => {
-    it('should initialize fields', () => {
-      const featureFlagLoader = new FirebaseFeatureFlagLoader(
-        app,
-        featureFlagsDatabasePath
-      );
-
-      expect(featureFlagLoader.app).toBe(app);
-      expect(featureFlagLoader.featureFlagsDatabasePath).toBe(
-        featureFlagsDatabasePath
-      );
-      expect(featureFlagLoader.featureFlags.length).toBe(0);
-      expect(featureFlagLoader.loaded).toBeFalsy();
-    });
-
     it('should subscribe to feature flag changes', () => {
+      const expected = {
+        test1: {
+          isEnabled: true,
+        },
+      };
       mockOn.mockImplementation((_, cb) => {
         cb({
           val: () => {
-            return {
-              test1: {
-                is_enabled: true,
-              },
-            };
+            return expected;
           },
         });
       });
@@ -60,12 +48,7 @@ describe('FirebaseFeatureFlagLoader', () => {
       );
 
       expect(featureFlagLoader.loaded).toBeTruthy();
-      expect(featureFlagLoader.featureFlags).toEqual([
-        {
-          name: 'test1',
-          isEnabled: true,
-        },
-      ]);
+      expect(featureFlagLoader.featureFlagMap.data).toEqual(expected);
     });
   });
 
@@ -80,18 +63,19 @@ describe('FirebaseFeatureFlagLoader', () => {
     });
 
     it('should load and return feature flags if not already loaded', async () => {
+      const expected = {
+        test123: {
+          is_enabled: true,
+        },
+      };
       mockGet.mockReturnValue({
-        val: () => ({
-          test123: {
-            is_enabled: true,
-          },
-        }),
+        val: () => expected,
       });
 
-      const featureFlags = await featureFlagLoader.load();
+      const featureFlagMap = await featureFlagLoader.load();
 
       expect(featureFlagLoader.loaded).toBeTruthy();
-      expect(featureFlags).toEqual([{ name: 'test123', isEnabled: true }]);
+      expect(featureFlagMap.data).toEqual(expected);
     });
 
     it('should return empty feature flags if feature flag data is null', async () => {
@@ -101,16 +85,17 @@ describe('FirebaseFeatureFlagLoader', () => {
 
       const featureFlags = await featureFlagLoader.load();
 
-      expect(featureFlags).toEqual([]);
+      expect(featureFlags.data).toEqual({});
     });
 
     it('should return feature flags without loading if already loaded', async () => {
+      const expected = new FeatureFlagMap();
       featureFlagLoader.loaded = true;
-      featureFlagLoader.featureFlags = [{ name: 'test' }];
+      featureFlagLoader.featureFlagMap = expected;
 
-      const featureFlags = await featureFlagLoader.load();
+      const featureFlagMap = await featureFlagLoader.load();
 
-      expect(featureFlags).toEqual([{ name: 'test' }]);
+      expect(featureFlagMap).toEqual(expected);
     });
   });
 });
