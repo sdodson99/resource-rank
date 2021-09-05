@@ -33,13 +33,21 @@ exports[`<TopicResourceDetails /> page should render correctly 1`] = `
     <div
       className="sm:flex justify-between items-center"
     >
-      <div
-        className="flex items-center"
-      >
+      <div>
         <div
-          className="text-4xl"
-          data-testid="ResourceTitle"
-        />
+          className="flex items-center"
+        >
+          <div
+            className="text-4xl"
+            data-testid="ResourceTitle"
+          />
+        </div>
+        <div
+          className="mt-2 text-xs text-gray-800 font-thin"
+        >
+          Created by 
+          Unknown
+        </div>
       </div>
       <div
         className="mt-3 sm:mt-0"
@@ -52,35 +60,35 @@ exports[`<TopicResourceDetails /> page should render correctly 1`] = `
       </div>
     </div>
     <div
-      className="mt-3 text-xs text-gray-800"
-    >
-      Created by 
-      Unknown
-    </div>
-    <div
-      className="mt-10"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Details
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <ResourceDetails />
       </div>
     </div>
     <div
-      className="mt-8"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Add Rating
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <div>
           You must login to add a rating.
@@ -124,13 +132,21 @@ exports[`<TopicResourceDetails /> page should render correctly when logged in 1`
     <div
       className="sm:flex justify-between items-center"
     >
-      <div
-        className="flex items-center"
-      >
+      <div>
         <div
-          className="text-4xl"
-          data-testid="ResourceTitle"
-        />
+          className="flex items-center"
+        >
+          <div
+            className="text-4xl"
+            data-testid="ResourceTitle"
+          />
+        </div>
+        <div
+          className="mt-2 text-xs text-gray-800 font-thin"
+        >
+          Created by 
+          Unknown
+        </div>
       </div>
       <div
         className="mt-3 sm:mt-0"
@@ -143,35 +159,35 @@ exports[`<TopicResourceDetails /> page should render correctly when logged in 1`
       </div>
     </div>
     <div
-      className="mt-3 text-xs text-gray-800"
-    >
-      Created by 
-      Unknown
-    </div>
-    <div
-      className="mt-10"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Details
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <ResourceDetails />
       </div>
     </div>
     <div
-      className="mt-8"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Add Rating
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
@@ -241,19 +257,27 @@ exports[`<TopicResourceDetails /> page should render correctly when verified 1`]
     <div
       className="sm:flex justify-between items-center"
     >
-      <div
-        className="flex items-center"
-      >
+      <div>
         <div
-          className="text-4xl"
-          data-testid="ResourceTitle"
-        />
-        <div
-          className="ml-2"
+          className="flex items-center"
         >
-          <VerifiedIcon
-            size={25}
+          <div
+            className="text-4xl"
+            data-testid="ResourceTitle"
           />
+          <div
+            className="ml-2"
+          >
+            <VerifiedIcon
+              size={25}
+            />
+          </div>
+        </div>
+        <div
+          className="mt-2 text-xs text-gray-800 font-thin"
+        >
+          Created by 
+          Unknown
         </div>
       </div>
       <div
@@ -267,35 +291,35 @@ exports[`<TopicResourceDetails /> page should render correctly when verified 1`]
       </div>
     </div>
     <div
-      className="mt-3 text-xs text-gray-800"
-    >
-      Created by 
-      Unknown
-    </div>
-    <div
-      className="mt-10"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Details
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <ResourceDetails />
       </div>
     </div>
     <div
-      className="mt-8"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Add Rating
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <div>
           You must login to add a rating.
@@ -339,13 +363,21 @@ exports[`<TopicResourceDetails /> page should render correctly with existing rat
     <div
       className="sm:flex justify-between items-center"
     >
-      <div
-        className="flex items-center"
-      >
+      <div>
         <div
-          className="text-4xl"
-          data-testid="ResourceTitle"
-        />
+          className="flex items-center"
+        >
+          <div
+            className="text-4xl"
+            data-testid="ResourceTitle"
+          />
+        </div>
+        <div
+          className="mt-2 text-xs text-gray-800 font-thin"
+        >
+          Created by 
+          Unknown
+        </div>
       </div>
       <div
         className="mt-3 sm:mt-0"
@@ -358,35 +390,35 @@ exports[`<TopicResourceDetails /> page should render correctly with existing rat
       </div>
     </div>
     <div
-      className="mt-3 text-xs text-gray-800"
-    >
-      Created by 
-      Unknown
-    </div>
-    <div
-      className="mt-10"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Details
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <ResourceDetails />
       </div>
     </div>
     <div
-      className="mt-8"
+      className="mt-16"
     >
       <div
         className="text-2xl"
       >
         Update Rating
       </div>
+      <hr
+        className="mt-3"
+      />
       <div
-        className="mt-4"
+        className="mt-6"
       >
         <div>
           You must login to add a rating.

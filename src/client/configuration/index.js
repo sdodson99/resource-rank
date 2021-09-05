@@ -14,6 +14,7 @@ const configuration = {
   },
   USE_AUTHENTICATION_EMULATOR:
     process.env.NEXT_PUBLIC_USE_AUTHENTICATION_EMULATOR === 'true',
+  ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
 };
 
 export default configuration;

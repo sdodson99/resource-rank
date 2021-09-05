@@ -14,6 +14,7 @@ describe('createGQLServer', () => {
   let readOnlyModeDataSource;
   let userDecoder;
   let usersDataSource;
+  let featureFlagsDataSource;
 
   beforeEach(() => {
     mockApp = {
@@ -31,6 +32,7 @@ describe('createGQLServer', () => {
       getUserFromRequest: jest.fn(),
     };
     usersDataSource = {};
+    featureFlagsDataSource = {};
   });
 
   afterEach(() => {
@@ -43,6 +45,7 @@ describe('createGQLServer', () => {
       readOnlyModeDataSource,
       userDecoder,
       usersDataSource,
+      featureFlagsDataSource,
     });
 
     expect(mockApolloServer.applyMiddleware).toBeCalledWith({
@@ -61,6 +64,7 @@ describe('createGQLServer', () => {
       readOnlyModeDataSource,
       userDecoder,
       usersDataSource,
+      featureFlagsDataSource,
     });
 
     expect(mockApp.use).toBeCalledWith(mockReadOnlyModeHandler);
@@ -76,6 +80,7 @@ describe('createGQLServer', () => {
       readOnlyModeDataSource,
       userDecoder,
       usersDataSource,
+      featureFlagsDataSource,
     });
     const contextFunction = ApolloServer.mock.calls[0][0].context;
     const { user: actualUser } = await contextFunction({});
@@ -88,6 +93,7 @@ describe('createGQLServer', () => {
       readOnlyModeDataSource,
       userDecoder,
       usersDataSource,
+      featureFlagsDataSource,
     });
     const dataSourcesFunction = ApolloServer.mock.calls[0][0].dataSources;
     const {
@@ -96,10 +102,12 @@ describe('createGQLServer', () => {
       topics,
       resources,
       ratings,
+      featureFlags,
     } = dataSourcesFunction();
 
     expect(actualReadOnlyModeDataSource).toBe(readOnlyModeDataSource);
     expect(actualUsersDataSource).toBe(usersDataSource);
+    expect(featureFlags).toBe(featureFlagsDataSource);
     expect(topics).toBeTruthy();
     expect(resources).toBeTruthy();
     expect(ratings).toBeTruthy();

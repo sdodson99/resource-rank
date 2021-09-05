@@ -23,3 +23,9 @@ Hover.args = {
   ...Default.args,
   hover: true,
 };
+
+export const NoXPadding = Template.bind({});
+NoXPadding.args = {
+  ...Default.args,
+  xPadding: false,
+};

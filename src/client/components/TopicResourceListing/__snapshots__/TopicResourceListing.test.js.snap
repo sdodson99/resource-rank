@@ -18,7 +18,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div
@@ -229,7 +229,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div
@@ -440,7 +440,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div

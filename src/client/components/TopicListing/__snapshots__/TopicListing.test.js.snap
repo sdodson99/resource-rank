@@ -18,7 +18,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div
@@ -63,7 +63,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div
@@ -108,7 +108,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         onMouseEnter={[Function]}
       >
         <div
-          className="ListingItem HoverListingItem"
+          className="ListingItem HoverListingItem px-3"
           data-testid="ListingItem"
         >
           <div

@@ -11,6 +11,7 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
     <a>
       <ListingItem
         hover={true}
+        xPadding={true}
       >
         <div
           className="sm:flex sm:justify-between sm:text-left text-center"
@@ -45,6 +46,7 @@ exports[`<TopicListingItem /> should render correctly when verified 1`] = `
     <a>
       <ListingItem
         hover={true}
+        xPadding={true}
       >
         <div
           className="sm:flex sm:justify-between sm:text-left text-center"

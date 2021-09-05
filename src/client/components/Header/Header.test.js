@@ -5,11 +5,13 @@ import renderer from 'react-test-renderer';
 import Header from './Header';
 import { useRouter } from 'next/router';
 import useFirebaseAppContext from '../../hooks/use-firebase-app-context';
+import useFirebaseAnalytics from '../../hooks/use-firebase-analytics';
 import useAuthenticationContext from '../../hooks/use-authentication-context';
 import 'firebase/auth';
 
 jest.mock('../../hooks/use-authentication-context');
 jest.mock('../../hooks/use-firebase-app-context');
+jest.mock('../../hooks/use-firebase-analytics');
 jest.mock('next/router');
 
 describe('<Header />', () => {
@@ -33,6 +35,9 @@ describe('<Header />', () => {
       }),
     };
     useFirebaseAppContext.mockReturnValue(mockFirebaseApp);
+    useFirebaseAnalytics.mockReturnValue({
+      logEvent: jest.fn(),
+    });
 
     useAuthenticationContext.mockReturnValue({ isLoggedIn: false });
 
@@ -44,6 +49,7 @@ describe('<Header />', () => {
   afterEach(() => {
     useRouter.mockReset();
     useFirebaseAppContext.mockReset();
+    useFirebaseAnalytics.mockReset();
     useAuthenticationContext.mockReset();
     console.error = originalConsoleError;
   });
