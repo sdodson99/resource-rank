@@ -1,8 +1,8 @@
 const { when } = require('jest-when');
-const FirebaseFeatureFlagLoader = require('..');
+const FirebaseGetAllFeatureFlagsQuerier = require('../get-all-querier');
 const FeatureFlagMap = require('../../../models/feature-flags/feature-flag-map');
 
-describe('FirebaseFeatureFlagLoader', () => {
+describe('FirebaseGetAllFeatureFlagsQuerier', () => {
   let featureFlagsDatabasePath;
   let app;
   let mockOn;
@@ -42,21 +42,21 @@ describe('FirebaseFeatureFlagLoader', () => {
         });
       });
 
-      const featureFlagLoader = new FirebaseFeatureFlagLoader(
+      const getAllFeatureFlagsQuerier = new FirebaseGetAllFeatureFlagsQuerier(
         app,
         featureFlagsDatabasePath
       );
 
-      expect(featureFlagLoader.loaded).toBeTruthy();
-      expect(featureFlagLoader.featureFlagMap.data).toEqual(expected);
+      expect(getAllFeatureFlagsQuerier.loaded).toBeTruthy();
+      expect(getAllFeatureFlagsQuerier.featureFlagMap.data).toEqual(expected);
     });
   });
 
-  describe('load', () => {
-    let featureFlagLoader;
+  describe('getAll', () => {
+    let getAllFeatureFlagsQuerier;
 
     beforeEach(() => {
-      featureFlagLoader = new FirebaseFeatureFlagLoader(
+      getAllFeatureFlagsQuerier = new FirebaseGetAllFeatureFlagsQuerier(
         app,
         featureFlagsDatabasePath
       );
@@ -72,9 +72,9 @@ describe('FirebaseFeatureFlagLoader', () => {
         val: () => expected,
       });
 
-      const featureFlagMap = await featureFlagLoader.load();
+      const featureFlagMap = await getAllFeatureFlagsQuerier.getAll();
 
-      expect(featureFlagLoader.loaded).toBeTruthy();
+      expect(getAllFeatureFlagsQuerier.loaded).toBeTruthy();
       expect(featureFlagMap.data).toEqual(expected);
     });
 
@@ -83,17 +83,17 @@ describe('FirebaseFeatureFlagLoader', () => {
         val: () => null,
       });
 
-      const featureFlags = await featureFlagLoader.load();
+      const featureFlags = await getAllFeatureFlagsQuerier.getAll();
 
       expect(featureFlags.data).toEqual({});
     });
 
     it('should return feature flags without loading if already loaded', async () => {
       const expected = new FeatureFlagMap();
-      featureFlagLoader.loaded = true;
-      featureFlagLoader.featureFlagMap = expected;
+      getAllFeatureFlagsQuerier.loaded = true;
+      getAllFeatureFlagsQuerier.featureFlagMap = expected;
 
-      const featureFlagMap = await featureFlagLoader.load();
+      const featureFlagMap = await getAllFeatureFlagsQuerier.getAll();
 
       expect(featureFlagMap).toEqual(expected);
     });

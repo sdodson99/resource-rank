@@ -4,38 +4,27 @@ const ReadOnlyModeDataSource = require('../read-only-mode-data-source');
 describe('ReadOnlyModeDataSource', () => {
   let readOnlyModeDataSource;
 
-  let featureFlagMap;
+  let featureFlagEnabledQuerier;
 
   beforeEach(() => {
-    featureFlagMap = {
+    featureFlagEnabledQuerier = {
       isEnabled: jest.fn(),
     };
-    const featureFlagLoader = {
-      load: () => featureFlagMap,
-    };
 
-    readOnlyModeDataSource = new ReadOnlyModeDataSource(featureFlagLoader);
+    readOnlyModeDataSource = new ReadOnlyModeDataSource(
+      featureFlagEnabledQuerier
+    );
   });
 
   describe('isReadOnlyEnabled', () => {
-    it('should return true if feature flags have read only mode enabled', async () => {
-      when(featureFlagMap.isEnabled)
+    it('should return read only mode feature flag enabled status', async () => {
+      when(featureFlagEnabledQuerier.isEnabled)
         .calledWith('read_only_mode')
         .mockReturnValue(true);
 
       const enabled = await readOnlyModeDataSource.isReadOnlyEnabled();
 
       expect(enabled).toBeTruthy();
-    });
-
-    it('should return false if feature flags do not have read only mode enabled', async () => {
-      when(featureFlagMap.isEnabled)
-        .calledWith('read_only_mode')
-        .mockReturnValue(false);
-
-      const enabled = await readOnlyModeDataSource.isReadOnlyEnabled();
-
-      expect(enabled).toBeFalsy();
     });
   });
 });
