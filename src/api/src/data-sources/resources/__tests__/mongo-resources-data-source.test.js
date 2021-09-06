@@ -127,6 +127,7 @@ describe('MongoResourcesDataSource', () => {
           {
             offset,
             limit,
+            sort: { verified: -1 },
           }
         )
         .mockReturnValue({
@@ -156,6 +157,7 @@ describe('MongoResourcesDataSource', () => {
           {
             offset: 0,
             limit: 20,
+            sort: { verified: -1 },
           }
         )
         .mockReturnValue({
