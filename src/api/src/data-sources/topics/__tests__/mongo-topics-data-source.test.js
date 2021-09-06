@@ -136,6 +136,7 @@ describe('MongoTopicsDataSource', () => {
           {
             offset,
             limit,
+            sort: { verified: -1 },
           }
         )
         .mockReturnValue({
@@ -165,6 +166,7 @@ describe('MongoTopicsDataSource', () => {
           {
             offset: 0,
             limit: 20,
+            sort: { verified: -1 },
           }
         )
         .mockReturnValue({
