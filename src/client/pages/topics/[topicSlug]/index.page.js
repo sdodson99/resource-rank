@@ -64,9 +64,6 @@ const TopicDetails = ({
     topicResourcesData?.topicResources?.totalCount;
   const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
-  const orderedResources = topicResources.sort(
-    (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
-  );
 
   const topicLink = `/topics/${topicSlug}`;
   const breadcrumbs = [
@@ -158,7 +155,7 @@ const TopicDetails = ({
                   <TopicResourceListing
                     topicId={topicId}
                     topicSlug={topicSlug}
-                    topicResources={orderedResources}
+                    topicResources={topicResources}
                   />
 
                   <div className="mt-8 flex justify-center">
