@@ -4,18 +4,16 @@ import styles from './AvailableResourceListing.module.css';
 import AvailableResourceListingItem from '../AvailableResourceListingItem/AvailableResourceListingItem';
 
 const AvailableResourceListing = ({ resources, onAddResource }) => {
-  const availableResourceListingItems = resources
-    .sort((r1, r2) => r1.alreadyAdded - r2.alreadyAdded)
-    .map((r, index) => {
-      const isLast = index === resources.length - 1;
-      const className = isLast ? '' : 'border-b';
+  const availableResourceListingItems = resources.map((r, index) => {
+    const isLast = index === resources.length - 1;
+    const className = isLast ? '' : 'border-b';
 
-      return (
-        <div key={r.id} className={className}>
-          <AvailableResourceListingItem resource={r} onAdd={onAddResource} />
-        </div>
-      );
-    });
+    return (
+      <div key={r.id} className={className}>
+        <AvailableResourceListingItem resource={r} onAdd={onAddResource} />
+      </div>
+    );
+  });
 
   return (
     <div

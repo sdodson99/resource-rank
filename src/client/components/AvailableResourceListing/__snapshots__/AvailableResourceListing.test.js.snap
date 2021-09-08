@@ -24,10 +24,15 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
               className="flex items-center justify-center sm:justify-start"
             >
               <div
-                className=""
+                className="line-through"
               >
-                Resource2
+                Resource1
               </div>
+            </div>
+            <div
+              className="error-text italic text-xs"
+            >
+              Already added
             </div>
           </div>
           <div
@@ -36,7 +41,7 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
             <button
               className="btn btn-primary"
               data-testid="AddResourceButton"
-              disabled={false}
+              disabled={true}
               onClick={[Function]}
             >
               <svg
@@ -75,15 +80,10 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
               className="flex items-center justify-center sm:justify-start"
             >
               <div
-                className="line-through"
+                className=""
               >
-                Resource1
+                Resource2
               </div>
-            </div>
-            <div
-              className="error-text italic text-xs"
-            >
-              Already added
             </div>
           </div>
           <div
@@ -92,7 +92,7 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
             <button
               className="btn btn-primary"
               data-testid="AddResourceButton"
-              disabled={true}
+              disabled={false}
               onClick={[Function]}
             >
               <svg
