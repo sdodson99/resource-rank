@@ -57,23 +57,67 @@ exports.resolvers = {
     ) => {
       const topic = await dataSources.topics.getById(topicId);
 
+      if (!topic || !topic.resources) {
+        return {
+          items: [],
+          totalCount: 0,
+        };
+      }
+
       let resourceIds = [];
       if (topic && topic.resources) {
         resourceIds = topic.resources.map((r) => r.resource);
       }
 
+      // TODO: Clean up this spaghetti
       const filteredResources = await dataSources.resources.getByIds(
         resourceIds,
         resourceSearch
       );
-      const paginatedResources = filteredResources.slice(
+
+      const topicResources = filteredResources.map((r) => ({
+        topicId,
+        resourceId: r._id,
+        resource: r,
+        topic,
+        createdBy: r.createdBy,
+      }));
+
+      const topicResourceRatings = await dataSources.ratings.getAllForManyTopicResources(
+        topicResources
+      );
+
+      const ratedTopicResources = [];
+
+      for (let index = 0; index < topicResources.length; index++) {
+        const currentTopicResource = topicResources[index];
+        const currentTopicResourceRatings = topicResourceRatings[index];
+
+        const ratingSum = currentTopicResourceRatings
+          .map((r) => r.value)
+          .reduce((prev, curr) => prev + curr, 0);
+        const ratingCount = currentTopicResourceRatings.length;
+        const averageRating = ratingCount === 0 ? 0 : ratingSum / ratingCount;
+
+        ratedTopicResources.push({
+          ...currentTopicResource,
+          averageRating,
+        });
+      }
+
+      ratedTopicResources.sort(
+        (tr1, tr2) =>
+          tr2.resource.verified - tr1.resource.verified ||
+          tr2.averageRating - tr1.averageRating
+      );
+
+      const paginatedTopicResources = ratedTopicResources.slice(
         offset,
         offset + limit
       );
 
       return {
-        topicResources: paginatedResources,
-        topicId,
+        items: paginatedTopicResources,
         totalCount: filteredResources.length,
       };
     },
@@ -156,15 +200,5 @@ exports.resolvers = {
       dataSources.ratings.getAllForTopicResource(topicId, resourceId),
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
-  },
-  TopicResourceListing: {
-    items: ({ topicResources, topicId }, _, { dataSources }) => {
-      return topicResources.map((r) => ({
-        resource: r,
-        topicId,
-        resourceId: r._id,
-        createdBy: r.createdBy,
-      }));
-    },
   },
 };

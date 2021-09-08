@@ -1,5 +1,4 @@
 const MongoRatingsDataSource = require('../mongo-ratings-data-source');
-
 const { Rating } = require('../../../mongoose/models/rating');
 const { AuthenticationError } = require('apollo-server');
 
@@ -100,6 +99,82 @@ describe('MongoRatingsDataSource', () => {
         await mongoRatingsDataSource.getAllForTopicResource(
           topicId,
           resourceId
+        );
+      }).rejects.toThrow();
+    });
+  });
+
+  describe('getAllForManyTopicResources', () => {
+    let topicResourceIds;
+
+    beforeEach(() => {
+      topicResourceIds = [
+        {
+          topicId: 't1',
+          resourceId: 'r1',
+        },
+        {
+          topicId: 't2',
+          resourceId: 'r2',
+        },
+      ];
+    });
+
+    it('should return parallel array for topic resource ratings', async () => {
+      const expected = [
+        [
+          {
+            topic: 't1',
+            resource: 'r1',
+            rating: 5,
+          },
+          {
+            topic: 't1',
+            resource: 'r1',
+            rating: 3,
+          },
+        ],
+        [
+          {
+            topic: 't2',
+            resource: 'r2',
+            rating: 5,
+          },
+        ],
+      ];
+      Rating.find.mockReturnValue([
+        {
+          topic: 't1',
+          resource: 'r1',
+          rating: 5,
+        },
+        {
+          topic: 't1',
+          resource: 'r1',
+          rating: 3,
+        },
+        {
+          topic: 't2',
+          resource: 'r2',
+          rating: 5,
+        },
+      ]);
+
+      const actual = await mongoRatingsDataSource.getAllForManyTopicResources(
+        topicResourceIds
+      );
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should throw error if query fails', async () => {
+      Rating.find.mockImplementation(() => {
+        throw new Error();
+      });
+
+      await expect(async () => {
+        await mongoRatingsDataSource.getAllForManyTopicResources(
+          topicResourceIds
         );
       }).rejects.toThrow();
     });

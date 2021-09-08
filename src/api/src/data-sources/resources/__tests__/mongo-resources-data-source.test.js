@@ -191,6 +191,7 @@ describe('MongoResourcesDataSource', () => {
         .calledWith({
           _id: { $in: ids },
           name: { $regex: search, $options: 'i' },
+          slug: { $ne: null },
         })
         .mockReturnValue(expected);
 
@@ -205,6 +206,7 @@ describe('MongoResourcesDataSource', () => {
         .calledWith({
           _id: { $in: ids },
           name: { $regex: '', $options: 'i' },
+          slug: { $ne: null },
         })
         .mockReturnValue(expected);
 
