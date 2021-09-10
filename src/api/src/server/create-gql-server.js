@@ -5,6 +5,7 @@ const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-
 const MongoResourcesDataSource = require('../data-sources/resources/mongo-resources-data-source');
 const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
 const createReadOnlyModeHandler = require('../middleware/handle-read-only-mode');
+const TopicResourcesDataSource = require('../data-sources/topic-resources/topic-resources-data-source');
 
 exports.createGQLServer = ({
   readOnlyModeDataSource,
@@ -27,12 +28,22 @@ exports.createGQLServer = ({
     dataSources: () => {
       // Careful here. Data sources that use this.context should be
       // instantiated in this method.
+      const topics = new MongoTopicsDataSource();
+      const resources = new MongoResourcesDataSource();
+      const ratings = new MongoRatingsDataSource();
+      const topicResources = new TopicResourcesDataSource(
+        topics,
+        resources,
+        ratings
+      );
+
       return {
         readOnlyModeDataSource,
         usersDataSource,
-        topics: new MongoTopicsDataSource(),
-        resources: new MongoResourcesDataSource(),
-        ratings: new MongoRatingsDataSource(),
+        topics,
+        resources,
+        ratings,
+        topicResources,
         featureFlags: featureFlagsDataSource,
       };
     },

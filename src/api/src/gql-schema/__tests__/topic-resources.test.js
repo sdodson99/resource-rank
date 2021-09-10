@@ -10,6 +10,7 @@ describe('topic resources resolvers', () => {
   let topicsDataSource;
   let resourcesDataSource;
   let ratingsDataSource;
+  let topicResourcesDataSource;
   let usersDataSource;
   let context;
 
@@ -34,6 +35,9 @@ describe('topic resources resolvers', () => {
       getAllForTopicResource: jest.fn(),
       getAllForManyTopicResources: jest.fn(),
     };
+    topicResourcesDataSource = {
+      searchByTopicId: jest.fn(),
+    };
     usersDataSource = {
       getUser: jest.fn(),
     };
@@ -42,100 +46,28 @@ describe('topic resources resolvers', () => {
         topics: topicsDataSource,
         resources: resourcesDataSource,
         ratings: ratingsDataSource,
+        topicResources: topicResourcesDataSource,
         usersDataSource,
       },
     };
   });
 
   describe('topic resource listing query', () => {
-    it('should return result with paginated, filtered, and sorted topic resources if topic has resources', async () => {
+    it('should return topic resource data source result', async () => {
       const expected = {
-        items: [
-          {
-            averageRating: 0,
-            createdBy: undefined,
-            resource: {
-              id: 'resource456',
-            },
-            resourceId: undefined,
-            topic: {
-              resources: [
-                {
-                  resource: {
-                    id: 'resource123',
-                  },
-                },
-                {
-                  resource: {
-                    id: 'resource456',
-                  },
-                },
-              ],
-            },
-            topicId: 'topic123',
-          },
-        ],
-        totalCount: 2,
+        items: [{}],
+        totalCount: 1,
       };
-      topicsDataSource.getById.mockReturnValue({
-        resources: [
-          {
-            resource: {
-              id: 'resource123',
-            },
-          },
-          {
-            resource: {
-              id: 'resource456',
-            },
-          },
-        ],
-      });
-      resourcesDataSource.getByIds.mockReturnValue([
-        {
-          id: 'resource123',
-        },
-        {
-          id: 'resource456',
-        },
-      ]);
-      ratingsDataSource.getAllForManyTopicResources.mockReturnValue([[], []]);
+      const searchOptions = {
+        search: 'test',
+      };
+      when(topicResourcesDataSource.searchByTopicId)
+        .calledWith(topicId, searchOptions)
+        .mockReturnValue(expected);
 
       const actual = await resolvers.Query.topicResources(
         null,
-        { topicId, resourceSearch, offset: 1, limit: 1 },
-        context
-      );
-
-      expect(actual).toEqual(expected);
-    });
-
-    it('should return result with empty topic resources ids if topic not found', async () => {
-      const expected = {
-        items: [],
-        totalCount: 0,
-      };
-      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue(null);
-
-      const actual = await resolvers.Query.topicResources(
-        null,
-        { topicId, resourceSearch },
-        context
-      );
-
-      expect(actual).toEqual(expected);
-    });
-
-    it('should return result with empty topic resources ids if topic has no resources', async () => {
-      const expected = {
-        items: [],
-        totalCount: 0,
-      };
-      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue({});
-
-      const actual = await resolvers.Query.topicResources(
-        null,
-        { topicId, resourceSearch },
+        { topicId, searchOptions },
         context
       );
 

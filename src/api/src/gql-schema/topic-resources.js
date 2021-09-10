@@ -4,9 +4,7 @@ exports.typeDefs = gql`
   type Query {
     topicResources(
       topicId: ID!
-      resourceSearch: String
-      offset: Int
-      limit: Int
+      searchOptions: SearchOptionsInput
     ): TopicResourceListing
     topicResource(topicId: ID!, resourceId: ID!): TopicResource
     topicResourceBySlug(
@@ -50,77 +48,8 @@ exports.typeDefs = gql`
 
 exports.resolvers = {
   Query: {
-    topicResources: async (
-      _,
-      { topicId, resourceSearch, offset = 0, limit = 20 },
-      { dataSources }
-    ) => {
-      const topic = await dataSources.topics.getById(topicId);
-
-      if (!topic || !topic.resources) {
-        return {
-          items: [],
-          totalCount: 0,
-        };
-      }
-
-      let resourceIds = [];
-      if (topic && topic.resources) {
-        resourceIds = topic.resources.map((r) => r.resource);
-      }
-
-      // TODO: Clean up this spaghetti
-      const filteredResources = await dataSources.resources.getByIds(
-        resourceIds,
-        resourceSearch
-      );
-
-      const topicResources = filteredResources.map((r) => ({
-        topicId,
-        resourceId: r._id,
-        resource: r,
-        topic,
-        createdBy: r.createdBy,
-      }));
-
-      const topicResourceRatings = await dataSources.ratings.getAllForManyTopicResources(
-        topicResources
-      );
-
-      const ratedTopicResources = [];
-
-      for (let index = 0; index < topicResources.length; index++) {
-        const currentTopicResource = topicResources[index];
-        const currentTopicResourceRatings = topicResourceRatings[index];
-
-        const ratingSum = currentTopicResourceRatings
-          .map((r) => r.value)
-          .reduce((prev, curr) => prev + curr, 0);
-        const ratingCount = currentTopicResourceRatings.length;
-        const averageRating = ratingCount === 0 ? 0 : ratingSum / ratingCount;
-
-        ratedTopicResources.push({
-          ...currentTopicResource,
-          averageRating,
-        });
-      }
-
-      ratedTopicResources.sort(
-        (tr1, tr2) =>
-          tr2.resource.verified - tr1.resource.verified ||
-          tr2.averageRating - tr1.averageRating
-      );
-
-      const paginatedTopicResources = ratedTopicResources.slice(
-        offset,
-        offset + limit
-      );
-
-      return {
-        items: paginatedTopicResources,
-        totalCount: filteredResources.length,
-      };
-    },
+    topicResources: (_, { topicId, searchOptions }, { dataSources }) =>
+      dataSources.topicResources.searchByTopicId(topicId, searchOptions),
     topicResource: (_, { topicId, resourceId }) => ({
       topicId,
       resourceId,
