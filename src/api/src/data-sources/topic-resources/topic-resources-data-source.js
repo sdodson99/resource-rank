@@ -15,14 +15,25 @@ class TopicResourcesDataSource {
   }
 
   /**
-   * Search for topic resources.
+   * Search for topic resources by topic ID.
    * @param {string} topicId The ID of the topic for the topic resources.
    * @param {object} searchOptions The options for the topic resource search.
    * @return {object} The topic resource search result.
    */
-  async searchByTopicId(topicId, { search = '', offset = 0, limit = 20 } = {}) {
+  async searchByTopicId(topicId, searchOptions) {
     const topic = await this.topicsDataSource.getById(topicId);
 
+    return this.searchByTopic(topic, searchOptions);
+  }
+
+  /**
+   * Search for topic resources by topic model.
+   * @param {object} topic The the topic with the topic resources.
+   * @param {object} searchOptions The options for the topic resource search.
+   * @return {object} The topic resource search result.
+   */
+  async searchByTopic(topic, { search = '', offset = 0, limit = 20 } = {}) {
+    // TODO: Clean up this spaghetti
     if (!topic || !topic.resources) {
       return {
         items: [],
@@ -35,12 +46,12 @@ class TopicResourcesDataSource {
       resourceIds = topic.resources.map((r) => r.resource);
     }
 
-    // TODO: Clean up this spaghetti
     const filteredResources = await this.resourcesDataSource.getByIds(
       resourceIds,
       search
     );
 
+    const { id: topicId } = topic;
     const topicResources = filteredResources.map((r) => ({
       topicId,
       resourceId: r._id,

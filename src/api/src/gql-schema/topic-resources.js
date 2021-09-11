@@ -5,12 +5,12 @@ exports.typeDefs = gql`
     topicResources(
       topicId: ID!
       searchOptions: SearchOptionsInput
-    ): TopicResourceListing
-    topicResource(topicId: ID!, resourceId: ID!): TopicResource
+    ): RootTopicResourceListing
+    topicResource(topicId: ID!, resourceId: ID!): RootTopicResource
     topicResourceBySlug(
       topicSlug: String!
       resourceSlug: String!
-    ): TopicResource
+    ): RootTopicResource
     availableResources(
       topicId: ID!
       search: String
@@ -23,15 +23,15 @@ exports.typeDefs = gql`
     createTopicResource(topicId: ID!, resourceId: ID!): Boolean
   }
 
-  type TopicResource {
+  type RootTopicResource {
     topic: Topic!
     resource: Resource!
     ratingList: RatingList
     createdBy: User
   }
 
-  type TopicResourceListing {
-    items: [TopicResource]
+  type RootTopicResourceListing {
+    items: [RootTopicResource]
     totalCount: Int!
   }
 
@@ -120,7 +120,7 @@ exports.resolvers = {
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
       dataSources.topics.addResource(topicId, resourceId),
   },
-  TopicResource: {
+  RootTopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
       dataSources.topics.getById(topicId),
     resource: ({ resourceId }, _, { dataSources }) =>

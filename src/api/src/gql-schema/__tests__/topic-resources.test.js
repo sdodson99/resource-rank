@@ -281,7 +281,11 @@ describe('topic resources resolvers', () => {
         .calledWith(topicId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.topic({ topicId }, null, context);
+      const actual = resolvers.RootTopicResource.topic(
+        { topicId },
+        null,
+        context
+      );
 
       expect(actual).toBe(expected);
     });
@@ -294,7 +298,7 @@ describe('topic resources resolvers', () => {
         .calledWith(resourceId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.resource(
+      const actual = resolvers.RootTopicResource.resource(
         { resourceId },
         null,
         context
@@ -311,7 +315,7 @@ describe('topic resources resolvers', () => {
         .calledWith(topicId, resourceId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.ratingList(
+      const actual = resolvers.RootTopicResource.ratingList(
         { topicId, resourceId },
         null,
         context
@@ -328,7 +332,7 @@ describe('topic resources resolvers', () => {
         .calledWith(userId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.createdBy(
+      const actual = resolvers.RootTopicResource.createdBy(
         { createdBy: userId },
         null,
         context

@@ -21,9 +21,20 @@ exports.typeDefs = gql`
     id: ID!
     name: String!
     slug: String
-    resources: [TopicResource]
+    resources(searchOptions: SearchOptionsInput): TopicResourceListing
     createdBy: User
     verified: Boolean
+  }
+
+  type TopicResourceListing {
+    items: [TopicResource]
+    totalCount: Int!
+  }
+
+  type TopicResource {
+    resource: Resource!
+    ratingList: RatingList
+    createdBy: User
   }
 `;
 
@@ -45,21 +56,8 @@ exports.resolvers = {
       dataSources.topics.create(name),
   },
   Topic: {
-    resources: ({ id, resources }) => {
-      if (!resources) {
-        return [];
-      }
-
-      const topicResources = resources
-        .filter((r) => r.resource)
-        .map((r) => ({
-          topicId: id,
-          resourceId: r.resource,
-          createdBy: r.createdBy,
-        }));
-
-      return topicResources;
-    },
+    resources: (topic, { searchOptions }, { dataSources }) =>
+      dataSources.topicResources.searchByTopic(topic, searchOptions),
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
   },

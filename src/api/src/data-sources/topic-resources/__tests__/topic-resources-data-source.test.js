@@ -56,6 +56,7 @@ describe('TopicResourcesDataSource', () => {
             },
             resourceId: undefined,
             topic: {
+              id: topicId,
               resources: [
                 {
                   resource: {
@@ -75,6 +76,7 @@ describe('TopicResourcesDataSource', () => {
         totalCount: 2,
       };
       topicsDataSource.getById.mockReturnValue({
+        id: topicId,
         resources: [
           {
             resource: {
