@@ -38,7 +38,11 @@ describe('useTopicResourceSearch', () => {
       debounceProcessSearch: mockDebounceProcessSearch,
     });
 
-    initialSearchVariables = {};
+    initialSearchVariables = {
+      resourceSearch: 'test',
+      offset: 0,
+      limit: 20,
+    };
     topicId = '123';
   });
 
@@ -54,8 +58,12 @@ describe('useTopicResourceSearch', () => {
     executePaginatedSearchQuery(initialSearchVariables);
 
     expect(mockExecute).toBeCalledWith({
-      ...initialSearchVariables,
       topicId,
+      searchOptions: {
+        search: 'test',
+        offset: 0,
+        limit: 20,
+      },
     });
   });
 

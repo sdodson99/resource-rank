@@ -1,18 +1,8 @@
 import { gql } from 'graphql-request';
 
 const topicResourcesQuery = gql`
-  query TopicResources(
-    $topicId: ID!
-    $resourceSearch: String
-    $offset: Int
-    $limit: Int
-  ) {
-    topicResources(
-      topicId: $topicId
-      resourceSearch: $resourceSearch
-      offset: $offset
-      limit: $limit
-    ) {
+  query TopicResources($topicId: ID!, $searchOptions: SearchOptionsInput) {
+    topicResources(topicId: $topicId, searchOptions: $searchOptions) {
       items {
         resource {
           id
