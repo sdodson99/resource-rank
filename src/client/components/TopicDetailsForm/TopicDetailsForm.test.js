@@ -28,7 +28,6 @@ describe('<TopicDetailsForm />', () => {
       handleSubmit: jest.fn(),
       register: jest.fn(),
       formState: {
-        isSubmitting: false,
         errors: {},
       },
     };
@@ -105,7 +104,7 @@ describe('<TopicDetailsForm />', () => {
   });
 
   it('should render correctly when submitting', () => {
-    formContext.formState.isSubmitting = true;
+    props.isSubmitting = true;
 
     const component = createRenderer().render(<TopicDetailsForm {...props} />);
 

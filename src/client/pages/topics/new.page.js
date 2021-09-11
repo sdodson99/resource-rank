@@ -25,8 +25,10 @@ const NewTopic = () => {
 
   const { createTopic } = useTopicCreator();
   const [createTopicError, setCreateTopicError] = useState();
+  const [isCreatingTopic, setIsCreatingTopic] = useState(false);
 
   const onSubmit = async (formData) => {
+    setIsCreatingTopic(true);
     setCreateTopicError(null);
 
     const name = formData[FormField.TOPIC_NAME];
@@ -36,13 +38,15 @@ const NewTopic = () => {
 
       await router.push(`/topics/${slug}?new=true`);
     } catch (error) {
+      setIsCreatingTopic(false);
+
       if (error instanceof TopicExistsError) {
         return setError(FormField.TOPIC_NAME, {
           message: 'Name already exists.',
         });
       }
 
-      return setCreateTopicError(error);
+      setCreateTopicError(error);
     }
   };
 
@@ -82,6 +86,7 @@ const NewTopic = () => {
               cancelHref={'/topics'}
               errorMessage={createTopicErrorMessage}
               nameFieldName={FormField.TOPIC_NAME}
+              isSubmitting={isCreatingTopic}
             />
           </FormProvider>
         </div>

@@ -46,6 +46,7 @@ describe('<NewTopic />', () => {
     let mockSetError;
     let mockPush;
     let mockSetCreateTopicError;
+    let mockSetIsCreatingTopic;
 
     beforeEach(() => {
       mockSetError = jest.fn();
@@ -54,7 +55,10 @@ describe('<NewTopic />', () => {
       });
 
       mockSetCreateTopicError = jest.fn();
-      useState.mockReturnValue([null, mockSetCreateTopicError]);
+      useState.mockReturnValueOnce([null, mockSetCreateTopicError]);
+      mockSetIsCreatingTopic = jest.fn();
+      useState.mockReturnValueOnce([null, mockSetIsCreatingTopic]);
+      useState.mockReturnValue([null, jest.fn()]);
 
       mockCreateTopic = jest.fn();
       useTopicCreator.mockReturnValue({
@@ -143,6 +147,43 @@ describe('<NewTopic />', () => {
           expect(mockSetCreateTopicError).toBeCalled();
         });
       });
+
+      it('should set loading to true on submit', async () => {
+        when(mockCreateTopic)
+          .calledWith({ name: 'name' })
+          .mockImplementation(() => {
+            throw new Error();
+          });
+
+        renderAndSubmit();
+
+        await waitFor(() => {
+          expect(mockSetIsCreatingTopic).toBeCalledWith(true);
+        });
+      });
+
+      it('should set loading to false on failed submit', async () => {
+        when(mockCreateTopic)
+          .calledWith({ name: 'name' })
+          .mockImplementation(() => {
+            throw new Error();
+          });
+
+        renderAndSubmit();
+
+        await waitFor(() => {
+          expect(mockSetIsCreatingTopic).toBeCalledWith(true);
+        });
+      });
+    });
+
+    it('should clear generic error on invalid submit', () => {
+      render(<Page />);
+      const invalidButton = screen.getByTestId('InvalidButton');
+
+      invalidButton.click();
+
+      expect(mockSetCreateTopicError).toBeCalledWith(null);
     });
 
     it('should clear generic error on invalid submit', () => {

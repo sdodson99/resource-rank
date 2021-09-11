@@ -15,11 +15,12 @@ const TopicDetailsForm = ({
   cancelHref,
   errorMessage,
   nameFieldName,
+  isSubmitting,
 }) => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useFormContext();
 
   const nameFieldOptions = {
@@ -90,6 +91,7 @@ TopicDetailsForm.propTypes = {
   cancelHref: PropTypes.string,
   errorMessage: PropTypes.string,
   nameFieldName: PropTypes.string,
+  isSubmitting: PropTypes.bool,
 };
 
 TopicDetailsForm.defaultProps = {};

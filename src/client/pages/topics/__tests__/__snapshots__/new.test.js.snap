@@ -54,6 +54,7 @@ exports[`<NewTopic /> page should render correctly 1`] = `
         <Unknown
           cancelHref="/topics"
           errorMessage={null}
+          isSubmitting={null}
           nameFieldName="name"
           onInvalid={[Function]}
           onSubmit={[Function]}
@@ -104,7 +105,8 @@ exports[`<NewTopic /> page should render correctly with create topic error 1`] =
       >
         <Unknown
           cancelHref="/topics"
-          errorMessage="Failed to create topic."
+          errorMessage={null}
+          isSubmitting={null}
           nameFieldName="name"
           onInvalid={[Function]}
           onSubmit={[Function]}
