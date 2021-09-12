@@ -33,6 +33,8 @@ AvailableResourceListing.propTypes = {
       verified: PropTypes.bool,
       alreadyAdded: PropTypes.bool,
       hasAddError: PropTypes.bool,
+      isAdding: PropTypes.bool,
+      disableAdd: PropTypes.bool,
     })
   ),
   onAddResource: PropTypes.func,

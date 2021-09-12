@@ -5,7 +5,7 @@ import LoadingButton from './LoadingButton';
 import renderer from 'react-test-renderer';
 
 describe('<LoadingButton />', () => {
-  test('it should mount', () => {
+  it('it should mount', () => {
     render(<LoadingButton />);
 
     const loadingButton = screen.getByTestId('LoadingButton');
@@ -13,23 +13,31 @@ describe('<LoadingButton />', () => {
     expect(loadingButton).toBeInTheDocument();
   });
 
-  describe('with loading', () => {
-    it('should render correctly', () => {
-      const tree = renderer
-        .create(<LoadingButton isLoading={true}>Content</LoadingButton>)
-        .toJSON();
+  it('should render correctly when loading', () => {
+    const tree = renderer
+      .create(<LoadingButton isLoading={true}>Content</LoadingButton>)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 
-  describe('with not loading', () => {
-    it('should render correctly', () => {
-      const tree = renderer
-        .create(<LoadingButton isLoading={false}>Content</LoadingButton>)
-        .toJSON();
+  it('should render correctly when not loading', () => {
+    const tree = renderer
+      .create(<LoadingButton isLoading={false}>Content</LoadingButton>)
+      .toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render correctly when disabled', () => {
+    const tree = renderer
+      .create(
+        <LoadingButton isLoading={false} disabled={true}>
+          Content
+        </LoadingButton>
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 });

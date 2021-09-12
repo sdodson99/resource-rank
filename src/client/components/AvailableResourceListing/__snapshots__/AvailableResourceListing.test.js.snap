@@ -92,7 +92,6 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
             <button
               className="btn btn-primary"
               data-testid="AddResourceButton"
-              disabled={false}
               onClick={[Function]}
             >
               <svg

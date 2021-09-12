@@ -4,9 +4,11 @@ import styles from './AvailableResourceListingItem.module.css';
 import ListingItem from '../ListingItem/ListingItem';
 import { Add } from '@material-ui/icons';
 import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
+import LoadingButton from '../LoadingButton/LoadingButton';
 
 const AvailableResourceListingItem = ({ resource, onAdd }) => {
-  const { name, verified, alreadyAdded, hasAddError } = resource;
+  const { name, verified, alreadyAdded, hasAddError, isAdding, disableAdd } =
+    resource;
 
   const onAddClick = () => onAdd && onAdd(resource);
 
@@ -17,6 +19,8 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
 
     return '';
   };
+
+  const calculateAddDisabled = () => isAdding || alreadyAdded || disableAdd;
 
   return (
     <div
@@ -45,14 +49,14 @@ const AvailableResourceListingItem = ({ resource, onAdd }) => {
           </div>
 
           <div className="mt-5 sm:mt-0 sm:ml-5">
-            <button
-              className="btn btn-primary"
+            <LoadingButton
               onClick={onAddClick}
-              disabled={alreadyAdded}
-              data-testid="AddResourceButton"
+              disabled={calculateAddDisabled()}
+              isLoading={isAdding}
+              testid="AddResourceButton"
             >
               <Add fill="white" />
-            </button>
+            </LoadingButton>
           </div>
         </div>
       </ListingItem>
@@ -66,7 +70,9 @@ AvailableResourceListingItem.propTypes = {
     verified: PropTypes.bool,
     alreadyAdded: PropTypes.bool,
     hasAddError: PropTypes.bool,
-  }),
+    disableAdd: PropTypes.bool,
+    isAdding: PropTypes.bool,
+  }).isRequired,
   onAdd: PropTypes.func,
 };
 

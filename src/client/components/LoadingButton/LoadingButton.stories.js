@@ -23,3 +23,9 @@ Loading.args = {
   children: 'Login',
   isLoading: true,
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  children: 'Login',
+  disabled: true,
+};
