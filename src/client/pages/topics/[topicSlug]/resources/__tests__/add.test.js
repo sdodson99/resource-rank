@@ -125,6 +125,7 @@ describe('<AddTopicResource />', () => {
 
     describe('onAddResource', () => {
       let mockCreate;
+      let mockResources;
       let mockSetResources;
 
       let resourceId;
@@ -138,11 +139,9 @@ describe('<AddTopicResource />', () => {
 
         resourceId = '789';
         resourceSlug = 'resource-slug';
+        mockResources = [{ id: resourceId, slug: resourceSlug }];
         mockSetResources = jest.fn();
-        useState.mockReturnValueOnce([
-          [{ id: resourceId, slug: resourceSlug }],
-          mockSetResources,
-        ]);
+        useState.mockReturnValueOnce([mockResources, mockSetResources]);
       });
 
       it('should renavigate to new topic resource if successful', async () => {
@@ -164,6 +163,10 @@ describe('<AddTopicResource />', () => {
       });
 
       it('should set resource error if not successful', async () => {
+        let setResourcesResult = null;
+        mockSetResources.mockImplementation((cb) => {
+          setResourcesResult = cb(mockResources);
+        });
         when(mockCreate).calledWith(topicId, resourceId).mockReturnValue(false);
         render(<Page {...props} />);
         const addResourceButton = screen.getByTestId('AddResourceButton');
@@ -171,7 +174,7 @@ describe('<AddTopicResource />', () => {
         addResourceButton.click();
 
         await waitFor(() => {
-          expect(mockSetResources).toBeCalledWith([
+          expect(setResourcesResult).toEqual([
             { id: resourceId, slug: resourceSlug, hasAddError: true },
           ]);
         });

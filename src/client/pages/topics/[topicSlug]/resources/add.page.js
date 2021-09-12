@@ -59,26 +59,53 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const { createTopicResource } = useTopicResourceCreator();
 
   const setAddResourceError = (resourceId, status) => {
-    const nextResources = [...resources];
+    setResources((currentResources) => {
+      const nextResources = [...currentResources];
 
-    const updatedResourceIndex = nextResources.findIndex(
-      (r) => r.id === resourceId
-    );
-    const updatedResource = {
-      ...nextResources[updatedResourceIndex],
-      hasAddError: status,
-    };
-    nextResources[updatedResourceIndex] = updatedResource;
+      const updatedResourceIndex = nextResources.findIndex(
+        (r) => r.id === resourceId
+      );
+      const updatedResource = {
+        ...nextResources[updatedResourceIndex],
+        hasAddError: status,
+      };
+      nextResources[updatedResourceIndex] = updatedResource;
 
-    setResources(nextResources);
+      return nextResources;
+    });
+  };
+
+  const setResourceAdding = (resourceId, status) => {
+    setResources((currentResources) => {
+      const nextResources = [];
+
+      currentResources.forEach((r) => {
+        const updatedResource = {
+          ...r,
+          disableAdd: status,
+        };
+
+        const isAdding = r.id === resourceId;
+
+        if (isAdding) {
+          updatedResource.isAdding = status;
+        }
+
+        nextResources.push(updatedResource);
+      });
+
+      return nextResources;
+    });
   };
 
   const onAddResource = async ({ id: resourceId, slug: resourceSlug }) => {
+    setResourceAdding(resourceId, true);
     setAddResourceError(resourceId, false);
 
     const success = await createTopicResource(topicId, resourceId);
 
     if (!success) {
+      setResourceAdding(resourceId, false);
       return setAddResourceError(resourceId, true);
     }
 
