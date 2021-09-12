@@ -32,11 +32,13 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
   const [createResourceError, setCreateResourceError] = useState(null);
   const [createTopicResourceError, setCreateTopicResourceError] =
     useState(null);
+  const [isCreatingResource, setIsCreatingResource] = useState(null);
 
   const { createResource } = useResourceCreator();
   const { createTopicResource } = useTopicResourceCreator();
 
   const onSubmit = async (formData) => {
+    setIsCreatingResource(true);
     setCreateResourceError(null);
     setCreateTopicResourceError(null);
 
@@ -51,15 +53,15 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       const success = await createTopicResource(topicId, resourceId);
 
       if (!success) {
-        return setCreateTopicResourceError(
-          new Error('Failed to create topic resource.')
-        );
+        throw new Error('Failed to create topic resource.');
       }
 
       await router.push(
         `/topics/${topicSlug}/resources/${resourceSlug}?new=true`
       );
     } catch (error) {
+      setIsCreatingResource(false);
+
       if (error instanceof ResourceExistsError) {
         return setError(FormField.RESOURCE_NAME, {
           message: 'Name already exists.',
@@ -127,6 +129,7 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
               errorMessage={createResourceErrorMessage}
               nameFieldName={FormField.RESOURCE_NAME}
               linkFieldName={FormField.RESOURCE_LINK}
+              isSubmitting={isCreatingResource}
             />
           </FormProvider>
         </div>

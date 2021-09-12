@@ -31,7 +31,6 @@ describe('<ResourceDetailsForm />', () => {
       handleSubmit: jest.fn(),
       register: jest.fn(),
       formState: {
-        isSubmitting: false,
         errors: {},
       },
     };
@@ -141,7 +140,7 @@ describe('<ResourceDetailsForm />', () => {
   });
 
   it('should render correctly when submitting', () => {
-    formContext.formState.isSubmitting = true;
+    props.isSubmitting = true;
 
     const component = createRenderer().render(
       <ResourceDetailsForm {...props} />

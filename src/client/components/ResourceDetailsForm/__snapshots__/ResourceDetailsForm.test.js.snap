@@ -28,7 +28,6 @@ exports[`<ResourceDetailsForm /> should render correctly 1`] = `
     >
       <button
         className="btn btn-primary w-100"
-        disabled={false}
         type="submit"
       >
         Submit
@@ -139,7 +138,6 @@ exports[`<ResourceDetailsForm /> should render correctly with error message 1`] 
     >
       <button
         className="btn btn-primary w-100"
-        disabled={false}
         type="submit"
       >
         Submit

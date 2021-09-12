@@ -60,6 +60,7 @@ exports[`<NewTopicResource /> page should render correctly 1`] = `
         <Unknown
           cancelHref="/topics/topic-slug/resources/add"
           errorMessage={null}
+          isSubmitting={null}
           linkFieldName="link"
           nameFieldName="name"
           onInvalid={[Function]}
@@ -128,6 +129,7 @@ exports[`<NewTopicResource /> page should render correctly with create errors 1`
         <Unknown
           cancelHref="/topics/topic-slug/resources/add"
           errorMessage="Failed to create resource."
+          isSubmitting={null}
           linkFieldName="link"
           nameFieldName="name"
           onInvalid={[Function]}

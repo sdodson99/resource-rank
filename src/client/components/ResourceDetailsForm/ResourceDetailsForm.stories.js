@@ -32,6 +32,12 @@ Default.args = {
   cancelHref: '/',
 };
 
+export const Submitting = Template.bind({});
+Submitting.args = {
+  ...Default.args,
+  isSubmitting: true,
+};
+
 export const Error = Template.bind({});
 Error.args = {
   ...Default.args,

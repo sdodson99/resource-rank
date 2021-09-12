@@ -187,6 +187,42 @@ describe('<NewTopicResource />', () => {
           expect(mockSetCreateResourceError).toBeCalled();
         });
       });
+
+      it('should set is creating resource to true', async () => {
+        const mockSetIsCreatingResource = jest.fn();
+        useState.mockReturnValueOnce([null, jest.fn()]);
+        useState.mockReturnValueOnce([null, jest.fn()]);
+        useState.mockReturnValueOnce([null, mockSetIsCreatingResource]);
+        mockCreateResource.mockImplementation(() => {
+          throw new Error();
+        });
+        render(<Page {...props} />);
+        const submitButton = screen.getByTestId('SubmitButton');
+
+        submitButton.click();
+
+        await waitFor(() => {
+          expect(mockSetIsCreatingResource).toBeCalledWith(true);
+        });
+      });
+
+      it('should set is creating resource to false on error', async () => {
+        const mockSetIsCreatingResource = jest.fn();
+        useState.mockReturnValueOnce([null, jest.fn()]);
+        useState.mockReturnValueOnce([null, jest.fn()]);
+        useState.mockReturnValueOnce([null, mockSetIsCreatingResource]);
+        mockCreateResource.mockImplementation(() => {
+          throw new Error();
+        });
+        render(<Page {...props} />);
+        const submitButton = screen.getByTestId('SubmitButton');
+
+        submitButton.click();
+
+        await waitFor(() => {
+          expect(mockSetIsCreatingResource).toBeCalledWith(false);
+        });
+      });
     });
 
     it('should clear generic error on invalid submit', () => {

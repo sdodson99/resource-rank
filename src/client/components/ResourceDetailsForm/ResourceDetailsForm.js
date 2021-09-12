@@ -17,11 +17,12 @@ const ResourceDetailsForm = ({
   errorMessage,
   nameFieldName,
   linkFieldName,
+  isSubmitting,
 }) => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useFormContext();
 
   const nameFieldOptions = {
@@ -114,6 +115,7 @@ ResourceDetailsForm.propTypes = {
   errorMessage: PropTypes.string,
   nameFieldName: PropTypes.string,
   linkFieldName: PropTypes.string,
+  isSubmitting: PropTypes.bool,
 };
 
 ResourceDetailsForm.defaultProps = {};
