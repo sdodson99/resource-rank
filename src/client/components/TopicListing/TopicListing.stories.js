@@ -30,6 +30,8 @@ Default.args = {
       slug: 'topic-3',
     },
   ],
+  selectedPage: 3,
+  pageCount: 5,
 };
 
 export const Single = Template.bind({});

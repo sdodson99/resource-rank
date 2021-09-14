@@ -2,9 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicResourceListing.module.css';
 import TopicResourceListingItem from '../TopicResourceListingItem/TopicResourceListingItem';
-import Listing from '../Listing/Listing';
+import PaginatedListing from '../PaginatedListing/PaginatedListing';
 
-const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
+const TopicResourceListing = ({
+  topicId,
+  topicSlug,
+  topicResources,
+  selectedPage,
+  pageCount,
+  onPageClick,
+}) => {
   const topicResourcesListingItems = topicResources.map((r) => (
     <TopicResourceListingItem
       key={r.resource.id}
@@ -23,7 +30,13 @@ const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
       className={styles.TopicResourceListing}
       data-testid="TopicResourceListing"
     >
-      <Listing>{topicResourcesListingItems}</Listing>
+      <PaginatedListing
+        selectedPage={selectedPage}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+      >
+        {topicResourcesListingItems}
+      </PaginatedListing>
     </div>
   );
 };
@@ -44,6 +57,9 @@ TopicResourceListing.propTypes = {
       }),
     })
   ),
+  selectedPage: PropTypes.number,
+  pageCount: PropTypes.number,
+  onPageClick: PropTypes.func,
 };
 
 TopicResourceListing.defaultProps = {

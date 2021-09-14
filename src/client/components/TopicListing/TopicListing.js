@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicListing.module.css';
 import TopicListingItem from '../TopicListingItem/TopicListingItem';
-import Listing from '../Listing/Listing';
+import PaginatedListing from '../PaginatedListing/PaginatedListing';
 
-const TopicListing = ({ topics }) => {
+const TopicListing = ({ topics, selectedPage, pageCount, onPageClick }) => {
   const topicListingItems = topics.map((t) => (
     <TopicListingItem
       key={t.id}
@@ -16,7 +16,13 @@ const TopicListing = ({ topics }) => {
 
   return (
     <div className={styles.TopicListing} data-testid="TopicListing">
-      <Listing>{topicListingItems}</Listing>
+      <PaginatedListing
+        selectedPage={selectedPage}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+      >
+        {topicListingItems}
+      </PaginatedListing>
     </div>
   );
 };
@@ -29,6 +35,9 @@ TopicListing.propTypes = {
       verified: PropTypes.bool,
     })
   ),
+  selectedPage: PropTypes.number,
+  pageCount: PropTypes.number,
+  onPageClick: PropTypes.func,
 };
 
 TopicListing.defaultProps = {

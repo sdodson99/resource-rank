@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaginatedListing /> should render correctly 1`] = `
+<div
+  className="PaginatedListing"
+  data-testid="PaginatedListing"
+>
+  <Listing>
+    <div>
+      Child 1
+    </div>
+  </Listing>
+  <div
+    className="mt-8 flex justify-center"
+  >
+    <Pagination
+      pageCount={3}
+      selectedPage={2}
+      selectedPageGapMinRange={3}
+      selectedPageRange={2}
+    />
+  </div>
+</div>
+`;

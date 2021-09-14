@@ -30,6 +30,8 @@ Default.args = {
       disableAdd: true,
     },
   ],
+  selectedPage: 3,
+  pageCount: 5,
 };
 
 export const Single = Template.bind({});

@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './AvailableResourceListing.module.css';
 import AvailableResourceListingItem from '../AvailableResourceListingItem/AvailableResourceListingItem';
-import Listing from '../Listing/Listing';
+import PaginatedListing from '../PaginatedListing/PaginatedListing';
 
-const AvailableResourceListing = ({ resources, onAddResource }) => {
+const AvailableResourceListing = ({
+  resources,
+  onAddResource,
+  selectedPage,
+  pageCount,
+  onPageClick,
+}) => {
   const availableResourceListingItems = resources.map((r) => (
     <AvailableResourceListingItem
       key={r.id}
@@ -18,7 +24,13 @@ const AvailableResourceListing = ({ resources, onAddResource }) => {
       className={styles.AvailableResourceListing}
       data-testid="AvailableResourceListing"
     >
-      <Listing>{availableResourceListingItems}</Listing>
+      <PaginatedListing
+        selectedPage={selectedPage}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+      >
+        {availableResourceListingItems}
+      </PaginatedListing>
     </div>
   );
 };
@@ -36,6 +48,9 @@ AvailableResourceListing.propTypes = {
     })
   ),
   onAddResource: PropTypes.func,
+  selectedPage: PropTypes.number,
+  pageCount: PropTypes.number,
+  onPageClick: PropTypes.func,
 };
 
 AvailableResourceListing.defaultProps = {

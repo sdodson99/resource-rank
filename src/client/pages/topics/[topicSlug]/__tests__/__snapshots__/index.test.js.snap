@@ -70,24 +70,14 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+            <TopicResourceListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
           }
           errorDisplay={
             <div
@@ -200,24 +190,14 @@ exports[`<TopicDetails /> page should render correctly when topic verified 1`] =
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+            <TopicResourceListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
           }
           errorDisplay={
             <div
@@ -323,43 +303,33 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={
-                  Array [
-                    Object {
-                      "ratingList": Object {
-                        "average": 5,
-                      },
-                      "resource": Object {
-                        "slug": "slug-1",
-                      },
+            <TopicResourceListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topicId="123"
+              topicResources={
+                Array [
+                  Object {
+                    "ratingList": Object {
+                      "average": 5,
                     },
-                    Object {
-                      "ratingList": Object {
-                        "average": 1,
-                      },
-                      "resource": Object {
-                        "slug": "slug-2",
-                      },
+                    "resource": Object {
+                      "slug": "slug-1",
                     },
-                  ]
-                }
-                topicSlug="slug"
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+                  },
+                  Object {
+                    "ratingList": Object {
+                      "average": 1,
+                    },
+                    "resource": Object {
+                      "slug": "slug-2",
+                    },
+                  },
+                ]
+              }
+              topicSlug="slug"
+            />
           }
           errorDisplay={
             <div
@@ -465,24 +435,14 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+            <TopicResourceListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topicId="123"
+              topicResources={Array []}
+              topicSlug="slug"
+            />
           }
           errorDisplay={
             <div

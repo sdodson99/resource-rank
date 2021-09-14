@@ -67,23 +67,13 @@ exports[`<AddTopicResource /> page should render correctly 1`] = `
     >
       <LoadingErrorEmptyDataLayout
         dataDisplay={
-          <div>
-            <AvailableResourceListing
-              onAddResource={[Function]}
-              resources={null}
-            />
-            <div
-              className="mt-8 flex justify-center"
-            >
-              <Pagination
-                onPageClick={[MockFunction]}
-                pageCount={NaN}
-                selectedPage={1}
-                selectedPageGapMinRange={3}
-                selectedPageRange={2}
-              />
-            </div>
-          </div>
+          <AvailableResourceListing
+            onAddResource={[Function]}
+            onPageClick={[MockFunction]}
+            pageCount={NaN}
+            resources={null}
+            selectedPage={1}
+          />
         }
         errorDisplay={
           <div
@@ -172,23 +162,13 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
     >
       <LoadingErrorEmptyDataLayout
         dataDisplay={
-          <div>
-            <AvailableResourceListing
-              onAddResource={[Function]}
-              resources={null}
-            />
-            <div
-              className="mt-8 flex justify-center"
-            >
-              <Pagination
-                onPageClick={[MockFunction]}
-                pageCount={NaN}
-                selectedPage={1}
-                selectedPageGapMinRange={3}
-                selectedPageRange={2}
-              />
-            </div>
-          </div>
+          <AvailableResourceListing
+            onAddResource={[Function]}
+            onPageClick={[MockFunction]}
+            pageCount={NaN}
+            resources={null}
+            selectedPage={1}
+          />
         }
         errorDisplay={
           <div

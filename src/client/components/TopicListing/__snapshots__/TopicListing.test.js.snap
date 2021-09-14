@@ -6,131 +6,185 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
   data-testid="TopicListing"
 >
   <div
-    className="Listing"
-    data-testid="Listing"
+    className="PaginatedListing"
+    data-testid="PaginatedListing"
   >
     <div
-      className="TopicListingItem"
-      data-testid="TopicListingItem"
+      className="Listing"
+      data-testid="Listing"
     >
-      <a
-        href="/topics/topic1"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
+      <div
+        className="TopicListingItem"
+        data-testid="TopicListingItem"
       >
-        <div
-          className="ListingItem HoverListingItem px-3"
-          data-testid="ListingItem"
+        <a
+          href="/topics/topic1"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
           <div
-            className="sm:flex sm:justify-between sm:text-left text-center"
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
           >
             <div
-              className="flex items-center justify-center sm:justify-start"
+              className="sm:flex sm:justify-between sm:text-left text-center"
             >
-              <div>
-                Topic1
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div>
+                  Topic1
+                </div>
+              </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
               </div>
             </div>
+          </div>
+        </a>
+      </div>
+      <div
+        className="TopicListingItem"
+        data-testid="TopicListingItem"
+      >
+        <a
+          href="/topics/topic2"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <div
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
+          >
             <div
-              className="mt-5 sm:mt-0"
+              className="sm:flex sm:justify-between sm:text-left text-center"
             >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
+              <div
+                className="flex items-center justify-center sm:justify-start"
               >
-                <path
-                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                />
-              </svg>
+                <div>
+                  Topic2
+                </div>
+              </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      <div
+        className="TopicListingItem"
+        data-testid="TopicListingItem"
+      >
+        <a
+          href="/topics/topic2"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <div
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
+          >
+            <div
+              className="sm:flex sm:justify-between sm:text-left text-center"
+            >
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div>
+                  Topic3
+                </div>
+              </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
     <div
-      className="TopicListingItem"
-      data-testid="TopicListingItem"
+      className="mt-8 flex justify-center"
     >
-      <a
-        href="/topics/topic2"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
+      <div
+        className="Pagination"
+        data-testid="Pagination"
       >
-        <div
-          className="ListingItem HoverListingItem px-3"
-          data-testid="ListingItem"
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
         >
-          <div
-            className="sm:flex sm:justify-between sm:text-left text-center"
-          >
-            <div
-              className="flex items-center justify-center sm:justify-start"
-            >
-              <div>
-                Topic2
-              </div>
-            </div>
-            <div
-              className="mt-5 sm:mt-0"
-            >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div
-      className="TopicListingItem"
-      data-testid="TopicListingItem"
-    >
-      <a
-        href="/topics/topic2"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-      >
-        <div
-          className="ListingItem HoverListingItem px-3"
-          data-testid="ListingItem"
+          1
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
         >
-          <div
-            className="sm:flex sm:justify-between sm:text-left text-center"
-          >
-            <div
-              className="flex items-center justify-center sm:justify-start"
-            >
-              <div>
-                Topic3
-              </div>
-            </div>
-            <div
-              className="mt-5 sm:mt-0"
-            >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
+          2
+        </button>
+        <button
+          className="SelectedPage"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          3
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          4
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          5
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -142,8 +196,62 @@ exports[`<TopicListing /> without topics should render correctly 1`] = `
   data-testid="TopicListing"
 >
   <div
-    className="Listing"
-    data-testid="Listing"
-  />
+    className="PaginatedListing"
+    data-testid="PaginatedListing"
+  >
+    <div
+      className="Listing"
+      data-testid="Listing"
+    />
+    <div
+      className="mt-8 flex justify-center"
+    >
+      <div
+        className="Pagination"
+        data-testid="Pagination"
+      >
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          1
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          2
+        </button>
+        <button
+          className="SelectedPage"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          3
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          4
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          5
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 `;

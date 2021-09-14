@@ -10,7 +10,6 @@ import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
-import Pagination from '@/components/Pagination/Pagination';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 
 const DEFAULT_SEARCH_LIMIT = 10;
@@ -190,20 +189,13 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
               </div>
             }
             dataDisplay={
-              <div>
-                <AvailableResourceListing
-                  resources={resources}
-                  onAddResource={onAddResource}
-                />
-
-                <div className="mt-8 flex justify-center">
-                  <Pagination
-                    selectedPage={currentPage}
-                    pageCount={resourcesPageCount}
-                    onPageClick={processPageNumber}
-                  />
-                </div>
-              </div>
+              <AvailableResourceListing
+                resources={resources}
+                onAddResource={onAddResource}
+                selectedPage={currentPage}
+                pageCount={resourcesPageCount}
+                onPageClick={processPageNumber}
+              />
             }
           />
         </div>

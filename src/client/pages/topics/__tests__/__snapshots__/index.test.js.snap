@@ -46,34 +46,24 @@ exports[`<Topics /> should render correctly 1`] = `
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicListing
-                topics={
-                  Array [
-                    Object {
-                      "id": "1",
-                      "name": "name",
-                      "slug": "slug",
-                    },
-                    Object {
-                      "id": "2",
-                      "name": "name",
-                    },
-                  ]
-                }
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+            <TopicListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topics={
+                Array [
+                  Object {
+                    "id": "1",
+                    "name": "name",
+                    "slug": "slug",
+                  },
+                  Object {
+                    "id": "2",
+                    "name": "name",
+                  },
+                ]
+              }
+            />
           }
           errorDisplay={
             <div
@@ -155,22 +145,12 @@ exports[`<Topics /> should render correctly with no current search 1`] = `
       >
         <LoadingErrorEmptyDataLayout
           dataDisplay={
-            <div>
-              <TopicListing
-                topics={Array []}
-              />
-              <div
-                className="mt-8 flex justify-center"
-              >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
-              </div>
-            </div>
+            <TopicListing
+              onPageClick={[MockFunction]}
+              pageCount={NaN}
+              selectedPage={1}
+              topics={Array []}
+            />
           }
           errorDisplay={
             <div

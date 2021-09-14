@@ -11,7 +11,6 @@ import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
-import Pagination from '@/components/Pagination/Pagination';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -151,21 +150,14 @@ const TopicDetails = ({
                 </div>
               }
               dataDisplay={
-                <div>
-                  <TopicResourceListing
-                    topicId={topicId}
-                    topicSlug={topicSlug}
-                    topicResources={topicResources}
-                  />
-
-                  <div className="mt-8 flex justify-center">
-                    <Pagination
-                      selectedPage={currentPage}
-                      pageCount={topicResourcesPageCount}
-                      onPageClick={processPageNumber}
-                    />
-                  </div>
-                </div>
+                <TopicResourceListing
+                  topicId={topicId}
+                  topicSlug={topicSlug}
+                  topicResources={topicResources}
+                  selectedPage={currentPage}
+                  pageCount={topicResourcesPageCount}
+                  onPageClick={processPageNumber}
+                />
               }
             />
           </div>
