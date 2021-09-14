@@ -163,6 +163,7 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
@@ -229,6 +230,7 @@ exports[`<TopicListing /> without topics should render correctly 1`] = `
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >

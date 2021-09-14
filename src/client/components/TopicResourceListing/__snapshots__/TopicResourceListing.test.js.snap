@@ -661,6 +661,7 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
@@ -727,6 +728,7 @@ exports[`<TopicResourceListing /> without topic resources should render correctl
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >

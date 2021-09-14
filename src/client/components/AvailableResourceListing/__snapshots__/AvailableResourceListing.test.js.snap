@@ -190,6 +190,7 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
@@ -256,6 +257,7 @@ exports[`<AvailableResourceListing /> without resources should render correctly 
         <button
           className="SelectedPage"
           data-testid="Page"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
