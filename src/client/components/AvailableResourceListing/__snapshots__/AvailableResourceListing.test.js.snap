@@ -6,7 +6,8 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
   data-testid="AvailableResourceListing"
 >
   <div
-    className="border-b"
+    className="Listing"
+    data-testid="Listing"
   >
     <div
       className="AvailableResourceListingItem"
@@ -60,10 +61,6 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="border-b"
-  >
     <div
       className="AvailableResourceListingItem"
       data-testid="AvailableResourceListingItem"
@@ -110,10 +107,6 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className=""
-  >
     <div
       className="AvailableResourceListingItem"
       data-testid="AvailableResourceListingItem"
@@ -174,5 +167,10 @@ exports[`<AvailableResourceListing /> without resources should render correctly 
 <div
   className="AvailableResourceListing"
   data-testid="AvailableResourceListing"
-/>
+>
+  <div
+    className="Listing"
+    data-testid="Listing"
+  />
+</div>
 `;

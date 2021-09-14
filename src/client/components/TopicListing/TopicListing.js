@@ -2,22 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicListing.module.css';
 import TopicListingItem from '../TopicListingItem/TopicListingItem';
+import Listing from '../Listing/Listing';
 
 const TopicListing = ({ topics }) => {
-  const topicListingItems = topics.map((t, index) => {
-    const isLast = index === topics.length - 1;
-    const className = isLast ? '' : 'border-b';
-
-    return (
-      <div key={t.id} className={className}>
-        <TopicListingItem name={t.name} slug={t.slug} verified={t.verified} />
-      </div>
-    );
-  });
+  const topicListingItems = topics.map((t) => (
+    <TopicListingItem
+      key={t.id}
+      name={t.name}
+      slug={t.slug}
+      verified={t.verified}
+    />
+  ));
 
   return (
     <div className={styles.TopicListing} data-testid="TopicListing">
-      {topicListingItems}
+      <Listing>{topicListingItems}</Listing>
     </div>
   );
 };

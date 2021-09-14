@@ -2,33 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicResourceListing.module.css';
 import TopicResourceListingItem from '../TopicResourceListingItem/TopicResourceListingItem';
+import Listing from '../Listing/Listing';
 
 const TopicResourceListing = ({ topicId, topicSlug, topicResources }) => {
-  const topicResourcesListingItems = topicResources.map((r, index) => {
-    const isLast = index === topicResources.length - 1;
-    const className = isLast ? '' : 'border-b';
-
-    return (
-      <div key={r.resource.id} className={className}>
-        <TopicResourceListingItem
-          topicId={topicId}
-          topicSlug={topicSlug}
-          resourceId={r.resource.id}
-          resourceSlug={r.resource.slug}
-          name={r.resource.name}
-          rating={r.ratingList.average}
-          verified={r.resource.verified}
-        />
-      </div>
-    );
-  });
+  const topicResourcesListingItems = topicResources.map((r) => (
+    <TopicResourceListingItem
+      key={r.resource.id}
+      topicId={topicId}
+      topicSlug={topicSlug}
+      resourceId={r.resource.id}
+      resourceSlug={r.resource.slug}
+      name={r.resource.name}
+      rating={r.ratingList.average}
+      verified={r.resource.verified}
+    />
+  ));
 
   return (
     <div
       className={styles.TopicResourceListing}
       data-testid="TopicResourceListing"
     >
-      {topicResourcesListingItems}
+      <Listing>{topicResourcesListingItems}</Listing>
     </div>
   );
 };

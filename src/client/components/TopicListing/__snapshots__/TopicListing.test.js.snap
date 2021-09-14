@@ -6,7 +6,8 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
   data-testid="TopicListing"
 >
   <div
-    className="border-b"
+    className="Listing"
+    data-testid="Listing"
   >
     <div
       className="TopicListingItem"
@@ -49,10 +50,6 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         </div>
       </a>
     </div>
-  </div>
-  <div
-    className="border-b"
-  >
     <div
       className="TopicListingItem"
       data-testid="TopicListingItem"
@@ -94,10 +91,6 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         </div>
       </a>
     </div>
-  </div>
-  <div
-    className=""
-  >
     <div
       className="TopicListingItem"
       data-testid="TopicListingItem"
@@ -147,5 +140,10 @@ exports[`<TopicListing /> without topics should render correctly 1`] = `
 <div
   className="TopicListing"
   data-testid="TopicListing"
-/>
+>
+  <div
+    className="Listing"
+    data-testid="Listing"
+  />
+</div>
 `;

@@ -2,25 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './AvailableResourceListing.module.css';
 import AvailableResourceListingItem from '../AvailableResourceListingItem/AvailableResourceListingItem';
+import Listing from '../Listing/Listing';
 
 const AvailableResourceListing = ({ resources, onAddResource }) => {
-  const availableResourceListingItems = resources.map((r, index) => {
-    const isLast = index === resources.length - 1;
-    const className = isLast ? '' : 'border-b';
-
-    return (
-      <div key={r.id} className={className}>
-        <AvailableResourceListingItem resource={r} onAdd={onAddResource} />
-      </div>
-    );
-  });
+  const availableResourceListingItems = resources.map((r) => (
+    <AvailableResourceListingItem
+      key={r.id}
+      resource={r}
+      onAdd={onAddResource}
+    />
+  ));
 
   return (
     <div
       className={styles.AvailableResourceListing}
       data-testid="AvailableResourceListing"
     >
-      {availableResourceListingItems}
+      <Listing>{availableResourceListingItems}</Listing>
     </div>
   );
 };

@@ -6,7 +6,8 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
   data-testid="TopicResourceListing"
 >
   <div
-    className="border-b"
+    className="Listing"
+    data-testid="Listing"
   >
     <div
       className="TopicResourceListingItem"
@@ -215,10 +216,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         </div>
       </a>
     </div>
-  </div>
-  <div
-    className="border-b"
-  >
     <div
       className="TopicResourceListingItem"
       data-testid="TopicResourceListingItem"
@@ -426,10 +423,6 @@ exports[`<TopicResourceListing /> with multiple topic resources should render co
         </div>
       </a>
     </div>
-  </div>
-  <div
-    className=""
-  >
     <div
       className="TopicResourceListingItem"
       data-testid="TopicResourceListingItem"
@@ -645,5 +638,10 @@ exports[`<TopicResourceListing /> without topic resources should render correctl
 <div
   className="TopicResourceListing"
   data-testid="TopicResourceListing"
-/>
+>
+  <div
+    className="Listing"
+    data-testid="Listing"
+  />
+</div>
 `;
