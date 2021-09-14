@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './PaginatedListing.module.css';
 import Listing from '../Listing/Listing';
@@ -9,19 +9,25 @@ const PaginatedListing = ({
   selectedPage,
   pageCount,
   onPageClick,
-}) => (
-  <div className={styles.PaginatedListing} data-testid="PaginatedListing">
-    <Listing>{children}</Listing>
+}) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [selectedPage, pageCount]);
 
-    <div className="mt-8 flex justify-center">
-      <Pagination
-        selectedPage={selectedPage}
-        pageCount={pageCount}
-        onPageClick={onPageClick}
-      />
+  return (
+    <div className={styles.PaginatedListing} data-testid="PaginatedListing">
+      <Listing>{children}</Listing>
+
+      <div className="mt-8 flex justify-center">
+        <Pagination
+          selectedPage={selectedPage}
+          pageCount={pageCount}
+          onPageClick={onPageClick}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 PaginatedListing.propTypes = {
   children: PropTypes.node,
