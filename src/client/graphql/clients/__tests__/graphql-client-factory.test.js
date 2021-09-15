@@ -8,10 +8,6 @@ jest.mock('../graphql-client');
 jest.mock('../mock-graphql-client');
 
 describe('createGraphQLClient', () => {
-  beforeEach(() => {
-    configuration.ENVIRONMENT = 'testing';
-  });
-
   it('should return GraphQLClient for configuration url', () => {
     const expected = {};
     when(GraphQLClient)
@@ -31,16 +27,5 @@ describe('createGraphQLClient', () => {
     const actual = createGraphQLClient({ mock });
 
     expect(actual).toBe(expected);
-  });
-
-  it('should not return MockGraphQLClient when mock provided in production', () => {
-    const mock = 'default';
-    configuration.ENVIRONMENT = 'production';
-    const expected = {};
-    when(MockGraphQLClient).calledWith(mock).mockReturnValue(expected);
-
-    const actual = createGraphQLClient({ mock });
-
-    expect(actual).not.toBe(expected);
   });
 });
