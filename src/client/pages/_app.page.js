@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import configuration from '@/configuration/index';
 import Head from 'next/head';
 import useRouteLoadingEffect from '@/hooks/routing/use-route-loading-effect';
+import { MockProvider } from '@/hooks/use-mock-context';
 
 function App({ Component, pageProps }) {
   const { asPath } = useRouter();
@@ -19,42 +20,44 @@ function App({ Component, pageProps }) {
   const imageUrl = `${configuration.HTTP_BASE_URL}/img/og-logo.jpg`;
 
   return (
-    <FirebaseAppProvider
-      firebaseConfig={configuration.FIREBASE_CONFIG}
-      useAuthenticationEmulator={configuration.USE_AUTHENTICATION_EMULATOR}
-    >
-      <AuthenticationProvider>
-        <GraphQLFetcherProvider>
-          <Head>
-            <link
-              href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
-              rel="stylesheet"
+    <MockProvider>
+      <FirebaseAppProvider
+        firebaseConfig={configuration.FIREBASE_CONFIG}
+        useAuthenticationEmulator={configuration.USE_AUTHENTICATION_EMULATOR}
+      >
+        <AuthenticationProvider>
+          <GraphQLFetcherProvider>
+            <Head>
+              <link
+                href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
+                rel="stylesheet"
+              />
+            </Head>
+            <DefaultSeo
+              titleTemplate="%s - Resource Rank"
+              title="Simplify Learning"
+              description="Find the best resources to simplify your learning journey."
+              openGraph={{
+                title: 'Simplify Learning - Resource Rank',
+                description:
+                  'Find the best resources to simplify your learning journey.',
+                url: currentUrl,
+                type: 'website',
+                images: [
+                  {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: 'Resource Rank Logo',
+                  },
+                ],
+              }}
             />
-          </Head>
-          <DefaultSeo
-            titleTemplate="%s - Resource Rank"
-            title="Simplify Learning"
-            description="Find the best resources to simplify your learning journey."
-            openGraph={{
-              title: 'Simplify Learning - Resource Rank',
-              description:
-                'Find the best resources to simplify your learning journey.',
-              url: currentUrl,
-              type: 'website',
-              images: [
-                {
-                  url: imageUrl,
-                  width: 1200,
-                  height: 630,
-                  alt: 'Resource Rank Logo',
-                },
-              ],
-            }}
-          />
-          <Component {...pageProps} />
-        </GraphQLFetcherProvider>
-      </AuthenticationProvider>
-    </FirebaseAppProvider>
+            <Component {...pageProps} />
+          </GraphQLFetcherProvider>
+        </AuthenticationProvider>
+      </FirebaseAppProvider>
+    </MockProvider>
   );
 }
 
