@@ -5,7 +5,7 @@ import { createRenderer } from 'react-test-renderer/shallow';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
 import AddTopicResource, { Page, getServerSideProps } from '../add.page';
-import { useRouter } from 'next/router';
+import useNavigate from '@/hooks/use-navigate';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 
@@ -15,7 +15,7 @@ jest.mock('react', () => ({
   useEffect: jest.fn(),
 }));
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
-jest.mock('next/router');
+jest.mock('@/hooks/use-navigate');
 jest.mock('@/hooks/topics/use-available-topic-resource-search');
 jest.mock('@/hooks/topics/use-topic-resource-creator');
 
@@ -59,7 +59,7 @@ describe('<AddTopicResource />', () => {
     afterEach(() => {
       useEffect.mockReset();
       useState.mockReset();
-      useRouter.mockReset();
+      useNavigate.mockReset();
       useAvailableTopicResourceSearch.mockReset();
       useTopicResourceCreator.mockReset();
     });
@@ -145,10 +145,8 @@ describe('<AddTopicResource />', () => {
       });
 
       it('should renavigate to new topic resource if successful', async () => {
-        const mockPush = jest.fn();
-        useRouter.mockReturnValue({
-          push: mockPush,
-        });
+        const mockNavigate = jest.fn();
+        useNavigate.mockReturnValue(mockNavigate);
         when(mockCreate).calledWith(topicId, resourceId).mockReturnValue(true);
         render(<Page {...props} />);
         const addResourceButton = screen.getByTestId('AddResourceButton');
@@ -156,9 +154,12 @@ describe('<AddTopicResource />', () => {
         addResourceButton.click();
 
         await waitFor(() => {
-          expect(mockPush).toBeCalledWith(
-            '/topics/topic-slug/resources/resource-slug?new=true'
-          );
+          expect(mockNavigate).toBeCalledWith({
+            pathname: `/topics/topic-slug/resources/resource-slug`,
+            query: {
+              new: true,
+            },
+          });
         });
       });
 

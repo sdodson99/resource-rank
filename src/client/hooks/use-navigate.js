@@ -19,8 +19,8 @@ export default function useNavigate() {
     };
   };
 
-  const navigate = (url) => {
-    router.push(getUrl(url));
+  const navigate = async (url) => {
+    await router.push(getUrl(url));
   };
 
   return navigate;

@@ -5,17 +5,17 @@ import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
-import { useRouter } from 'next/router';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
+import useNavigate from '@/hooks/use-navigate';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
 const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const [resources, setResources] = useState([]);
   const {
@@ -108,9 +108,12 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
       return setAddResourceError(resourceId, true);
     }
 
-    await router.push(
-      `/topics/${topicSlug}/resources/${resourceSlug}?new=true`
-    );
+    await navigate({
+      pathname: `/topics/${topicSlug}/resources/${resourceSlug}`,
+      query: {
+        new: true,
+      },
+    });
   };
 
   const getSearchDisplay = () => {

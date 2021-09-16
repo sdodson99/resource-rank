@@ -9,7 +9,7 @@ import { when } from 'jest-when';
 import NewTopicResource, { Page, getServerSideProps } from '../new.page';
 import useResourceCreator from '@/hooks/resources/use-resource-creator';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
-import { useRouter } from 'next/router';
+import useNavigate from '@/hooks/use-navigate';
 import { useForm } from 'react-hook-form';
 import ResourceExistsError from '@/errors/resource-exists-error';
 import { useIntersectionObserver } from 'react-intersection-observer-hook';
@@ -19,7 +19,7 @@ jest.mock('react', () => ({
   useEffect: jest.fn(),
   useState: jest.fn(),
 }));
-jest.mock('next/router');
+jest.mock('@/hooks/use-navigate');
 jest.mock('@/hooks/resources/use-resource-creator');
 jest.mock('@/hooks/topics/use-topic-resource-creator');
 jest.mock('react-hook-form', () => ({
@@ -56,7 +56,6 @@ describe('<NewTopicResource />', () => {
     let props;
 
     beforeEach(() => {
-      useRouter.mockReturnValue({});
       useForm.mockReturnValue({});
       useResourceCreator.mockReturnValue({});
       useTopicResourceCreator.mockReturnValue({});
@@ -75,7 +74,7 @@ describe('<NewTopicResource />', () => {
 
     afterEach(() => {
       useState.mockReset();
-      useRouter.mockReset();
+      useNavigate.mockReset();
       useForm.mockReset();
       useTopicResourceCreator.mockReset();
       useResourceCreator.mockReset();
@@ -112,10 +111,8 @@ describe('<NewTopicResource />', () => {
       });
 
       it('should renavigate to created topic resource if successful', async () => {
-        const mockPush = jest.fn();
-        useRouter.mockReturnValue({
-          push: mockPush,
-        });
+        const mockNavigate = jest.fn();
+        useNavigate.mockReturnValue(mockNavigate);
         mockCreateResource.mockReturnValue({
           id: resourceId,
           slug: resourceSlug,
@@ -127,9 +124,12 @@ describe('<NewTopicResource />', () => {
         submitButton.click();
 
         await waitFor(() => {
-          expect(mockPush).toBeCalledWith(
-            '/topics/topic-slug/resources/resource-slug?new=true'
-          );
+          expect(mockNavigate).toBeCalledWith({
+            pathname: `/topics/topic-slug/resources/resource-slug`,
+            query: {
+              new: true,
+            },
+          });
         });
       });
 

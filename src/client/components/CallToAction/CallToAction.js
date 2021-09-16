@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './CallToAction.module.css';
-import { useRouter } from 'next/router';
+import useNavigate from '@/hooks/use-navigate';
 
 const CallToAction = () => {
   const [searchTopicsQuery, setSearchTopicsQuery] = useState('');
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const onSearchTopicsQueryChange = (e) => {
     const value = e.target.value;
@@ -13,7 +13,12 @@ const CallToAction = () => {
   };
 
   const onSearchTopics = () => {
-    router.push(`/topics?q=${searchTopicsQuery}`);
+    navigate({
+      pathname: '/topics',
+      query: {
+        q: searchTopicsQuery,
+      },
+    });
   };
 
   return (

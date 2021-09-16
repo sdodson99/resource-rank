@@ -5,17 +5,17 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import NewTopic, { Page } from '../new.page';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import useTopicCreator from '@/hooks/topics/use-topic-creator';
 import TopicExistsError from '@/errors/topic-exists-error';
 import { when } from 'jest-when';
+import useNavigate from '@/hooks/use-navigate';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
-jest.mock('next/router');
+jest.mock('@/hooks/use-navigate');
 jest.mock('@/hooks/topics/use-topic-creator');
 jest.mock('react-hook-form', () => ({
   ...jest.requireActual('react-hook-form'),
@@ -44,7 +44,7 @@ describe('<NewTopic />', () => {
   describe('page', () => {
     let mockCreateTopic;
     let mockSetError;
-    let mockPush;
+    let mockNavigate;
     let mockSetCreateTopicError;
     let mockSetIsCreatingTopic;
 
@@ -65,15 +65,13 @@ describe('<NewTopic />', () => {
         createTopic: mockCreateTopic,
       });
 
-      mockPush = jest.fn();
-      useRouter.mockReturnValue({
-        push: mockPush,
-      });
+      mockNavigate = jest.fn();
+      useNavigate.mockReturnValue(mockNavigate);
     });
 
     afterEach(() => {
       useState.mockReset();
-      useRouter.mockReset();
+      useNavigate.mockReset();
       useTopicCreator.mockReset();
     });
 
@@ -114,7 +112,12 @@ describe('<NewTopic />', () => {
         renderAndSubmit();
 
         await waitFor(() => {
-          expect(mockPush).toBeCalledWith('/topics/name-slug?new=true');
+          expect(mockNavigate).toBeCalledWith({
+            pathname: `/topics/name-slug`,
+            query: {
+              new: true,
+            },
+          });
         });
       });
 

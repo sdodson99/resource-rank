@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import { FormProvider, useForm } from 'react-hook-form';
 import { NextSeo } from 'next-seo';
@@ -7,13 +6,14 @@ import useTopicCreator from '@/hooks/topics/use-topic-creator';
 import TopicExistsError from '@/errors/topic-exists-error';
 import TopicDetailsForm from '@/components/TopicDetailsForm/TopicDetailsForm';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
+import useNavigate from '@/hooks/use-navigate';
 
 const FormField = {
   TOPIC_NAME: 'name',
 };
 
 const NewTopic = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const methods = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -36,7 +36,12 @@ const NewTopic = () => {
     try {
       const { slug } = await createTopic({ name });
 
-      await router.push(`/topics/${slug}?new=true`);
+      await navigate({
+        pathname: `/topics/${slug}`,
+        query: {
+          new: true,
+        },
+      });
     } catch (error) {
       setIsCreatingTopic(false);
 
