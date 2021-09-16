@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import ErrorAlert from '../Alerts/ErrorAlert/ErrorAlert';
 import TextInput from '../TextInput/TextInput';
 import PropTypes from 'prop-types';
@@ -9,6 +8,7 @@ import hasAlphaNumericCharacter from '@/validators/alpha-numeric';
 import isProfane from '@/validators/profanity';
 import { isURL } from 'validator';
 import { useFormContext } from 'react-hook-form';
+import Link from '../Link/Link';
 
 const ResourceDetailsForm = ({
   onSubmit,
@@ -91,7 +91,7 @@ const ResourceDetailsForm = ({
           >
             Submit
           </button>
-          <Link href={cancelHref}>
+          <Link url={{ pathname: cancelHref }}>
             <a className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3">
               Cancel
             </a>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PageHeaderButton.module.css';
-import Link from 'next/link';
+import Link from '../Link/Link';
 
 const PageHeaderButton = ({
   title,
@@ -16,7 +16,7 @@ const PageHeaderButton = ({
 
       {!hideButton && (
         <div className="mt-3 flex sm:mt-0 sm:ml-3">
-          <Link href={linkTo}>
+          <Link url={{ pathname: linkTo }}>
             <a className="btn btn-primary">{buttonContent}</a>
           </Link>
         </div>

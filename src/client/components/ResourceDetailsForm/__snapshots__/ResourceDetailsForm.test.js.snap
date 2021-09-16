@@ -33,7 +33,11 @@ exports[`<ResourceDetailsForm /> should render correctly 1`] = `
         Submit
       </button>
       <Link
-        href="/back"
+        url={
+          Object {
+            "pathname": "/back",
+          }
+        }
       >
         <a
           className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
@@ -80,7 +84,11 @@ exports[`<ResourceDetailsForm /> should render correctly when submitting 1`] = `
         Submit
       </button>
       <Link
-        href="/back"
+        url={
+          Object {
+            "pathname": "/back",
+          }
+        }
       >
         <a
           className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
@@ -143,7 +151,11 @@ exports[`<ResourceDetailsForm /> should render correctly with error message 1`] 
         Submit
       </button>
       <Link
-        href="/back"
+        url={
+          Object {
+            "pathname": "/back",
+          }
+        }
       >
         <a
           className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
