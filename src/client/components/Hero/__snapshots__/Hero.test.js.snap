@@ -56,28 +56,33 @@ exports[`<Hero /> should render correctly 1`] = `
       <div
         className="mt-12 flex justify-center md:justify-start"
       >
-        <a
-          className="btn btn-primary flex items-center"
-          href="/topics"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
+        <div
+          className="Link"
+          data-testid="Link"
         >
-          Explore Topics
-          <span
-            className="ml-2"
+          <a
+            className="btn btn-primary flex items-center"
+            href="/topics"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
-            <svg
-              aria-hidden={true}
-              className="MuiSvgIcon-root"
-              focusable="false"
-              viewBox="0 0 24 24"
+            Explore Topics
+            <span
+              className="ml-2"
             >
-              <path
-                d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-              />
-            </svg>
-          </span>
-        </a>
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                />
+              </svg>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
     <div

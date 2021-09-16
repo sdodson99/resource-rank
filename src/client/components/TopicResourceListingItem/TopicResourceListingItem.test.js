@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 import TopicResourceListingItem from './TopicResourceListingItem';
 
 describe('<TopicResourceListingItem />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<TopicResourceListingItem />);
 
     const topicResourceListingItem = screen.getByTestId(

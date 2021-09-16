@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 import Hero from './Hero';
 
 describe('<Hero />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<Hero />);
 
     const hero = screen.getByTestId('Hero');

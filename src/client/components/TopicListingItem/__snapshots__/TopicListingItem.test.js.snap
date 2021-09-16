@@ -6,7 +6,11 @@ exports[`<TopicListingItem /> should render correctly 1`] = `
   data-testid="TopicListingItem"
 >
   <Link
-    href="/topics/topic1"
+    url={
+      Object {
+        "pathname": "/topics/topic1",
+      }
+    }
   >
     <a>
       <ListingItem
@@ -41,7 +45,11 @@ exports[`<TopicListingItem /> should render correctly when verified 1`] = `
   data-testid="TopicListingItem"
 >
   <Link
-    href="/topics/topic1"
+    url={
+      Object {
+        "pathname": "/topics/topic1",
+      }
+    }
   >
     <a>
       <ListingItem

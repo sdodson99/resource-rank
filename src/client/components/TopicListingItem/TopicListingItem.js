@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicListingItem.module.css';
-import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
+import Link from '../Link/Link';
 
 const TopicListingItem = ({ name, slug, verified }) => {
   const detailsLink = `/topics/${slug}`;
 
   return (
     <div className={styles.TopicListingItem} data-testid="TopicListingItem">
-      <Link href={detailsLink}>
+      <Link url={{ pathname: detailsLink }}>
         <a>
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between sm:text-left text-center">
