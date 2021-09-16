@@ -6,7 +6,11 @@ exports[`<ActiveLink /> should render correctly 1`] = `
   data-testid="ActiveLink"
 >
   <Link
-    href="/"
+    url={
+      Object {
+        "pathname": "/",
+      }
+    }
   >
     <a
       className="linkClassName"
@@ -19,7 +23,7 @@ exports[`<ActiveLink /> should render correctly 1`] = `
 
 exports[`<ActiveLink /> with active and query parameters should render correctly 1`] = `
 <div
-  className=" active"
+  className="className active"
   data-testid="ActiveLink"
 >
   Link
@@ -28,7 +32,7 @@ exports[`<ActiveLink /> with active and query parameters should render correctly
 
 exports[`<ActiveLink /> with active should render correctly 1`] = `
 <div
-  className=" active"
+  className="className active"
   data-testid="ActiveLink"
 >
   Link
@@ -37,14 +41,18 @@ exports[`<ActiveLink /> with active should render correctly 1`] = `
 
 exports[`<ActiveLink /> with not active should render correctly 1`] = `
 <div
-  className=""
+  className="className"
   data-testid="ActiveLink"
 >
   <Link
-    href="/"
+    url={
+      Object {
+        "pathname": "/",
+      }
+    }
   >
     <a
-      className=""
+      className="linkClassName"
     >
       Link
     </a>

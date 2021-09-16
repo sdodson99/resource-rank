@@ -5,7 +5,7 @@ import BreadcrumbLayout from './BreadcrumbLayout';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<BreadcrumbLayout />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<BreadcrumbLayout />);
 
     const breadcrumbLayout = screen.getByTestId('BreadcrumbLayout');

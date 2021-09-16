@@ -63,7 +63,7 @@ const Header = () => {
           </div>
 
           <ActiveLink
-            href="/"
+            url={{ pathname: '/' }}
             className={`${styles.NavItem} ${styles.NavLink}`}
             activeClassName={styles.ActiveNavLink}
           >
@@ -72,7 +72,7 @@ const Header = () => {
 
           <div className={styles.NavItem} data-testid="TopicsNavItem">
             <ActiveLink
-              href="/topics"
+              url={{ pathname: '/topics' }}
               className={styles.NavLink}
               activeClassName={styles.ActiveNavLink}
             >

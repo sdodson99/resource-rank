@@ -8,12 +8,24 @@ import { useRouter } from 'next/router';
 jest.mock('next/router');
 
 describe('<ActiveLink />', () => {
+  let props;
+
+  beforeEach(() => {
+    props = {
+      url: {
+        pathname: '/',
+      },
+      className: 'className',
+      linkClassName: 'linkClassName',
+    };
+  });
+
   afterEach(() => {
     useRouter.mockReset();
   });
 
   it('should mount', () => {
-    render(<ActiveLink href="/">Link</ActiveLink>);
+    render(<ActiveLink {...props}>Link</ActiveLink>);
 
     const activeLink = screen.getByTestId('ActiveLink');
 
@@ -22,35 +34,32 @@ describe('<ActiveLink />', () => {
 
   it('should render correctly', () => {
     const page = createRenderer().render(
-      <ActiveLink
-        href={'/'}
-        className="className"
-        linkClassName="linkClassName"
-      >
-        Link
-      </ActiveLink>
+      <ActiveLink {...props}>Link</ActiveLink>
     );
 
     expect(page).toMatchSnapshot();
   });
 
   describe('with active', () => {
-    const path = '/home';
+    let path;
 
     beforeEach(() => {
+      path = '/home';
+
+      props.url.pathname = path;
       useRouter.mockReturnValue({ asPath: path });
     });
 
     it('should render correctly', () => {
       const page = createRenderer().render(
-        <ActiveLink href={path}>Link</ActiveLink>
+        <ActiveLink {...props}>Link</ActiveLink>
       );
 
       expect(page).toMatchSnapshot();
     });
 
     it('should have active class name', () => {
-      render(<ActiveLink href={path}>Link</ActiveLink>);
+      render(<ActiveLink {...props}>Link</ActiveLink>);
 
       const activeLink = screen.getByTestId('ActiveLink');
 
@@ -59,23 +68,25 @@ describe('<ActiveLink />', () => {
   });
 
   describe('with active and query parameters', () => {
-    const path = '/home';
-    const pathWithQuery = '/home?test=123';
+    let path;
 
     beforeEach(() => {
-      useRouter.mockReturnValue({ asPath: pathWithQuery });
+      path = '/home';
+      props.url.pathname = path;
+
+      useRouter.mockReturnValue({ asPath: '/home?test=123' });
     });
 
     it('should render correctly', () => {
       const page = createRenderer().render(
-        <ActiveLink href={path}>Link</ActiveLink>
+        <ActiveLink {...props}>Link</ActiveLink>
       );
 
       expect(page).toMatchSnapshot();
     });
 
     it('should have active class name', () => {
-      render(<ActiveLink href={path}>Link</ActiveLink>);
+      render(<ActiveLink {...props}>Link</ActiveLink>);
 
       const activeLink = screen.getByTestId('ActiveLink');
 
@@ -90,14 +101,14 @@ describe('<ActiveLink />', () => {
 
     it('should render correctly', () => {
       const page = createRenderer().render(
-        <ActiveLink href="/">Link</ActiveLink>
+        <ActiveLink {...props}>Link</ActiveLink>
       );
 
       expect(page).toMatchSnapshot();
     });
 
     it('should have active class name', () => {
-      render(<ActiveLink href="/">Link</ActiveLink>);
+      render(<ActiveLink {...props}>Link</ActiveLink>);
 
       const activeLink = screen.getByTestId('ActiveLink');
 
