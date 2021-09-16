@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> should render correctly 1`] = `
+<div
+  className="Link"
+  data-testid="Link"
+>
+  <Link
+    href={
+      Object {
+        "pathname": "test",
+      }
+    }
+  >
+    Click me
+  </Link>
+</div>
+`;
+
+exports[`<Link /> should render correctly with mock 1`] = `
+<div
+  className="Link"
+  data-testid="Link"
+>
+  <Link
+    href={
+      Object {
+        "pathname": "test",
+        "query": Object {
+          "mock": "mock1",
+          "other": "value",
+        },
+      }
+    }
+  >
+    Click me
+  </Link>
+</div>
+`;
