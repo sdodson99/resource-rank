@@ -1,4 +1,4 @@
-import mocks from './mocks';
+import mocks from '../../mocks';
 
 export default class MockGraphQLClient {
   constructor(mock) {

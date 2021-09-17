@@ -1,8 +1,8 @@
 import topicsQuery from '@/graphql/queries/topics-query';
 import MockGraphQLClient from '../mock-graphql-client';
-import mocks from '../mocks';
+import mocks from '../../../mocks';
 
-jest.mock('../mocks');
+jest.mock('../../../mocks');
 
 describe('MockGraphQLClient', () => {
   let client;

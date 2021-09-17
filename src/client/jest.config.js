@@ -25,9 +25,9 @@ module.exports = {
     '<rootDir>/.storybook/',
     '<rootDir>/templates/',
     '<rootDir>/e2e/',
+    '<rootDir>/mocks/',
     '.config.js',
     '.stories.js',
-    '<rootDir>/graphql/clients/mocks/',
   ],
   coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {
