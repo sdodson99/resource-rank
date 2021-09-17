@@ -26,7 +26,7 @@ describe('<Link />', () => {
   it('should mount', () => {
     render(<Link {...props} />);
 
-    const link = screen.getByTestId('Link');
+    const link = screen.getByText('Click me');
 
     expect(link).toBeInTheDocument();
   });

@@ -17,139 +17,124 @@ exports[`<TopicListing /> with multiple topics should render correctly 1`] = `
         className="TopicListingItem"
         data-testid="TopicListingItem"
       >
-        <div
-          className="Link"
-          data-testid="Link"
+        <a
+          href="/topics/topic1"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          <a
-            href="/topics/topic1"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+          <div
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
           >
             <div
-              className="ListingItem HoverListingItem px-3"
-              data-testid="ListingItem"
+              className="sm:flex sm:justify-between sm:text-left text-center"
             >
               <div
-                className="sm:flex sm:justify-between sm:text-left text-center"
+                className="flex items-center justify-center sm:justify-start"
               >
-                <div
-                  className="flex items-center justify-center sm:justify-start"
-                >
-                  <div>
-                    Topic1
-                  </div>
-                </div>
-                <div
-                  className="mt-5 sm:mt-0"
-                >
-                  <svg
-                    aria-hidden={true}
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                    />
-                  </svg>
+                <div>
+                  Topic1
                 </div>
               </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </div>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
       <div
         className="TopicListingItem"
         data-testid="TopicListingItem"
       >
-        <div
-          className="Link"
-          data-testid="Link"
+        <a
+          href="/topics/topic2"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          <a
-            href="/topics/topic2"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+          <div
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
           >
             <div
-              className="ListingItem HoverListingItem px-3"
-              data-testid="ListingItem"
+              className="sm:flex sm:justify-between sm:text-left text-center"
             >
               <div
-                className="sm:flex sm:justify-between sm:text-left text-center"
+                className="flex items-center justify-center sm:justify-start"
               >
-                <div
-                  className="flex items-center justify-center sm:justify-start"
-                >
-                  <div>
-                    Topic2
-                  </div>
-                </div>
-                <div
-                  className="mt-5 sm:mt-0"
-                >
-                  <svg
-                    aria-hidden={true}
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                    />
-                  </svg>
+                <div>
+                  Topic2
                 </div>
               </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </div>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
       <div
         className="TopicListingItem"
         data-testid="TopicListingItem"
       >
-        <div
-          className="Link"
-          data-testid="Link"
+        <a
+          href="/topics/topic2"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
-          <a
-            href="/topics/topic2"
-            onClick={[Function]}
-            onMouseEnter={[Function]}
+          <div
+            className="ListingItem HoverListingItem px-3"
+            data-testid="ListingItem"
           >
             <div
-              className="ListingItem HoverListingItem px-3"
-              data-testid="ListingItem"
+              className="sm:flex sm:justify-between sm:text-left text-center"
             >
               <div
-                className="sm:flex sm:justify-between sm:text-left text-center"
+                className="flex items-center justify-center sm:justify-start"
               >
-                <div
-                  className="flex items-center justify-center sm:justify-start"
-                >
-                  <div>
-                    Topic3
-                  </div>
-                </div>
-                <div
-                  className="mt-5 sm:mt-0"
-                >
-                  <svg
-                    aria-hidden={true}
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-                    />
-                  </svg>
+                <div>
+                  Topic3
                 </div>
               </div>
+              <div
+                className="mt-5 sm:mt-0"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                  />
+                </svg>
+              </div>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
     </div>
     <div

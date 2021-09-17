@@ -1,7 +1,6 @@
 import React from 'react';
 import LinkBase from 'next/link';
 import PropTypes from 'prop-types';
-import styles from './Link.module.css';
 import useMockContext from '@/hooks/use-mock-context';
 
 const Link = ({ url, children }) => {
@@ -21,11 +20,7 @@ const Link = ({ url, children }) => {
     };
   };
 
-  return (
-    <div className={styles.Link} data-testid="Link">
-      <LinkBase href={getHref()}>{children}</LinkBase>
-    </div>
-  );
+  return <LinkBase href={getHref()}>{children}</LinkBase>;
 };
 
 Link.propTypes = {

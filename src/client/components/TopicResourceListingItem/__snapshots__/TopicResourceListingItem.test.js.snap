@@ -5,213 +5,208 @@ exports[`<TopicResourceListingItem /> should render correctly 1`] = `
   className="TopicResourceListingItem"
   data-testid="TopicResourceListingItem"
 >
-  <div
-    className="Link"
-    data-testid="Link"
+  <a
+    href="/topics/topic-name/resources/resource-name"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
   >
-    <a
-      href="/topics/topic-name/resources/resource-name"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
+    <div
+      className="ListingItem HoverListingItem px-3"
+      data-testid="ListingItem"
     >
       <div
-        className="ListingItem HoverListingItem px-3"
-        data-testid="ListingItem"
+        className="sm:flex sm:justify-between items-center sm:text-left text-center"
       >
         <div
-          className="sm:flex sm:justify-between items-center sm:text-left text-center"
+          className="col-sm-auto flex flex-col items-center sm:items-start"
         >
           <div
-            className="col-sm-auto flex flex-col items-center sm:items-start"
+            className="flex items-center justify-center sm:justify-start"
+          >
+            <div />
+          </div>
+          <div
+            className="mt-1"
           >
             <div
-              className="flex items-center justify-center sm:justify-start"
-            >
-              <div />
-            </div>
-            <div
-              className="mt-1"
+              className="RatingStarGroup"
+              data-testid="RatingStarGroup"
             >
               <div
-                className="RatingStarGroup"
-                data-testid="RatingStarGroup"
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
               >
                 <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  className="RatingStar"
+                  data-testid="RatingStar"
                 >
                   <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
                   >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
                         }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
                   </div>
                 </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
                 <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  className="RatingStar"
+                  data-testid="RatingStar"
                 >
                   <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
                   >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
                         }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
                   </div>
                 </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
                 <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  className="RatingStar"
+                  data-testid="RatingStar"
                 >
                   <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
                   >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
                         }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
                   </div>
                 </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
                 <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  className="RatingStar"
+                  data-testid="RatingStar"
                 >
                   <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
+                    className="EmptyRatingStar"
+                    data-testid="EmptyRatingStar"
                   >
-                    <div
-                      className="EmptyRatingStar"
-                      data-testid="EmptyRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="#d6d6d6"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="#d6d6d6"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
                         }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
                   </div>
                 </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
                 <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  className="RatingStar"
+                  data-testid="RatingStar"
                 >
                   <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
+                    className="EmptyRatingStar"
+                    data-testid="EmptyRatingStar"
                   >
-                    <div
-                      className="EmptyRatingStar"
-                      data-testid="EmptyRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="#d6d6d6"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="#d6d6d6"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
                         }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            className="mt-5 sm:mt-0"
+        </div>
+        <div
+          className="mt-5 sm:mt-0"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
           >
-            <svg
-              aria-hidden={true}
-              className="MuiSvgIcon-root"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-              />
-            </svg>
-          </div>
+            <path
+              d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+            />
+          </svg>
         </div>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </div>
 `;
 
@@ -220,246 +215,241 @@ exports[`<TopicResourceListingItem /> should render correctly when verified 1`] 
   className="TopicResourceListingItem"
   data-testid="TopicResourceListingItem"
 >
-  <div
-    className="Link"
-    data-testid="Link"
+  <a
+    href="/topics/topic-name/resources/resource-name"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
   >
-    <a
-      href="/topics/topic-name/resources/resource-name"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
+    <div
+      className="ListingItem HoverListingItem px-3"
+      data-testid="ListingItem"
     >
       <div
-        className="ListingItem HoverListingItem px-3"
-        data-testid="ListingItem"
+        className="sm:flex sm:justify-between items-center sm:text-left text-center"
       >
         <div
-          className="sm:flex sm:justify-between items-center sm:text-left text-center"
+          className="col-sm-auto flex flex-col items-center sm:items-start"
         >
           <div
-            className="col-sm-auto flex flex-col items-center sm:items-start"
+            className="flex items-center justify-center sm:justify-start"
           >
+            <div />
             <div
-              className="flex items-center justify-center sm:justify-start"
+              className="ml-2"
             >
-              <div />
               <div
-                className="ml-2"
+                className="VerifiedIcon"
+                data-testid="VerifiedIcon"
               >
-                <div
-                  className="VerifiedIcon"
-                  data-testid="VerifiedIcon"
-                >
-                  <svg
-                    aria-describedby={null}
-                    aria-hidden={true}
-                    aria-label="verified"
-                    className="MuiSvgIcon-root"
-                    color="#6f99f2"
-                    focusable="false"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                    onMouseLeave={[Function]}
-                    onMouseOver={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchStart={[Function]}
-                    style={
-                      Object {
-                        "fontSize": 20,
-                      }
+                <svg
+                  aria-describedby={null}
+                  aria-hidden={true}
+                  aria-label="verified"
+                  className="MuiSvgIcon-root"
+                  color="#6f99f2"
+                  focusable="false"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "fontSize": 20,
                     }
-                    title="Verified"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div
-              className="mt-1"
-            >
-              <div
-                className="RatingStarGroup"
-                data-testid="RatingStarGroup"
-              >
-                <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
+                  }
+                  title="Verified"
+                  viewBox="0 0 24 24"
                 >
-                  <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
-                  >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
-                        }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
-                  >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
-                        }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
-                  >
-                    <div
-                      className="FullRatingStar"
-                      data-testid="FullRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="orange"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
-                        }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
-                  >
-                    <div
-                      className="EmptyRatingStar"
-                      data-testid="EmptyRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="#d6d6d6"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
-                        }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  data-testid="RatingStarGroup_RatingStar"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="RatingStar"
-                    data-testid="RatingStar"
-                  >
-                    <div
-                      className="EmptyRatingStar"
-                      data-testid="EmptyRatingStar"
-                    >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        color="#d6d6d6"
-                        focusable="false"
-                        style={
-                          Object {
-                            "fontSize": 25,
-                          }
-                        }
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                  />
+                </svg>
               </div>
             </div>
           </div>
           <div
-            className="mt-5 sm:mt-0"
+            className="mt-1"
           >
-            <svg
-              aria-hidden={true}
-              className="MuiSvgIcon-root"
-              focusable="false"
-              viewBox="0 0 24 24"
+            <div
+              className="RatingStarGroup"
+              data-testid="RatingStarGroup"
             >
-              <path
-                d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
-              />
-            </svg>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
+                <div
+                  className="RatingStar"
+                  data-testid="RatingStar"
+                >
+                  <div
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
+                <div
+                  className="RatingStar"
+                  data-testid="RatingStar"
+                >
+                  <div
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
+                <div
+                  className="RatingStar"
+                  data-testid="RatingStar"
+                >
+                  <div
+                    className="FullRatingStar"
+                    data-testid="FullRatingStar"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="orange"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
+                <div
+                  className="RatingStar"
+                  data-testid="RatingStar"
+                >
+                  <div
+                    className="EmptyRatingStar"
+                    data-testid="EmptyRatingStar"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="#d6d6d6"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-testid="RatingStarGroup_RatingStar"
+                onClick={[Function]}
+              >
+                <div
+                  className="RatingStar"
+                  data-testid="RatingStar"
+                >
+                  <div
+                    className="EmptyRatingStar"
+                    data-testid="EmptyRatingStar"
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      color="#d6d6d6"
+                      focusable="false"
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div
+          className="mt-5 sm:mt-0"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+            />
+          </svg>
+        </div>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </div>
 `;

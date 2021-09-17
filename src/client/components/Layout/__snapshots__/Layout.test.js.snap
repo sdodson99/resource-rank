@@ -21,41 +21,31 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
           <div
             className="flex-grow flex justify-center sm:justify-start"
           >
-            <div
-              className="Link"
-              data-testid="Link"
+            <a
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <a
-                href="/"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-              >
-                <img
-                  alt="Resource Rank Logo"
-                  height="50"
-                  src="/img/logo.svg"
-                  width="50"
-                />
-              </a>
-            </div>
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
           </div>
           <div
             className="NavItem NavLink"
             data-testid="ActiveLink"
           >
-            <div
-              className="Link"
-              data-testid="Link"
+            <a
+              className=""
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <a
-                className=""
-                href="/"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-              >
-                Home
-              </a>
-            </div>
+              Home
+            </a>
           </div>
           <div
             className="NavItem"
@@ -65,19 +55,14 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
               className="NavLink"
               data-testid="ActiveLink"
             >
-              <div
-                className="Link"
-                data-testid="Link"
+              <a
+                className=""
+                href="/topics"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
               >
-                <a
-                  className=""
-                  href="/topics"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                >
-                  Topics
-                </a>
-              </div>
+                Topics
+              </a>
             </div>
           </div>
           <div
@@ -199,41 +184,31 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
           <div
             className="flex-grow flex justify-center sm:justify-start"
           >
-            <div
-              className="Link"
-              data-testid="Link"
+            <a
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <a
-                href="/"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-              >
-                <img
-                  alt="Resource Rank Logo"
-                  height="50"
-                  src="/img/logo.svg"
-                  width="50"
-                />
-              </a>
-            </div>
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
           </div>
           <div
             className="NavItem NavLink"
             data-testid="ActiveLink"
           >
-            <div
-              className="Link"
-              data-testid="Link"
+            <a
+              className=""
+              href="/"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              <a
-                className=""
-                href="/"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-              >
-                Home
-              </a>
-            </div>
+              Home
+            </a>
           </div>
           <div
             className="NavItem"
@@ -243,19 +218,14 @@ exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
               className="NavLink"
               data-testid="ActiveLink"
             >
-              <div
-                className="Link"
-                data-testid="Link"
+              <a
+                className=""
+                href="/topics"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
               >
-                <a
-                  className=""
-                  href="/topics"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                >
-                  Topics
-                </a>
-              </div>
+                Topics
+              </a>
             </div>
           </div>
           <div
