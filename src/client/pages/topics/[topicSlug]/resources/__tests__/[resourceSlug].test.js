@@ -257,14 +257,20 @@ describe('<TopicResourceDetails />', () => {
 
   describe('getServerSideProps', () => {
     let req;
+    let params;
+    let query;
     let topicSlug;
     let resourceSlug;
-    let params;
     let topicId;
     let resourceId;
     let topicResource;
+    let mock;
 
     beforeEach(() => {
+      mock = 'mock';
+      query = {
+        mock,
+      };
       req = {};
       topicSlug = 'topic-slug';
       resourceSlug = 'resource-slug';
@@ -298,34 +304,35 @@ describe('<TopicResourceDetails />', () => {
         isNew: false,
       };
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockReturnValue(topicResource);
 
-      const { props } = await getServerSideProps({ req, params });
+      const { props } = await getServerSideProps({ req, params, query });
 
       expect(props).toEqual(expectedProps);
     });
 
     it('should return not found when topic resource not found', async () => {
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockImplementation(() => {
           throw new Error();
         });
 
-      const { notFound } = await getServerSideProps({ req, params });
+      const { notFound } = await getServerSideProps({ req, params, query });
 
       expect(notFound).toBeTruthy();
     });
 
     it('should return isNew if resource is new', async () => {
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockReturnValue(topicResource);
+      query.new = 'true';
 
       const {
         props: { isNew },
-      } = await getServerSideProps({ req, params, query: { new: 'true' } });
+      } = await getServerSideProps({ req, params, query });
 
       expect(isNew).toBeTruthy();
     });

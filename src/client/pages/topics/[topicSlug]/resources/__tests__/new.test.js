@@ -269,9 +269,15 @@ describe('<NewTopicResource />', () => {
   describe('getServerSideProps', () => {
     let req;
     let params;
+    let query;
+    let mock;
     let topicSlug;
 
     beforeEach(() => {
+      mock = 'mock';
+      query = {
+        mock,
+      };
       req = {};
       topicSlug = 'topic-name';
       params = {
@@ -285,12 +291,12 @@ describe('<NewTopicResource />', () => {
 
     it('should return not found if topic query fails', async () => {
       when(getTopicBySlug)
-        .calledWith(topicSlug)
+        .calledWith(topicSlug, { mock })
         .mockImplementation(() => {
           throw new Error();
         });
 
-      const { notFound } = await getServerSideProps({ req, params });
+      const { notFound } = await getServerSideProps({ req, params, query });
 
       expect(notFound).toBeTruthy();
     });
@@ -307,13 +313,13 @@ describe('<NewTopicResource />', () => {
       });
 
       it('should return topic props', async () => {
-        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({
+        when(getTopicBySlug).calledWith(topicSlug, { mock }).mockReturnValue({
           id,
           name,
           slug,
         });
 
-        const { props } = await getServerSideProps({ req, params });
+        const { props } = await getServerSideProps({ req, params, query });
 
         expect(props).toEqual({
           topicId: id,

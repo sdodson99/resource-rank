@@ -1,8 +1,12 @@
 import { createGraphQLClient } from '../../graphql/clients/graphql-client-factory';
 import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
 
-export default async function getTopicResourceBySlug(topicSlug, resourceSlug) {
-  const client = createGraphQLClient();
+export default async function getTopicResourceBySlug(
+  topicSlug,
+  resourceSlug,
+  { mock } = {}
+) {
+  const client = createGraphQLClient({ mock });
 
   const topicResourceResult = await client.fetch(topicResourceBySlugQuery, {
     topicSlug,

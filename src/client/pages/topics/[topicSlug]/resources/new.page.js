@@ -147,9 +147,13 @@ NewTopicResource.propTypes = {
   topicSlug: PropTypes.string,
 };
 
-export async function getServerSideProps({ req, params: { topicSlug } }) {
+export async function getServerSideProps({
+  req,
+  params: { topicSlug },
+  query,
+}) {
   try {
-    const topic = await getTopicBySlug(topicSlug);
+    const topic = await getTopicBySlug(topicSlug, { mock: query?.mock });
 
     return {
       props: {

@@ -159,13 +159,20 @@ describe('<TopicDetails />', () => {
   describe('getServerSideProps', () => {
     let req;
     let params;
+    let query;
     let topicSlug;
+    let mock;
 
     beforeEach(() => {
-      req = {};
       topicSlug = 'topic-name';
+      mock = 'mock';
+
+      req = {};
       params = {
         topicSlug,
+      };
+      query = {
+        mock,
       };
     });
 
@@ -175,12 +182,12 @@ describe('<TopicDetails />', () => {
 
     it('should return not found if topic query fails', async () => {
       when(getTopicBySlug)
-        .calledWith(topicSlug)
+        .calledWith(topicSlug, { mock })
         .mockImplementation(() => {
           throw new Error();
         });
 
-      const { notFound } = await getServerSideProps({ req, params });
+      const { notFound } = await getServerSideProps({ req, params, query });
 
       expect(notFound).toBeTruthy();
     });
@@ -202,7 +209,7 @@ describe('<TopicDetails />', () => {
 
       it('should return topic props', async () => {
         when(getTopicBySlug)
-          .calledWith(topicSlug)
+          .calledWith(topicSlug, { mock })
           .mockReturnValue({
             id,
             name,
@@ -213,7 +220,7 @@ describe('<TopicDetails />', () => {
             },
           });
 
-        const { props } = await getServerSideProps({ req, params });
+        const { props } = await getServerSideProps({ req, params, query });
 
         expect(props).toEqual({
           topicId: id,
@@ -226,7 +233,7 @@ describe('<TopicDetails />', () => {
       });
 
       it('should return unknown creator if topic creator does not exist', async () => {
-        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({
+        when(getTopicBySlug).calledWith(topicSlug, { mock }).mockReturnValue({
           id,
           name,
           slug,
@@ -234,17 +241,24 @@ describe('<TopicDetails />', () => {
 
         const {
           props: { topicCreator },
-        } = await getServerSideProps({ req, params });
+        } = await getServerSideProps({ req, params, query });
 
         expect(topicCreator).toBe('Unknown');
       });
 
       it('should return isNew if topic is new', async () => {
-        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({});
+        when(getTopicBySlug)
+          .calledWith(topicSlug, { mock })
+          .mockReturnValue({});
+        query.new = 'true';
 
         const {
           props: { isNew },
-        } = await getServerSideProps({ req, params, query: { new: 'true' } });
+        } = await getServerSideProps({
+          req,
+          params,
+          query,
+        });
 
         expect(isNew).toBeTruthy();
       });

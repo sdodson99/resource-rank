@@ -51,4 +51,15 @@ describe('getTopicResourceBySlug', () => {
       async () => await getTopicResourceBySlug(topicSlug, resourceSlug)
     ).rejects.toThrow();
   });
+
+  it('should create GraphQL client for mock when mock provided', async () => {
+    const mock = 'mock';
+    mockFetch.mockReturnValue({
+      topicResourceBySlug: {},
+    });
+
+    await getTopicResourceBySlug(topicSlug, resourceSlug, { mock });
+
+    expect(createGraphQLClient).toBeCalledWith({ mock });
+  });
 });
