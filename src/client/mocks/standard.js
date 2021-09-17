@@ -183,4 +183,8 @@ export default {
   [readOnlyModeEnabledQuery]: () => ({
     readOnlyModeEnabled: false,
   }),
+  authState: {
+    isLoggedIn: true,
+    currentUser: {},
+  },
 };

@@ -1,6 +1,8 @@
 import { useAuthentication } from '../use-authentication-context';
 import { useEffect, useState } from 'react';
 import useFirebaseAppContext from '../use-firebase-app-context';
+import useMockContext from '../use-mock-context';
+import mocks from '../../mocks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -8,20 +10,37 @@ jest.mock('react', () => ({
   useEffect: jest.fn(),
 }));
 jest.mock('../use-firebase-app-context');
+jest.mock('../use-mock-context');
+jest.mock('../../mocks');
 
 describe('useAuthentication', () => {
-  afterEach(() => {
-    useEffect.mockReset();
-    useState.mockReset();
-    useFirebaseAppContext.mockReset();
-  });
+  let mockAuthenticationState;
+  let mockSetAuthenticationState;
 
-  it('should return authentication state', () => {
-    const expected = {
+  beforeEach(() => {
+    mockAuthenticationState = {
       isLoggedIn: false,
       currentUser: null,
       initialized: false,
     };
+    mockSetAuthenticationState = jest.fn();
+    useState.mockReturnValueOnce([
+      mockAuthenticationState,
+      mockSetAuthenticationState,
+    ]);
+
+    useState.mockReturnValue([null, jest.fn()]);
+  });
+
+  afterEach(() => {
+    useEffect.mockReset();
+    useState.mockReset();
+    useFirebaseAppContext.mockReset();
+    useMockContext.mockReset();
+  });
+
+  it('should return authentication state', () => {
+    const expected = mockAuthenticationState;
     useState.mockReturnValue([expected]);
 
     const actual = useAuthentication();
@@ -37,8 +56,6 @@ describe('useAuthentication', () => {
       },
       initialized: true,
     };
-    const mockSetAuthenticationState = jest.fn();
-    useState.mockReturnValue([null, mockSetAuthenticationState]);
     useEffect.mockImplementationOnce((callback) => callback());
     useFirebaseAppContext.mockReturnValue({
       auth: () => ({
@@ -52,7 +69,6 @@ describe('useAuthentication', () => {
   });
 
   it('should unsubscribe from Firebase authentication state change on unmount', () => {
-    useState.mockReturnValue([null, null]);
     const mockUnsubscribe = jest.fn();
     useFirebaseAppContext.mockReturnValue({
       auth: () => ({
@@ -64,5 +80,29 @@ describe('useAuthentication', () => {
     useAuthentication();
 
     expect(mockUnsubscribe).toBeCalled();
+  });
+
+  describe('with mocks', () => {
+    it('should use mock auth state if mock provided', () => {
+      const expected = { isLoggedIn: true, initialized: true };
+      mocks.test = { authState: { isLoggedIn: true } };
+      useMockContext.mockReturnValue('test');
+      useEffect.mockImplementationOnce((callback) => callback());
+
+      useAuthentication();
+
+      expect(mockSetAuthenticationState).toBeCalledWith(expected);
+    });
+
+    it('should use standard mock auth state if mock provided', () => {
+      const expected = { isLoggedIn: true, initialized: true };
+      mocks.standard = { authState: { isLoggedIn: true } };
+      useMockContext.mockReturnValue('unknown');
+      useEffect.mockImplementationOnce((callback) => callback());
+
+      useAuthentication();
+
+      expect(mockSetAuthenticationState).toBeCalledWith(expected);
+    });
   });
 });
