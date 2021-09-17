@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
-const expectSnapshotToMatch = require('./expect/snapshotToMatch');
-const navigateToTopicDetails = require('./navigation/topic-details');
+const expectSnapshotToMatch = require('../utils/expect/snapshotToMatch');
+const navigateToTopicDetails = require('../utils/navigation/topic-details');
 
 test('view topic', async ({ page, baseURL }) => {
   await page.goto(`${baseURL}?mock=standard`);

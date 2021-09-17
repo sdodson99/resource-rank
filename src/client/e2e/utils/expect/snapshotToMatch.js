@@ -5,7 +5,7 @@ async function expectSnapshotToMatch(page, snapshotName) {
     await page.screenshot({
       fullPage: true,
     })
-  ).toMatchSnapshot(snapshotName, { threshold: 0.2 });
+  ).toMatchSnapshot(snapshotName, { threshold: 0.4 });
 }
 
 module.exports = expectSnapshotToMatch;
