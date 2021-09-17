@@ -21,6 +21,7 @@
     "test:cover": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "e2e": "playwright test",
+    "e2e:update": "npm run e2e -- --update-snapshots",
     "e2e:build": "NEXT_PUBLIC_ENVIRONMENT=qa next build",
     "e2e:ci": "npm run e2e:build && CI=true npm run e2e",
     "generate": "npx generate-react-cli component",

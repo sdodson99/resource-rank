@@ -11,6 +11,7 @@ if (process.env.CI) {
     command: 'next start -p 3000',
     port: 3000,
   };
+  config.use.headless = true;
 }
 
 module.exports = config;
