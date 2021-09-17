@@ -33,13 +33,13 @@ jobs:
         run: 'npm ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
-      - name: 'Lint'
-        run: 'npm run lint'
-        working-directory: ${{ env.CLIENT_PATH }}
+      # - name: 'Lint'
+      #   run: 'npm run lint'
+      #   working-directory: ${{ env.CLIENT_PATH }}
 
-      - name: 'Test'
-        run: 'npm run test:ci'
-        working-directory: ${{ env.CLIENT_PATH }}
+      # - name: 'Test'
+      #   run: 'npm run test:ci'
+      #   working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Install E2E Browsers'
         run: 'npx playwright install'

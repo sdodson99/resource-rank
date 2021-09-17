@@ -1,5 +1,6 @@
 const config = {
   testDir: './e2e',
+  retries: 3,
   use: {
     baseURL: 'http://localhost:3000',
     headless: false,
