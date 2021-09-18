@@ -5,7 +5,7 @@ import LoadingButton from './LoadingButton';
 import renderer from 'react-test-renderer';
 
 describe('<LoadingButton />', () => {
-  it('it should mount', () => {
+  it('should mount', () => {
     render(<LoadingButton />);
 
     const loadingButton = screen.getByTestId('LoadingButton');

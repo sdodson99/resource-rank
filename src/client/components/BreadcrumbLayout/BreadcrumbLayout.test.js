@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import BreadcrumbLayout from './BreadcrumbLayout';
 import { createRenderer } from 'react-test-renderer/shallow';
-import withApp from '@/test-utils/withApp';
+import withApp from '@/test-utils/with-app';
 
 describe('<BreadcrumbLayout />', () => {
   it('should mount', () => {

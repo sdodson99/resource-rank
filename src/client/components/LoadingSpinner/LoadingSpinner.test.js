@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner';
 import renderer from 'react-test-renderer';
 
 describe('<LoadingSpinner />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<LoadingSpinner />);
 
     const loadingSpinner = screen.getByTestId('LoadingSpinner');

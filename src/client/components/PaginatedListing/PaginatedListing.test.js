@@ -1,14 +1,8 @@
-import React, { useEffect } from 'react';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import PaginatedListing from './PaginatedListing';
-import { when } from 'jest-when';
-
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useEffect: jest.fn(),
-}));
 
 describe('<PaginatedListing />', () => {
   let props;
@@ -19,10 +13,6 @@ describe('<PaginatedListing />', () => {
       pageCount: 3,
       selectedPage: 2,
     };
-  });
-
-  afterEach(() => {
-    useEffect.mockReset();
   });
 
   it('should mount', () => {
@@ -39,14 +29,13 @@ describe('<PaginatedListing />', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should scroll to top when selected page or page count changes', () => {
+  it('should scroll to top when selected page or page count changes', async () => {
     window.scrollTo = jest.fn();
-    when(useEffect)
-      .calledWith(expect.any(Function), [props.selectedPage, props.pageCount])
-      .mockImplementation((cb) => cb());
 
     render(<PaginatedListing {...props} />);
 
-    expect(window.scrollTo).toBeCalledWith({ top: 0, behavior: 'smooth' });
+    await waitFor(() => {
+      expect(window.scrollTo).toBeCalledWith({ top: 0, behavior: 'smooth' });
+    });
   });
 });

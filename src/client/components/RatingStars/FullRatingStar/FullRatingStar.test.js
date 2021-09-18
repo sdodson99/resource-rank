@@ -5,7 +5,7 @@ import FullRatingStar from './FullRatingStar';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<FullRatingStar />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<FullRatingStar />);
 
     const fullRatingStar = screen.getByTestId('FullRatingStar');

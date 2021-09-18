@@ -5,7 +5,7 @@ import SelectableRatingStarGroup from './SelectableRatingStarGroup';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<SelectableRatingStarGroup />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<SelectableRatingStarGroup />);
 
     const selectableRatingStarGroup = screen.getByTestId(

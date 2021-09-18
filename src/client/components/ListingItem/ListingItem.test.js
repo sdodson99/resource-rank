@@ -5,7 +5,7 @@ import ListingItem from './ListingItem';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<ListingItem />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<ListingItem />);
 
     const listingItem = screen.getByTestId('ListingItem');

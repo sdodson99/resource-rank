@@ -15,7 +15,7 @@ describe('<Feature />', () => {
     };
   });
 
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<Feature feature={mockFeature} />);
 
     const feature = screen.getByTestId('Feature');

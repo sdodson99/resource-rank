@@ -38,7 +38,7 @@ describe('<TopicResourceListing />', () => {
         },
         {
           resource: {
-            id: '123',
+            id: '456',
             slug: 'resource-name2',
           },
           ratingList: {
@@ -47,7 +47,7 @@ describe('<TopicResourceListing />', () => {
         },
         {
           resource: {
-            id: '123',
+            id: '789',
             slug: 'resource-name3',
           },
           ratingList: {
