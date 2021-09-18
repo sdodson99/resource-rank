@@ -1,15 +1,11 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import ErrorAlert from './ErrorAlert';
 import { createRenderer } from 'react-test-renderer/shallow';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
-
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<ErrorAlert />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<ErrorAlert />);
 
     const errorAlert = screen.getByTestId('ErrorAlert');

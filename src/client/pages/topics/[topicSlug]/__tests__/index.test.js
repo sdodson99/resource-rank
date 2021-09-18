@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -7,14 +7,10 @@ import { when } from 'jest-when';
 import TopicDetails, { getServerSideProps } from '../index.page';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
 jest.mock('@/hooks/use-authentication-context');
 jest.mock('@/hooks/topics/use-topic-resource-search');
-
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicDetails />', () => {
   describe('page', () => {

@@ -38,4 +38,7 @@ module.exports = {
       statements: 80,
     },
   },
+  setupFilesAfterEnv: [
+    '<rootDir>/test-utils/setup/intersection-observer-setup.js',
+  ],
 };

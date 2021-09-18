@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -12,7 +12,6 @@ import TopicResourceDetails, {
 import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
 import useRating from '@/hooks/ratings/use-rating';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -30,9 +29,6 @@ jest.mock('@/components/RatingForm/RatingForm', () => ({ onSubmit }) => (
     </button>
   </div>
 ));
-
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicResourceDetails />', () => {
   describe('page', () => {

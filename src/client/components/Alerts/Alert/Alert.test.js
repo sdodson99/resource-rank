@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createRef } from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { useState, createRef } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Alert from './Alert';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -8,20 +8,15 @@ import { useIntersectionObserver } from 'react-intersection-observer-hook';
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
-  useEffect: jest.fn(),
 }));
-jest.mock('react-intersection-observer-hook');
 
 describe('<Alert />', () => {
   beforeEach(() => {
     useState.mockReturnValue([null, jest.fn()]);
-    useIntersectionObserver.mockReturnValue([createRef(), {}]);
   });
 
   afterEach(() => {
     useState.mockReset();
-    useEffect.mockReset();
-    useIntersectionObserver.mockReset();
   });
 
   it('should mount', () => {
@@ -68,8 +63,6 @@ describe('<Alert />', () => {
       mockSetHasScrolled = jest.fn();
       useState.mockReturnValue([false, mockSetHasScrolled]);
 
-      useEffect.mockImplementation((cb) => cb());
-
       mockScrollIntoView = jest.fn();
       useIntersectionObserver.mockReturnValue([
         createRef(),
@@ -84,27 +77,33 @@ describe('<Alert />', () => {
       ]);
     });
 
-    it('should clear has scrolled status when scrollTo changes', () => {
+    it('should clear has scrolled status when scrollTo changes', async () => {
       render(<Alert />);
 
-      expect(mockSetHasScrolled).toBeCalledWith(false);
+      await waitFor(() => {
+        expect(mockSetHasScrolled).toBeCalledWith(false);
+      });
     });
 
-    it('should not scroll into view when scrollTo is false', () => {
+    it('should not scroll into view when scrollTo is false', async () => {
       render(<Alert scrollTo={false} />);
 
-      expect(mockScrollIntoView).not.toBeCalled();
+      await waitFor(() => {
+        expect(mockScrollIntoView).not.toBeCalled();
+      });
     });
 
-    it('should not scroll into view when component has already scrolled into view', () => {
+    it('should not scroll into view when component has already scrolled into view', async () => {
       useState.mockReturnValue([true, jest.fn()]);
 
       render(<Alert scrollTo={true} />);
 
-      expect(mockScrollIntoView).not.toBeCalled();
+      await waitFor(() => {
+        expect(mockScrollIntoView).not.toBeCalled();
+      });
     });
 
-    it('should not scroll into view when component has not rendered yet', () => {
+    it('should not scroll into view when component has not rendered yet', async () => {
       useIntersectionObserver.mockReturnValue([
         createRef(),
         {
@@ -114,10 +113,12 @@ describe('<Alert />', () => {
 
       render(<Alert scrollTo={true} />);
 
-      expect(mockScrollIntoView).not.toBeCalled();
+      await waitFor(() => {
+        expect(mockScrollIntoView).not.toBeCalled();
+      });
     });
 
-    it('should not scroll into view when component is already visible', () => {
+    it('should not scroll into view when component is already visible', async () => {
       useIntersectionObserver.mockReturnValue([
         createRef(),
         {
@@ -132,10 +133,12 @@ describe('<Alert />', () => {
 
       render(<Alert scrollTo={true} />);
 
-      expect(mockScrollIntoView).not.toBeCalled();
+      await waitFor(() => {
+        expect(mockScrollIntoView).not.toBeCalled();
+      });
     });
 
-    it('should set has scrolled state when component already visible', () => {
+    it('should set has scrolled state when component already visible', async () => {
       useIntersectionObserver.mockReturnValue([
         createRef(),
         {
@@ -150,19 +153,25 @@ describe('<Alert />', () => {
 
       render(<Alert scrollTo={true} />);
 
-      expect(mockSetHasScrolled).toBeCalledWith(true);
+      await waitFor(() => {
+        expect(mockSetHasScrolled).toBeCalledWith(true);
+      });
     });
 
-    it('should scroll into view when component needs to be scrolled into view', () => {
+    it('should scroll into view when component needs to be scrolled into view', async () => {
       render(<Alert scrollTo={true} />);
 
-      expect(mockScrollIntoView).toBeCalled();
+      await waitFor(() => {
+        expect(mockScrollIntoView).toBeCalled();
+      });
     });
 
-    it('should set has scrolled state when component scrolled into view', () => {
+    it('should set has scrolled state when component scrolled into view', async () => {
       render(<Alert scrollTo={true} />);
 
-      expect(mockSetHasScrolled).toBeCalledWith(true);
+      await waitFor(() => {
+        expect(mockSetHasScrolled).toBeCalledWith(true);
+      });
     });
   });
 });

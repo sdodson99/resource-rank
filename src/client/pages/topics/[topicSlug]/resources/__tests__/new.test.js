@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { createRef, useState } from 'react';
+import React, { useState } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
@@ -12,7 +12,6 @@ import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import useNavigate from '@/hooks/use-navigate';
 import { useForm } from 'react-hook-form';
 import ResourceExistsError from '@/errors/resource-exists-error';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -45,8 +44,6 @@ jest.mock(
       )
 );
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<NewTopicResource />', () => {
   describe('page', () => {
