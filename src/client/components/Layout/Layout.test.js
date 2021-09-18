@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Layout from './Layout';
 import useReadOnlyModeEnabledQuery from '../../hooks/queries/use-read-only-mode-enabled-query';
-import renderer from 'react-test-renderer';
 import { useRouter } from 'next/router';
+import withApp from '@/test-utils/with-app';
+import { createRenderer } from 'react-test-renderer/shallow';
 
 jest.mock('../../hooks/queries/use-read-only-mode-enabled-query');
-jest.mock('../../hooks/use-firebase-app-context');
 jest.mock('next/router');
 
 describe('<Layout />', () => {
@@ -25,7 +25,7 @@ describe('<Layout />', () => {
   });
 
   it('should mount', () => {
-    render(<Layout />);
+    render(withApp(Layout));
 
     const layout = screen.getByTestId('Layout');
 
@@ -42,9 +42,9 @@ describe('<Layout />', () => {
     });
 
     it('should render correctly', () => {
-      const tree = renderer.create(<Layout />).toJSON();
+      const page = createRenderer().render(<Layout />);
 
-      expect(tree).toMatchSnapshot();
+      expect(page).toMatchSnapshot();
     });
   });
 
@@ -58,9 +58,9 @@ describe('<Layout />', () => {
     });
 
     it('should render correctly', () => {
-      const tree = renderer.create(<Layout />).toJSON();
+      const page = createRenderer().render(<Layout />);
 
-      expect(tree).toMatchSnapshot();
+      expect(page).toMatchSnapshot();
     });
   });
 });

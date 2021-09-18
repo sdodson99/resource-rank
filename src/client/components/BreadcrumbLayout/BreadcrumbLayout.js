@@ -11,7 +11,7 @@ const BreadcrumbLayout = ({ children, breadcrumbs }) => {
     return (
       <li key={to} className="flex">
         <ActiveLink
-          href={to}
+          url={{ pathname: to }}
           className={styles.BreadcrumbItem}
           activeClassName={styles.ActiveBreadcrumbItem}
           linkClassName={'hyperlink'}

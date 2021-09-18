@@ -21,6 +21,7 @@ class MongoResourcesDataSource extends DataSource {
     this.resourceDataLoader = new DataLoader(async (resourceIds) => {
       const resources = await this.resourceModel.find({
         _id: { $in: resourceIds },
+        slug: { $ne: null },
       });
 
       const resourceMap = {};
@@ -92,6 +93,7 @@ class MongoResourcesDataSource extends DataSource {
       {
         offset,
         limit,
+        sort: { verified: -1 },
       }
     );
 
@@ -112,6 +114,7 @@ class MongoResourcesDataSource extends DataSource {
     return this.resourceModel.find({
       _id: { $in: ids },
       name: { $regex: search, $options: 'i' },
+      slug: { $ne: null },
     });
   }
 

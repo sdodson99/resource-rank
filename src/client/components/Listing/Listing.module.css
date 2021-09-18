@@ -1,0 +1,10 @@
+.Listing {
+}
+
+.Listing > * {
+  @apply border-b;
+}
+
+.Listing > *:last-child {
+  @apply border-b-0;
+}

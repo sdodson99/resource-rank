@@ -1,8 +1,17 @@
-module.exports = {
+const config = {
   testDir: './e2e',
-  webServer: {
-    command: 'next start -p 8000',
-    port: 8000,
+  retries: 2,
+  use: {
+    baseURL: 'http://localhost:3000',
+    headless: true,
   },
-  globalSetup: require.resolve('./e2e/setup/global-setup'),
 };
+
+if (process.env.CI) {
+  config.webServer = {
+    command: 'next start -p 3000',
+    port: 3000,
+  };
+}
+
+module.exports = config;

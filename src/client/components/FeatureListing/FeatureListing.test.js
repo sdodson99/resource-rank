@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer';
 import FeatureListing from './FeatureListing';
 
 describe('<FeatureListing />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<FeatureListing />);
 
     const featureListing = screen.getByTestId('FeatureListing');

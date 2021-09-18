@@ -7,10 +7,18 @@ export default function useTopicResourceSearch(
 ) {
   const { execute, ...others } = useTopicResourceSearchQuery();
 
-  const executeTopicResourceSearchQuery = (searchVariables) => {
+  const executeTopicResourceSearchQuery = ({
+    resourceSearch,
+    offset,
+    limit,
+  }) => {
     execute({
-      ...searchVariables,
       topicId,
+      searchOptions: {
+        search: resourceSearch,
+        offset,
+        limit,
+      },
     });
   };
 

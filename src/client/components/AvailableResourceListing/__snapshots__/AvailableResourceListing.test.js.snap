@@ -6,165 +6,212 @@ exports[`<AvailableResourceListing /> with multiple resources should render corr
   data-testid="AvailableResourceListing"
 >
   <div
-    className="border-b"
+    className="PaginatedListing"
+    data-testid="PaginatedListing"
   >
     <div
-      className="AvailableResourceListingItem"
-      data-testid="AvailableResourceListingItem"
+      className="Listing"
+      data-testid="Listing"
     >
       <div
-        className="ListingItem"
-        data-testid="ListingItem"
+        className="AvailableResourceListingItem"
+        data-testid="AvailableResourceListingItem"
       >
         <div
-          className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+          className="ListingItem"
+          data-testid="ListingItem"
         >
-          <div>
-            <div
-              className="flex items-center justify-center sm:justify-start"
-            >
+          <div
+            className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+          >
+            <div>
               <div
-                className=""
+                className="flex items-center justify-center sm:justify-start"
               >
-                Resource2
+                <div
+                  className="line-through"
+                >
+                  Resource1
+                </div>
+              </div>
+              <div
+                className="error-text italic text-xs"
+              >
+                Already added
               </div>
             </div>
-          </div>
-          <div
-            className="mt-5 sm:mt-0 sm:ml-5"
-          >
-            <button
-              className="btn btn-primary"
-              data-testid="AddResourceButton"
-              disabled={false}
-              onClick={[Function]}
+            <div
+              className="mt-5 sm:mt-0 sm:ml-5"
             >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                fill="white"
-                focusable="false"
-                viewBox="0 0 24 24"
+              <button
+                className="btn btn-primary"
+                data-testid="AddResourceButton"
+                disabled={true}
+                onClick={[Function]}
               >
-                <path
-                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-                />
-              </svg>
-            </button>
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  fill="white"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="AvailableResourceListingItem"
+        data-testid="AvailableResourceListingItem"
+      >
+        <div
+          className="ListingItem"
+          data-testid="ListingItem"
+        >
+          <div
+            className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+          >
+            <div>
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div
+                  className=""
+                >
+                  Resource2
+                </div>
+              </div>
+            </div>
+            <div
+              className="mt-5 sm:mt-0 sm:ml-5"
+            >
+              <button
+                className="btn btn-primary"
+                data-testid="AddResourceButton"
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  fill="white"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="AvailableResourceListingItem"
+        data-testid="AvailableResourceListingItem"
+      >
+        <div
+          className="ListingItem"
+          data-testid="ListingItem"
+        >
+          <div
+            className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+          >
+            <div>
+              <div
+                className="flex items-center justify-center sm:justify-start"
+              >
+                <div
+                  className="line-through"
+                >
+                  Resource3
+                </div>
+              </div>
+              <div
+                className="error-text italic text-xs"
+              >
+                Already added
+              </div>
+            </div>
+            <div
+              className="mt-5 sm:mt-0 sm:ml-5"
+            >
+              <button
+                className="btn btn-primary"
+                data-testid="AddResourceButton"
+                disabled={true}
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  fill="white"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="border-b"
-  >
     <div
-      className="AvailableResourceListingItem"
-      data-testid="AvailableResourceListingItem"
+      className="mt-8 flex justify-center"
     >
       <div
-        className="ListingItem"
-        data-testid="ListingItem"
+        className="Pagination"
+        data-testid="Pagination"
       >
-        <div
-          className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
         >
-          <div>
-            <div
-              className="flex items-center justify-center sm:justify-start"
-            >
-              <div
-                className="line-through"
-              >
-                Resource1
-              </div>
-            </div>
-            <div
-              className="error-text italic text-xs"
-            >
-              Already added
-            </div>
-          </div>
-          <div
-            className="mt-5 sm:mt-0 sm:ml-5"
-          >
-            <button
-              className="btn btn-primary"
-              data-testid="AddResourceButton"
-              disabled={true}
-              onClick={[Function]}
-            >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                fill="white"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className=""
-  >
-    <div
-      className="AvailableResourceListingItem"
-      data-testid="AvailableResourceListingItem"
-    >
-      <div
-        className="ListingItem"
-        data-testid="ListingItem"
-      >
-        <div
-          className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+          1
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
         >
-          <div>
-            <div
-              className="flex items-center justify-center sm:justify-start"
-            >
-              <div
-                className="line-through"
-              >
-                Resource3
-              </div>
-            </div>
-            <div
-              className="error-text italic text-xs"
-            >
-              Already added
-            </div>
-          </div>
-          <div
-            className="mt-5 sm:mt-0 sm:ml-5"
-          >
-            <button
-              className="btn btn-primary"
-              data-testid="AddResourceButton"
-              disabled={true}
-              onClick={[Function]}
-            >
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                fill="white"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+          2
+        </button>
+        <button
+          className="SelectedPage"
+          data-testid="Page"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          3
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          4
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          5
+        </button>
       </div>
     </div>
   </div>
@@ -175,5 +222,65 @@ exports[`<AvailableResourceListing /> without resources should render correctly 
 <div
   className="AvailableResourceListing"
   data-testid="AvailableResourceListing"
-/>
+>
+  <div
+    className="PaginatedListing"
+    data-testid="PaginatedListing"
+  >
+    <div
+      className="Listing"
+      data-testid="Listing"
+    />
+    <div
+      className="mt-8 flex justify-center"
+    >
+      <div
+        className="Pagination"
+        data-testid="Pagination"
+      >
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          1
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          2
+        </button>
+        <button
+          className="SelectedPage"
+          data-testid="Page"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          3
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          4
+        </button>
+        <button
+          className="Page"
+          data-testid="Page"
+          onClick={[Function]}
+          type="button"
+        >
+          5
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 `;

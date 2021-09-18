@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<LoadingButton /> with loading should render correctly 1`] = `
+exports[`<LoadingButton /> should render correctly when disabled 1`] = `
+<button
+  className="btn btn-primary"
+  data-testid="LoadingButton"
+  disabled={true}
+>
+  Content
+</button>
+`;
+
+exports[`<LoadingButton /> should render correctly when loading 1`] = `
 <button
   className="btn btn-primary"
   data-testid="LoadingButton"
@@ -28,7 +38,7 @@ exports[`<LoadingButton /> with loading should render correctly 1`] = `
 </button>
 `;
 
-exports[`<LoadingButton /> with not loading should render correctly 1`] = `
+exports[`<LoadingButton /> should render correctly when not loading 1`] = `
 <button
   className="btn btn-primary"
   data-testid="LoadingButton"

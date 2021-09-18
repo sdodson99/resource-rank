@@ -70,4 +70,24 @@ describe('<AvailableResourceListingItem />', () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it('should render correctly when adding', () => {
+    resource.isAdding = true;
+
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render correctly when can not add resource', () => {
+    resource.disableAdd = true;
+
+    const tree = renderer
+      .create(<AvailableResourceListingItem resource={resource} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

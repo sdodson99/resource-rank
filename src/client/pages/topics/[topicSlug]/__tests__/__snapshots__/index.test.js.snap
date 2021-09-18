@@ -4,122 +4,291 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
 <div
   data-testid="TopicsDetails"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "name",
-          "to": "/topics/slug",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the best resources for learning name.",
-          "title": "name - Resource Rank",
-        }
-      }
-      title="name"
-    />
     <div
-      className="flex items-center"
+      className="Layout"
+      data-testid="Layout"
     >
       <div
-        className="text-4xl"
-        data-testid="TopicTitle"
+        className="Page"
       >
-        name
-      </div>
-    </div>
-    <div
-      className="mt-2 text-xs text-gray-800 font-thin"
-    >
-      Created by 
-      creator
-    </div>
-    <div
-      className="mt-10"
-    >
-      <PageHeaderButton
-        buttonContent="Add"
-        hideButton={false}
-        linkTo="/topics/slug/resources/add"
-        title="Resources"
-        titleClassName="text-2xl"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <input
-        className="w-full form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
               <div
-                className="mt-8 flex justify-center"
+                className="flex-grow flex justify-center sm:justify-start"
               >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
               </div>
             </div>
-          }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
             >
-              Failed to load topic resources.
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      name
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="flex items-center"
+              >
+                <div
+                  className="text-4xl"
+                  data-testid="TopicTitle"
+                >
+                  name
+                </div>
+              </div>
+              <div
+                className="mt-2 text-xs text-gray-800 font-thin"
+              >
+                Created by 
+                creator
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="PageHeaderButton"
+                  data-testid="PageHeaderButton"
+                >
+                  <div
+                    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                  >
+                    <div
+                      className="text-2xl"
+                    >
+                      Resources
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8"
+              >
+                <input
+                  className="w-full form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div
+                      className="text-center"
+                    >
+                      <div
+                        className="LoadingSpinner"
+                        data-testid="LoadingSpinner"
+                      >
+                        <svg
+                          fill="none"
+                          height={50}
+                          viewBox="0 0 100 100"
+                          width={50}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
+                            stroke="#292929"
+                            strokeWidth="10"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          }
-          hasData={false}
-          hasError={true}
-          isLoading={true}
-          loadingDisplay={
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
             <div
-              className="text-center"
+              className="sm:order-2 sm:ml-10"
             >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topic resources matching 'currentSearch' have been added.
-            </div>
-          }
-        />
-      </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;
 
@@ -127,129 +296,337 @@ exports[`<TopicDetails /> page should render correctly when topic verified 1`] =
 <div
   data-testid="TopicsDetails"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "name",
-          "to": "/topics/slug",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the best resources for learning name.",
-          "title": "name - Resource Rank",
-        }
-      }
-      title="name"
-    />
     <div
-      className="flex items-center"
+      className="Layout"
+      data-testid="Layout"
     >
       <div
-        className="text-4xl"
-        data-testid="TopicTitle"
+        className="Page"
       >
-        name
-      </div>
-      <div
-        className="ml-2"
-      >
-        <VerifiedIcon
-          size={25}
-        />
-      </div>
-    </div>
-    <div
-      className="mt-2 text-xs text-gray-800 font-thin"
-    >
-      Created by 
-      creator
-    </div>
-    <div
-      className="mt-10"
-    >
-      <PageHeaderButton
-        buttonContent="Add"
-        hideButton={false}
-        linkTo="/topics/slug/resources/add"
-        title="Resources"
-        titleClassName="text-2xl"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <input
-        className="w-full form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
               <div
-                className="mt-8 flex justify-center"
+                className="flex-grow flex justify-center sm:justify-start"
               >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Logout
+                </button>
               </div>
             </div>
-          }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
             >
-              Failed to load topic resources.
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      name
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="flex items-center"
+              >
+                <div
+                  className="text-4xl"
+                  data-testid="TopicTitle"
+                >
+                  name
+                </div>
+                <div
+                  className="ml-2"
+                >
+                  <div
+                    className="VerifiedIcon"
+                    data-testid="VerifiedIcon"
+                  >
+                    <svg
+                      aria-describedby={null}
+                      aria-hidden={true}
+                      aria-label="verified"
+                      className="MuiSvgIcon-root"
+                      color="#6f99f2"
+                      focusable="false"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseOver={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "fontSize": 25,
+                        }
+                      }
+                      title="Verified"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-2 text-xs text-gray-800 font-thin"
+              >
+                Created by 
+                creator
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="PageHeaderButton"
+                  data-testid="PageHeaderButton"
+                >
+                  <div
+                    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                  >
+                    <div
+                      className="text-2xl"
+                    >
+                      Resources
+                    </div>
+                    <div
+                      className="mt-3 flex sm:mt-0 sm:ml-3"
+                    >
+                      <a
+                        className="btn btn-primary"
+                        href="/topics/slug/resources/add?mock=standard"
+                        onClick={[Function]}
+                        onMouseEnter={[Function]}
+                      >
+                        Add
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8"
+              >
+                <input
+                  className="w-full form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div
+                      className="text-center"
+                    >
+                      <div
+                        className="LoadingSpinner"
+                        data-testid="LoadingSpinner"
+                      >
+                        <svg
+                          fill="none"
+                          height={50}
+                          viewBox="0 0 100 100"
+                          width={50}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
+                            stroke="#292929"
+                            strokeWidth="10"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          }
-          hasData={false}
-          hasError={true}
-          isLoading={true}
-          loadingDisplay={
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
             <div
-              className="text-center"
+              className="sm:order-2 sm:ml-10"
             >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topic resources matching 'currentSearch' have been added.
-            </div>
-          }
-        />
-      </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;
 
@@ -257,141 +634,720 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
 <div
   data-testid="TopicsDetails"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "name",
-          "to": "/topics/slug",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the best resources for learning name.",
-          "title": "name - Resource Rank",
-        }
-      }
-      title="name"
-    />
     <div
-      className="flex items-center"
+      className="Layout"
+      data-testid="Layout"
     >
       <div
-        className="text-4xl"
-        data-testid="TopicTitle"
+        className="Page"
       >
-        name
-      </div>
-    </div>
-    <div
-      className="mt-2 text-xs text-gray-800 font-thin"
-    >
-      Created by 
-      creator
-    </div>
-    <div
-      className="mt-10"
-    >
-      <PageHeaderButton
-        buttonContent="Add"
-        hideButton={false}
-        linkTo="/topics/slug/resources/add"
-        title="Resources"
-        titleClassName="text-2xl"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <input
-        className="w-full form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={
-                  Array [
-                    Object {
-                      "ratingList": Object {
-                        "average": 5,
-                      },
-                      "resource": Object {
-                        "slug": "slug-1",
-                      },
-                    },
-                    Object {
-                      "ratingList": Object {
-                        "average": 1,
-                      },
-                      "resource": Object {
-                        "slug": "slug-2",
-                      },
-                    },
-                  ]
-                }
-                topicSlug="slug"
-              />
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
               <div
-                className="mt-8 flex justify-center"
+                className="flex-grow flex justify-center sm:justify-start"
               >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
               </div>
             </div>
-          }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
             >
-              Failed to load topic resources.
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      name
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="flex items-center"
+              >
+                <div
+                  className="text-4xl"
+                  data-testid="TopicTitle"
+                >
+                  name
+                </div>
+              </div>
+              <div
+                className="mt-2 text-xs text-gray-800 font-thin"
+              >
+                Created by 
+                creator
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="PageHeaderButton"
+                  data-testid="PageHeaderButton"
+                >
+                  <div
+                    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                  >
+                    <div
+                      className="text-2xl"
+                    >
+                      Resources
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8"
+              >
+                <input
+                  className="w-full form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div>
+                      <div>
+                        <div
+                          className="TopicResourceListing"
+                          data-testid="TopicResourceListing"
+                        >
+                          <div
+                            className="PaginatedListing"
+                            data-testid="PaginatedListing"
+                          >
+                            <div
+                              className="Listing"
+                              data-testid="Listing"
+                            >
+                              <div
+                                className="TopicResourceListingItem"
+                                data-testid="TopicResourceListingItem"
+                              >
+                                <a
+                                  href="/topics/slug/resources/slug-1?mock=standard"
+                                  onClick={[Function]}
+                                  onMouseEnter={[Function]}
+                                >
+                                  <div
+                                    className="ListingItem HoverListingItem px-3"
+                                    data-testid="ListingItem"
+                                  >
+                                    <div
+                                      className="sm:flex sm:justify-between items-center sm:text-left text-center"
+                                    >
+                                      <div
+                                        className="col-sm-auto flex flex-col items-center sm:items-start"
+                                      >
+                                        <div
+                                          className="flex items-center justify-center sm:justify-start"
+                                        >
+                                          <div />
+                                        </div>
+                                        <div
+                                          className="mt-1"
+                                        >
+                                          <div
+                                            className="RatingStarGroup"
+                                            data-testid="RatingStarGroup"
+                                          >
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div
+                                        className="mt-5 sm:mt-0"
+                                      >
+                                        <svg
+                                          aria-hidden={true}
+                                          className="MuiSvgIcon-root"
+                                          focusable="false"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                                          />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                              <div
+                                className="TopicResourceListingItem"
+                                data-testid="TopicResourceListingItem"
+                              >
+                                <a
+                                  href="/topics/slug/resources/slug-2?mock=standard"
+                                  onClick={[Function]}
+                                  onMouseEnter={[Function]}
+                                >
+                                  <div
+                                    className="ListingItem HoverListingItem px-3"
+                                    data-testid="ListingItem"
+                                  >
+                                    <div
+                                      className="sm:flex sm:justify-between items-center sm:text-left text-center"
+                                    >
+                                      <div
+                                        className="col-sm-auto flex flex-col items-center sm:items-start"
+                                      >
+                                        <div
+                                          className="flex items-center justify-center sm:justify-start"
+                                        >
+                                          <div />
+                                        </div>
+                                        <div
+                                          className="mt-1"
+                                        >
+                                          <div
+                                            className="RatingStarGroup"
+                                            data-testid="RatingStarGroup"
+                                          >
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="FullRatingStar"
+                                                  data-testid="FullRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="orange"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="EmptyRatingStar"
+                                                  data-testid="EmptyRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="#d6d6d6"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="EmptyRatingStar"
+                                                  data-testid="EmptyRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="#d6d6d6"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="EmptyRatingStar"
+                                                  data-testid="EmptyRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="#d6d6d6"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              data-testid="RatingStarGroup_RatingStar"
+                                              onClick={[Function]}
+                                            >
+                                              <div
+                                                className="RatingStar"
+                                                data-testid="RatingStar"
+                                              >
+                                                <div
+                                                  className="EmptyRatingStar"
+                                                  data-testid="EmptyRatingStar"
+                                                >
+                                                  <svg
+                                                    aria-hidden={true}
+                                                    className="MuiSvgIcon-root"
+                                                    color="#d6d6d6"
+                                                    focusable="false"
+                                                    style={
+                                                      Object {
+                                                        "fontSize": 25,
+                                                      }
+                                                    }
+                                                    viewBox="0 0 24 24"
+                                                  >
+                                                    <path
+                                                      d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
+                                                    />
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div
+                                        className="mt-5 sm:mt-0"
+                                      >
+                                        <svg
+                                          aria-hidden={true}
+                                          className="MuiSvgIcon-root"
+                                          focusable="false"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                                          />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              className="mt-8 flex justify-center"
+                            >
+                              <div
+                                className="Pagination"
+                                data-testid="Pagination"
+                              >
+                                <button
+                                  className="SelectedPage"
+                                  data-testid="Page"
+                                  disabled={true}
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  1
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          }
-          hasData={true}
-          hasError={false}
-          isLoading={false}
-          loadingDisplay={
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
             <div
-              className="text-center"
+              className="sm:order-2 sm:ml-10"
             >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topic resources matching 'currentSearch' have been added.
-            </div>
-          }
-        />
-      </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;
 
@@ -399,121 +1355,302 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
 <div
   data-testid="TopicsDetails"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "name",
-          "to": "/topics/slug",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the best resources for learning name.",
-          "title": "name - Resource Rank",
-        }
-      }
-      title="name"
-    />
     <div
-      className="flex items-center"
+      className="Layout"
+      data-testid="Layout"
     >
       <div
-        className="text-4xl"
-        data-testid="TopicTitle"
+        className="Page"
       >
-        name
-      </div>
-    </div>
-    <div
-      className="mt-2 text-xs text-gray-800 font-thin"
-    >
-      Created by 
-      creator
-    </div>
-    <div
-      className="mt-10"
-    >
-      <PageHeaderButton
-        buttonContent="Add"
-        hideButton={false}
-        linkTo="/topics/slug/resources/add"
-        title="Resources"
-        titleClassName="text-2xl"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <input
-        className="w-full form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <div>
-              <TopicResourceListing
-                topicId="123"
-                topicResources={Array []}
-                topicSlug="slug"
-              />
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
               <div
-                className="mt-8 flex justify-center"
+                className="flex-grow flex justify-center sm:justify-start"
               >
-                <Pagination
-                  onPageClick={[MockFunction]}
-                  pageCount={NaN}
-                  selectedPage={1}
-                  selectedPageGapMinRange={3}
-                  selectedPageRange={2}
-                />
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Logout
+                </button>
               </div>
             </div>
-          }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
             >
-              Failed to load topic resources.
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      name
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="flex items-center"
+              >
+                <div
+                  className="text-4xl"
+                  data-testid="TopicTitle"
+                >
+                  name
+                </div>
+              </div>
+              <div
+                className="mt-2 text-xs text-gray-800 font-thin"
+              >
+                Created by 
+                creator
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="PageHeaderButton"
+                  data-testid="PageHeaderButton"
+                >
+                  <div
+                    className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                  >
+                    <div
+                      className="text-2xl"
+                    >
+                      Resources
+                    </div>
+                    <div
+                      className="mt-3 flex sm:mt-0 sm:ml-3"
+                    >
+                      <a
+                        className="btn btn-primary"
+                        href="/topics/slug/resources/add?mock=standard"
+                        onClick={[Function]}
+                        onMouseEnter={[Function]}
+                      >
+                        Add
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8"
+              >
+                <input
+                  className="w-full form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div
+                      className="text-center"
+                    >
+                      <div
+                        className="LoadingSpinner"
+                        data-testid="LoadingSpinner"
+                      >
+                        <svg
+                          fill="none"
+                          height={50}
+                          viewBox="0 0 100 100"
+                          width={50}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
+                            stroke="#292929"
+                            strokeWidth="10"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          }
-          hasData={false}
-          hasError={true}
-          isLoading={true}
-          loadingDisplay={
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
             <div
-              className="text-center"
+              className="sm:order-2 sm:ml-10"
             >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topic resources have been added.
-            </div>
-          }
-        />
-      </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;

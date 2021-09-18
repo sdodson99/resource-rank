@@ -1,20 +1,14 @@
-import React, { createRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createRenderer } from 'react-test-renderer/shallow';
+import renderer from 'react-test-renderer';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
 import TopicDetails, { getServerSideProps } from '../index.page';
-import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
+import withApp from '@/test-utils/with-app';
 
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
-jest.mock('@/hooks/use-authentication-context');
 jest.mock('@/hooks/topics/use-topic-resource-search');
-
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicDetails />', () => {
   describe('page', () => {
@@ -23,8 +17,6 @@ describe('<TopicDetails />', () => {
     let props;
 
     beforeEach(() => {
-      useAuthenticationContext.mockReturnValue({ isLoggedIn: true });
-
       mockTopicResourceSearch = {
         data: {},
         error: new Error(),
@@ -46,12 +38,11 @@ describe('<TopicDetails />', () => {
     });
 
     afterEach(() => {
-      useAuthenticationContext.mockReset();
       useTopicResourceSearch.mockReset();
     });
 
     it('should mount', () => {
-      render(<TopicDetails {...props} />);
+      render(withApp(TopicDetails, props));
 
       const page = screen.getByTestId('TopicsDetails');
 
@@ -61,7 +52,7 @@ describe('<TopicDetails />', () => {
     describe('new topic alert', () => {
       it('should display new topic alert when isNew is true', () => {
         props.isNew = true;
-        render(<TopicDetails {...props} />);
+        render(withApp(TopicDetails, props));
 
         const alert = screen.getByTestId('InfoAlert');
 
@@ -70,7 +61,7 @@ describe('<TopicDetails />', () => {
 
       it('should not display new topic alert when isNew is not true', () => {
         props.isNew = false;
-        render(<TopicDetails {...props} />);
+        render(withApp(TopicDetails, props));
 
         const alert = screen.queryByTestId('InfoAlert');
 
@@ -79,7 +70,7 @@ describe('<TopicDetails />', () => {
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -87,7 +78,7 @@ describe('<TopicDetails />', () => {
     it('should render correctly when topic verified', () => {
       props.topicVerified = true;
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -100,6 +91,7 @@ describe('<TopicDetails />', () => {
             items: [
               {
                 resource: {
+                  id: '1',
                   slug: 'slug-1',
                 },
                 ratingList: {
@@ -108,6 +100,7 @@ describe('<TopicDetails />', () => {
               },
               {
                 resource: {
+                  id: '2',
                   slug: 'slug-2',
                 },
                 ratingList: {
@@ -121,14 +114,14 @@ describe('<TopicDetails />', () => {
         isLoading: false,
       });
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
 
     it('should process search on search input', () => {
       const search = '123';
-      render(<TopicDetails {...props} />);
+      render(withApp(TopicDetails, props));
       const searchInput = screen.getByTestId('SearchInput');
 
       fireEvent.input(searchInput, {
@@ -150,7 +143,7 @@ describe('<TopicDetails />', () => {
         currentSearchVariables: {},
       });
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -159,13 +152,20 @@ describe('<TopicDetails />', () => {
   describe('getServerSideProps', () => {
     let req;
     let params;
+    let query;
     let topicSlug;
+    let mock;
 
     beforeEach(() => {
-      req = {};
       topicSlug = 'topic-name';
+      mock = 'mock';
+
+      req = {};
       params = {
         topicSlug,
+      };
+      query = {
+        mock,
       };
     });
 
@@ -175,12 +175,12 @@ describe('<TopicDetails />', () => {
 
     it('should return not found if topic query fails', async () => {
       when(getTopicBySlug)
-        .calledWith(topicSlug)
+        .calledWith(topicSlug, { mock })
         .mockImplementation(() => {
           throw new Error();
         });
 
-      const { notFound } = await getServerSideProps({ req, params });
+      const { notFound } = await getServerSideProps({ req, params, query });
 
       expect(notFound).toBeTruthy();
     });
@@ -202,7 +202,7 @@ describe('<TopicDetails />', () => {
 
       it('should return topic props', async () => {
         when(getTopicBySlug)
-          .calledWith(topicSlug)
+          .calledWith(topicSlug, { mock })
           .mockReturnValue({
             id,
             name,
@@ -213,7 +213,7 @@ describe('<TopicDetails />', () => {
             },
           });
 
-        const { props } = await getServerSideProps({ req, params });
+        const { props } = await getServerSideProps({ req, params, query });
 
         expect(props).toEqual({
           topicId: id,
@@ -226,7 +226,7 @@ describe('<TopicDetails />', () => {
       });
 
       it('should return unknown creator if topic creator does not exist', async () => {
-        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({
+        when(getTopicBySlug).calledWith(topicSlug, { mock }).mockReturnValue({
           id,
           name,
           slug,
@@ -234,17 +234,24 @@ describe('<TopicDetails />', () => {
 
         const {
           props: { topicCreator },
-        } = await getServerSideProps({ req, params });
+        } = await getServerSideProps({ req, params, query });
 
         expect(topicCreator).toBe('Unknown');
       });
 
       it('should return isNew if topic is new', async () => {
-        when(getTopicBySlug).calledWith(topicSlug).mockReturnValue({});
+        when(getTopicBySlug)
+          .calledWith(topicSlug, { mock })
+          .mockReturnValue({});
+        query.new = 'true';
 
         const {
           props: { isNew },
-        } = await getServerSideProps({ req, params, query: { new: 'true' } });
+        } = await getServerSideProps({
+          req,
+          params,
+          query,
+        });
 
         expect(isNew).toBeTruthy();
       });

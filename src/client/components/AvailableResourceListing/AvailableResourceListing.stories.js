@@ -15,6 +15,7 @@ Default.args = {
       name: 'Resource 1',
       alreadyAdded: false,
       hasAddError: false,
+      isAdding: true,
     },
     {
       name: 'Resource 2',
@@ -26,8 +27,11 @@ Default.args = {
       alreadyAdded: false,
       hasAddError: true,
       verified: true,
+      disableAdd: true,
     },
   ],
+  selectedPage: 3,
+  pageCount: 5,
 };
 
 export const Single = Template.bind({});

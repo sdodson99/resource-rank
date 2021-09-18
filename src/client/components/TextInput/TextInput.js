@@ -23,6 +23,7 @@ const TextInput = React.forwardRef(function WrappedTextInput(
         {label && <label htmlFor={name}>{label}</label>}
 
         <input
+          id={name}
           ref={ref}
           name={name}
           className={calculateInputClassName()}

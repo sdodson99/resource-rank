@@ -4,15 +4,13 @@ exports.typeDefs = gql`
   type Query {
     topicResources(
       topicId: ID!
-      resourceSearch: String
-      offset: Int
-      limit: Int
-    ): TopicResourceListing
-    topicResource(topicId: ID!, resourceId: ID!): TopicResource
+      searchOptions: SearchOptionsInput
+    ): RootTopicResourceListing
+    topicResource(topicId: ID!, resourceId: ID!): RootTopicResource
     topicResourceBySlug(
       topicSlug: String!
       resourceSlug: String!
-    ): TopicResource
+    ): RootTopicResource
     availableResources(
       topicId: ID!
       search: String
@@ -25,15 +23,15 @@ exports.typeDefs = gql`
     createTopicResource(topicId: ID!, resourceId: ID!): Boolean
   }
 
-  type TopicResource {
+  type RootTopicResource {
     topic: Topic!
     resource: Resource!
     ratingList: RatingList
     createdBy: User
   }
 
-  type TopicResourceListing {
-    items: [TopicResource]
+  type RootTopicResourceListing {
+    items: [RootTopicResource]
     totalCount: Int!
   }
 
@@ -50,33 +48,8 @@ exports.typeDefs = gql`
 
 exports.resolvers = {
   Query: {
-    topicResources: async (
-      _,
-      { topicId, resourceSearch, offset = 0, limit = 20 },
-      { dataSources }
-    ) => {
-      const topic = await dataSources.topics.getById(topicId);
-
-      let resourceIds = [];
-      if (topic && topic.resources) {
-        resourceIds = topic.resources.map((r) => r.resource);
-      }
-
-      const filteredResources = await dataSources.resources.getByIds(
-        resourceIds,
-        resourceSearch
-      );
-      const paginatedResources = filteredResources.slice(
-        offset,
-        offset + limit
-      );
-
-      return {
-        topicResources: paginatedResources,
-        topicId,
-        totalCount: filteredResources.length,
-      };
-    },
+    topicResources: (_, { topicId, searchOptions }, { dataSources }) =>
+      dataSources.topicResources.searchByTopicId(topicId, searchOptions),
     topicResource: (_, { topicId, resourceId }) => ({
       topicId,
       resourceId,
@@ -147,7 +120,7 @@ exports.resolvers = {
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>
       dataSources.topics.addResource(topicId, resourceId),
   },
-  TopicResource: {
+  RootTopicResource: {
     topic: ({ topicId }, _, { dataSources }) =>
       dataSources.topics.getById(topicId),
     resource: ({ resourceId }, _, { dataSources }) =>
@@ -156,15 +129,5 @@ exports.resolvers = {
       dataSources.ratings.getAllForTopicResource(topicId, resourceId),
     createdBy: ({ createdBy }, _, { dataSources }) =>
       dataSources.usersDataSource.getUser(createdBy),
-  },
-  TopicResourceListing: {
-    items: ({ topicResources, topicId }, _, { dataSources }) => {
-      return topicResources.map((r) => ({
-        resource: r,
-        topicId,
-        resourceId: r._id,
-        createdBy: r.createdBy,
-      }));
-    },
   },
 };

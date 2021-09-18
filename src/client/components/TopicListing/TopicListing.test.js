@@ -5,8 +5,17 @@ import TopicListing from './TopicListing';
 import renderer from 'react-test-renderer';
 
 describe('<TopicListing />', () => {
-  test('it should mount', () => {
-    render(<TopicListing />);
+  let props;
+
+  beforeEach(() => {
+    props = {
+      selectedPage: 3,
+      pageCount: 5,
+    };
+  });
+
+  it('should mount', () => {
+    render(<TopicListing {...props} />);
 
     const topicListing = screen.getByTestId('TopicListing');
 
@@ -14,26 +23,28 @@ describe('<TopicListing />', () => {
   });
 
   describe('with multiple topics', () => {
-    const topics = [
-      {
-        id: '123',
-        name: 'Topic1',
-        slug: 'topic1',
-      },
-      {
-        id: '456',
-        name: 'Topic2',
-        slug: 'topic2',
-      },
-      {
-        id: '789',
-        name: 'Topic3',
-        slug: 'topic2',
-      },
-    ];
+    beforeEach(() => {
+      props.topics = [
+        {
+          id: '123',
+          name: 'Topic1',
+          slug: 'topic1',
+        },
+        {
+          id: '456',
+          name: 'Topic2',
+          slug: 'topic2',
+        },
+        {
+          id: '789',
+          name: 'Topic3',
+          slug: 'topic2',
+        },
+      ];
+    });
 
     it('should render correctly', () => {
-      const tree = renderer.create(<TopicListing topics={topics} />).toJSON();
+      const tree = renderer.create(<TopicListing {...props} />).toJSON();
 
       expect(tree).toMatchSnapshot();
     });
@@ -41,7 +52,7 @@ describe('<TopicListing />', () => {
 
   describe('without topics', () => {
     it('should render correctly', () => {
-      const tree = renderer.create(<TopicListing />).toJSON();
+      const tree = renderer.create(<TopicListing {...props} />).toJSON();
 
       expect(tree).toMatchSnapshot();
     });

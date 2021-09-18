@@ -205,7 +205,11 @@ export async function getServerSideProps({
   query,
 }) {
   try {
-    const topicResource = await getTopicResourceBySlug(topicSlug, resourceSlug);
+    const topicResource = await getTopicResourceBySlug(
+      topicSlug,
+      resourceSlug,
+      { mock: query?.mock }
+    );
 
     return {
       props: {

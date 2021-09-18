@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 import ErrorAlert from '../Alerts/ErrorAlert/ErrorAlert';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
@@ -8,6 +7,7 @@ import styles from './TopicDetailsForm.module.css';
 import { useFormContext } from 'react-hook-form';
 import hasAlphaNumericCharacter from '@/validators/alpha-numeric';
 import isProfane from '@/validators/profanity';
+import Link from '../Link/Link';
 
 const TopicDetailsForm = ({
   onSubmit,
@@ -15,11 +15,12 @@ const TopicDetailsForm = ({
   cancelHref,
   errorMessage,
   nameFieldName,
+  isSubmitting,
 }) => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useFormContext();
 
   const nameFieldOptions = {
@@ -67,7 +68,7 @@ const TopicDetailsForm = ({
             Submit
           </button>
 
-          <Link href={cancelHref}>
+          <Link url={{ pathname: cancelHref }}>
             <a className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3">
               Cancel
             </a>
@@ -90,6 +91,7 @@ TopicDetailsForm.propTypes = {
   cancelHref: PropTypes.string,
   errorMessage: PropTypes.string,
   nameFieldName: PropTypes.string,
+  isSubmitting: PropTypes.bool,
 };
 
 TopicDetailsForm.defaultProps = {};

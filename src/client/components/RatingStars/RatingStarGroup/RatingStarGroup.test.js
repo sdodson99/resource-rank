@@ -5,7 +5,7 @@ import RatingStarGroup from './RatingStarGroup';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<RatingStarGroup />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<RatingStarGroup />);
 
     const ratingStarGroup = screen.getByTestId('RatingStarGroup');

@@ -10,6 +10,7 @@ describe('topic resources resolvers', () => {
   let topicsDataSource;
   let resourcesDataSource;
   let ratingsDataSource;
+  let topicResourcesDataSource;
   let usersDataSource;
   let context;
 
@@ -32,6 +33,10 @@ describe('topic resources resolvers', () => {
     };
     ratingsDataSource = {
       getAllForTopicResource: jest.fn(),
+      getAllForManyTopicResources: jest.fn(),
+    };
+    topicResourcesDataSource = {
+      searchByTopicId: jest.fn(),
     };
     usersDataSource = {
       getUser: jest.fn(),
@@ -41,61 +46,28 @@ describe('topic resources resolvers', () => {
         topics: topicsDataSource,
         resources: resourcesDataSource,
         ratings: ratingsDataSource,
+        topicResources: topicResourcesDataSource,
         usersDataSource,
       },
     };
   });
 
   describe('topic resource listing query', () => {
-    it('should return result with paginated topic resources if topic has resources', async () => {
+    it('should return topic resource data source result', async () => {
       const expected = {
-        topicResources: [
-          {
-            id: 'resource456',
-          },
-        ],
-        topicId,
-        totalCount: 2,
+        items: [{}],
+        totalCount: 1,
       };
-      when(topicsDataSource.getById)
-        .calledWith(topicId)
-        .mockReturnValue({
-          resources: [{ resource: 'resource123' }, { resource: 'resource456' }],
-        });
-      when(resourcesDataSource.getByIds)
-        .calledWith(['resource123', 'resource456'], resourceSearch)
-        .mockReturnValue([
-          {
-            id: 'resource123',
-          },
-          {
-            id: 'resource456',
-          },
-        ]);
+      const searchOptions = {
+        search: 'test',
+      };
+      when(topicResourcesDataSource.searchByTopicId)
+        .calledWith(topicId, searchOptions)
+        .mockReturnValue(expected);
 
       const actual = await resolvers.Query.topicResources(
         null,
-        { topicId, resourceSearch, offset: 1, limit: 1 },
-        context
-      );
-
-      expect(actual).toEqual(expected);
-    });
-
-    it('should return result with empty topic resources ids if topic not found', async () => {
-      const expected = {
-        topicResources: [],
-        topicId,
-        totalCount: 0,
-      };
-      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue(null);
-      when(resourcesDataSource.getByIds)
-        .calledWith([], resourceSearch)
-        .mockReturnValue([]);
-
-      const actual = await resolvers.Query.topicResources(
-        null,
-        { topicId, resourceSearch },
+        { topicId, searchOptions },
         context
       );
 
@@ -309,7 +281,11 @@ describe('topic resources resolvers', () => {
         .calledWith(topicId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.topic({ topicId }, null, context);
+      const actual = resolvers.RootTopicResource.topic(
+        { topicId },
+        null,
+        context
+      );
 
       expect(actual).toBe(expected);
     });
@@ -322,7 +298,7 @@ describe('topic resources resolvers', () => {
         .calledWith(resourceId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.resource(
+      const actual = resolvers.RootTopicResource.resource(
         { resourceId },
         null,
         context
@@ -339,7 +315,7 @@ describe('topic resources resolvers', () => {
         .calledWith(topicId, resourceId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.ratingList(
+      const actual = resolvers.RootTopicResource.ratingList(
         { topicId, resourceId },
         null,
         context
@@ -356,59 +332,13 @@ describe('topic resources resolvers', () => {
         .calledWith(userId)
         .mockReturnValue(expected);
 
-      const actual = resolvers.TopicResource.createdBy(
+      const actual = resolvers.RootTopicResource.createdBy(
         { createdBy: userId },
         null,
         context
       );
 
       expect(actual).toBe(expected);
-    });
-  });
-
-  describe('topic resource listing items resolver', () => {
-    it('should return mapped topic resources', async () => {
-      const expected = [
-        {
-          resource: {
-            _id: '123',
-            createdBy: 'username1',
-          },
-          topicId,
-          resourceId: '123',
-          createdBy: 'username1',
-        },
-        {
-          resource: {
-            _id: '456',
-            createdBy: 'username2',
-          },
-          topicId,
-          resourceId: '456',
-          createdBy: 'username2',
-        },
-      ];
-      const topicResources = [
-        {
-          _id: '123',
-          createdBy: 'username1',
-        },
-        {
-          _id: '456',
-          createdBy: 'username2',
-        },
-      ];
-
-      const actual = await resolvers.TopicResourceListing.items(
-        {
-          topicResources,
-          topicId,
-        },
-        null,
-        context
-      );
-
-      expect(actual).toEqual(expected);
     });
   });
 });

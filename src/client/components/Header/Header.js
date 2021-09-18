@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import Link from 'next/link';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import firebase from 'firebase/app';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useFirebaseAppContext from '@/hooks/use-firebase-app-context';
 import ActiveLink from '../ActiveLink/ActiveLink';
 import useFirebaseAnalytics from '@/hooks/use-firebase-analytics';
+import Link from '../Link/Link';
 
 const Header = () => {
   const firebaseApp = useFirebaseAppContext();
@@ -50,7 +50,7 @@ const Header = () => {
       <div className="content-container">
         <div className="sm:flex items-center text-center sm:text-left">
           <div className="flex-grow flex justify-center sm:justify-start">
-            <Link href="/">
+            <Link url={{ pathname: '/' }}>
               <a>
                 <img
                   src="/img/logo.svg"
@@ -63,7 +63,7 @@ const Header = () => {
           </div>
 
           <ActiveLink
-            href="/"
+            url={{ pathname: '/' }}
             className={`${styles.NavItem} ${styles.NavLink}`}
             activeClassName={styles.ActiveNavLink}
           >
@@ -72,7 +72,7 @@ const Header = () => {
 
           <div className={styles.NavItem} data-testid="TopicsNavItem">
             <ActiveLink
-              href="/topics"
+              url={{ pathname: '/topics' }}
               className={styles.NavLink}
               activeClassName={styles.ActiveNavLink}
             >

@@ -2,22 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicListing.module.css';
 import TopicListingItem from '../TopicListingItem/TopicListingItem';
+import PaginatedListing from '../PaginatedListing/PaginatedListing';
 
-const TopicListing = ({ topics }) => {
-  const topicListingItems = topics.map((t, index) => {
-    const isLast = index === topics.length - 1;
-    const className = isLast ? '' : 'border-b';
-
-    return (
-      <div key={t.id} className={className}>
-        <TopicListingItem name={t.name} slug={t.slug} verified={t.verified} />
-      </div>
-    );
-  });
+const TopicListing = ({ topics, selectedPage, pageCount, onPageClick }) => {
+  const topicListingItems = topics.map((t) => (
+    <TopicListingItem
+      key={t.id}
+      name={t.name}
+      slug={t.slug}
+      verified={t.verified}
+    />
+  ));
 
   return (
     <div className={styles.TopicListing} data-testid="TopicListing">
-      {topicListingItems}
+      <PaginatedListing
+        selectedPage={selectedPage}
+        pageCount={pageCount}
+        onPageClick={onPageClick}
+      >
+        {topicListingItems}
+      </PaginatedListing>
     </div>
   );
 };
@@ -30,6 +35,9 @@ TopicListing.propTypes = {
       verified: PropTypes.bool,
     })
   ),
+  selectedPage: PropTypes.number,
+  pageCount: PropTypes.number,
+  onPageClick: PropTypes.func,
 };
 
 TopicListing.defaultProps = {

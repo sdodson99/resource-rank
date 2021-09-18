@@ -15,6 +15,7 @@ exports[`<Page /> should render correctly when selected 1`] = `
 <button
   className="SelectedPage"
   data-testid="Page"
+  disabled={true}
   onClick={[Function]}
   type="button"
 >

@@ -92,6 +92,7 @@ class MongoTopicsDataSource extends DataSource {
       {
         offset,
         limit,
+        sort: { verified: -1 },
       }
     );
 

@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import withAuthentication from './WithAuthentication';
+import withApp from '@/test-utils/with-app';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 
-jest.mock('@/hooks/use-authentication-context');
+jest.mock('@/hooks/use-authentication-context', () => ({
+  ...jest.requireActual('@/hooks/use-authentication-context'),
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 const MockComponent = ({ children }) => <div>{children}</div>;
 MockComponent.propTypes = {
@@ -27,7 +32,7 @@ describe('<WithAuthentication />', () => {
     useAuthenticationContext.mockReturnValue({
       initialized: false,
     });
-    render(<Component />);
+    render(withApp(Component));
 
     const loadingSpinner = screen.getByTestId('LoadingSpinner');
 
@@ -39,7 +44,7 @@ describe('<WithAuthentication />', () => {
       isLoggedIn: true,
       initialized: true,
     });
-    render(<Component>MockChildren</Component>);
+    render(withApp(Component, { children: 'MockChildren' }));
 
     const mockComponent = screen.getByText('MockChildren');
 
@@ -51,7 +56,7 @@ describe('<WithAuthentication />', () => {
       isLoggedIn: false,
       initialized: true,
     });
-    render(<Component />);
+    render(withApp(Component));
 
     const loginPrompt = screen.getByText('You must login to view this page.');
 

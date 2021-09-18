@@ -5,7 +5,7 @@ import EmptyRatingStar from './EmptyRatingStar';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<EmptyRatingStar />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<EmptyRatingStar />);
 
     const emptyRatingStar = screen.getByTestId('EmptyRatingStar');

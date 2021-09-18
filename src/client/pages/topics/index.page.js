@@ -8,7 +8,6 @@ import TopicListing from '@/components/TopicListing/TopicListing';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
-import Pagination from '@/components/Pagination/Pagination';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -107,17 +106,12 @@ export default function Topics() {
                 </div>
               }
               dataDisplay={
-                <div>
-                  <TopicListing topics={topics} />
-
-                  <div className="mt-8 flex justify-center">
-                    <Pagination
-                      selectedPage={currentPage}
-                      pageCount={topicsPageCount}
-                      onPageClick={processPageNumber}
-                    />
-                  </div>
-                </div>
+                <TopicListing
+                  topics={topics}
+                  selectedPage={currentPage}
+                  pageCount={topicsPageCount}
+                  onPageClick={processPageNumber}
+                />
               }
             />
           </div>

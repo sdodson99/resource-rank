@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './TopicResourceListingItem.module.css';
-import Link from 'next/link';
 import ListingItem from '../ListingItem/ListingItem';
 import RatingStarGroup from '../RatingStars/RatingStarGroup/RatingStarGroup';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import VerifiedIcon from '../VerifiedIcon/VerifiedIcon';
+import Link from '../Link/Link';
 
 const TopicResourceListingItem = ({
   topicId,
@@ -23,7 +23,7 @@ const TopicResourceListingItem = ({
       className={styles.TopicResourceListingItem}
       data-testid="TopicResourceListingItem"
     >
-      <Link href={topicResourceLink}>
+      <Link url={{ pathname: topicResourceLink }}>
         <a>
           <ListingItem hover={true}>
             <div className="sm:flex sm:justify-between items-center sm:text-left text-center">

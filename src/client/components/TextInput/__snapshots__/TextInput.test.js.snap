@@ -15,6 +15,7 @@ exports[`<TextInput /> should render correct when label provided 1`] = `
     </label>
     <input
       className="mt-2 form-control flex-grow"
+      id="input"
       name="input"
       type="text"
     />
@@ -32,6 +33,7 @@ exports[`<TextInput /> should render correctly 1`] = `
   >
     <input
       className="mt-2 form-control flex-grow"
+      id="input"
       name="input"
       type="text"
     />
@@ -49,6 +51,7 @@ exports[`<TextInput /> should render correctly when error message provided 1`] =
   >
     <input
       className="mt-2 form-control flex-grow ErrorTextInput"
+      id="input"
       name="input"
       type="text"
     />

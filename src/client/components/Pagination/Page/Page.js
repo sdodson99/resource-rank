@@ -19,6 +19,7 @@ const Page = ({ number, onClick, isSelected }) => {
       data-testid="Page"
       type="button"
       onClick={onPageClick}
+      disabled={isSelected}
     >
       {number}
     </button>

@@ -1,120 +1,469 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddTopicResource /> HOC page should require authentication 1`] = `
-<Layout>
+<div
+  className="Layout"
+  data-testid="Layout"
+>
   <div
-    className="mt-8"
+    className="Page"
   >
-    <LoadingSpinner
-      color="#292929"
-      size={50}
-    />
+    <header
+      className="Header"
+      data-testid="Header"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="sm:flex items-center text-center sm:text-left"
+        >
+          <div
+            className="flex-grow flex justify-center sm:justify-start"
+          >
+            <a
+              href="/?mock=unauthenticated"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
+          </div>
+          <div
+            className="NavItem NavLink ActiveNavLink"
+            data-testid="ActiveLink"
+          >
+            Home
+          </div>
+          <div
+            className="NavItem"
+            data-testid="TopicsNavItem"
+          >
+            <div
+              className="NavLink"
+              data-testid="ActiveLink"
+            >
+              <a
+                className=""
+                href="/topics?mock=unauthenticated"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                Topics
+              </a>
+            </div>
+          </div>
+          <div
+            className="NavItem"
+          >
+            <button
+              className="btn btn-primary"
+              data-testid="LoadingButton"
+              onClick={[Function]}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div
+        className="mt-8"
+      >
+        <div
+          className="LoadingSpinner"
+          data-testid="LoadingSpinner"
+        >
+          <svg
+            fill="none"
+            height={50}
+            viewBox="0 0 100 100"
+            width={50}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
+              stroke="#292929"
+              strokeWidth="10"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
   </div>
-</Layout>
+  <footer
+    className="Footer"
+    data-testid="Footer"
+  >
+    <div
+      className="content-container"
+    >
+      <div
+        className="sm:flex text-center sm:text-left"
+      >
+        <div
+          className="sm:order-2 sm:ml-10"
+        >
+          <h1
+            className="text-4xl"
+          >
+            Our Mission
+          </h1>
+          <p
+            className="py-3"
+          >
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are
+             
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books
+             
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p
+            className="py-3"
+          >
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+        >
+          <img
+            alt="Resource Rank Logo"
+            className="max-w-none"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
+          />
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
 `;
 
 exports[`<AddTopicResource /> page should render correctly 1`] = `
 <div
   data-testid="AddTopicResourcePage"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "topic-name",
-          "to": "/topics/topic-slug",
-        },
-        Object {
-          "title": "Add",
-          "to": "/topics/topic-slug/resources/add",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Add a new topic resource to topic-name.",
-          "title": "Add Topic Resource - Resource Rank",
-        }
-      }
-      title="Add Topic Resource"
-    />
-    <PageHeaderButton
-      buttonContent="New"
-      linkTo="/topics/topic-slug/resources/new"
-      title="Add Resource"
-      titleClassName="text-4xl"
-    />
     <div
-      className="mt-8 flex flex-col"
+      className="Layout"
+      data-testid="Layout"
     >
-      <input
-        className="flex-grow form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <LoadingErrorEmptyDataLayout
-        dataDisplay={
-          <div>
-            <AvailableResourceListing
-              onAddResource={[Function]}
-              resources={null}
-            />
+      <div
+        className="Page"
+      >
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
             <div
-              className="mt-8 flex justify-center"
+              className="sm:flex items-center text-center sm:text-left"
             >
-              <Pagination
-                onPageClick={[MockFunction]}
-                pageCount={NaN}
-                selectedPage={1}
-                selectedPageGapMinRange={3}
-                selectedPageRange={2}
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      topic-name
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug/resources/add?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Add
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="PageHeaderButton"
+                data-testid="PageHeaderButton"
+              >
+                <div
+                  className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                >
+                  <div
+                    className="text-4xl"
+                  >
+                    Add Resource
+                  </div>
+                  <div
+                    className="mt-3 flex sm:mt-0 sm:ml-3"
+                  >
+                    <a
+                      className="btn btn-primary"
+                      href="/topics/topic-slug/resources/new?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      New
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8 flex flex-col"
+              >
+                <input
+                  className="flex-grow form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+              </div>
+              <div
+                className="mt-8"
+              >
+                <div
+                  className="LoadingErrorEmptyDataLayout"
+                  data-testid="LoadingErrorEmptyDataLayout"
+                >
+                  <div>
+                    <div>
+                      <div
+                        className="text-center sm:text-left"
+                      >
+                        No resources have been created.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
           </div>
-        }
-        errorDisplay={
-          <div
-            className="text-center sm:text-left error-text"
-          >
-            Failed to load available resources.
-          </div>
-        }
-        hasData={false}
-        hasError={false}
-        isLoading={false}
-        loadingDisplay={
-          <div
-            className="text-center"
-          >
-            <LoadingSpinner
-              color="#292929"
-              size={50}
-            />
-          </div>
-        }
-        noDataDisplay={
-          <div
-            className="text-center sm:text-left"
-          >
-            No resources have been created.
-          </div>
-        }
-      />
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;
 
@@ -122,103 +471,413 @@ exports[`<AddTopicResource /> page should render correctly with current search 1
 <div
   data-testid="AddTopicResourcePage"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "topic-name",
-          "to": "/topics/topic-slug",
-        },
-        Object {
-          "title": "Add",
-          "to": "/topics/topic-slug/resources/add",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Add a new topic resource to topic-name.",
-          "title": "Add Topic Resource - Resource Rank",
-        }
-      }
-      title="Add Topic Resource"
-    />
-    <PageHeaderButton
-      buttonContent="New"
-      linkTo="/topics/topic-slug/resources/new"
-      title="Add Resource"
-      titleClassName="text-4xl"
-    />
     <div
-      className="mt-8 flex flex-col"
+      className="Layout"
+      data-testid="Layout"
     >
-      <input
-        className="flex-grow form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search resources..."
-        type="text"
-        value="search"
-      />
-    </div>
-    <div
-      className="mt-8"
-    >
-      <LoadingErrorEmptyDataLayout
-        dataDisplay={
-          <div>
-            <AvailableResourceListing
-              onAddResource={[Function]}
-              resources={null}
-            />
+      <div
+        className="Page"
+      >
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
             <div
-              className="mt-8 flex justify-center"
+              className="sm:flex items-center text-center sm:text-left"
             >
-              <Pagination
-                onPageClick={[MockFunction]}
-                pageCount={NaN}
-                selectedPage={1}
-                selectedPageGapMinRange={3}
-                selectedPageRange={2}
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      topic-name
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug/resources/add?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Add
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="PageHeaderButton"
+                data-testid="PageHeaderButton"
+              >
+                <div
+                  className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                >
+                  <div
+                    className="text-4xl"
+                  >
+                    Add Resource
+                  </div>
+                  <div
+                    className="mt-3 flex sm:mt-0 sm:ml-3"
+                  >
+                    <a
+                      className="btn btn-primary"
+                      href="/topics/topic-slug/resources/new?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      New
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8 flex flex-col"
+              >
+                <input
+                  className="flex-grow form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search resources..."
+                  type="text"
+                  value="search"
+                />
+              </div>
+              <div
+                className="mt-8"
+              >
+                <div
+                  className="LoadingErrorEmptyDataLayout"
+                  data-testid="LoadingErrorEmptyDataLayout"
+                >
+                  <div>
+                    <div>
+                      <div
+                        className="AvailableResourceListing"
+                        data-testid="AvailableResourceListing"
+                      >
+                        <div
+                          className="PaginatedListing"
+                          data-testid="PaginatedListing"
+                        >
+                          <div
+                            className="Listing"
+                            data-testid="Listing"
+                          >
+                            <div
+                              className="AvailableResourceListingItem"
+                              data-testid="AvailableResourceListingItem"
+                            >
+                              <div
+                                className="ListingItem"
+                                data-testid="ListingItem"
+                              >
+                                <div
+                                  className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+                                >
+                                  <div>
+                                    <div
+                                      className="flex items-center justify-center sm:justify-start"
+                                    >
+                                      <div
+                                        className=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="mt-5 sm:mt-0 sm:ml-5"
+                                  >
+                                    <button
+                                      className="btn btn-primary"
+                                      data-testid="AddResourceButton"
+                                      onClick={[Function]}
+                                    >
+                                      <svg
+                                        aria-hidden={true}
+                                        className="MuiSvgIcon-root"
+                                        fill="white"
+                                        focusable="false"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="AvailableResourceListingItem"
+                              data-testid="AvailableResourceListingItem"
+                            >
+                              <div
+                                className="ListingItem"
+                                data-testid="ListingItem"
+                              >
+                                <div
+                                  className="text-center sm:text-left sm:flex sm:justify-between sm:items-center"
+                                >
+                                  <div>
+                                    <div
+                                      className="flex items-center justify-center sm:justify-start"
+                                    >
+                                      <div
+                                        className="line-through"
+                                      />
+                                    </div>
+                                    <div
+                                      className="error-text italic text-xs"
+                                    >
+                                      Already added
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="mt-5 sm:mt-0 sm:ml-5"
+                                  >
+                                    <button
+                                      className="btn btn-primary"
+                                      data-testid="AddResourceButton"
+                                      disabled={true}
+                                      onClick={[Function]}
+                                    >
+                                      <svg
+                                        aria-hidden={true}
+                                        className="MuiSvgIcon-root"
+                                        fill="white"
+                                        focusable="false"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="mt-8 flex justify-center"
+                          >
+                            <div
+                              className="Pagination"
+                              data-testid="Pagination"
+                            >
+                              <button
+                                className="SelectedPage"
+                                data-testid="Page"
+                                disabled={true}
+                                onClick={[Function]}
+                                type="button"
+                              >
+                                1
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
               />
             </div>
           </div>
-        }
-        errorDisplay={
-          <div
-            className="text-center sm:text-left error-text"
-          >
-            Failed to load available resources.
-          </div>
-        }
-        hasData={false}
-        hasError={false}
-        isLoading={false}
-        loadingDisplay={
-          <div
-            className="text-center"
-          >
-            <LoadingSpinner
-              color="#292929"
-              size={50}
-            />
-          </div>
-        }
-        noDataDisplay={
-          <div
-            className="text-center sm:text-left"
-          >
-            No resources matching 'currentSearch' have been created.
-          </div>
-        }
-      />
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;

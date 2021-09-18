@@ -40,6 +40,22 @@ VerifiedAlreadyAdded.args = {
   },
 };
 
+export const DisableAdd = Template.bind({});
+DisableAdd.args = {
+  resource: {
+    name: 'Resource 1',
+    disableAdd: true,
+  },
+};
+
+export const IsAdding = Template.bind({});
+IsAdding.args = {
+  resource: {
+    name: 'Resource 1',
+    isAdding: true,
+  },
+};
+
 export const Error = Template.bind({});
 Error.args = {
   resource: {

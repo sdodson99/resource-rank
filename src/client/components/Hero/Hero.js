@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import React from 'react';
 import styles from './Hero.module.css';
 import { ArrowForward } from '@material-ui/icons';
+import Link from '../Link/Link';
 
 const Hero = () => (
   <div className={styles.Hero} data-testid="Hero">
@@ -19,7 +19,7 @@ const Hero = () => (
           <span className={styles.Emphasis}>learning journey</span>.
         </div>
         <div className="mt-12 flex justify-center md:justify-start">
-          <Link href="/topics">
+          <Link url={{ pathname: '/topics' }}>
             <a className="btn btn-primary flex items-center">
               Explore Topics
               <span className="ml-2">

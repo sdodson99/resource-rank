@@ -3,6 +3,7 @@ const { resolvers } = require('../topics');
 
 describe('topics resolvers', () => {
   let topicsDataSource;
+  let topicResourcesDataSource;
   let usersDataSource;
   let context;
 
@@ -11,9 +12,14 @@ describe('topics resolvers', () => {
       search: jest.fn(),
     };
     usersDataSource = {};
+    topicResourcesDataSource = {
+      searchByTopic: jest.fn(),
+    };
+
     context = {
       dataSources: {
         topics: topicsDataSource,
+        topicResources: topicResourcesDataSource,
         usersDataSource,
       },
     };
@@ -142,49 +148,30 @@ describe('topics resolvers', () => {
   });
 
   describe('topic resources resolver', () => {
-    let id;
+    let topic;
+    let searchOptions;
 
     beforeEach(() => {
-      id = 'topic123';
+      topic = { id: 'topic123' };
+      searchOptions = {};
     });
 
-    it('should return empty if resources is null', () => {
-      const topicResources = resolvers.Topic.resources({ id });
+    it('should return topic resources data source result', () => {
+      const expected = {
+        items: [],
+        totalCount: 0,
+      };
+      when(topicResourcesDataSource.searchByTopic)
+        .calledWith(topic, searchOptions)
+        .mockReturnValue(expected);
 
-      expect(topicResources).toHaveLength(0);
-    });
+      const actual = resolvers.Topic.resources(
+        topic,
+        { searchOptions },
+        context
+      );
 
-    it('should return topic resources if has resources', () => {
-      const resources = [
-        { resource: 'resource123', createdBy: 'user123' },
-        { resource: 'resource456', createdBy: 'user456' },
-      ];
-      const expected = [
-        { topicId: id, resourceId: 'resource123', createdBy: 'user123' },
-        { topicId: id, resourceId: 'resource456', createdBy: 'user456' },
-      ];
-
-      const actual = resolvers.Topic.resources({ id, resources });
-
-      expect(actual).toEqual(expected);
-    });
-
-    it('should exclude topic resources that have no resource', () => {
-      const resources = [
-        { resource: 'resource123', createdBy: 'user123' },
-        { createdBy: 'user456' },
-      ];
-      const expected = [
-        {
-          topicId: id,
-          resourceId: 'resource123',
-          createdBy: 'user123',
-        },
-      ];
-
-      const actual = resolvers.Topic.resources({ id, resources });
-
-      expect(actual).toEqual(expected);
+      expect(actual).toBe(expected);
     });
   });
 

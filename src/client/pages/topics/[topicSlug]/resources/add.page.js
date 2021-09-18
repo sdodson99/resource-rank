@@ -5,18 +5,17 @@ import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
-import { useRouter } from 'next/router';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-resource-search';
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
-import Pagination from '@/components/Pagination/Pagination';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
+import useNavigate from '@/hooks/use-navigate';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
 const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const [resources, setResources] = useState([]);
   const {
@@ -59,30 +58,62 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
   const { createTopicResource } = useTopicResourceCreator();
 
   const setAddResourceError = (resourceId, status) => {
-    const nextResources = [...resources];
+    setResources((currentResources) => {
+      const nextResources = [...currentResources];
 
-    const updatedResourceIndex = nextResources.findIndex(
-      (r) => r.id === resourceId
-    );
-    const updatedResource = {
-      ...nextResources[updatedResourceIndex],
-      hasAddError: status,
-    };
-    nextResources[updatedResourceIndex] = updatedResource;
+      const updatedResourceIndex = nextResources.findIndex(
+        (r) => r.id === resourceId
+      );
+      const updatedResource = {
+        ...nextResources[updatedResourceIndex],
+        hasAddError: status,
+      };
+      nextResources[updatedResourceIndex] = updatedResource;
 
-    setResources(nextResources);
+      return nextResources;
+    });
+  };
+
+  const setResourceAdding = (resourceId, status) => {
+    setResources((currentResources) => {
+      const nextResources = [];
+
+      currentResources.forEach((r) => {
+        const updatedResource = {
+          ...r,
+          disableAdd: status,
+        };
+
+        const isAdding = r.id === resourceId;
+
+        if (isAdding) {
+          updatedResource.isAdding = status;
+        }
+
+        nextResources.push(updatedResource);
+      });
+
+      return nextResources;
+    });
   };
 
   const onAddResource = async ({ id: resourceId, slug: resourceSlug }) => {
+    setResourceAdding(resourceId, true);
     setAddResourceError(resourceId, false);
 
     const success = await createTopicResource(topicId, resourceId);
 
     if (!success) {
+      setResourceAdding(resourceId, false);
       return setAddResourceError(resourceId, true);
     }
 
-    router.push(`/topics/${topicSlug}/resources/${resourceSlug}?new=true`);
+    await navigate({
+      pathname: `/topics/${topicSlug}/resources/${resourceSlug}`,
+      query: {
+        new: true,
+      },
+    });
   };
 
   const getSearchDisplay = () => {
@@ -161,20 +192,13 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
               </div>
             }
             dataDisplay={
-              <div>
-                <AvailableResourceListing
-                  resources={resources}
-                  onAddResource={onAddResource}
-                />
-
-                <div className="mt-8 flex justify-center">
-                  <Pagination
-                    selectedPage={currentPage}
-                    pageCount={resourcesPageCount}
-                    onPageClick={processPageNumber}
-                  />
-                </div>
-              </div>
+              <AvailableResourceListing
+                resources={resources}
+                onAddResource={onAddResource}
+                selectedPage={currentPage}
+                pageCount={resourcesPageCount}
+                onPageClick={processPageNumber}
+              />
             }
           />
         </div>
@@ -189,9 +213,13 @@ AddTopicResource.propTypes = {
   topicSlug: PropTypes.string,
 };
 
-export async function getServerSideProps({ req, params: { topicSlug } }) {
+export async function getServerSideProps({
+  req,
+  params: { topicSlug },
+  query,
+}) {
   try {
-    const topic = await getTopicBySlug(topicSlug);
+    const topic = await getTopicBySlug(topicSlug, { mock: query?.mock });
 
     return {
       props: {

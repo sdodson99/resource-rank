@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from '../Link/Link';
 
 const ActiveLink = ({
-  href,
+  url,
   className,
   activeClassName,
   linkClassName,
@@ -14,8 +14,9 @@ const ActiveLink = ({
 
   const asPath = router?.asPath ?? '';
   const route = asPath.split('?')[0];
+  const { pathname } = url;
 
-  if (href === route) {
+  if (pathname === route) {
     return (
       <div
         className={`${className} ${activeClassName}`}
@@ -28,7 +29,7 @@ const ActiveLink = ({
 
   return (
     <div className={className} data-testid="ActiveLink">
-      <Link href={href}>
+      <Link url={url}>
         <a className={linkClassName}>{children}</a>
       </Link>
     </div>
@@ -36,7 +37,10 @@ const ActiveLink = ({
 };
 
 ActiveLink.propTypes = {
-  href: PropTypes.string.isRequired,
+  url: PropTypes.shape({
+    pathname: PropTypes.string,
+    query: PropTypes.object,
+  }).isRequired,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
   linkClassName: PropTypes.string,

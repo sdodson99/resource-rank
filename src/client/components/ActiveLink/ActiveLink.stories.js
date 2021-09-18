@@ -15,13 +15,17 @@ const Template = (args) => <ActiveLink {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  href: '/page',
+  url: {
+    pathname: '/page',
+  },
   children: 'Click me',
 };
 
 export const Active = Template.bind({});
 Active.args = {
-  href: '',
+  url: {
+    pathname: '',
+  },
   children: 'Already active',
   activeClassName: 'text-red-800',
 };

@@ -11,7 +11,6 @@ import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
-import Pagination from '@/components/Pagination/Pagination';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -64,9 +63,6 @@ const TopicDetails = ({
     topicResourcesData?.topicResources?.totalCount;
   const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
-  const orderedResources = topicResources.sort(
-    (r1, r2) => r2.ratingList?.average - r1.ratingList?.average
-  );
 
   const topicLink = `/topics/${topicSlug}`;
   const breadcrumbs = [
@@ -154,21 +150,14 @@ const TopicDetails = ({
                 </div>
               }
               dataDisplay={
-                <div>
-                  <TopicResourceListing
-                    topicId={topicId}
-                    topicSlug={topicSlug}
-                    topicResources={orderedResources}
-                  />
-
-                  <div className="mt-8 flex justify-center">
-                    <Pagination
-                      selectedPage={currentPage}
-                      pageCount={topicResourcesPageCount}
-                      onPageClick={processPageNumber}
-                    />
-                  </div>
-                </div>
+                <TopicResourceListing
+                  topicId={topicId}
+                  topicSlug={topicSlug}
+                  topicResources={topicResources}
+                  selectedPage={currentPage}
+                  pageCount={topicResourcesPageCount}
+                  onPageClick={processPageNumber}
+                />
               }
             />
           </div>
@@ -193,7 +182,7 @@ export async function getServerSideProps({
   query,
 }) {
   try {
-    const topic = await getTopicBySlug(topicSlug);
+    const topic = await getTopicBySlug(topicSlug, { mock: query?.mock });
 
     return {
       props: {

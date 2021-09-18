@@ -7,8 +7,8 @@ exports[`<RatingForm /> should render correctly 1`] = `
 >
   <SelectableRatingStarGroup
     maxRating={5}
-    onRatingChanged={[MockFunction]}
-    rating={null}
+    onRatingChanged={[Function]}
+    rating={0}
     starSize={40}
   />
   <div
@@ -33,8 +33,8 @@ exports[`<RatingForm /> should render correctly when submitting 1`] = `
 >
   <SelectableRatingStarGroup
     maxRating={5}
-    onRatingChanged={[MockFunction]}
-    rating={null}
+    onRatingChanged={[Function]}
+    rating={0}
     starSize={40}
   />
   <div
@@ -67,8 +67,8 @@ exports[`<RatingForm /> should render correctly with error 1`] = `
 >
   <SelectableRatingStarGroup
     maxRating={5}
-    onRatingChanged={[MockFunction]}
-    rating={null}
+    onRatingChanged={[Function]}
+    rating={0}
     starSize={40}
   />
   <div

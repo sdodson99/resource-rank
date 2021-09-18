@@ -1,5 +1,5 @@
 .Page {
-  @apply px-3 cursor-pointer text-blue-600 hover:text-blue-800 hover:underline transition duration-200;
+  @apply px-3 text-blue-600 hover:text-blue-800 hover:underline transition duration-200;
 }
 
 .SelectedPage {

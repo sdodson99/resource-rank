@@ -58,6 +58,29 @@ class MongoRatingsDataSource extends DataSource {
   }
 
   /**
+   * Get all ratings for many topic resources.
+   * @param {Array} topicResourceIds The list of topic resource IDs.
+   * @return {Promise<Array>} The ratings for the topic resource IDs.
+   * @throws {Error} Thrown if query fails.
+   */
+  async getAllForManyTopicResources(topicResourceIds) {
+    const mongoTopicResourceIds = topicResourceIds.map((tr) => ({
+      topic: tr.topicId,
+      resource: tr.resourceId,
+    }));
+
+    const result = await this.topicResourceRatingsDataLoader.loadMany(
+      mongoTopicResourceIds
+    );
+
+    if (result.some((r) => r instanceof Error)) {
+      throw new Error('Failed to load many topic resource ratings.');
+    }
+
+    return result;
+  }
+
+  /**
    * Get a user's rating for a topic resource.
    * @param {string} topicId The ID of the topic with the rating.
    * @param {string} resourceId The ID of the resource with the rating.

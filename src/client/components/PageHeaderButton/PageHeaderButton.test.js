@@ -5,7 +5,7 @@ import PageHeaderButton from './PageHeaderButton';
 import renderer from 'react-test-renderer';
 
 describe('<PageHeaderButton />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<PageHeaderButton />);
 
     const pageHeaderButton = screen.getByTestId('PageHeaderButton');

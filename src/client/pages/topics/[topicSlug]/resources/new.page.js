@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
-import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
@@ -11,6 +10,7 @@ import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import useResourceCreator from '@/hooks/resources/use-resource-creator';
 import ResourceExistsError from '@/errors/resource-exists-error';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
+import useNavigate from '@/hooks/use-navigate';
 
 const FormField = {
   RESOURCE_NAME: 'name',
@@ -18,7 +18,7 @@ const FormField = {
 };
 
 const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const methods = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -32,11 +32,13 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
   const [createResourceError, setCreateResourceError] = useState(null);
   const [createTopicResourceError, setCreateTopicResourceError] =
     useState(null);
+  const [isCreatingResource, setIsCreatingResource] = useState(null);
 
   const { createResource } = useResourceCreator();
   const { createTopicResource } = useTopicResourceCreator();
 
   const onSubmit = async (formData) => {
+    setIsCreatingResource(true);
     setCreateResourceError(null);
     setCreateTopicResourceError(null);
 
@@ -51,13 +53,21 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       const success = await createTopicResource(topicId, resourceId);
 
       if (!success) {
+        setIsCreatingResource(false);
         return setCreateTopicResourceError(
           new Error('Failed to create topic resource.')
         );
       }
 
-      router.push(`/topics/${topicSlug}/resources/${resourceSlug}?new=true`);
+      await navigate({
+        pathname: `/topics/${topicSlug}/resources/${resourceSlug}`,
+        query: {
+          new: true,
+        },
+      });
     } catch (error) {
+      setIsCreatingResource(false);
+
       if (error instanceof ResourceExistsError) {
         return setError(FormField.RESOURCE_NAME, {
           message: 'Name already exists.',
@@ -125,6 +135,7 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
               errorMessage={createResourceErrorMessage}
               nameFieldName={FormField.RESOURCE_NAME}
               linkFieldName={FormField.RESOURCE_LINK}
+              isSubmitting={isCreatingResource}
             />
           </FormProvider>
         </div>
@@ -139,9 +150,13 @@ NewTopicResource.propTypes = {
   topicSlug: PropTypes.string,
 };
 
-export async function getServerSideProps({ req, params: { topicSlug } }) {
+export async function getServerSideProps({
+  req,
+  params: { topicSlug },
+  query,
+}) {
   try {
-    const topic = await getTopicBySlug(topicSlug);
+    const topic = await getTopicBySlug(topicSlug, { mock: query?.mock });
 
     return {
       props: {

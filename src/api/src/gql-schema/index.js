@@ -1,4 +1,5 @@
 const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge');
+const { typeDefs: commonTypeDefs } = require('./common');
 const {
   typeDefs: topicsTypeDefs,
   resolvers: topicsResolvers,
@@ -26,6 +27,7 @@ const {
 } = require('./feature-flags');
 
 exports.typeDefs = mergeTypeDefs([
+  commonTypeDefs,
   topicsTypeDefs,
   resourcesTypeDefs,
   topicResourcesTypeDefs,

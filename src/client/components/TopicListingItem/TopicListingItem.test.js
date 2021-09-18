@@ -5,7 +5,7 @@ import TopicListingItem from './TopicListingItem';
 import { createRenderer } from 'react-test-renderer/shallow';
 
 describe('<TopicListingItem />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<TopicListingItem />);
 
     const topicListingItem = screen.getByTestId('TopicListingItem');

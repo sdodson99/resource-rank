@@ -1,9 +1,6 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/display-name */
-import React, { useState, useEffect, createRef } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createRenderer } from 'react-test-renderer/shallow';
+import renderer from 'react-test-renderer';
 import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
 import { when } from 'jest-when';
 import TopicResourceDetails, {
@@ -11,36 +8,16 @@ import TopicResourceDetails, {
 } from '../[resourceSlug].page';
 import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
 import useRating from '@/hooks/ratings/use-rating';
-import useAuthenticationContext from '@/hooks/use-authentication-context';
-import { useIntersectionObserver } from 'react-intersection-observer-hook';
+import withApp from '@/test-utils/with-app';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-  useEffect: jest.fn(),
-}));
 jest.mock('@/services/topic-resources/graphql-topic-resource-by-slug-service');
 jest.mock('@/hooks/ratings/use-rating-submitter');
 jest.mock('@/hooks/ratings/use-rating');
-jest.mock('@/hooks/use-authentication-context');
-jest.mock('@/components/RatingForm/RatingForm', () => ({ onSubmit }) => (
-  <div>
-    <button onClick={() => onSubmit(3)} data-testid="SubmitButton">
-      Submit
-    </button>
-  </div>
-));
-
-jest.mock('react-intersection-observer-hook');
-useIntersectionObserver.mockReturnValue([createRef(), {}]);
 
 describe('<TopicResourceDetails />', () => {
   describe('page', () => {
     let mockSubmitRating;
     let mockIsSubmittingRating;
-    let mockRating;
-    let mockRatingError;
-    let mockIsLoadingRating;
 
     let topicId;
     let resourceId;
@@ -57,18 +34,11 @@ describe('<TopicResourceDetails />', () => {
         isSubmittingRating: mockIsSubmittingRating,
       });
 
-      mockRating = {};
-      mockRatingError = null;
-      mockIsLoadingRating = false;
       useRating.mockReturnValue({
-        rating: mockRating,
-        isLoading: mockIsLoadingRating,
-        error: mockRatingError,
+        rating: null,
+        isLoading: false,
+        error: null,
       });
-
-      useState.mockReturnValue([null, jest.fn()]);
-
-      useAuthenticationContext.mockReturnValue({ isLoggedIn: false });
 
       topicId = '123';
       resourceId = '456';
@@ -76,6 +46,10 @@ describe('<TopicResourceDetails />', () => {
       resourceSlug = 'resource-slug';
       topicResource = {
         resource: {},
+        ratingList: {
+          sum: 5,
+          count: 1,
+        },
       };
       props = {
         topicId,
@@ -87,15 +61,12 @@ describe('<TopicResourceDetails />', () => {
     });
 
     afterEach(() => {
-      useState.mockReset();
-      useEffect.mockReset();
       useRating.mockReset();
       useRatingSubmitter.mockReset();
-      useAuthenticationContext.mockReset();
     });
 
     it('should mount', () => {
-      render(<TopicResourceDetails {...props} />);
+      render(withApp(TopicResourceDetails, props));
 
       const page = screen.getByTestId('TopicResourceDetailsPage');
 
@@ -105,7 +76,7 @@ describe('<TopicResourceDetails />', () => {
     describe('new resource alert', () => {
       it('should display new resource alert when isNew is true', () => {
         props.isNew = true;
-        render(<TopicResourceDetails {...props} />);
+        render(withApp(TopicResourceDetails, props));
 
         const alert = screen.getByTestId('InfoAlert');
 
@@ -114,38 +85,57 @@ describe('<TopicResourceDetails />', () => {
 
       it('should not display new resource alert when isNew is not true', () => {
         props.isNew = false;
-        render(<TopicResourceDetails {...props} />);
+        render(withApp(TopicResourceDetails, props));
 
         const alert = screen.queryByTestId('InfoAlert');
 
-        expect(alert).not.toBeInTheDocument();
+        expect(alert).toBeNull();
       });
     });
 
-    it('should update existing rating on rating load', () => {
-      useEffect.mockImplementationOnce((cb) => cb());
-      const mockSetExistingRating = jest.fn();
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, mockSetExistingRating]);
+    it('should show existing rating on rating load', () => {
       const rating = {
         id: 789,
+        value: 5,
       };
       useRating.mockReturnValue({
         rating,
-        isLoading: mockIsLoadingRating,
-        error: mockRatingError,
+        isLoading: false,
+        error: null,
       });
 
-      render(<TopicResourceDetails {...props} />);
+      render(withApp(TopicResourceDetails, props));
 
-      expect(mockSetExistingRating).toBeCalledWith(rating);
+      const ratingForm = screen.getByTestId('RatingForm');
+      const fullRatingStars = ratingForm.querySelectorAll(
+        '[data-testid="FullRatingStar"]'
+      );
+      expect(fullRatingStars.length).toBe(5);
     });
 
     describe('on submit rating', () => {
-      beforeEach(() => {
-        useAuthenticationContext.mockReturnValue({ isLoggedIn: true });
-      });
+      function renderAndSubmit() {
+        render(withApp(TopicResourceDetails, props));
+
+        const ratingForm = screen.getByTestId('RatingForm');
+        const selectableRatingStar = ratingForm.querySelectorAll(
+          '[data-testid="RatingStarGroup_RatingStar"]'
+        )[2];
+        selectableRatingStar.click();
+
+        const submitButton = screen.getByText('Submit');
+        submitButton.click();
+      }
+
+      function getResourceRating() {
+        const ratingStarGroupHeader =
+          screen.getAllByTestId('RatingStarGroup')[0];
+        const fullRatingStars = ratingStarGroupHeader.querySelectorAll(
+          '[data-testid="FullRatingStar"]'
+        );
+
+        return fullRatingStars.length;
+      }
 
       describe('if successful', () => {
         let submittedRating;
@@ -157,73 +147,49 @@ describe('<TopicResourceDetails />', () => {
           mockSubmitRating.mockReturnValue(submittedRating);
         });
 
-        it('should increment rating count if no existing rating', async () => {
-          const mockSetRatingCount = jest.fn();
-          useState.mockReturnValueOnce([null, jest.fn()]);
-          useState.mockReturnValueOnce([1, mockSetRatingCount]);
-          render(<TopicResourceDetails {...props} />);
-          const submitButton = screen.getByTestId('SubmitButton');
-
-          submitButton.click();
+        it('should correclty update resource rating when no existing rating', async () => {
+          renderAndSubmit();
 
           await waitFor(() => {
-            expect(mockSetRatingCount).toBeCalledWith(2);
+            expect(getResourceRating()).toBe(4);
           });
         });
 
-        it('should update rating sum', async () => {
-          const mockSetRatingSum = jest.fn();
-          useState.mockReturnValueOnce([2, mockSetRatingSum]);
-          useState.mockReturnValueOnce([null, jest.fn()]);
-          useState.mockReturnValueOnce([{}, jest.fn()]);
-          render(<TopicResourceDetails {...props} />);
-          const submitButton = screen.getByTestId('SubmitButton');
-
-          submitButton.click();
-
-          await waitFor(() => {
-            expect(mockSetRatingSum).toBeCalledWith(5);
+        it('should correclty update resource rating when existing rating', async () => {
+          useRating.mockReturnValue({
+            rating: {
+              value: 5,
+            },
+            isLoading: false,
+            error: null,
           });
-        });
 
-        it('should update existing rating', async () => {
-          const mockSetExistingRating = jest.fn();
-          useState.mockReturnValueOnce([null, jest.fn()]);
-          useState.mockReturnValueOnce([null, jest.fn()]);
-          useState.mockReturnValueOnce([null, mockSetExistingRating]);
-          render(<TopicResourceDetails {...props} />);
-          const submitButton = screen.getByTestId('SubmitButton');
-
-          submitButton.click();
+          renderAndSubmit();
 
           await waitFor(() => {
-            expect(mockSetExistingRating).toBeCalledWith(submittedRating);
+            expect(getResourceRating()).toBe(3);
           });
         });
       });
 
       it('should set submit rating error if unsuccessful', async () => {
-        const mockSetSubmitRatingError = jest.fn();
-        useState.mockReturnValueOnce([null, jest.fn()]);
-        useState.mockReturnValueOnce([null, jest.fn()]);
-        useState.mockReturnValueOnce([null, jest.fn()]);
-        useState.mockReturnValueOnce([null, mockSetSubmitRatingError]);
         mockSubmitRating.mockImplementation(() => {
           throw new Error();
         });
-        render(<TopicResourceDetails {...props} />);
-        const submitButton = screen.getByTestId('SubmitButton');
 
-        submitButton.click();
+        renderAndSubmit();
 
         await waitFor(() => {
-          expect(mockSetSubmitRatingError).toBeCalled();
+          const errorMessage = screen.getByText('Failed to submit rating.');
+          expect(errorMessage).toBeInTheDocument();
         });
       });
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(<TopicResourceDetails {...props} />);
+      const page = renderer
+        .create(withApp(TopicResourceDetails, props))
+        .toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -231,25 +197,19 @@ describe('<TopicResourceDetails />', () => {
     it('should render correctly when verified', () => {
       props.topicResource.resource.verified = true;
 
-      const page = createRenderer().render(<TopicResourceDetails {...props} />);
+      const page = renderer
+        .create(withApp(TopicResourceDetails, props))
+        .toJSON();
 
       expect(page).toMatchSnapshot();
     });
 
-    it('should render correctly when logged in', () => {
-      useAuthenticationContext.mockReturnValue({ isLoggedIn: true });
-
-      const page = createRenderer().render(<TopicResourceDetails {...props} />);
-
-      expect(page).toMatchSnapshot();
-    });
-
-    it('should render correctly with existing rating', () => {
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([{ id: '789' }, jest.fn()]);
-
-      const page = createRenderer().render(<TopicResourceDetails {...props} />);
+    it('should render correctly when not logged in', () => {
+      const page = renderer
+        .create(
+          withApp(TopicResourceDetails, props, { mock: 'unauthenticated' })
+        )
+        .toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -257,14 +217,20 @@ describe('<TopicResourceDetails />', () => {
 
   describe('getServerSideProps', () => {
     let req;
+    let params;
+    let query;
     let topicSlug;
     let resourceSlug;
-    let params;
     let topicId;
     let resourceId;
     let topicResource;
+    let mock;
 
     beforeEach(() => {
+      mock = 'mock';
+      query = {
+        mock,
+      };
       req = {};
       topicSlug = 'topic-slug';
       resourceSlug = 'resource-slug';
@@ -298,34 +264,35 @@ describe('<TopicResourceDetails />', () => {
         isNew: false,
       };
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockReturnValue(topicResource);
 
-      const { props } = await getServerSideProps({ req, params });
+      const { props } = await getServerSideProps({ req, params, query });
 
       expect(props).toEqual(expectedProps);
     });
 
     it('should return not found when topic resource not found', async () => {
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockImplementation(() => {
           throw new Error();
         });
 
-      const { notFound } = await getServerSideProps({ req, params });
+      const { notFound } = await getServerSideProps({ req, params, query });
 
       expect(notFound).toBeTruthy();
     });
 
     it('should return isNew if resource is new', async () => {
       when(getTopicResourceBySlug)
-        .calledWith(topicSlug, resourceSlug)
+        .calledWith(topicSlug, resourceSlug, { mock })
         .mockReturnValue(topicResource);
+      query.new = 'true';
 
       const {
         props: { isNew },
-      } = await getServerSideProps({ req, params, query: { new: 'true' } });
+      } = await getServerSideProps({ req, params, query });
 
       expect(isNew).toBeTruthy();
     });

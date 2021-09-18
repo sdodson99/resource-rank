@@ -51,4 +51,15 @@ describe('getTopicBySlug', () => {
 
     expect(mockFetch).toBeCalledWith(topicBySlugQuery, { slug });
   });
+
+  it('should create GraphQL client for mock when mock provided', async () => {
+    const mock = 'mock';
+    mockFetch.mockReturnValue({
+      topicBySlug: {},
+    });
+
+    await getTopicBySlug(slug, { mock });
+
+    expect(createGraphQLClient).toBeCalledWith({ mock });
+  });
 });
