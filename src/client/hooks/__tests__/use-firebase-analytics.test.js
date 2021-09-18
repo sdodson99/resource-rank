@@ -12,6 +12,7 @@ jest.mock('../use-firebase-app-context');
 
 describe('useFirebaseAnalytics', () => {
   let mockAnalytics;
+  let originalConsoleLog;
 
   beforeEach(() => {
     const mockFirebase = {
@@ -24,12 +25,16 @@ describe('useFirebaseAnalytics', () => {
     useEffect.mockImplementation((cb) => cb());
 
     configuration.ENVIRONMENT = 'development';
+
+    originalConsoleLog = console.log;
+    console.log = jest.fn();
   });
 
   afterEach(() => {
     useFirebaseAppContext.mockReset();
     useState.mockReset();
     useEffect.mockReset();
+    console.log = originalConsoleLog;
   });
 
   it('should return analytics state', () => {
