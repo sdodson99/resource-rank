@@ -4,8 +4,9 @@ import useMockContext from '../use-mock-context';
 
 async function executeGraphQLFetch(document, variables, { mock }) {
   const graphqlFetcher = createGraphQLClient({ mock });
+  const result = await graphqlFetcher.fetch(document, variables);
 
-  return await graphqlFetcher.fetch(document, variables);
+  return result;
 }
 
 export function useGraphQLFetcher() {

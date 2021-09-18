@@ -45,5 +45,6 @@ module.exports = {
     '<rootDir>/test-utils/setup/intersection-observer-setup.js',
     '<rootDir>/test-utils/setup/window-setup.js',
     '<rootDir>/test-utils/setup/router-setup.js',
+    '<rootDir>/test-utils/setup/swr-setup.js',
   ],
 };
