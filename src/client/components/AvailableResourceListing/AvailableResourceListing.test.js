@@ -14,7 +14,7 @@ describe('<AvailableResourceListing />', () => {
     };
   });
 
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<AvailableResourceListing {...props} />);
 
     const availableResourceListing = screen.getByTestId(

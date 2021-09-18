@@ -2,6 +2,7 @@ module.exports = {
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss)$': `identity-obj-proxy`,
     '.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': `<rootDir>/__mocks__/file-mock.js`,
+    '^@/pages(.*)$': '<rootDir>/pages/$1',
     '^@/components(.*)$': '<rootDir>/components/$1',
     '^@/hooks(.*)$': '<rootDir>/hooks/$1',
     '^@/graphql(.*)$': '<rootDir>/graphql/$1',
@@ -10,6 +11,7 @@ module.exports = {
     '^@/configuration(.*)$': '<rootDir>/configuration/$1',
     '^@/errors(.*)$': '<rootDir>/errors/$1',
     '^@/validators(.*)$': '<rootDir>/validators/$1',
+    '^@/test-utils(.*)$': '<rootDir>/test-utils/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: [
@@ -26,6 +28,7 @@ module.exports = {
     '<rootDir>/templates/',
     '<rootDir>/e2e/',
     '<rootDir>/mocks/',
+    '<rootDir>/test-utils/',
     '.config.js',
     '.stories.js',
   ],
@@ -40,5 +43,7 @@ module.exports = {
   },
   setupFilesAfterEnv: [
     '<rootDir>/test-utils/setup/intersection-observer-setup.js',
+    '<rootDir>/test-utils/setup/window-setup.js',
+    '<rootDir>/test-utils/setup/router-setup.js',
   ],
 };
