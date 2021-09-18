@@ -1,16 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NewTopic /> HOC page should require authentication 1`] = `
-<Layout>
-  <div
-    className="mt-8"
+<MockProvider>
+  <Constate
+    firebaseConfig={
+      Object {
+        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
+        "appId": "1:489304913015:web:71f38a965ccde83db54272",
+        "authDomain": "resource-rank.firebaseapp.com",
+        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
+        "measurementId": "G-D18DVJ4168",
+        "messagingSenderId": "489304913015",
+        "projectId": "resource-rank",
+        "storageBucket": "resource-rank.appspot.com",
+      }
+    }
+    useAuthenticationEmulator={false}
   >
-    <LoadingSpinner
-      color="#292929"
-      size={50}
-    />
-  </div>
-</Layout>
+    <Constate>
+      <Constate>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
+            rel="stylesheet"
+          />
+        </Head>
+        <DefaultSeo
+          description="Find the best resources to simplify your learning journey."
+          openGraph={
+            Object {
+              "description": "Find the best resources to simplify your learning journey.",
+              "images": Array [
+                Object {
+                  "alt": "Resource Rank Logo",
+                  "height": 630,
+                  "url": "http://undefined/img/og-logo.jpg",
+                  "width": 1200,
+                },
+              ],
+              "title": "Simplify Learning - Resource Rank",
+              "type": "website",
+              "url": "https://undefined/",
+            }
+          }
+          title="Simplify Learning"
+          titleTemplate="%s - Resource Rank"
+        />
+        <Authentication />
+      </Constate>
+    </Constate>
+  </Constate>
+</MockProvider>
 `;
 
 exports[`<NewTopic /> page should render correctly 1`] = `
@@ -49,64 +89,109 @@ exports[`<NewTopic /> page should render correctly 1`] = `
       className="mt-10"
     >
       <Unknown
-        setError={[MockFunction]}
-      >
-        <Unknown
-          cancelHref="/topics"
-          errorMessage={null}
-          isSubmitting={null}
-          nameFieldName="name"
-          onInvalid={[Function]}
-          onSubmit={[Function]}
-        />
-      </Unknown>
-    </div>
-  </BreadcrumbLayout>
-</div>
-`;
-
-exports[`<NewTopic /> page should render correctly with create topic error 1`] = `
-<div
-  data-testid="NewTopic"
->
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "New",
-          "to": "/topics/new",
-        },
-      ]
-    }
-  >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Create a new topic.",
-          "title": "New Topic - Resource Rank",
+        clearErrors={[Function]}
+        control={
+          Object {
+            "defaultValuesRef": Object {
+              "current": Object {
+                "name": "",
+              },
+            },
+            "fieldArrayDefaultValuesRef": Object {
+              "current": Object {},
+            },
+            "fieldsRef": Object {
+              "current": Object {},
+            },
+            "formStateRef": Object {
+              "current": Object {
+                "dirtyFields": Object {},
+                "errors": Object {},
+                "isDirty": false,
+                "isSubmitSuccessful": false,
+                "isSubmitted": false,
+                "isSubmitting": false,
+                "isValid": false,
+                "isValidating": false,
+                "submitCount": 0,
+                "touchedFields": Object {},
+              },
+            },
+            "getIsDirty": [Function],
+            "inFieldArrayActionRef": Object {
+              "current": false,
+            },
+            "namesRef": Object {
+              "current": Object {
+                "array": Set {},
+                "mount": Set {},
+                "unMount": Set {},
+                "watch": Set {},
+                "watchAll": false,
+              },
+            },
+            "readFormStateRef": Object {
+              "current": Object {
+                "dirtyFields": false,
+                "errors": false,
+                "isDirty": false,
+                "isValid": false,
+                "isValidating": false,
+                "touchedFields": false,
+              },
+            },
+            "register": [Function],
+            "setValues": [Function],
+            "shouldUnmount": undefined,
+            "subjectsRef": Object {
+              "current": Object {
+                "array": ke {
+                  "observers": Array [],
+                },
+                "control": ke {
+                  "observers": Array [],
+                },
+                "state": ke {
+                  "observers": Array [],
+                },
+                "watch": ke {
+                  "observers": Array [],
+                },
+              },
+            },
+            "unregister": [Function],
+            "updateIsValid": [Function],
+            "watchInternal": [Function],
+          }
         }
-      }
-      title="New Topic"
-    />
-    <div
-      className="text-4xl"
-    >
-      New Topic
-    </div>
-    <div
-      className="mt-10"
-    >
-      <Unknown
-        setError={[MockFunction]}
+        formState={
+          Object {
+            "dirtyFields": Object {},
+            "errors": Object {},
+            "isDirty": false,
+            "isSubmitSuccessful": false,
+            "isSubmitted": false,
+            "isSubmitting": false,
+            "isValid": false,
+            "isValidating": false,
+            "submitCount": 0,
+            "touchedFields": Object {},
+          }
+        }
+        getValues={[Function]}
+        handleSubmit={[Function]}
+        register={[Function]}
+        reset={[Function]}
+        setError={[Function]}
+        setFocus={[Function]}
+        setValue={[Function]}
+        trigger={[Function]}
+        unregister={[Function]}
+        watch={[Function]}
       >
-        <Unknown
+        <TopicDetailsForm
           cancelHref="/topics"
-          errorMessage={null}
-          isSubmitting={null}
+          isSubmitting={false}
           nameFieldName="name"
           onInvalid={[Function]}
           onSubmit={[Function]}
