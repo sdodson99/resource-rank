@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createRenderer } from 'react-test-renderer/shallow';
+import renderer from 'react-test-renderer';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
 import TopicDetails, { getServerSideProps } from '../index.page';
@@ -70,7 +70,7 @@ describe('<TopicDetails />', () => {
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(withApp(TopicDetails, props));
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -78,7 +78,7 @@ describe('<TopicDetails />', () => {
     it('should render correctly when topic verified', () => {
       props.topicVerified = true;
 
-      const page = createRenderer().render(withApp(TopicDetails, props));
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -91,6 +91,7 @@ describe('<TopicDetails />', () => {
             items: [
               {
                 resource: {
+                  id: '1',
                   slug: 'slug-1',
                 },
                 ratingList: {
@@ -99,6 +100,7 @@ describe('<TopicDetails />', () => {
               },
               {
                 resource: {
+                  id: '2',
                   slug: 'slug-2',
                 },
                 ratingList: {
@@ -112,7 +114,7 @@ describe('<TopicDetails />', () => {
         isLoading: false,
       });
 
-      const page = createRenderer().render(withApp(TopicDetails, props));
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });
@@ -141,7 +143,7 @@ describe('<TopicDetails />', () => {
         currentSearchVariables: {},
       });
 
-      const page = createRenderer().render(withApp(TopicDetails, props));
+      const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
     });

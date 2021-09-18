@@ -1,107 +1,597 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Topics /> should render correctly 1`] = `
-<MockProvider>
-  <Constate
-    firebaseConfig={
-      Object {
-        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
-        "appId": "1:489304913015:web:71f38a965ccde83db54272",
-        "authDomain": "resource-rank.firebaseapp.com",
-        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
-        "measurementId": "G-D18DVJ4168",
-        "messagingSenderId": "489304913015",
-        "projectId": "resource-rank",
-        "storageBucket": "resource-rank.appspot.com",
-      }
-    }
-    useAuthenticationEmulator={false}
+<div
+  data-testid="Topics"
+>
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <Constate>
-      <Constate>
-        <Head>
-          <link
-            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
-            rel="stylesheet"
-          />
-        </Head>
-        <DefaultSeo
-          description="Find the best resources to simplify your learning journey."
-          openGraph={
-            Object {
-              "description": "Find the best resources to simplify your learning journey.",
-              "images": Array [
-                Object {
-                  "alt": "Resource Rank Logo",
-                  "height": 630,
-                  "url": "http://undefined/img/og-logo.jpg",
-                  "width": 1200,
-                },
-              ],
-              "title": "Simplify Learning - Resource Rank",
-              "type": "website",
-              "url": "https://undefined/",
-            }
-          }
-          title="Simplify Learning"
-          titleTemplate="%s - Resource Rank"
-        />
-        <Topics />
-      </Constate>
-    </Constate>
-  </Constate>
-</MockProvider>
+    <div
+      className="Layout"
+      data-testid="Layout"
+    >
+      <div
+        className="Page"
+      >
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="PageHeaderButton"
+                data-testid="PageHeaderButton"
+              >
+                <div
+                  className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                >
+                  <div
+                    className="text-4xl"
+                  >
+                    Topics
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8 flex flex-col"
+              >
+                <input
+                  className="flex-grow form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search topics..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div>
+                      <div>
+                        <div
+                          className="TopicListing"
+                          data-testid="TopicListing"
+                        >
+                          <div
+                            className="PaginatedListing"
+                            data-testid="PaginatedListing"
+                          >
+                            <div
+                              className="Listing"
+                              data-testid="Listing"
+                            >
+                              <div
+                                className="TopicListingItem"
+                                data-testid="TopicListingItem"
+                              >
+                                <a
+                                  href="/topics/slug?mock=standard"
+                                  onClick={[Function]}
+                                  onMouseEnter={[Function]}
+                                >
+                                  <div
+                                    className="ListingItem HoverListingItem px-3"
+                                    data-testid="ListingItem"
+                                  >
+                                    <div
+                                      className="sm:flex sm:justify-between sm:text-left text-center"
+                                    >
+                                      <div
+                                        className="flex items-center justify-center sm:justify-start"
+                                      >
+                                        <div>
+                                          name
+                                        </div>
+                                      </div>
+                                      <div
+                                        className="mt-5 sm:mt-0"
+                                      >
+                                        <svg
+                                          aria-hidden={true}
+                                          className="MuiSvgIcon-root"
+                                          focusable="false"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                                          />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                              <div
+                                className="TopicListingItem"
+                                data-testid="TopicListingItem"
+                              >
+                                <a
+                                  href="/topics?mock=standard"
+                                  onClick={[Function]}
+                                  onMouseEnter={[Function]}
+                                >
+                                  <div
+                                    className="ListingItem HoverListingItem px-3"
+                                    data-testid="ListingItem"
+                                  >
+                                    <div
+                                      className="sm:flex sm:justify-between sm:text-left text-center"
+                                    >
+                                      <div
+                                        className="flex items-center justify-center sm:justify-start"
+                                      >
+                                        <div>
+                                          name
+                                        </div>
+                                      </div>
+                                      <div
+                                        className="mt-5 sm:mt-0"
+                                      >
+                                        <svg
+                                          aria-hidden={true}
+                                          className="MuiSvgIcon-root"
+                                          focusable="false"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                                          />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                            <div
+                              className="mt-8 flex justify-center"
+                            >
+                              <div
+                                className="Pagination"
+                                data-testid="Pagination"
+                              >
+                                <button
+                                  className="SelectedPage"
+                                  data-testid="Page"
+                                  disabled={true}
+                                  onClick={[Function]}
+                                  type="button"
+                                >
+                                  1
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`<Topics /> should render correctly with no current search 1`] = `
-<MockProvider>
-  <Constate
-    firebaseConfig={
-      Object {
-        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
-        "appId": "1:489304913015:web:71f38a965ccde83db54272",
-        "authDomain": "resource-rank.firebaseapp.com",
-        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
-        "measurementId": "G-D18DVJ4168",
-        "messagingSenderId": "489304913015",
-        "projectId": "resource-rank",
-        "storageBucket": "resource-rank.appspot.com",
-      }
-    }
-    useAuthenticationEmulator={false}
+<div
+  data-testid="Topics"
+>
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <Constate>
-      <Constate>
-        <Head>
-          <link
-            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
-            rel="stylesheet"
-          />
-        </Head>
-        <DefaultSeo
-          description="Find the best resources to simplify your learning journey."
-          openGraph={
-            Object {
-              "description": "Find the best resources to simplify your learning journey.",
-              "images": Array [
-                Object {
-                  "alt": "Resource Rank Logo",
-                  "height": 630,
-                  "url": "http://undefined/img/og-logo.jpg",
-                  "width": 1200,
-                },
-              ],
-              "title": "Simplify Learning - Resource Rank",
-              "type": "website",
-              "url": "https://undefined/",
-            }
-          }
-          title="Simplify Learning"
-          titleTemplate="%s - Resource Rank"
-        />
-        <Topics />
-      </Constate>
-    </Constate>
-  </Constate>
-</MockProvider>
+    <div
+      className="Layout"
+      data-testid="Layout"
+    >
+      <div
+        className="Page"
+      >
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="PageHeaderButton"
+                data-testid="PageHeaderButton"
+              >
+                <div
+                  className="flex flex-col items-center justify-between text-center sm:flex-row sm:text-left"
+                >
+                  <div
+                    className="text-4xl"
+                  >
+                    Topics
+                  </div>
+                  <div
+                    className="mt-3 flex sm:mt-0 sm:ml-3"
+                  >
+                    <a
+                      className="btn btn-primary"
+                      href="/topics/new?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      New
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="mt-8 flex flex-col"
+              >
+                <input
+                  className="flex-grow form-control-lg"
+                  data-testid="SearchInput"
+                  onChange={[Function]}
+                  placeholder="Search topics..."
+                  type="text"
+                  value="search"
+                />
+                <div
+                  className="mt-8"
+                >
+                  <div
+                    className="LoadingErrorEmptyDataLayout"
+                    data-testid="LoadingErrorEmptyDataLayout"
+                  >
+                    <div>
+                      <div>
+                        <div
+                          className="text-center sm:text-left"
+                        >
+                          No topics have been created.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
 `;

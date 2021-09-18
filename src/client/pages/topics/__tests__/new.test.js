@@ -1,14 +1,13 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
-import { createRenderer } from 'react-test-renderer/shallow';
 import NewTopic, { Page } from '../new.page';
 import useTopicCreator from '@/hooks/topics/use-topic-creator';
 import TopicExistsError from '@/errors/topic-exists-error';
 import { when } from 'jest-when';
 import useNavigate from '@/hooks/use-navigate';
 import withApp from '@/test-utils/with-app';
+import renderer from 'react-test-renderer';
 
 jest.mock('@/hooks/use-navigate');
 jest.mock('@/hooks/topics/use-topic-creator');
@@ -39,12 +38,6 @@ describe('<NewTopic />', () => {
       const page = screen.getByTestId('NewTopic');
 
       expect(page).toBeInTheDocument();
-    });
-
-    it('should render correctly', () => {
-      const page = createRenderer().render(<Page />);
-
-      expect(page).toMatchSnapshot();
     });
 
     describe('on submit', () => {
@@ -117,8 +110,8 @@ describe('<NewTopic />', () => {
           const errorMessage = screen.getByText('Failed to create topic.');
           expect(errorMessage).toBeInTheDocument();
         });
-        mockCreateTopic.mockReturnValue({ slug: 'name-slug' });
 
+        userEvent.clear(screen.getByLabelText('Name'));
         submitForm();
 
         await waitFor(() => {
@@ -127,11 +120,19 @@ describe('<NewTopic />', () => {
         });
       });
     });
+
+    it('should render correctly', () => {
+      const page = renderer.create(withApp(Page)).toJSON();
+
+      expect(page).toMatchSnapshot();
+    });
   });
 
   describe('HOC page', () => {
     it('should require authentication', () => {
-      const page = createRenderer().render(withApp(NewTopic));
+      const page = renderer
+        .create(withApp(NewTopic, {}, { mock: 'unauthenticated' }))
+        .toJSON();
 
       expect(page).toMatchSnapshot();
     });

@@ -1,203 +1,435 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NewTopic /> HOC page should require authentication 1`] = `
-<MockProvider>
-  <Constate
-    firebaseConfig={
-      Object {
-        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
-        "appId": "1:489304913015:web:71f38a965ccde83db54272",
-        "authDomain": "resource-rank.firebaseapp.com",
-        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
-        "measurementId": "G-D18DVJ4168",
-        "messagingSenderId": "489304913015",
-        "projectId": "resource-rank",
-        "storageBucket": "resource-rank.appspot.com",
-      }
-    }
-    useAuthenticationEmulator={false}
+<div
+  className="Layout"
+  data-testid="Layout"
+>
+  <div
+    className="Page"
   >
-    <Constate>
-      <Constate>
-        <Head>
-          <link
-            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
-            rel="stylesheet"
+    <header
+      className="Header"
+      data-testid="Header"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="sm:flex items-center text-center sm:text-left"
+        >
+          <div
+            className="flex-grow flex justify-center sm:justify-start"
+          >
+            <a
+              href="/?mock=unauthenticated"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
+          </div>
+          <div
+            className="NavItem NavLink ActiveNavLink"
+            data-testid="ActiveLink"
+          >
+            Home
+          </div>
+          <div
+            className="NavItem"
+            data-testid="TopicsNavItem"
+          >
+            <div
+              className="NavLink"
+              data-testid="ActiveLink"
+            >
+              <a
+                className=""
+                href="/topics?mock=unauthenticated"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                Topics
+              </a>
+            </div>
+          </div>
+          <div
+            className="NavItem"
+          >
+            <button
+              className="btn btn-primary"
+              data-testid="LoadingButton"
+              onClick={[Function]}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div
+        className="mt-8 text-center text-lg"
+      >
+        You must login to view this page.
+      </div>
+    </div>
+  </div>
+  <footer
+    className="Footer"
+    data-testid="Footer"
+  >
+    <div
+      className="content-container"
+    >
+      <div
+        className="sm:flex text-center sm:text-left"
+      >
+        <div
+          className="sm:order-2 sm:ml-10"
+        >
+          <h1
+            className="text-4xl"
+          >
+            Our Mission
+          </h1>
+          <p
+            className="py-3"
+          >
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are
+             
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books
+             
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p
+            className="py-3"
+          >
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+        >
+          <img
+            alt="Resource Rank Logo"
+            className="max-w-none"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
           />
-        </Head>
-        <DefaultSeo
-          description="Find the best resources to simplify your learning journey."
-          openGraph={
-            Object {
-              "description": "Find the best resources to simplify your learning journey.",
-              "images": Array [
-                Object {
-                  "alt": "Resource Rank Logo",
-                  "height": 630,
-                  "url": "http://undefined/img/og-logo.jpg",
-                  "width": 1200,
-                },
-              ],
-              "title": "Simplify Learning - Resource Rank",
-              "type": "website",
-              "url": "https://undefined/",
-            }
-          }
-          title="Simplify Learning"
-          titleTemplate="%s - Resource Rank"
-        />
-        <Authentication />
-      </Constate>
-    </Constate>
-  </Constate>
-</MockProvider>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
 `;
 
 exports[`<NewTopic /> page should render correctly 1`] = `
 <div
   data-testid="NewTopic"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "New",
-          "to": "/topics/new",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Create a new topic.",
-          "title": "New Topic - Resource Rank",
-        }
-      }
-      title="New Topic"
-    />
     <div
-      className="text-4xl"
+      className="Layout"
+      data-testid="Layout"
     >
-      New Topic
-    </div>
-    <div
-      className="mt-10"
-    >
-      <Unknown
-        clearErrors={[Function]}
-        control={
-          Object {
-            "defaultValuesRef": Object {
-              "current": Object {
-                "name": "",
-              },
-            },
-            "fieldArrayDefaultValuesRef": Object {
-              "current": Object {},
-            },
-            "fieldsRef": Object {
-              "current": Object {},
-            },
-            "formStateRef": Object {
-              "current": Object {
-                "dirtyFields": Object {},
-                "errors": Object {},
-                "isDirty": false,
-                "isSubmitSuccessful": false,
-                "isSubmitted": false,
-                "isSubmitting": false,
-                "isValid": false,
-                "isValidating": false,
-                "submitCount": 0,
-                "touchedFields": Object {},
-              },
-            },
-            "getIsDirty": [Function],
-            "inFieldArrayActionRef": Object {
-              "current": false,
-            },
-            "namesRef": Object {
-              "current": Object {
-                "array": Set {},
-                "mount": Set {},
-                "unMount": Set {},
-                "watch": Set {},
-                "watchAll": false,
-              },
-            },
-            "readFormStateRef": Object {
-              "current": Object {
-                "dirtyFields": false,
-                "errors": false,
-                "isDirty": false,
-                "isValid": false,
-                "isValidating": false,
-                "touchedFields": false,
-              },
-            },
-            "register": [Function],
-            "setValues": [Function],
-            "shouldUnmount": undefined,
-            "subjectsRef": Object {
-              "current": Object {
-                "array": ke {
-                  "observers": Array [],
-                },
-                "control": ke {
-                  "observers": Array [],
-                },
-                "state": ke {
-                  "observers": Array [],
-                },
-                "watch": ke {
-                  "observers": Array [],
-                },
-              },
-            },
-            "unregister": [Function],
-            "updateIsValid": [Function],
-            "watchInternal": [Function],
-          }
-        }
-        formState={
-          Object {
-            "dirtyFields": Object {},
-            "errors": Object {},
-            "isDirty": false,
-            "isSubmitSuccessful": false,
-            "isSubmitted": false,
-            "isSubmitting": false,
-            "isValid": false,
-            "isValidating": false,
-            "submitCount": 0,
-            "touchedFields": Object {},
-          }
-        }
-        getValues={[Function]}
-        handleSubmit={[Function]}
-        register={[Function]}
-        reset={[Function]}
-        setError={[Function]}
-        setFocus={[Function]}
-        setValue={[Function]}
-        trigger={[Function]}
-        unregister={[Function]}
-        watch={[Function]}
+      <div
+        className="Page"
       >
-        <TopicDetailsForm
-          cancelHref="/topics"
-          isSubmitting={false}
-          nameFieldName="name"
-          onInvalid={[Function]}
-          onSubmit={[Function]}
-        />
-      </Unknown>
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/new?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      New
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="text-4xl"
+              >
+                New Topic
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="TopicDetailsForm"
+                  data-testid="TopicDetailsForm"
+                >
+                  <form
+                    onSubmit={[Function]}
+                  >
+                    <div>
+                      <div
+                        className="TextInput"
+                        data-testid="TextInput"
+                      >
+                        <div
+                          className="flex flex-col"
+                        >
+                          <label
+                            htmlFor="name"
+                          >
+                            Name
+                          </label>
+                          <input
+                            autoComplete="off"
+                            className="mt-2 form-control flex-grow"
+                            id="name"
+                            name="name"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="mt-10 flex flex-col sm:flex-row"
+                    >
+                      <button
+                        className="btn btn-primary w-100"
+                        disabled={false}
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <a
+                        className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
+                        href="/topics?mock=standard"
+                        onClick={[Function]}
+                        onMouseEnter={[Function]}
+                      >
+                        Cancel
+                      </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;

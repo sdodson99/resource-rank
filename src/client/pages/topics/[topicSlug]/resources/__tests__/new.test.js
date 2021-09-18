@@ -164,8 +164,8 @@ describe('<NewTopicResource />', () => {
           );
           expect(errorMessage).toBeInTheDocument();
         });
-        mockCreateTopicResource.mockReturnValue(true);
 
+        userEvent.clear(screen.getByLabelText('Name'));
         submitForm();
 
         await waitFor(() => {

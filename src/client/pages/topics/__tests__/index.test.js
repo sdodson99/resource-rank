@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { createRenderer } from 'react-test-renderer/shallow';
+import renderer from 'react-test-renderer';
 import Topics from '../index.page';
 import { useRouter } from 'next/router';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
@@ -62,7 +62,7 @@ describe('<Topics />', () => {
   });
 
   it('should render correctly', () => {
-    const page = createRenderer().render(withApp(Topics));
+    const page = renderer.create(withApp(Topics)).toJSON();
 
     expect(page).toMatchSnapshot();
   });
@@ -73,7 +73,7 @@ describe('<Topics />', () => {
     mockTopicSearch.data = {};
     useTopicSearch.mockReturnValue(mockTopicSearch);
 
-    const page = createRenderer().render(withApp(Topics));
+    const page = renderer.create(withApp(Topics)).toJSON();
 
     expect(page).toMatchSnapshot();
   });
