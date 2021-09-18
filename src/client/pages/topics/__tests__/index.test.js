@@ -1,14 +1,12 @@
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import Topics from '../index.page';
 import { useRouter } from 'next/router';
-import useAuthenticationState from '@/hooks/use-authentication-context';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
+import withApp from '@/test-utils/with-app';
 
 jest.mock('next/router');
-jest.mock('@/hooks/use-authentication-context');
 jest.mock('@/hooks/topics/use-topic-search');
 
 describe('<Topics />', () => {
@@ -22,8 +20,6 @@ describe('<Topics />', () => {
         q: searchQuery,
       },
     });
-
-    useAuthenticationState.mockReturnValue({ isLoggedIn: false });
 
     mockTopicSearch = {
       data: {
@@ -54,12 +50,11 @@ describe('<Topics />', () => {
 
   afterEach(() => {
     useRouter.mockReset();
-    useAuthenticationState.mockReset();
     useTopicSearch.mockReset();
   });
 
   it('should mount', () => {
-    render(<Topics />);
+    render(withApp(Topics));
 
     const page = screen.getByTestId('Topics');
 
@@ -67,7 +62,7 @@ describe('<Topics />', () => {
   });
 
   it('should render correctly', () => {
-    const page = createRenderer().render(<Topics />);
+    const page = createRenderer().render(withApp(Topics));
 
     expect(page).toMatchSnapshot();
   });
@@ -78,14 +73,14 @@ describe('<Topics />', () => {
     mockTopicSearch.data = {};
     useTopicSearch.mockReturnValue(mockTopicSearch);
 
-    const page = createRenderer().render(<Topics />);
+    const page = createRenderer().render(withApp(Topics));
 
     expect(page).toMatchSnapshot();
   });
 
   it('should process search on search input', () => {
     const search = '123';
-    render(<Topics />);
+    render(withApp(Topics));
     const searchInput = screen.getByTestId('SearchInput');
 
     fireEvent.input(searchInput, {

@@ -1,142 +1,523 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NewTopicResource /> HOC page should require authentication 1`] = `
-<Layout>
+<div
+  className="Layout"
+  data-testid="Layout"
+>
   <div
-    className="mt-8"
+    className="Page"
   >
-    <LoadingSpinner
-      color="#292929"
-      size={50}
-    />
+    <header
+      className="Header"
+      data-testid="Header"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="sm:flex items-center text-center sm:text-left"
+        >
+          <div
+            className="flex-grow flex justify-center sm:justify-start"
+          >
+            <a
+              href="/?mock=unauthenticated"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
+          </div>
+          <div
+            className="NavItem NavLink ActiveNavLink"
+            data-testid="ActiveLink"
+          >
+            Home
+          </div>
+          <div
+            className="NavItem"
+            data-testid="TopicsNavItem"
+          >
+            <div
+              className="NavLink"
+              data-testid="ActiveLink"
+            >
+              <a
+                className=""
+                href="/topics?mock=unauthenticated"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                Topics
+              </a>
+            </div>
+          </div>
+          <div
+            className="NavItem"
+          >
+            <button
+              className="btn btn-primary"
+              data-testid="LoadingButton"
+              onClick={[Function]}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div
+        className="mt-8"
+      >
+        <div
+          className="LoadingSpinner"
+          data-testid="LoadingSpinner"
+        >
+          <svg
+            fill="none"
+            height={50}
+            viewBox="0 0 100 100"
+            width={50}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
+              stroke="#292929"
+              strokeWidth="10"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
   </div>
-</Layout>
+  <footer
+    className="Footer"
+    data-testid="Footer"
+  >
+    <div
+      className="content-container"
+    >
+      <div
+        className="sm:flex text-center sm:text-left"
+      >
+        <div
+          className="sm:order-2 sm:ml-10"
+        >
+          <h1
+            className="text-4xl"
+          >
+            Our Mission
+          </h1>
+          <p
+            className="py-3"
+          >
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are
+             
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books
+             
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p
+            className="py-3"
+          >
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+        >
+          <img
+            alt="Resource Rank Logo"
+            className="max-w-none"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
+          />
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
 `;
 
 exports[`<NewTopicResource /> page should render correctly 1`] = `
 <div
   data-testid="NewTopicResourcePage"
 >
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "topic-name",
-          "to": "/topics/topic-slug",
-        },
-        Object {
-          "title": "Add",
-          "to": "/topics/topic-slug/resources/add",
-        },
-        Object {
-          "title": "New",
-          "to": "/topics/topic-slug/resources/new",
-        },
-      ]
-    }
+  <div
+    className="BreadcrumbLayout"
+    data-testid="BreadcrumbLayout"
   >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Create a new topic resource for topic-name.",
-          "title": "New Topic Resource - Resource Rank",
-        }
-      }
-      title="New Topic Resource"
-    />
     <div
-      className="text-4xl"
+      className="Layout"
+      data-testid="Layout"
     >
-      New Topic Resource
-    </div>
-    <div
-      className="mt-10"
-    >
-      <Unknown>
-        <Unknown
-          cancelHref="/topics/topic-slug/resources/add"
-          errorMessage={null}
-          isSubmitting={null}
-          linkFieldName="link"
-          nameFieldName="name"
-          onInvalid={[Function]}
-          onSubmit={[Function]}
-        />
-      </Unknown>
-    </div>
-  </BreadcrumbLayout>
-</div>
-`;
-
-exports[`<NewTopicResource /> page should render correctly with create errors 1`] = `
-<div
-  data-testid="NewTopicResourcePage"
->
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-        Object {
-          "title": "topic-name",
-          "to": "/topics/topic-slug",
-        },
-        Object {
-          "title": "Add",
-          "to": "/topics/topic-slug/resources/add",
-        },
-        Object {
-          "title": "New",
-          "to": "/topics/topic-slug/resources/new",
-        },
-      ]
-    }
-  >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Create a new topic resource for topic-name.",
-          "title": "New Topic Resource - Resource Rank",
-        }
-      }
-      title="New Topic Resource"
-    />
-    <div
-      className="text-4xl"
-    >
-      New Topic Resource
-    </div>
-    <div
-      className="mt-10"
-    >
-      <ErrorAlert
-        border={true}
-        scrollTo={true}
+      <div
+        className="Page"
       >
-        Failed to create topic resource.
-      </ErrorAlert>
+        <header
+          className="Header"
+          data-testid="Header"
+        >
+          <div
+            className="content-container"
+          >
+            <div
+              className="sm:flex items-center text-center sm:text-left"
+            >
+              <div
+                className="flex-grow flex justify-center sm:justify-start"
+              >
+                <a
+                  href="/?mock=standard"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  <img
+                    alt="Resource Rank Logo"
+                    height="50"
+                    src="/img/logo.svg"
+                    width="50"
+                  />
+                </a>
+              </div>
+              <div
+                className="NavItem NavLink ActiveNavLink"
+                data-testid="ActiveLink"
+              >
+                Home
+              </div>
+              <div
+                className="NavItem"
+                data-testid="TopicsNavItem"
+              >
+                <div
+                  className="NavLink"
+                  data-testid="ActiveLink"
+                >
+                  <a
+                    className=""
+                    href="/topics?mock=standard"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    Topics
+                  </a>
+                </div>
+              </div>
+              <div
+                className="NavItem"
+              >
+                <button
+                  className="btn btn-primary"
+                  data-testid="LoadingButton"
+                  onClick={[Function]}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div>
+          <div
+            className="content-container pb-10"
+          >
+            <nav
+              aria-label="breadcrumb"
+              className="BreadcrumbContent"
+            >
+              <ol
+                className="flex flex-wrap"
+              >
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Topics
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      topic-name
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug/resources/add?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      Add
+                    </a>
+                  </div>
+                  <div
+                    className="px-3"
+                  >
+                    /
+                  </div>
+                </li>
+                <li
+                  className="flex"
+                >
+                  <div
+                    className="BreadcrumbItem"
+                    data-testid="ActiveLink"
+                  >
+                    <a
+                      className="hyperlink"
+                      href="/topics/topic-slug/resources/new?mock=standard"
+                      onClick={[Function]}
+                      onMouseEnter={[Function]}
+                    >
+                      New
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <div>
+              <div
+                className="text-4xl"
+              >
+                New Topic Resource
+              </div>
+              <div
+                className="mt-10"
+              >
+                <div
+                  className="ResourceDetailsForm"
+                  data-testid="ResourceDetailsForm"
+                >
+                  <form
+                    onSubmit={[Function]}
+                  >
+                    <div>
+                      <div
+                        className="TextInput"
+                        data-testid="TextInput"
+                      >
+                        <div
+                          className="flex flex-col"
+                        >
+                          <label
+                            htmlFor="name"
+                          >
+                            Name
+                          </label>
+                          <input
+                            autoComplete="off"
+                            className="mt-2 form-control flex-grow"
+                            id="name"
+                            name="name"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="mt-6"
+                    >
+                      <div
+                        className="TextInput"
+                        data-testid="TextInput"
+                      >
+                        <div
+                          className="flex flex-col"
+                        >
+                          <label
+                            htmlFor="link"
+                          >
+                            Link
+                          </label>
+                          <input
+                            autoComplete="off"
+                            className="mt-2 form-control flex-grow"
+                            id="link"
+                            name="link"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="mt-10 flex flex-col sm:flex-row"
+                    >
+                      <button
+                        className="btn btn-primary w-100"
+                        disabled={null}
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <a
+                        className="mt-3 text-center btn btn-cancel-outline w-100 sm:mt-0 sm:ml-3"
+                        href="/topics/topic-slug/resources/add?mock=standard"
+                        onClick={[Function]}
+                        onMouseEnter={[Function]}
+                      >
+                        Cancel
+                      </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        className="Footer"
+        data-testid="Footer"
+      >
+        <div
+          className="content-container"
+        >
+          <div
+            className="sm:flex text-center sm:text-left"
+          >
+            <div
+              className="sm:order-2 sm:ml-10"
+            >
+              <h1
+                className="text-4xl"
+              >
+                Our Mission
+              </h1>
+              <p
+                className="py-3"
+              >
+                is to 
+                <strong>
+                  simplify
+                </strong>
+                 your learning journey. Learning can be 
+                <strong>
+                  difficult
+                </strong>
+                , especially when starting. There are
+                 
+                <strong>
+                  millions
+                </strong>
+                 of educational courses, videos, and books
+                 
+                <strong>
+                  scattered
+                </strong>
+                 across the Internet.
+              </p>
+              <p
+                className="py-3"
+              >
+                Resource Rank’s goal is to 
+                <strong>
+                  consolidate
+                </strong>
+                 all of these resources so that you can 
+                <strong>
+                  quickly
+                </strong>
+                 find the
+                 
+                <strong>
+                  best
+                </strong>
+                 resources for what you are learning.
+              </p>
+            </div>
+            <div
+              className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+            >
+              <img
+                alt="Resource Rank Logo"
+                className="max-w-none"
+                height="75"
+                src="/img/logo.svg"
+                width="75"
+              />
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-    <div
-      className="mt-10"
-    >
-      <Unknown>
-        <Unknown
-          cancelHref="/topics/topic-slug/resources/add"
-          errorMessage="Failed to create resource."
-          isSubmitting={null}
-          linkFieldName="link"
-          nameFieldName="name"
-          onInvalid={[Function]}
-          onSubmit={[Function]}
-        />
-      </Unknown>
-    </div>
-  </BreadcrumbLayout>
+  </div>
 </div>
 `;

@@ -53,7 +53,10 @@ const NewTopicResource = ({ topicId, topicName, topicSlug }) => {
       const success = await createTopicResource(topicId, resourceId);
 
       if (!success) {
-        throw new Error('Failed to create topic resource.');
+        setIsCreatingResource(false);
+        return setCreateTopicResourceError(
+          new Error('Failed to create topic resource.')
+        );
       }
 
       await navigate({

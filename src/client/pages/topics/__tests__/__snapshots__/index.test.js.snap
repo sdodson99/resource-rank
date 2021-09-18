@@ -1,187 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Topics /> should render correctly 1`] = `
-<div
-  data-testid="Topics"
->
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-      ]
-    }
-  >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the topic you are planning to learn, or find a new topic to learn!",
-          "title": "Browse Topics - Resource Rank",
-        }
+<MockProvider>
+  <Constate
+    firebaseConfig={
+      Object {
+        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
+        "appId": "1:489304913015:web:71f38a965ccde83db54272",
+        "authDomain": "resource-rank.firebaseapp.com",
+        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
+        "measurementId": "G-D18DVJ4168",
+        "messagingSenderId": "489304913015",
+        "projectId": "resource-rank",
+        "storageBucket": "resource-rank.appspot.com",
       }
-      title="Topics"
-    />
-    <PageHeaderButton
-      buttonContent="New"
-      hideButton={true}
-      linkTo="/topics/new"
-      title="Topics"
-      titleClassName="text-4xl"
-    />
-    <div
-      className="mt-8 flex flex-col"
-    >
-      <input
-        className="flex-grow form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search topics..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <TopicListing
-              onPageClick={[MockFunction]}
-              pageCount={NaN}
-              selectedPage={1}
-              topics={
-                Array [
-                  Object {
-                    "id": "1",
-                    "name": "name",
-                    "slug": "slug",
-                  },
-                  Object {
-                    "id": "2",
-                    "name": "name",
-                  },
-                ]
-              }
-            />
+    }
+    useAuthenticationEmulator={false}
+  >
+    <Constate>
+      <Constate>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
+            rel="stylesheet"
+          />
+        </Head>
+        <DefaultSeo
+          description="Find the best resources to simplify your learning journey."
+          openGraph={
+            Object {
+              "description": "Find the best resources to simplify your learning journey.",
+              "images": Array [
+                Object {
+                  "alt": "Resource Rank Logo",
+                  "height": 630,
+                  "url": "http://undefined/img/og-logo.jpg",
+                  "width": 1200,
+                },
+              ],
+              "title": "Simplify Learning - Resource Rank",
+              "type": "website",
+              "url": "https://undefined/",
+            }
           }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
-            >
-              Failed to load topics.
-            </div>
-          }
-          hasData={true}
-          hasError={false}
-          isLoading={false}
-          loadingDisplay={
-            <div
-              className="text-center"
-            >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
-              />
-            </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topics matching 'currentSearch' have been created.
-            </div>
-          }
+          title="Simplify Learning"
+          titleTemplate="%s - Resource Rank"
         />
-      </div>
-    </div>
-  </BreadcrumbLayout>
-</div>
+        <Topics />
+      </Constate>
+    </Constate>
+  </Constate>
+</MockProvider>
 `;
 
 exports[`<Topics /> should render correctly with no current search 1`] = `
-<div
-  data-testid="Topics"
->
-  <BreadcrumbLayout
-    breadcrumbs={
-      Array [
-        Object {
-          "title": "Topics",
-          "to": "/topics",
-        },
-      ]
-    }
-  >
-    <NextSeo
-      openGraph={
-        Object {
-          "description": "Find the topic you are planning to learn, or find a new topic to learn!",
-          "title": "Browse Topics - Resource Rank",
-        }
+<MockProvider>
+  <Constate
+    firebaseConfig={
+      Object {
+        "apiKey": "AIzaSyChFnYmkhARBy0Hwtehlx-81rSC7PZZWT8",
+        "appId": "1:489304913015:web:71f38a965ccde83db54272",
+        "authDomain": "resource-rank.firebaseapp.com",
+        "databaseURL": "https://resource-rank-default-rtdb.firebaseio.com",
+        "measurementId": "G-D18DVJ4168",
+        "messagingSenderId": "489304913015",
+        "projectId": "resource-rank",
+        "storageBucket": "resource-rank.appspot.com",
       }
-      title="Topics"
-    />
-    <PageHeaderButton
-      buttonContent="New"
-      hideButton={true}
-      linkTo="/topics/new"
-      title="Topics"
-      titleClassName="text-4xl"
-    />
-    <div
-      className="mt-8 flex flex-col"
-    >
-      <input
-        className="flex-grow form-control-lg"
-        data-testid="SearchInput"
-        onChange={[Function]}
-        placeholder="Search topics..."
-        type="text"
-        value="search"
-      />
-      <div
-        className="mt-8"
-      >
-        <LoadingErrorEmptyDataLayout
-          dataDisplay={
-            <TopicListing
-              onPageClick={[MockFunction]}
-              pageCount={NaN}
-              selectedPage={1}
-              topics={Array []}
-            />
+    }
+    useAuthenticationEmulator={false}
+  >
+    <Constate>
+      <Constate>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css?family=Kanit:200,400,700,400i,700i"
+            rel="stylesheet"
+          />
+        </Head>
+        <DefaultSeo
+          description="Find the best resources to simplify your learning journey."
+          openGraph={
+            Object {
+              "description": "Find the best resources to simplify your learning journey.",
+              "images": Array [
+                Object {
+                  "alt": "Resource Rank Logo",
+                  "height": 630,
+                  "url": "http://undefined/img/og-logo.jpg",
+                  "width": 1200,
+                },
+              ],
+              "title": "Simplify Learning - Resource Rank",
+              "type": "website",
+              "url": "https://undefined/",
+            }
           }
-          errorDisplay={
-            <div
-              className="text-center sm:text-left error-text"
-            >
-              Failed to load topics.
-            </div>
-          }
-          hasData={false}
-          hasError={false}
-          isLoading={false}
-          loadingDisplay={
-            <div
-              className="text-center"
-            >
-              <LoadingSpinner
-                color="#292929"
-                size={50}
-              />
-            </div>
-          }
-          noDataDisplay={
-            <div
-              className="text-center sm:text-left"
-            >
-              No topics have been created.
-            </div>
-          }
+          title="Simplify Learning"
+          titleTemplate="%s - Resource Rank"
         />
-      </div>
-    </div>
-  </BreadcrumbLayout>
-</div>
+        <Topics />
+      </Constate>
+    </Constate>
+  </Constate>
+</MockProvider>
 `;

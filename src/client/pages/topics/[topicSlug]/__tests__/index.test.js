@@ -1,15 +1,13 @@
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { createRenderer } from 'react-test-renderer/shallow';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { when } from 'jest-when';
 import TopicDetails, { getServerSideProps } from '../index.page';
-import useAuthenticationContext from '@/hooks/use-authentication-context';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
+import withApp from '@/test-utils/with-app';
 
 jest.mock('@/services/topics/graphql-topic-by-slug-service');
-jest.mock('@/hooks/use-authentication-context');
 jest.mock('@/hooks/topics/use-topic-resource-search');
 
 describe('<TopicDetails />', () => {
@@ -19,8 +17,6 @@ describe('<TopicDetails />', () => {
     let props;
 
     beforeEach(() => {
-      useAuthenticationContext.mockReturnValue({ isLoggedIn: true });
-
       mockTopicResourceSearch = {
         data: {},
         error: new Error(),
@@ -42,12 +38,11 @@ describe('<TopicDetails />', () => {
     });
 
     afterEach(() => {
-      useAuthenticationContext.mockReset();
       useTopicResourceSearch.mockReset();
     });
 
     it('should mount', () => {
-      render(<TopicDetails {...props} />);
+      render(withApp(TopicDetails, props));
 
       const page = screen.getByTestId('TopicsDetails');
 
@@ -57,7 +52,7 @@ describe('<TopicDetails />', () => {
     describe('new topic alert', () => {
       it('should display new topic alert when isNew is true', () => {
         props.isNew = true;
-        render(<TopicDetails {...props} />);
+        render(withApp(TopicDetails, props));
 
         const alert = screen.getByTestId('InfoAlert');
 
@@ -66,7 +61,7 @@ describe('<TopicDetails />', () => {
 
       it('should not display new topic alert when isNew is not true', () => {
         props.isNew = false;
-        render(<TopicDetails {...props} />);
+        render(withApp(TopicDetails, props));
 
         const alert = screen.queryByTestId('InfoAlert');
 
@@ -75,7 +70,7 @@ describe('<TopicDetails />', () => {
     });
 
     it('should render correctly', () => {
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = createRenderer().render(withApp(TopicDetails, props));
 
       expect(page).toMatchSnapshot();
     });
@@ -83,7 +78,7 @@ describe('<TopicDetails />', () => {
     it('should render correctly when topic verified', () => {
       props.topicVerified = true;
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = createRenderer().render(withApp(TopicDetails, props));
 
       expect(page).toMatchSnapshot();
     });
@@ -117,14 +112,14 @@ describe('<TopicDetails />', () => {
         isLoading: false,
       });
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = createRenderer().render(withApp(TopicDetails, props));
 
       expect(page).toMatchSnapshot();
     });
 
     it('should process search on search input', () => {
       const search = '123';
-      render(<TopicDetails {...props} />);
+      render(withApp(TopicDetails, props));
       const searchInput = screen.getByTestId('SearchInput');
 
       fireEvent.input(searchInput, {
@@ -146,7 +141,7 @@ describe('<TopicDetails />', () => {
         currentSearchVariables: {},
       });
 
-      const page = createRenderer().render(<TopicDetails {...props} />);
+      const page = createRenderer().render(withApp(TopicDetails, props));
 
       expect(page).toMatchSnapshot();
     });
