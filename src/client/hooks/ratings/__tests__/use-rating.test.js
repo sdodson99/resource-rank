@@ -1,107 +1,117 @@
-import { useEffect, useState } from 'react';
+import { renderHook } from '@testing-library/react-hooks';
 import useTopicResourceUserRatingQuery from '../../queries/use-topic-resource-user-rating-query';
 import useRating from '../use-rating';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useEffect: jest.fn(),
-  useState: jest.fn(),
-}));
 jest.mock('../../queries/use-topic-resource-user-rating-query');
 
 describe('useRating', () => {
-  let mockExecuteRatingQuery;
-  let mockSetRating;
+  let mockUserRatingQuery;
 
   let topicId;
   let resourceId;
+  let isLoggedIn;
 
   beforeEach(() => {
-    mockExecuteRatingQuery = jest.fn();
-    useTopicResourceUserRatingQuery.mockReturnValue({
-      execute: mockExecuteRatingQuery,
+    mockUserRatingQuery = {
+      execute: jest.fn(),
       data: null,
       error: null,
       isLoading: false,
-    });
-
-    mockSetRating = jest.fn();
-    useState.mockReturnValueOnce([null, mockSetRating]);
+      isInitialized: false,
+    };
+    useTopicResourceUserRatingQuery.mockReturnValue(mockUserRatingQuery);
 
     topicId = '123';
     resourceId = '456';
+    isLoggedIn = true;
   });
 
   afterEach(() => {
-    useEffect.mockReset();
-    useState.mockReset();
     useTopicResourceUserRatingQuery.mockReset();
   });
 
-  describe('return value', () => {
-    it('should return rating state', () => {
-      const expected = { id: '789' };
-      useState.mockReset();
-      useState.mockReturnValueOnce([expected, mockSetRating]);
-
-      const { rating } = useRating(topicId, resourceId, true);
-
-      expect(rating).toBe(expected);
+  it('should return rating when user logged in', () => {
+    const userRating = { value: 5 };
+    useTopicResourceUserRatingQuery.mockReturnValue({
+      ...mockUserRatingQuery,
+      data: {
+        userRating,
+      },
     });
 
-    it('should return query result state', () => {
-      const expectedError = new Error();
-      const expectedIsLoading = true;
+    const { result } = renderHook(() =>
+      useRating(topicId, resourceId, isLoggedIn)
+    );
+
+    expect(result.current.rating).toBe(userRating);
+  });
+
+  it('should return null rating when user not logged in', () => {
+    isLoggedIn = false;
+
+    const { result } = renderHook(() =>
+      useRating(topicId, resourceId, isLoggedIn)
+    );
+
+    expect(result.current.rating).toBeUndefined();
+  });
+
+  it('should clear rating when user logs out', () => {
+    useTopicResourceUserRatingQuery.mockReturnValue({
+      ...mockUserRatingQuery,
+      data: {
+        userRating: { value: 5 },
+      },
+    });
+    const hook = renderHook(() => useRating(topicId, resourceId, isLoggedIn));
+    expect(hook.result.current.rating).not.toBeUndefined();
+
+    isLoggedIn = false;
+    hook.rerender(topicId, resourceId, isLoggedIn);
+
+    expect(hook.result.current.rating).toBeNull();
+  });
+
+  describe('isLoading', () => {
+    it('should return true if query loading', () => {
       useTopicResourceUserRatingQuery.mockReturnValue({
-        execute: mockExecuteRatingQuery,
-        data: null,
-        error: expectedError,
-        isLoading: expectedIsLoading,
+        ...mockUserRatingQuery,
+        isLoading: true,
       });
 
-      const { error, isLoading } = useRating(topicId, resourceId, true);
+      const { result } = renderHook(() =>
+        useRating(topicId, resourceId, isLoggedIn)
+      );
 
-      expect(error).toBe(expectedError);
-      expect(isLoading).toBe(expectedIsLoading);
-    });
-  });
-
-  describe('on isLoggedIn changed', () => {
-    it('should query rating if logged in', async () => {
-      useRating(topicId, resourceId, true);
-
-      await useEffect.mock.calls[0][0]();
-
-      expect(mockExecuteRatingQuery).toBeCalled();
+      expect(result.current.isLoading).toBeTruthy();
     });
 
-    it('should clear rating if not logged in', async () => {
-      useRating(topicId, resourceId, false);
-
-      await useEffect.mock.calls[0][0]();
-
-      expect(mockSetRating).toBeCalledWith(null);
-    });
-  });
-
-  describe('on ratingData changed', () => {
-    it('should set rating', () => {
-      const expected = {
-        id: '789',
-      };
+    it('should return true if query not initalized', () => {
       useTopicResourceUserRatingQuery.mockReturnValue({
-        execute: mockExecuteRatingQuery,
-        data: {
-          userRating: expected,
-        },
-        error: null,
+        ...mockUserRatingQuery,
         isLoading: false,
+        isInitialized: false,
       });
-      useRating(topicId, resourceId, true);
 
-      useEffect.mock.calls[1][0]();
+      const { result } = renderHook(() =>
+        useRating(topicId, resourceId, isLoggedIn)
+      );
 
-      expect(mockSetRating).toBeCalledWith(expected);
+      expect(result.current.isLoading).toBeTruthy();
     });
+  });
+
+  it('should return query error', () => {
+    const error = new Error();
+    useTopicResourceUserRatingQuery.mockReturnValue({
+      ...mockUserRatingQuery,
+      error,
+    });
+
+    const { result } = renderHook(() =>
+      useRating(topicId, resourceId, isLoggedIn)
+    );
+
+    expect(result.current.error).toBe(error);
   });
 });
