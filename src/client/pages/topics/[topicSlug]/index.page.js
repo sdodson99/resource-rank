@@ -28,6 +28,7 @@ const TopicDetails = ({
     data: topicResourcesData,
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
+    isInitialized: isTopicResourcesInitialized,
     searchVariables: { resourceSearch: search },
     currentSearchVariables: { resourceSearch: currentSearch, limit },
     debounceProcessSearch,
@@ -63,6 +64,7 @@ const TopicDetails = ({
     topicResourcesData?.topicResources?.totalCount;
   const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
+  const showLoading = isLoadingTopicResources || !isTopicResourcesInitialized;
 
   const topicLink = `/topics/${topicSlug}`;
   const breadcrumbs = [
@@ -131,7 +133,7 @@ const TopicDetails = ({
 
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingTopicResources}
+              isLoading={showLoading}
               loadingDisplay={
                 <div className="text-center">
                   <LoadingSpinner />

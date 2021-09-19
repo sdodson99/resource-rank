@@ -39,6 +39,7 @@ describe('<Topics />', () => {
       },
       error: null,
       isLoading: false,
+      isInitialized: true,
       searchVariables: { search: 'search' },
       currentSearchVariables: { search: 'currentSearch', limit: 10 },
       debounceProcessSearch: jest.fn(),
@@ -94,5 +95,15 @@ describe('<Topics />', () => {
       offset: 0,
       limit: 10,
     });
+  });
+
+  it('should show loading when topics initializing', () => {
+    mockTopicSearch.isInitialized = false;
+    useTopicSearch.mockReturnValue(mockTopicSearch);
+    render(withApp(Topics));
+
+    const loadingSpinner = screen.getByTestId('LoadingSpinner');
+
+    expect(loadingSpinner).toBeInTheDocument();
   });
 });

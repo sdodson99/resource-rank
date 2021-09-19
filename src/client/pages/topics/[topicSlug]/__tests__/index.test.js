@@ -21,6 +21,7 @@ describe('<TopicDetails />', () => {
         data: {},
         error: new Error(),
         isLoading: true,
+        isInitialized: true,
         searchVariables: { resourceSearch: 'search' },
         currentSearchVariables: { resourceSearch: 'currentSearch', limit: 10 },
         debounceProcessSearch: jest.fn(),
@@ -81,6 +82,18 @@ describe('<TopicDetails />', () => {
       const page = renderer.create(withApp(TopicDetails, props)).toJSON();
 
       expect(page).toMatchSnapshot();
+    });
+
+    it('should show loading when topic resources initializing', () => {
+      useTopicResourceSearch.mockReturnValue({
+        ...mockTopicResourceSearch,
+        isInitialized: false,
+      });
+      render(withApp(TopicDetails, props));
+
+      const loadingSpinner = screen.getByTestId('LoadingSpinner');
+
+      expect(loadingSpinner).toBeInTheDocument();
     });
 
     it('should render correctly with data', () => {

@@ -20,6 +20,7 @@ export default function Topics() {
     data: topicsData,
     error: topicsError,
     isLoading: isLoadingTopics,
+    isInitialized: isTopicsInitialized,
     searchVariables: { search },
     currentSearchVariables: { search: currentSearch, limit },
     debounceProcessSearch,
@@ -46,6 +47,7 @@ export default function Topics() {
   const totalTopicsCount = topicsData?.topics?.totalCount;
   const topicsPageCount = Math.ceil(totalTopicsCount / limit);
   const hasTopics = topics?.length > 0;
+  const showLoading = isLoadingTopics || !isTopicsInitialized;
 
   const breadcrumbs = [
     {
@@ -85,7 +87,7 @@ export default function Topics() {
 
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingTopics}
+              isLoading={showLoading}
               loadingDisplay={
                 <div className="text-center">
                   <LoadingSpinner />
