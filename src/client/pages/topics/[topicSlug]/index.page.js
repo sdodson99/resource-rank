@@ -107,7 +107,7 @@ const TopicDetails = ({
           )}
         </div>
 
-        <div className="mt-2 text-xs text-gray-800 font-thin">
+        <div className="mt-2 text-xs text-gray-800 italic">
           Created by {topicCreator}
         </div>
 

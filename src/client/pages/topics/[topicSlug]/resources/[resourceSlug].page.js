@@ -64,6 +64,14 @@ const TopicResourceDetails = ({
     }
   };
 
+  const getRatingPrompt = () => {
+    if (existingRating) {
+      return 'You have rated this topic resource. Feel free to update your rating at any time.';
+    }
+
+    return 'You have not rated this topic resource.';
+  };
+
   const topicName = topicResource?.topic?.name;
   const resourceName = topicResource?.resource?.name;
   const resourceLink = topicResource?.resource?.link;
@@ -120,7 +128,7 @@ const TopicResourceDetails = ({
                 </div>
               )}
             </div>
-            <div className="mt-2 text-xs text-gray-800 font-thin">
+            <div className="mt-2 text-xs text-gray-800 italic">
               Created by {resourceCreatedBy}
             </div>
           </div>
@@ -167,12 +175,20 @@ const TopicResourceDetails = ({
                       </div>
                     }
                     dataDisplay={
-                      <RatingForm
-                        onSubmit={submitRating}
-                        isSubmittingRating={isSubmittingRating}
-                        error={submitRatingError}
-                        existingRating={existingRating?.value}
-                      />
+                      <div>
+                        <div className="font-thin text-sm">
+                          {getRatingPrompt()}
+                        </div>
+
+                        <div className="mt-6">
+                          <RatingForm
+                            onSubmit={submitRating}
+                            isSubmittingRating={isSubmittingRating}
+                            error={submitRatingError}
+                            existingRating={existingRating?.value}
+                          />
+                        </div>
+                      </div>
                     }
                   />
                 )}

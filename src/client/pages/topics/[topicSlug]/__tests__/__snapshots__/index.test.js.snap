@@ -143,7 +143,7 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -456,7 +456,7 @@ exports[`<TopicDetails /> page should render correctly when topic verified 1`] =
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -747,7 +747,7 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -1468,7 +1468,7 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
