@@ -4,13 +4,13 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -134,11 +134,7 @@ const TopicDetails = ({
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
               isLoading={showLoading}
-              loadingDisplay={
-                <div className="text-center">
-                  <LoadingSpinner />
-                </div>
-              }
+              loadingDisplay={<SkeletonListing />}
               hasError={!!topicResourcesError}
               errorDisplay={
                 <div className="text-center sm:text-left error-text">

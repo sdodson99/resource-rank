@@ -5,9 +5,9 @@ import useAuthenticationState from '@/hooks/use-authentication-context';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import { useRouter } from 'next/router';
 import TopicListing from '@/components/TopicListing/TopicListing';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -88,11 +88,7 @@ export default function Topics() {
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
               isLoading={showLoading}
-              loadingDisplay={
-                <div className="text-center">
-                  <LoadingSpinner />
-                </div>
-              }
+              loadingDisplay={<SkeletonListing />}
               hasError={!!topicsError}
               errorDisplay={
                 <div className="text-center sm:text-left error-text">

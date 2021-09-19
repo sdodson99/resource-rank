@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
@@ -11,6 +10,7 @@ import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 import useNavigate from '@/hooks/use-navigate';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -176,11 +176,7 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
         <div className="mt-8">
           <LoadingErrorEmptyDataLayout
             isLoading={showLoading}
-            loadingDisplay={
-              <div className="text-center">
-                <LoadingSpinner />
-              </div>
-            }
+            loadingDisplay={<SkeletonListing />}
             hasError={!!resourcesError}
             errorDisplay={
               <div className="text-center sm:text-left error-text">

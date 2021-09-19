@@ -102,8 +102,8 @@ describe('<Topics />', () => {
     useTopicSearch.mockReturnValue(mockTopicSearch);
     render(withApp(Topics));
 
-    const loadingSpinner = screen.getByTestId('LoadingSpinner');
+    const loadingDisplay = screen.getByTestId('SkeletonListing');
 
-    expect(loadingSpinner).toBeInTheDocument();
+    expect(loadingDisplay).toBeInTheDocument();
   });
 });

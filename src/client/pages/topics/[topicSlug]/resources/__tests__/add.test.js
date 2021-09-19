@@ -125,9 +125,9 @@ describe('<AddTopicResource />', () => {
       });
       render(withApp(Page, props));
 
-      const loadingSpinner = screen.getByTestId('LoadingSpinner');
+      const loadingDisplay = screen.getByTestId('SkeletonListing');
 
-      expect(loadingSpinner).toBeInTheDocument();
+      expect(loadingDisplay).toBeInTheDocument();
     });
 
     describe('onAddResource', () => {

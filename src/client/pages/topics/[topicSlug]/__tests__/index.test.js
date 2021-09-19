@@ -19,8 +19,8 @@ describe('<TopicDetails />', () => {
     beforeEach(() => {
       mockTopicResourceSearch = {
         data: {},
-        error: new Error(),
-        isLoading: true,
+        error: null,
+        isLoading: false,
         isInitialized: true,
         searchVariables: { resourceSearch: 'search' },
         currentSearchVariables: { resourceSearch: 'currentSearch', limit: 10 },
@@ -91,9 +91,9 @@ describe('<TopicDetails />', () => {
       });
       render(withApp(TopicDetails, props));
 
-      const loadingSpinner = screen.getByTestId('LoadingSpinner');
+      const loadingDisplay = screen.getByTestId('SkeletonListing');
 
-      expect(loadingSpinner).toBeInTheDocument();
+      expect(loadingDisplay).toBeInTheDocument();
     });
 
     it('should render correctly with data', () => {
@@ -123,8 +123,6 @@ describe('<TopicDetails />', () => {
             ],
           },
         },
-        error: null,
-        isLoading: false,
       });
 
       const page = renderer.create(withApp(TopicDetails, props)).toJSON();
@@ -154,6 +152,7 @@ describe('<TopicDetails />', () => {
       useTopicResourceSearch.mockReturnValue({
         ...mockTopicResourceSearch,
         currentSearchVariables: {},
+        isLoading: false,
       });
 
       const page = renderer.create(withApp(TopicDetails, props)).toJSON();
