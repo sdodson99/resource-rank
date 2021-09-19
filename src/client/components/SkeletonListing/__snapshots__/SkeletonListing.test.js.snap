@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SkeletonListing /> should render correctly 1`] = `
+<div
+  className="SkeletonListing"
+  data-testid="SkeletonListing"
+>
+  <Skeleton
+    circle={false}
+    className="mb-3"
+    count={3}
+    delay={0}
+    duration={1.2}
+    height={100}
+    width={null}
+    wrapper={null}
+  />
+</div>
+`;
