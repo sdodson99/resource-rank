@@ -1,11 +1,8 @@
-import { useState } from 'react';
+import { renderHook, act } from '@testing-library/react-hooks';
+import { when } from 'jest-when';
 import useGraphQLFetcherContext from '../use-graphql-fetcher';
 import useLazyGraphQLRequest from '../use-lazy-graphql-request';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
 jest.mock('../use-graphql-fetcher');
 
 describe('useLazyGraphQLRequest', () => {
@@ -15,8 +12,6 @@ describe('useLazyGraphQLRequest', () => {
   let variables;
 
   beforeEach(() => {
-    useState.mockReturnValue([null, jest.fn()]);
-
     mockFetch = jest.fn();
     useGraphQLFetcherContext.mockReturnValue(mockFetch);
 
@@ -27,27 +22,16 @@ describe('useLazyGraphQLRequest', () => {
   });
 
   afterEach(() => {
-    useState.mockReset();
     useGraphQLFetcherContext.mockReset();
   });
 
-  it('should return request state', () => {
-    const expectedData = { name: 'name' };
-    const expectedError = { message: 'error' };
-    const expectedIsLoading = true;
-    useState.mockReturnValueOnce([expectedData]);
-    useState.mockReturnValueOnce([expectedError]);
-    useState.mockReturnValueOnce([expectedIsLoading]);
+  it('should return uninitialized state when uninitialized', () => {
+    const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-    const {
-      data: actualData,
-      error: actualError,
-      isLoading: actualIsLoading,
-    } = useLazyGraphQLRequest(document);
-
-    expect(actualData).toBe(expectedData);
-    expect(actualError).toBe(expectedError);
-    expect(actualIsLoading).toBe(expectedIsLoading);
+    expect(result.current.data).toBeUndefined();
+    expect(result.current.error).toBeUndefined();
+    expect(result.current.isLoading).toBeFalsy();
+    expect(result.current.isInitialized).toBeFalsy();
   });
 
   describe('on successful execute', () => {
@@ -57,37 +41,36 @@ describe('useLazyGraphQLRequest', () => {
       data = {
         message: 'some data',
       };
-      mockFetch.mockReturnValue(data);
+      when(mockFetch).calledWith(document, variables).mockReturnValue(data);
     });
 
-    it('should set data on successful execute', async () => {
-      const mockSetData = jest.fn();
-      useState.mockReturnValueOnce([null, mockSetData]);
+    it('should set data', async () => {
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      const { execute } = useLazyGraphQLRequest(document);
-      await execute(variables);
+      await act(async () => {
+        await result.current.execute(variables);
+      });
 
-      expect(mockSetData).toBeCalledWith(data);
+      expect(result.current.data).toBe(data);
     });
 
     it('should return data', async () => {
-      const { execute } = useLazyGraphQLRequest(document);
-      const { data: actualData } = await execute(variables);
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      expect(actualData).toBe(data);
+      await act(async () => {
+        const { data: responseData } = await result.current.execute(variables);
+        expect(responseData).toBe(data);
+      });
     });
 
-    it('should toggle loading', async () => {
-      const mockSetIsLoading = jest.fn();
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, mockSetIsLoading]);
+    it('should set initialized', async () => {
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      const { execute } = useLazyGraphQLRequest(document);
-      await execute(variables);
+      await act(async () => {
+        await result.current.execute(variables);
+      });
 
-      expect(mockSetIsLoading).toBeCalledWith(true);
-      expect(mockSetIsLoading).toBeCalledWith(false);
+      expect(result.current.isInitialized).toBe(true);
     });
   });
 
@@ -96,40 +79,42 @@ describe('useLazyGraphQLRequest', () => {
 
     beforeEach(() => {
       error = new Error('Error message');
-      mockFetch.mockImplementation(() => {
-        throw error;
-      });
+      when(mockFetch)
+        .calledWith(document, variables)
+        .mockImplementation(() => {
+          throw error;
+        });
     });
 
     it('should set error', async () => {
-      const mockSetError = jest.fn();
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, mockSetError]);
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      const { execute } = useLazyGraphQLRequest(document);
-      await execute(variables);
+      await act(async () => {
+        await result.current.execute(variables);
+      });
 
-      expect(mockSetError).toBeCalledWith(error);
+      expect(result.current.error).toBe(error);
     });
 
     it('should return error', async () => {
-      const { execute } = useLazyGraphQLRequest(document);
-      const { error: actualError } = await execute(variables);
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      expect(actualError).toBe(error);
+      await act(async () => {
+        const { error: responseError } = await result.current.execute(
+          variables
+        );
+        expect(responseError).toBe(error);
+      });
     });
 
-    it('should toggle loading', async () => {
-      const mockSetIsLoading = jest.fn();
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, jest.fn()]);
-      useState.mockReturnValueOnce([null, mockSetIsLoading]);
+    it('should set initialized', async () => {
+      const { result } = renderHook(() => useLazyGraphQLRequest(document));
 
-      const { execute } = useLazyGraphQLRequest(document);
-      await execute(variables);
+      await act(async () => {
+        await result.current.execute(variables);
+      });
 
-      expect(mockSetIsLoading).toBeCalledWith(true);
-      expect(mockSetIsLoading).toBeCalledWith(false);
+      expect(result.current.isInitialized).toBe(true);
     });
   });
 });

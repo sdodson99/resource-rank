@@ -5,6 +5,7 @@ export default function useLazyGraphQLRequest(gqlDocument) {
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const gqlFetch = useGraphQLFetcherContext();
 
@@ -28,6 +29,7 @@ export default function useLazyGraphQLRequest(gqlDocument) {
       };
     } finally {
       setIsLoading(false);
+      setIsInitialized(true);
     }
   };
 
@@ -36,5 +38,6 @@ export default function useLazyGraphQLRequest(gqlDocument) {
     data,
     error,
     isLoading,
+    isInitialized,
   };
 }
