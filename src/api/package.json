@@ -13,7 +13,8 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "deploy": "firebase deploy --only functions"

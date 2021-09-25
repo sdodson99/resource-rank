@@ -1,29 +1,32 @@
+const { when } = require('jest-when');
 const FirebaseUsersDataSource = require('../firebase-users-data-source');
 
 describe('FirebaseUsersDataSource', () => {
   let firebaseUsersDataSource;
 
-  let mockGetUser;
+  let mockGetUsers;
 
   let userId;
 
   beforeEach(() => {
-    mockGetUser = jest.fn();
-    const stubFirebaseApp = {
+    mockGetUsers = jest.fn();
+    const mockFirebaseApp = {
       auth: () => ({
-        getUser: mockGetUser,
+        getUsers: mockGetUsers,
       }),
     };
 
-    firebaseUsersDataSource = new FirebaseUsersDataSource(stubFirebaseApp);
+    firebaseUsersDataSource = new FirebaseUsersDataSource(mockFirebaseApp);
 
     userId = '123123123';
   });
 
   describe('getUser', () => {
     it('should return user if user exists for ID', async () => {
-      const expectedUser = { name: 'test' };
-      mockGetUser.mockReturnValueOnce(expectedUser);
+      const expectedUser = { uid: userId, name: 'test' };
+      when(mockGetUsers)
+        .calledWith([{ uid: userId }])
+        .mockReturnValue({ users: [expectedUser], notFound: [] });
 
       const actualUser = await firebaseUsersDataSource.getUser(userId);
 
@@ -32,7 +35,9 @@ describe('FirebaseUsersDataSource', () => {
 
     it('should return empty object if user does not exist for ID', async () => {
       const expectedUser = {};
-      mockGetUser.mockReturnValueOnce(null);
+      when(mockGetUsers)
+        .calledWith([{ uid: userId }])
+        .mockReturnValue({ users: [], notFound: [] });
 
       const actualUser = await firebaseUsersDataSource.getUser(userId);
 
@@ -41,9 +46,11 @@ describe('FirebaseUsersDataSource', () => {
 
     it('should return empty object if getting user throws error', async () => {
       const expectedUser = {};
-      mockGetUser.mockImplementationOnce(() => {
-        throw new Error();
-      });
+      when(mockGetUsers)
+        .calledWith([{ uid: userId }])
+        .mockImplementationOnce(() => {
+          throw new Error();
+        });
 
       const actualUser = await firebaseUsersDataSource.getUser(userId);
 
