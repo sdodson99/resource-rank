@@ -1,3 +1,5 @@
+const { ApolloError } = require('apollo-server-express');
+
 /**
  * Data source for topic resources.
  */
@@ -12,6 +14,29 @@ class TopicResourcesDataSource {
     this.topicsDataSource = topicsDataSource;
     this.resourcesDataSource = resourcesDataSource;
     this.ratingsDataSource = ratingsDataSource;
+  }
+
+  /**
+   * Get a topic resource by the topic and resource slug.
+   * @param {string} topicSlug The topic slug.
+   * @param {string} resourceSlug The resource slug.
+   * @return {object} The topic resource for the slugs.
+   */
+  async getBySlug(topicSlug, resourceSlug) {
+    const topic = await this.topicsDataSource.getBySlug(topicSlug);
+    const resource = await this.resourcesDataSource.getBySlug(resourceSlug);
+
+    if (!topic || !resource) {
+      throw new ApolloError(
+        'Topic resource not found.',
+        'TOPIC_RESOURCE_NOT_FOUND'
+      );
+    }
+
+    return {
+      topic,
+      resource,
+    };
   }
 
   /**
@@ -51,10 +76,7 @@ class TopicResourcesDataSource {
       search
     );
 
-    const { id: topicId } = topic;
     const topicResources = filteredResources.map((r) => ({
-      topicId,
-      resourceId: r._id,
       resource: r,
       topic,
       createdBy: r.createdBy,

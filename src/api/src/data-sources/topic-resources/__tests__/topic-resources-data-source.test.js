@@ -34,6 +34,68 @@ describe('TopicResourcesDataSource', () => {
     );
   });
 
+  describe('getBySlug', () => {
+    let topicSlug;
+    let resourceSlug;
+
+    beforeEach(() => {
+      topicSlug = 'topic-name';
+      resourceSlug = 'resource-name';
+    });
+
+    it('should return topic resource', async () => {
+      const expected = {
+        topic: {
+          id: '123',
+          slug: topicSlug,
+        },
+        resource: {
+          id: '456',
+          slug: resourceSlug,
+        },
+      };
+      when(topicsDataSource.getBySlug)
+        .calledWith(topicSlug)
+        .mockReturnValue(expected.topic);
+      when(resourcesDataSource.getBySlug)
+        .calledWith(resourceSlug)
+        .mockReturnValue(expected.resource);
+
+      const actual = await topicResourcesDataSource.getBySlug(
+        topicSlug,
+        resourceSlug
+      );
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should throw topic resource not found error when topic not found', async () => {
+      when(topicsDataSource.getBySlug)
+        .calledWith(topicSlug)
+        .mockReturnValue(null);
+      when(resourcesDataSource.getBySlug)
+        .calledWith(resourceSlug)
+        .mockReturnValue({});
+
+      await expect(async () => {
+        await topicResourcesDataSource.getBySlug(topicSlug, resourceSlug);
+      }).rejects.toThrow('Topic resource not found.');
+    });
+
+    it('should throw topic resource not found error when resource not found', async () => {
+      when(topicsDataSource.getBySlug)
+        .calledWith(topicSlug)
+        .mockReturnValue({});
+      when(resourcesDataSource.getBySlug)
+        .calledWith(resourceSlug)
+        .mockReturnValue(null);
+
+      await expect(async () => {
+        await topicResourcesDataSource.getBySlug(topicSlug, resourceSlug);
+      }).rejects.toThrow('Topic resource not found.');
+    });
+  });
+
   describe('searchByTopicId', () => {
     let searchOptions;
 
@@ -54,7 +116,6 @@ describe('TopicResourcesDataSource', () => {
             resource: {
               id: 'resource456',
             },
-            resourceId: undefined,
             topic: {
               id: topicId,
               resources: [
@@ -70,7 +131,6 @@ describe('TopicResourcesDataSource', () => {
                 },
               ],
             },
-            topicId: 'topic123',
           },
         ],
         totalCount: 2,

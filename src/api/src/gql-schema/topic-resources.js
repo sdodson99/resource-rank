@@ -6,7 +6,6 @@ exports.typeDefs = gql`
       topicId: ID!
       searchOptions: SearchOptionsInput
     ): RootTopicResourceListing
-    topicResource(topicId: ID!, resourceId: ID!): RootTopicResource
     topicResourceBySlug(
       topicSlug: String!
       resourceSlug: String!
@@ -50,32 +49,8 @@ exports.resolvers = {
   Query: {
     topicResources: (_, { topicId, searchOptions }, { dataSources }) =>
       dataSources.topicResources.searchByTopicId(topicId, searchOptions),
-    topicResource: (_, { topicId, resourceId }) => ({
-      topicId,
-      resourceId,
-    }),
-    topicResourceBySlug: async (
-      _,
-      { topicSlug, resourceSlug },
-      { dataSources: { topics, resources } }
-    ) => {
-      const topic = await topics.getBySlug(topicSlug);
-      const resource = await resources.getBySlug(resourceSlug);
-
-      if (!topic || !resource) {
-        throw new ApolloError(
-          'Topic resource not found.',
-          'TOPIC_RESOURCE_NOT_FOUND'
-        );
-      }
-
-      return {
-        topicId: topic.id,
-        resourceId: resource.id,
-        topic,
-        resource,
-      };
-    },
+    topicResourceBySlug: (_, { topicSlug, resourceSlug }, { dataSources }) =>
+      dataSources.topicResources.getBySlug(topicSlug, resourceSlug),
     availableResources: async (
       _,
       { topicId, search, offset, limit },
@@ -121,10 +96,6 @@ exports.resolvers = {
       dataSources.topics.addResource(topicId, resourceId),
   },
   RootTopicResource: {
-    topic: ({ topicId }, _, { dataSources }) =>
-      dataSources.topics.getById(topicId),
-    resource: ({ resourceId }, _, { dataSources }) =>
-      dataSources.resources.getById(resourceId),
     ratingList: ({ topicId, resourceId }, _, { dataSources }) =>
       dataSources.ratings.getAllForTopicResource(topicId, resourceId),
     createdBy: ({ createdBy }, _, { dataSources }) =>

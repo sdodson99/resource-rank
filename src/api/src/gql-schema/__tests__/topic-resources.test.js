@@ -37,6 +37,7 @@ describe('topic resources resolvers', () => {
     };
     topicResourcesDataSource = {
       searchByTopicId: jest.fn(),
+      getBySlug: jest.fn(),
     };
     usersDataSource = {
       getUser: jest.fn(),
@@ -75,83 +76,31 @@ describe('topic resources resolvers', () => {
     });
   });
 
-  describe('topic resource query', () => {
-    it('should return topic resource', () => {
-      const expected = { topicId, resourceId };
-
-      const actual = resolvers.Query.topicResource(null, {
-        topicId,
-        resourceId,
-      });
-
-      expect(actual).toEqual(expected);
-    });
-  });
-
   describe('topic resource by slug query', () => {
+    let topicSlug;
+    let resourceSlug;
+
+    beforeEach(() => {
+      topicSlug = 'topic-name';
+      resourceSlug = 'resource-name';
+    });
+
     it('should return topic resource', async () => {
-      const expected = {
-        topicId: '123',
-        resourceId: '456',
-        topic: {
-          id: '123',
-          slug: 'topic-name',
-        },
-        resource: {
-          id: '456',
-          slug: 'resource-name',
-        },
-      };
-      topicsDataSource.getBySlug.mockReturnValue({
-        id: '123',
-        slug: 'topic-name',
-      });
-      resourcesDataSource.getBySlug.mockReturnValue({
-        id: '456',
-        slug: 'resource-name',
-      });
+      const expected = {};
+      when(topicResourcesDataSource.getBySlug)
+        .calledWith(topicSlug, resourceSlug)
+        .mockReturnValue(expected);
 
       const actual = await resolvers.Query.topicResourceBySlug(
         null,
         {
-          topicId,
-          resourceId,
+          topicSlug,
+          resourceSlug,
         },
         context
       );
 
       expect(actual).toEqual(expected);
-    });
-
-    it('should throw topic resource not found error when topic not found', async () => {
-      topicsDataSource.getBySlug.mockReturnValue(null);
-
-      await expect(async () => {
-        await resolvers.Query.topicResourceBySlug(
-          null,
-          {
-            topicId,
-            resourceId,
-          },
-          context
-        );
-      }).rejects.toThrow('Topic resource not found.');
-    });
-
-    it('should throw topic resource not found error when resource not found', async () => {
-      topicsDataSource.getBySlug.mockReturnValue({});
-      resourcesDataSource.getBySlug.mockReturnValue(null);
-
-      await expect(async () => {
-        await resolvers.Query.topicResourceBySlug(
-          null,
-          {
-            topicId,
-            resourceId,
-          },
-          context
-        );
-      }).rejects.toThrow('Topic resource not found.');
     });
   });
 
@@ -267,40 +216,6 @@ describe('topic resources resolvers', () => {
       const actual = resolvers.Mutation.createTopicResource(
         null,
         { topicId, resourceId },
-        context
-      );
-
-      expect(actual).toBe(expected);
-    });
-  });
-
-  describe('topic resource topic resolver', () => {
-    it('should return topic for topic id', () => {
-      const expected = { id: topicId };
-      when(topicsDataSource.getById)
-        .calledWith(topicId)
-        .mockReturnValue(expected);
-
-      const actual = resolvers.RootTopicResource.topic(
-        { topicId },
-        null,
-        context
-      );
-
-      expect(actual).toBe(expected);
-    });
-  });
-
-  describe('topic resource resource resolver', () => {
-    it('should return resource for resource id', () => {
-      const expected = { id: resourceId };
-      when(resourcesDataSource.getById)
-        .calledWith(resourceId)
-        .mockReturnValue(expected);
-
-      const actual = resolvers.RootTopicResource.resource(
-        { resourceId },
-        null,
         context
       );
 
