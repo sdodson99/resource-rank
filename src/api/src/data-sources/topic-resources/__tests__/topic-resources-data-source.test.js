@@ -202,59 +202,29 @@ describe('TopicResourcesDataSource', () => {
     let offset;
     let limit;
 
-    let userId;
-
     beforeEach(() => {
       search = 'search';
       offset = 5;
       limit = 5;
-
-      userId = 'user123';
-
-      when(resourcesDataSource.search)
-        .calledWith(search, { offset, limit })
-        .mockReturnValue({
-          items: [
-            {
-              id: 'resource123',
-              name: 'resource1',
-              link: 'resource1.com',
-              createdBy: userId,
-              verified: true,
-            },
-            {
-              id: 'resource456',
-              name: 'resource2',
-              link: 'resource2.com',
-              createdBy: userId,
-              verified: false,
-            },
-          ],
-          totalCount: 2,
-        });
     });
 
-    it('should return available resources for topic', async () => {
+    it('should throw error if topic not found', async () => {
+      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue(null);
+
+      await expect(async () => {
+        await topicResourcesDataSource.searchAvailableResources(topicId);
+      }).rejects.toThrow('Topic not found.');
+    });
+
+    it('should return available resources if topic found', async () => {
       const expected = {
         items: [
           {
-            resource: {
-              id: 'resource123',
-              name: 'resource1',
-              link: 'resource1.com',
-              createdBy: userId,
-              verified: true,
-            },
-            alreadyAdded: true,
+            resource: { id: '1' },
+            alreadyAdded: false,
           },
           {
-            resource: {
-              id: 'resource456',
-              name: 'resource2',
-              link: 'resource2.com',
-              createdBy: userId,
-              verified: false,
-            },
+            resource: { id: '2' },
             alreadyAdded: false,
           },
         ],
@@ -263,14 +233,17 @@ describe('TopicResourcesDataSource', () => {
       when(topicsDataSource.getById)
         .calledWith(topicId)
         .mockReturnValue({
-          resources: [
-            {
-              resource: 'resource123',
-            },
-            {
-              resource: 'other456',
-            },
-          ],
+          resources: [{ resource: '123' }, { resource: '456' }],
+        });
+      when(resourcesDataSource.search)
+        .calledWith(search, {
+          offset,
+          limit,
+          excludeIds: ['123', '456'],
+        })
+        .mockReturnValue({
+          items: [{ id: '1' }, { id: '2' }],
+          totalCount: 2,
         });
 
       const actual = await topicResourcesDataSource.searchAvailableResources(
@@ -283,15 +256,6 @@ describe('TopicResourcesDataSource', () => {
       );
 
       expect(actual).toEqual(expected);
-    });
-
-    it('should throw error if topic not found', async () => {
-      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue(null);
-      resourcesDataSource.search.mockReturnValue({ items: [] });
-
-      await expect(async () => {
-        await topicResourcesDataSource.searchAvailableResources(topicId);
-      }).rejects.toThrow('Topic not found.');
     });
   });
 });

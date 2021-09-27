@@ -80,13 +80,14 @@ class MongoResourcesDataSource extends DataSource {
   /**
    * Search for resources.
    * @param {string} query The resource query to search for.
-   * @param {object} options Options for the seach.
+   * @param {object} options Options for the search.
    * @return {Promise<object>} The resources matching the query.
    * @throws {Error} Thrown if query fails.
    */
-  async search(query = '', { offset = 0, limit = 20 } = {}) {
+  async search(query = '', { offset = 0, limit = 20, excludeIds = [] } = {}) {
     const { docs, total } = await this.resourceModel.paginate(
       {
+        _id: { $nin: excludeIds },
         name: { $regex: query, $options: 'i' },
         slug: { $ne: null },
       },

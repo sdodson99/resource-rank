@@ -106,11 +106,13 @@ describe('MongoResourcesDataSource', () => {
     let query;
     let offset;
     let limit;
+    let excludeIds;
 
     beforeEach(() => {
       query = 'some-resource';
       offset = 10;
       limit = 5;
+      excludeIds = ['1'];
     });
 
     it('should return paginated resources if query succeeds', async () => {
@@ -121,6 +123,7 @@ describe('MongoResourcesDataSource', () => {
       when(Resource.paginate)
         .calledWith(
           {
+            _id: { $nin: excludeIds },
             name: { $regex: query, $options: 'i' },
             slug: { $ne: null },
           },
@@ -138,6 +141,7 @@ describe('MongoResourcesDataSource', () => {
       const actual = await mongoResourcesDataSource.search(query, {
         offset,
         limit,
+        excludeIds,
       });
 
       expect(actual).toEqual(expected);
@@ -151,6 +155,7 @@ describe('MongoResourcesDataSource', () => {
       when(Resource.paginate)
         .calledWith(
           {
+            _id: { $nin: [] },
             name: { $regex: '', $options: 'i' },
             slug: { $ne: null },
           },

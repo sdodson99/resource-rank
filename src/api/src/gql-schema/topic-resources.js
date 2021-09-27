@@ -36,7 +36,7 @@ exports.typeDefs = gql`
 
   type AvailableResource {
     resource: Resource!
-    alreadyAdded: Boolean
+    alreadyAdded: Boolean @deprecated
   }
 
   type AvailableResourceListing {

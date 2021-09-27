@@ -131,11 +131,20 @@ class TopicResourcesDataSource {
     topicId,
     { search = '', offset = 0, limit = 20 } = {}
   ) {
+    const topic = await this.topicsDataSource.getById(topicId);
+
+    if (!topic) {
+      throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
+    }
+
+    const alreadyAddedResourceIds = topic.resources.map((r) => r.resource);
+
     const { items, totalCount } = await this.resourcesDataSource.search(
       search,
       {
         offset,
         limit,
+        excludeIds: alreadyAddedResourceIds,
       }
     );
 
@@ -143,25 +152,6 @@ class TopicResourcesDataSource {
       resource,
       alreadyAdded: false,
     }));
-
-    const availableResourceMap = {};
-    availableResourceItems.forEach((a) => {
-      availableResourceMap[a.resource.id] = a;
-    });
-
-    const topic = await this.topicsDataSource.getById(topicId);
-
-    if (!topic) {
-      throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
-    }
-
-    topic.resources.forEach((resource) => {
-      const { resource: resourceId } = resource;
-
-      if (availableResourceMap[resourceId]) {
-        availableResourceMap[resourceId].alreadyAdded = true;
-      }
-    });
 
     return {
       items: availableResourceItems,
