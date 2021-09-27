@@ -378,7 +378,7 @@ exports[`<AddTopicResource /> page should render correctly 1`] = `
                       <div
                         className="text-center sm:text-left"
                       >
-                        No resources have been created.
+                        No resources are available to add.
                       </div>
                     </div>
                   </div>

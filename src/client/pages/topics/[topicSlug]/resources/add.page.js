@@ -119,10 +119,10 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
   const getSearchDisplay = () => {
     if (!currentSearch) {
-      return 'No resources have been created.';
+      return 'No resources are available to add.';
     }
 
-    return `No resources matching '${currentSearch}' have been created.`;
+    return `No resources matching '${currentSearch}' are available to add.`;
   };
 
   const totalResourcesCount = resourcesData?.availableResources?.totalCount;
