@@ -33,19 +33,19 @@ jobs:
         run: 'npm ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
-      - name: 'Lint'
-        run: 'npm run lint'
-        working-directory: ${{ env.CLIENT_PATH }}
+      # - name: 'Lint'
+      #   run: 'npm run lint'
+      #   working-directory: ${{ env.CLIENT_PATH }}
 
-      - name: 'Test'
-        run: 'npm run test:ci'
-        working-directory: ${{ env.CLIENT_PATH }}
+      # - name: 'Test'
+      #   run: 'npm run test:ci'
+      #   working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Install E2E Browsers'
-        run: 'npx playwright install'
+        run: 'PLAYWRIGHT_BROWSERS_PATH=/Users/runner/work/playwright npm install playwright-chromium@1.14.0'
 
       - name: 'E2E'
-        run: 'npm run e2e:ci'
+        run: 'PLAYWRIGHT_BROWSERS_PATH=/Users/runner/work/playwright npm run e2e:ci'
         working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Build'
