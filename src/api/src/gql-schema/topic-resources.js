@@ -1,4 +1,4 @@
-const { gql, ApolloError } = require('apollo-server');
+const { gql } = require('apollo-server');
 
 exports.typeDefs = gql`
   type Query {
@@ -51,45 +51,16 @@ exports.resolvers = {
       dataSources.topicResources.searchByTopicId(topicId, searchOptions),
     topicResourceBySlug: (_, { topicSlug, resourceSlug }, { dataSources }) =>
       dataSources.topicResources.getBySlug(topicSlug, resourceSlug),
-    availableResources: async (
+    availableResources: (
       _,
       { topicId, search, offset, limit },
       { dataSources }
-    ) => {
-      const { items, totalCount } = await dataSources.resources.search(search, {
+    ) =>
+      dataSources.topicResources.searchAvailableResources(topicId, {
+        search,
         offset,
         limit,
-      });
-
-      const availableResourceItems = items.map((resource) => ({
-        resource,
-        alreadyAdded: false,
-      }));
-
-      const availableResourceMap = {};
-      availableResourceItems.forEach((a) => {
-        availableResourceMap[a.resource.id] = a;
-      });
-
-      const topic = await dataSources.topics.getById(topicId);
-
-      if (!topic) {
-        throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
-      }
-
-      topic.resources.forEach((resource) => {
-        const { resource: resourceId } = resource;
-
-        if (availableResourceMap[resourceId]) {
-          availableResourceMap[resourceId].alreadyAdded = true;
-        }
-      });
-
-      return {
-        items: availableResourceItems,
-        totalCount,
-      };
-    },
+      }),
   },
   Mutation: {
     createTopicResource: (_, { topicId, resourceId }, { dataSources }) =>

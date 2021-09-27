@@ -38,6 +38,7 @@ describe('topic resources resolvers', () => {
     topicResourcesDataSource = {
       searchByTopicId: jest.fn(),
       getBySlug: jest.fn(),
+      searchAvailableResources: jest.fn(),
     };
     usersDataSource = {
       getUser: jest.fn(),
@@ -111,68 +112,17 @@ describe('topic resources resolvers', () => {
     beforeEach(() => {
       offset = 5;
       limit = 5;
-
-      when(resourcesDataSource.search)
-        .calledWith(resourceSearch, { offset, limit })
-        .mockReturnValue({
-          items: [
-            {
-              id: 'resource123',
-              name: 'resource1',
-              link: 'resource1.com',
-              createdBy: userId,
-              verified: true,
-            },
-            {
-              id: 'resource456',
-              name: 'resource2',
-              link: 'resource2.com',
-              createdBy: userId,
-              verified: false,
-            },
-          ],
-          totalCount: 2,
-        });
     });
 
     it('should return available resources for topic', async () => {
-      const expected = {
-        items: [
-          {
-            resource: {
-              id: 'resource123',
-              name: 'resource1',
-              link: 'resource1.com',
-              createdBy: userId,
-              verified: true,
-            },
-            alreadyAdded: true,
-          },
-          {
-            resource: {
-              id: 'resource456',
-              name: 'resource2',
-              link: 'resource2.com',
-              createdBy: userId,
-              verified: false,
-            },
-            alreadyAdded: false,
-          },
-        ],
-        totalCount: 2,
-      };
-      when(topicsDataSource.getById)
-        .calledWith(topicId)
-        .mockReturnValue({
-          resources: [
-            {
-              resource: 'resource123',
-            },
-            {
-              resource: 'other456',
-            },
-          ],
-        });
+      const expected = {};
+      when(topicResourcesDataSource.searchAvailableResources)
+        .calledWith(topicId, {
+          search: resourceSearch,
+          offset,
+          limit,
+        })
+        .mockReturnValue(expected);
 
       const actual = await resolvers.Query.availableResources(
         null,
@@ -186,23 +136,6 @@ describe('topic resources resolvers', () => {
       );
 
       expect(actual).toEqual(expected);
-    });
-
-    it('should throw error if topic not found', async () => {
-      when(topicsDataSource.getById).calledWith(topicId).mockReturnValue(null);
-
-      await expect(async () => {
-        await resolvers.Query.availableResources(
-          null,
-          {
-            topicId,
-            search: resourceSearch,
-            offset,
-            limit,
-          },
-          context
-        );
-      }).rejects.toThrow('Topic not found.');
     });
   });
 

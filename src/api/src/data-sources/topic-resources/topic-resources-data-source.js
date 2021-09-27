@@ -120,6 +120,54 @@ class TopicResourcesDataSource {
       totalCount: filteredResources.length,
     };
   }
+
+  /**
+   * Search available resources for a topic.
+   * @param {object} topicId The ID of the topic to find available resources for.
+   * @param {object} searchOptions The options for the available resource search.
+   * @return {object} The available resource search result.
+   */
+  async searchAvailableResources(
+    topicId,
+    { search = '', offset = 0, limit = 20 } = {}
+  ) {
+    const { items, totalCount } = await this.resourcesDataSource.search(
+      search,
+      {
+        offset,
+        limit,
+      }
+    );
+
+    const availableResourceItems = items.map((resource) => ({
+      resource,
+      alreadyAdded: false,
+    }));
+
+    const availableResourceMap = {};
+    availableResourceItems.forEach((a) => {
+      availableResourceMap[a.resource.id] = a;
+    });
+
+    const topic = await this.topicsDataSource.getById(topicId);
+
+    if (!topic) {
+      throw new ApolloError('Topic not found.', 'TOPIC_NOT_FOUND');
+    }
+
+    topic.resources.forEach((resource) => {
+      const { resource: resourceId } = resource;
+
+      if (availableResourceMap[resourceId]) {
+        availableResourceMap[resourceId].alreadyAdded = true;
+      }
+    });
+
+    return {
+      items: availableResourceItems,
+      totalCount,
+    };
+  }
 }
 
 module.exports = TopicResourcesDataSource;
