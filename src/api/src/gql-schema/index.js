@@ -18,10 +18,6 @@ const {
 } = require('./ratings');
 const { typeDefs: userTypeDefs, resolvers: usersResolvers } = require('./user');
 const {
-  typeDefs: configurationTypeDefs,
-  resolvers: configurationResolvers,
-} = require('./configuration');
-const {
   typeDefs: featureFlagsTypeDefs,
   resolvers: featureFlagsResolvers,
 } = require('./feature-flags');
@@ -33,7 +29,6 @@ exports.typeDefs = mergeTypeDefs([
   topicResourcesTypeDefs,
   ratingsTypeDefs,
   userTypeDefs,
-  configurationTypeDefs,
   featureFlagsTypeDefs,
 ]);
 
@@ -43,6 +38,5 @@ exports.resolvers = mergeResolvers([
   topicResourcesResolvers,
   ratingsResolvers,
   usersResolvers,
-  configurationResolvers,
   featureFlagsResolvers,
 ]);
