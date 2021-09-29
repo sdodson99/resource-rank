@@ -1,6 +1,3 @@
-process.env.FIREBASE_CONFIG = {};
-process.env.GCLOUD_PROJECT = {};
-
 const { https, config } = require('firebase-functions');
 const firebaseAdmin = require('firebase-admin');
 const { createGQLServer } = require('../../server/create-gql-server');
