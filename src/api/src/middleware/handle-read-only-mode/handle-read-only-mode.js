@@ -1,3 +1,4 @@
+const logger = require('../../monitoring/logger');
 const isMutation = require('./is-mutation');
 
 /**
@@ -19,6 +20,10 @@ async function isForbiddenReadOnlyModeRequest(req, readOnlyModeDataSource) {
  */
 async function handleReadOnlyMode(req, res, next, readOnlyModeDataSource) {
   if (await isForbiddenReadOnlyModeRequest(req, readOnlyModeDataSource)) {
+    logger.info(
+      'Received forbidden request due to read-only mode. Status code',
+      403
+    );
     return res.sendStatus(403);
   }
 

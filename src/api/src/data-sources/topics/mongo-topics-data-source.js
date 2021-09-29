@@ -4,6 +4,7 @@ const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
 const slugify = require('../../services/slugify');
 const validateTopic = require('../../validators/topic');
+const logger = require('../../monitoring/logger');
 
 /**
  * Data source for topics from a Mongo database.
@@ -52,6 +53,7 @@ class MongoTopicsDataSource extends DataSource {
     const topic = await this.topicDataLoader.load(id);
 
     if (!topic) {
+      logger.info('Unable to find topic with ID', id);
       return null;
     }
 
@@ -70,6 +72,7 @@ class MongoTopicsDataSource extends DataSource {
     });
 
     if (!topic) {
+      logger.info('Unable to find topic with slug', slug);
       return null;
     }
 
@@ -95,6 +98,8 @@ class MongoTopicsDataSource extends DataSource {
         sort: { verified: -1 },
       }
     );
+
+    logger.info('Successfully executed topic search with query', query);
 
     return {
       items: docs,

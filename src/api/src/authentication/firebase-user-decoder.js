@@ -1,3 +1,5 @@
+const logger = require('../monitoring/logger');
+
 const BEARER_PREFIX = 'Bearer ';
 
 /**
@@ -33,6 +35,7 @@ class FirebaseUserDecoder {
     try {
       return await this.firebaseApp.auth().verifyIdToken(token);
     } catch (error) {
+      logger.warn('Unable to verify Firebase user ID token.', error);
       return null;
     }
   }

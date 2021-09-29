@@ -4,6 +4,7 @@ const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
 const slugify = require('../../services/slugify');
 const validateResource = require('../../validators/resource');
+const logger = require('../../monitoring/logger');
 
 /**
  * Data source for resources from a Mongo database.
@@ -97,6 +98,8 @@ class MongoResourcesDataSource extends DataSource {
         sort: { verified: -1 },
       }
     );
+
+    logger.info('Successfully executed resource search with query', query);
 
     return {
       items: docs,

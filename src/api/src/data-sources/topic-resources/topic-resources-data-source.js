@@ -1,4 +1,5 @@
 const { ApolloError } = require('apollo-server-express');
+const logger = require('../../monitoring/logger');
 
 /**
  * Data source for topic resources.
@@ -66,10 +67,7 @@ class TopicResourcesDataSource {
       };
     }
 
-    let resourceIds = [];
-    if (topic && topic.resources) {
-      resourceIds = topic.resources.map((r) => r.resource);
-    }
+    const resourceIds = topic.resources.map((r) => r.resource);
 
     const filteredResources = await this.resourcesDataSource.getByIds(
       resourceIds,
@@ -115,6 +113,13 @@ class TopicResourcesDataSource {
       offset + limit
     );
 
+    logger.info(
+      'Successfully executed topic resource search on topic',
+      topic.name,
+      'with query',
+      search
+    );
+
     return {
       items: paginatedTopicResources,
       totalCount: filteredResources.length,
@@ -152,6 +157,13 @@ class TopicResourcesDataSource {
       resource,
       alreadyAdded: false,
     }));
+
+    logger.info(
+      'Successfully executed available resource search for topic',
+      topic.name,
+      'with query',
+      search
+    );
 
     return {
       items: availableResourceItems,

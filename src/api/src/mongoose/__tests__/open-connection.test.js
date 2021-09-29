@@ -22,4 +22,14 @@ describe('connect', () => {
       useUnifiedTopology: true,
     });
   });
+
+  it('should throw error if connection fails', async () => {
+    mongoose.connect.mockImplementation(() => {
+      throw new Error('Error');
+    });
+
+    await expect(async () => {
+      await connect(connectionString);
+    }).rejects.toThrow();
+  });
 });

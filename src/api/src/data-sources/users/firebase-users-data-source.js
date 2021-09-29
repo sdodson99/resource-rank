@@ -1,4 +1,5 @@
 const DataLoader = require('dataloader');
+const logger = require('../../monitoring/logger');
 
 const FIREBASE_USERS_MAX_BATCH_SIZE = 100;
 
@@ -41,8 +42,15 @@ class FirebaseUsersDataSource {
   async getUser(id) {
     try {
       const user = await this.userByIdDataLoader.load(id);
-      return user || {};
+
+      if (!user) {
+        logger.info('Unable to find user with ID', id);
+        return {};
+      }
+
+      return user;
     } catch (error) {
+      logger.error('Failed to load user with ID', id, error);
       return {};
     }
   }
