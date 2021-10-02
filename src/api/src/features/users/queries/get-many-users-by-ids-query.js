@@ -1,3 +1,4 @@
+const logger = require('../../../monitoring/logger');
 const { User } = require('../user');
 
 const MAX_FIREBASE_USERS_BATCH_SIZE = 100;
@@ -23,6 +24,9 @@ class GetManyUsersByIdsQuery {
    */
   async execute(userIds) {
     if (userIds.length > this.maxBatchSize) {
+      logger.error(
+        'Failed to batch load users. Amount of user IDs exceeded maximum 100.'
+      );
       throw new Error('Amount of user IDs cannot exceed 100.');
     }
 
