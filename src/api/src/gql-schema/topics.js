@@ -59,6 +59,6 @@ exports.resolvers = {
     resources: (topic, { searchOptions }, { dataSources }) =>
       dataSources.topicResources.searchByTopic(topic, searchOptions),
     createdBy: ({ createdBy }, _, { dataSources }) =>
-      dataSources.usersDataSource.getUser(createdBy),
+      dataSources.users.getById(createdBy),
   },
 };

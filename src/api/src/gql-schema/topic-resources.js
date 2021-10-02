@@ -70,6 +70,6 @@ exports.resolvers = {
     ratingList: ({ topicId, resourceId }, _, { dataSources }) =>
       dataSources.ratings.getAllForTopicResource(topicId, resourceId),
     createdBy: ({ createdBy }, _, { dataSources }) =>
-      dataSources.usersDataSource.getUser(createdBy),
+      dataSources.users.getById(createdBy),
   },
 };

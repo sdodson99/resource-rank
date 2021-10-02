@@ -13,7 +13,6 @@ describe('createGQLServer', () => {
 
   let readOnlyModeDataSource;
   let userDecoder;
-  let usersDataSource;
   let featureFlagsDataSource;
 
   beforeEach(() => {
@@ -31,7 +30,6 @@ describe('createGQLServer', () => {
     userDecoder = {
       getUserFromRequest: jest.fn(),
     };
-    usersDataSource = {};
     featureFlagsDataSource = {};
   });
 
@@ -44,7 +42,6 @@ describe('createGQLServer', () => {
     const app = createGQLServer({
       readOnlyModeDataSource,
       userDecoder,
-      usersDataSource,
       featureFlagsDataSource,
     });
 
@@ -63,7 +60,6 @@ describe('createGQLServer', () => {
     createGQLServer({
       readOnlyModeDataSource,
       userDecoder,
-      usersDataSource,
       featureFlagsDataSource,
     });
 
@@ -79,7 +75,6 @@ describe('createGQLServer', () => {
     createGQLServer({
       readOnlyModeDataSource,
       userDecoder,
-      usersDataSource,
       featureFlagsDataSource,
     });
     const contextFunction = ApolloServer.mock.calls[0][0].context;
@@ -92,22 +87,19 @@ describe('createGQLServer', () => {
     createGQLServer({
       readOnlyModeDataSource,
       userDecoder,
-      usersDataSource,
       featureFlagsDataSource,
     });
     const dataSourcesFunction = ApolloServer.mock.calls[0][0].dataSources;
     const {
-      readOnlyModeDataSource: actualReadOnlyModeDataSource,
-      usersDataSource: actualUsersDataSource,
+      users,
       topics,
       resources,
       ratings,
       featureFlags,
     } = dataSourcesFunction();
 
-    expect(actualReadOnlyModeDataSource).toBe(readOnlyModeDataSource);
-    expect(actualUsersDataSource).toBe(usersDataSource);
     expect(featureFlags).toBe(featureFlagsDataSource);
+    expect(users).toBeTruthy();
     expect(topics).toBeTruthy();
     expect(resources).toBeTruthy();
     expect(ratings).toBeTruthy();

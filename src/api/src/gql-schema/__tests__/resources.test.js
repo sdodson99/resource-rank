@@ -10,11 +10,13 @@ describe('resources resolvers', () => {
     resourcesDataSource = {
       search: jest.fn(),
     };
-    usersDataSource = {};
+    usersDataSource = {
+      getById: jest.fn(),
+    };
     context = {
       dataSources: {
         resources: resourcesDataSource,
-        usersDataSource,
+        users: usersDataSource,
       },
     };
   });
@@ -156,8 +158,10 @@ describe('resources resolvers', () => {
     });
 
     it('should return user for resource', () => {
-      const expected = { userId };
-      usersDataSource.getUser = () => expected;
+      const expected = { id: userId };
+      when(usersDataSource.getById)
+        .calledWith(userId)
+        .mockReturnValue(expected);
 
       const actual = resolvers.Resource.createdBy(
         { createdBy: userId },
@@ -166,14 +170,6 @@ describe('resources resolvers', () => {
       );
 
       expect(actual).toBe(expected);
-    });
-
-    it('should get user for user id', () => {
-      usersDataSource.getUser = jest.fn();
-
-      resolvers.Resource.createdBy({ createdBy: userId }, null, context);
-
-      expect(usersDataSource.getUser.mock.calls[0][0]).toBe(userId);
     });
   });
 });

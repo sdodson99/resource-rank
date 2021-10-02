@@ -41,7 +41,7 @@ describe('topic resources resolvers', () => {
       searchAvailableResources: jest.fn(),
     };
     usersDataSource = {
-      getUser: jest.fn(),
+      getById: jest.fn(),
     };
     context = {
       dataSources: {
@@ -49,7 +49,7 @@ describe('topic resources resolvers', () => {
         resources: resourcesDataSource,
         ratings: ratingsDataSource,
         topicResources: topicResourcesDataSource,
-        usersDataSource,
+        users: usersDataSource,
       },
     };
   });
@@ -176,7 +176,7 @@ describe('topic resources resolvers', () => {
   describe('topic resource created by resolver', () => {
     it('should return user for user id', () => {
       const expected = { id: userId };
-      when(usersDataSource.getUser)
+      when(usersDataSource.getById)
         .calledWith(userId)
         .mockReturnValue(expected);
 

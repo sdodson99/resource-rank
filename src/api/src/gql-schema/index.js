@@ -16,7 +16,9 @@ const {
   typeDefs: ratingsTypeDefs,
   resolvers: ratingsResolvers,
 } = require('./ratings');
-const { typeDefs: userTypeDefs, resolvers: usersResolvers } = require('./user');
+const {
+  typeDefs: userTypeDefs,
+} = require('../features/users/graphql/users-schema');
 const {
   typeDefs: featureFlagsTypeDefs,
   resolvers: featureFlagsResolvers,
@@ -37,6 +39,5 @@ exports.resolvers = mergeResolvers([
   resourcesResolvers,
   topicResourcesResolvers,
   ratingsResolvers,
-  usersResolvers,
   featureFlagsResolvers,
 ]);

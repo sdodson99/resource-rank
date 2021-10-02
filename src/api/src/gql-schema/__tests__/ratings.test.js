@@ -1,3 +1,4 @@
+const { when } = require('jest-when');
 const { resolvers } = require('../ratings');
 
 describe('ratings resolvers', () => {
@@ -18,11 +19,13 @@ describe('ratings resolvers', () => {
     value = 5;
 
     ratingsDataSource = {};
-    usersDataSource = {};
+    usersDataSource = {
+      getById: jest.fn(),
+    };
     context = {
       dataSources: {
         ratings: ratingsDataSource,
-        usersDataSource,
+        users: usersDataSource,
       },
     };
   });
@@ -110,8 +113,10 @@ describe('ratings resolvers', () => {
 
   describe('rating createdBy resolver', () => {
     it('should return user for rating', () => {
-      const expected = { userId };
-      usersDataSource.getUser = () => expected;
+      const expected = { id: userId };
+      when(usersDataSource.getById)
+        .calledWith(userId)
+        .mockReturnValue(expected);
 
       const actual = resolvers.Rating.createdBy(
         { createdBy: userId },
@@ -120,14 +125,6 @@ describe('ratings resolvers', () => {
       );
 
       expect(actual).toBe(expected);
-    });
-
-    it('should get user for user id', () => {
-      usersDataSource.getUser = jest.fn();
-
-      resolvers.Rating.createdBy({ createdBy: userId }, null, context);
-
-      expect(usersDataSource.getUser.mock.calls[0][0]).toBe(userId);
     });
   });
 

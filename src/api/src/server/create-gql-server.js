@@ -6,12 +6,15 @@ const MongoResourcesDataSource = require('../data-sources/resources/mongo-resour
 const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
 const createReadOnlyModeHandler = require('../middleware/handle-read-only-mode');
 const TopicResourcesDataSource = require('../data-sources/topic-resources/topic-resources-data-source');
+const {
+  UsersDataSource,
+} = require('../features/users/graphql/users-data-source');
 
 exports.createGQLServer = ({
   readOnlyModeDataSource,
   userDecoder,
-  usersDataSource,
   featureFlagsDataSource,
+  firebaseApp,
 }) => {
   const app = express();
 
@@ -26,8 +29,7 @@ exports.createGQLServer = ({
       };
     },
     dataSources: () => {
-      // Careful here. Data sources that use this.context should be
-      // instantiated in this method.
+      // Data sources that use this.context should be instantiated in this method.
       const topics = new MongoTopicsDataSource();
       const resources = new MongoResourcesDataSource();
       const ratings = new MongoRatingsDataSource();
@@ -36,10 +38,10 @@ exports.createGQLServer = ({
         resources,
         ratings
       );
+      const users = new UsersDataSource(firebaseApp);
 
       return {
-        readOnlyModeDataSource,
-        usersDataSource,
+        users,
         topics,
         resources,
         ratings,

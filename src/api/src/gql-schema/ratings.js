@@ -37,7 +37,7 @@ exports.resolvers = {
   },
   Rating: {
     createdBy: ({ createdBy }, _, { dataSources }) =>
-      dataSources.usersDataSource.getUser(createdBy),
+      dataSources.users.getById(createdBy),
   },
   RatingList: {
     average: (ratings) => {

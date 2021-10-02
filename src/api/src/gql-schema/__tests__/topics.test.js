@@ -11,7 +11,9 @@ describe('topics resolvers', () => {
     topicsDataSource = {
       search: jest.fn(),
     };
-    usersDataSource = {};
+    usersDataSource = {
+      getById: jest.fn(),
+    };
     topicResourcesDataSource = {
       searchByTopic: jest.fn(),
     };
@@ -20,7 +22,7 @@ describe('topics resolvers', () => {
       dataSources: {
         topics: topicsDataSource,
         topicResources: topicResourcesDataSource,
-        usersDataSource,
+        users: usersDataSource,
       },
     };
   });
@@ -184,7 +186,9 @@ describe('topics resolvers', () => {
 
     it('should return user for topic', () => {
       const expected = { userId };
-      usersDataSource.getUser = () => expected;
+      when(usersDataSource.getById)
+        .calledWith(userId)
+        .mockReturnValue(expected);
 
       const actual = resolvers.Topic.createdBy(
         { createdBy: userId },
@@ -193,14 +197,6 @@ describe('topics resolvers', () => {
       );
 
       expect(actual).toBe(expected);
-    });
-
-    it('should get user for user id', () => {
-      usersDataSource.getUser = jest.fn();
-
-      resolvers.Topic.createdBy({ createdBy: userId }, null, context);
-
-      expect(usersDataSource.getUser.mock.calls[0][0]).toBe(userId);
     });
   });
 });

@@ -4,7 +4,6 @@ const { createGQLServer } = require('../server/create-gql-server');
 const openMongoConnection = require('../mongoose/open-connection');
 const ReadOnlyModeDataSource = require('../data-sources/read-only-mode/read-only-mode-data-source');
 const FirebaseUserDecoder = require('../authentication/firebase-user-decoder');
-const FirebaseUsersDataSource = require('../data-sources/users/firebase-users-data-source');
 const FirebaseFeatureGetAllQuerier = require('../services/feature-flags/get-all-querier');
 const FeatureFlagEnabledQuerier = require('../services/feature-flags/enabled-querier');
 const FeatureFlagsDataSource = require('../data-sources/feature-flags');
@@ -26,7 +25,6 @@ const featureFlagsDataSource = new FeatureFlagsDataSource(
 const readOnlyModeDataSource = new ReadOnlyModeDataSource(
   featureFlagEnabledQuerier
 );
-const usersDataSource = new FirebaseUsersDataSource(app);
 const userDecoder = new FirebaseUserDecoder(app);
 
 const connectionString = config().mongo.connection_string;
@@ -34,9 +32,9 @@ openMongoConnection(connectionString);
 
 const gqlServer = createGQLServer({
   readOnlyModeDataSource,
-  usersDataSource,
   userDecoder,
   featureFlagsDataSource,
+  firebaseApp: app,
 });
 
 exports.api = https.onRequest(gqlServer);
