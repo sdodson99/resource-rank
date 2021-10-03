@@ -1,4 +1,4 @@
-const { resolvers } = require('../feature-flags');
+const { resolvers } = require('../feature-flags-schema');
 
 describe('feature flag resolvers', () => {
   describe('featureFlags query', () => {

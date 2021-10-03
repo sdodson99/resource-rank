@@ -1,4 +1,4 @@
-const FeatureFlagMap = require('../feature-flag-map');
+const { FeatureFlagMap } = require('../feature-flag-map');
 
 describe('FeatureFlagMap', () => {
   let featureFlagMap;

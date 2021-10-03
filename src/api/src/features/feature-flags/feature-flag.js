@@ -13,4 +13,4 @@ class FeatureFlag {
   }
 }
 
-module.exports = FeatureFlag;
+exports.FeatureFlag = FeatureFlag;

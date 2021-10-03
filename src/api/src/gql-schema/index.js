@@ -22,7 +22,7 @@ const {
 const {
   typeDefs: featureFlagsTypeDefs,
   resolvers: featureFlagsResolvers,
-} = require('./feature-flags');
+} = require('../features/feature-flags/graphql/feature-flags-schema');
 
 exports.typeDefs = mergeTypeDefs([
   commonTypeDefs,

@@ -1,4 +1,4 @@
-const FeatureFlag = require('./feature-flag');
+const { FeatureFlag } = require('./feature-flag');
 
 /**
  * Model for a feature flag map.
@@ -38,4 +38,4 @@ class FeatureFlagMap {
   }
 }
 
-module.exports = FeatureFlagMap;
+exports.FeatureFlagMap = FeatureFlagMap;

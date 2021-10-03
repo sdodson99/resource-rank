@@ -3,26 +3,30 @@ const firebaseAdmin = require('firebase-admin');
 const { createGQLServer } = require('../server/create-gql-server');
 const openMongoConnection = require('../mongoose/open-connection');
 const ReadOnlyModeDataSource = require('../data-sources/read-only-mode/read-only-mode-data-source');
-const FirebaseFeatureGetAllQuerier = require('../services/feature-flags/get-all-querier');
-const FeatureFlagEnabledQuerier = require('../services/feature-flags/enabled-querier');
-const FeatureFlagsDataSource = require('../data-sources/feature-flags');
+const {
+  GetAllFeatureFlagsQuery,
+} = require('../features/feature-flags/queries/get-all-feature-flags-query');
+const {
+  FeatureFlagEnabledQuery,
+} = require('../features/feature-flags/queries/feature-flag-enabled-query');
+const FeatureFlagsDataSource = require('../features/feature-flags/graphql/feature-flags-data-source');
 
 const FEATURE_FLAGS_DATABASE_PATH = '/feature_flags';
 
 const app = firebaseAdmin.initializeApp();
-const featureFlagGetAllQuerier = new FirebaseFeatureGetAllQuerier(
+const getAllFeatureFlagsQuery = new GetAllFeatureFlagsQuery(
   app,
   FEATURE_FLAGS_DATABASE_PATH
 );
-const featureFlagEnabledQuerier = new FeatureFlagEnabledQuerier(
-  featureFlagGetAllQuerier
+const isFeatureFlagEnabledQuery = new FeatureFlagEnabledQuery(
+  getAllFeatureFlagsQuery
 );
 const featureFlagsDataSource = new FeatureFlagsDataSource(
-  featureFlagGetAllQuerier,
-  featureFlagEnabledQuerier
+  getAllFeatureFlagsQuery,
+  isFeatureFlagEnabledQuery
 );
 const readOnlyModeDataSource = new ReadOnlyModeDataSource(
-  featureFlagEnabledQuerier
+  isFeatureFlagEnabledQuery
 );
 
 const connectionString = config().mongo.connection_string;

@@ -1,13 +1,13 @@
 /**
  * Service for checking if a feature flag is enabled.
  */
-class FeatureFlagEnabledQuerier {
+class FeatureFlagEnabledQuery {
   /**
    * Initialize with a get all feature flags querier.
-   * @param {object} featureFlagGetAllQuerier Service to load feature flags.
+   * @param {object} featureFlagGetAllQuery Service to get all feature flags.
    */
-  constructor(featureFlagGetAllQuerier) {
-    this.featureFlagGetAllQuerier = featureFlagGetAllQuerier;
+  constructor(featureFlagGetAllQuery) {
+    this.featureFlagGetAllQuery = featureFlagGetAllQuery;
   }
 
   /**
@@ -15,11 +15,11 @@ class FeatureFlagEnabledQuerier {
    * @param {string} featureFlagName The name of the feature flag to check.
    * @return {Promise<boolean>} True/false for is toggled on.
    */
-  async isEnabled(featureFlagName) {
-    const featureFlagMap = await this.featureFlagGetAllQuerier.getAll();
+  async execute(featureFlagName) {
+    const featureFlagMap = await this.featureFlagGetAllQuery.execute();
 
     return featureFlagMap.isEnabled(featureFlagName);
   }
 }
 
-module.exports = FeatureFlagEnabledQuerier;
+exports.FeatureFlagEnabledQuery = FeatureFlagEnabledQuery;

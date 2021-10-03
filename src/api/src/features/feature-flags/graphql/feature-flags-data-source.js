@@ -4,12 +4,12 @@
 class FeatureFlagsDataSource {
   /**
    * Initialize a feature flags data source.
-   * @param {object} featureFlagGetAllQuerier The service to get all feature flags.
-   * @param {object} featureFlagEnabledQuerier The service to check if a feature flag is enabled.
+   * @param {object} featureFlagGetAllQuery The query to get all feature flags.
+   * @param {object} featureFlagEnabledQuery The query to check if a feature flag is enabled.
    */
-  constructor(featureFlagGetAllQuerier, featureFlagEnabledQuerier) {
-    this.featureFlagGetAllQuerier = featureFlagGetAllQuerier;
-    this.featureFlagEnabledQuerier = featureFlagEnabledQuerier;
+  constructor(featureFlagGetAllQuery, featureFlagEnabledQuery) {
+    this.featureFlagGetAllQuery = featureFlagGetAllQuery;
+    this.featureFlagEnabledQuery = featureFlagEnabledQuery;
   }
 
   /**
@@ -17,7 +17,7 @@ class FeatureFlagsDataSource {
    * @return {Promise<Array>} The loaded feature flags.
    */
   async getAll() {
-    const featureFlagMap = await this.featureFlagGetAllQuerier.getAll();
+    const featureFlagMap = await this.featureFlagGetAllQuery.execute();
 
     return featureFlagMap.toArray();
   }
@@ -28,7 +28,7 @@ class FeatureFlagsDataSource {
    * @return {Promise<boolean>} True/false for is toggled on.
    */
   async isEnabled(featureFlagName) {
-    return await this.featureFlagEnabledQuerier.isEnabled(featureFlagName);
+    return await this.featureFlagEnabledQuery.execute(featureFlagName);
   }
 }
 

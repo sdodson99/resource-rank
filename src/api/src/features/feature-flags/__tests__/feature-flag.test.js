@@ -1,4 +1,4 @@
-const FeatureFlag = require('../feature-flag');
+const { FeatureFlag } = require('../feature-flag');
 
 describe('FeatureFlag', () => {
   it('should initialize with data', () => {

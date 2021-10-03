@@ -1,20 +1,20 @@
 const { when } = require('jest-when');
-const FeatureFlagEnabledQuerier = require('../enabled-querier');
+const { FeatureFlagEnabledQuery } = require('../feature-flag-enabled-query');
 
-describe('FeatureFlagEnabledQuerier', () => {
-  let featureFlagEnabledQuerier;
+describe('FeatureFlagEnabledQuery', () => {
+  let featureFlagEnabledQuery;
   let featureFlagMap;
 
   beforeEach(() => {
     featureFlagMap = {
       isEnabled: jest.fn(),
     };
-    const featureFlagGetAllQuerier = {
-      getAll: () => featureFlagMap,
+    const featureFlagGetAllQuery = {
+      execute: () => featureFlagMap,
     };
 
-    featureFlagEnabledQuerier = new FeatureFlagEnabledQuerier(
-      featureFlagGetAllQuerier
+    featureFlagEnabledQuery = new FeatureFlagEnabledQuery(
+      featureFlagGetAllQuery
     );
   });
 
@@ -23,7 +23,7 @@ describe('FeatureFlagEnabledQuerier', () => {
     const expected = true;
     when(featureFlagMap.isEnabled).calledWith(name).mockReturnValue(true);
 
-    const actual = await featureFlagEnabledQuerier.isEnabled(name);
+    const actual = await featureFlagEnabledQuery.execute(name);
 
     expect(actual).toBe(expected);
   });

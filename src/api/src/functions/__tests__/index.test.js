@@ -9,9 +9,9 @@ jest.mock('firebase-admin');
 jest.mock('../../server/create-gql-server');
 jest.mock('../../mongoose/open-connection');
 jest.mock('../../data-sources/read-only-mode/read-only-mode-data-source');
-jest.mock('../../services/feature-flags/get-all-querier');
-jest.mock('../../services/feature-flags/enabled-querier');
-jest.mock('../../data-sources/feature-flags');
+jest.mock('../../features/feature-flags/queries/get-all-feature-flags-query');
+jest.mock('../../features/feature-flags/queries/feature-flag-enabled-query');
+jest.mock('../../features/feature-flags/graphql/feature-flags-data-source');
 
 describe('API Firebase Function', () => {
   let mockConnectionString;

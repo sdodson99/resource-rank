@@ -1,9 +1,9 @@
-const FeatureFlagMap = require('../../models/feature-flags/feature-flag-map');
+const { FeatureFlagMap } = require('../feature-flag-map');
 
 /**
  * Service for getting all feature flags with Firebase.
  */
-class FirebaseGetAllFeatureFlagsQuerier {
+class GetAllFeatureFlagsQuery {
   /**
    * Initialize with a Firebase app.
    * @param {firebaseAdmin.app.App} app The Firebase app to read values from.
@@ -26,7 +26,7 @@ class FirebaseGetAllFeatureFlagsQuerier {
    * Get all feature flags.
    * @return {Promise<object>} The loaded feature flags.
    */
-  async getAll() {
+  async execute() {
     if (!this.loaded) {
       const data = await this.featureFlagDatabaseRef.get();
       const featureFlagData = data.val();
@@ -48,4 +48,4 @@ class FirebaseGetAllFeatureFlagsQuerier {
   }
 }
 
-module.exports = FirebaseGetAllFeatureFlagsQuerier;
+exports.GetAllFeatureFlagsQuery = GetAllFeatureFlagsQuery;

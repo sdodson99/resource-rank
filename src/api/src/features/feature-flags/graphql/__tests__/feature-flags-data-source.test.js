@@ -1,23 +1,23 @@
 const { when } = require('jest-when');
-const FeatureFlagsDataSource = require('..');
+const FeatureFlagsDataSource = require('../feature-flags-data-source');
 
 describe('FeatureFlagsDataSource', () => {
-  let featureFlagGetAllQuerier;
-  let featureFlagEnabledQuerier;
+  let featureFlagGetAllQuery;
+  let featureFlagEnabledQuery;
 
   let featureFlagsDataSource;
 
   beforeEach(() => {
-    featureFlagGetAllQuerier = {
-      getAll: jest.fn(),
+    featureFlagGetAllQuery = {
+      execute: jest.fn(),
     };
-    featureFlagEnabledQuerier = {
-      isEnabled: jest.fn(),
+    featureFlagEnabledQuery = {
+      execute: jest.fn(),
     };
 
     featureFlagsDataSource = new FeatureFlagsDataSource(
-      featureFlagGetAllQuerier,
-      featureFlagEnabledQuerier
+      featureFlagGetAllQuery,
+      featureFlagEnabledQuery
     );
   });
 
@@ -29,7 +29,7 @@ describe('FeatureFlagsDataSource', () => {
           isEnabled: true,
         },
       ];
-      featureFlagGetAllQuerier.getAll.mockReturnValue({
+      featureFlagGetAllQuery.execute.mockReturnValue({
         toArray: () => expected,
       });
 
@@ -43,7 +43,7 @@ describe('FeatureFlagsDataSource', () => {
     it('should return value of if feature flag is enabled', async () => {
       const expected = true;
       const name = 'test';
-      when(featureFlagEnabledQuerier.isEnabled)
+      when(featureFlagEnabledQuery.execute)
         .calledWith(name)
         .mockReturnValue(expected);
 
