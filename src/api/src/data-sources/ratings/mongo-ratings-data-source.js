@@ -93,12 +93,12 @@ class MongoRatingsDataSource extends DataSource {
       throw new AuthenticationError();
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
 
     return this.ratingModel.findOne({
       topic: topicId,
       resource: resourceId,
-      createdBy: uid,
+      createdBy: userId,
     });
   }
 
@@ -124,12 +124,12 @@ class MongoRatingsDataSource extends DataSource {
       );
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
 
     const existingRating = await this.ratingModel.findOne({
       topic: topicId,
       resource: resourceId,
-      createdBy: uid,
+      createdBy: userId,
     });
 
     if (existingRating) {
@@ -143,7 +143,7 @@ class MongoRatingsDataSource extends DataSource {
       value,
       topic: topicId,
       resource: resourceId,
-      createdBy: uid,
+      createdBy: userId,
     });
   }
 
@@ -168,10 +168,10 @@ class MongoRatingsDataSource extends DataSource {
       );
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
 
     const { ok } = await this.ratingModel.updateOne(
-      { _id: ratingId, createdBy: uid },
+      { _id: ratingId, createdBy: userId },
       { value }
     );
 

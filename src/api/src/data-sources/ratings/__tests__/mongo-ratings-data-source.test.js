@@ -209,7 +209,7 @@ describe('MongoRatingsDataSource', () => {
     beforeEach(() => {
       userId = '123';
 
-      mongoRatingsDataSource.user = { uid: userId };
+      mongoRatingsDataSource.user = { id: userId };
     });
 
     describe('getUserRatingForTopicResource', () => {

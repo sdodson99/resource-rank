@@ -277,7 +277,7 @@ describe('MongoResourcesDataSource', () => {
       const userId = 'user123';
 
       beforeEach(() => {
-        mongoResourcesDataSource.user = { uid: userId };
+        mongoResourcesDataSource.user = { id: userId };
       });
 
       it('should throw resource validation error if resource is invalid', async () => {

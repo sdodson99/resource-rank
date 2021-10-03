@@ -147,13 +147,13 @@ class MongoResourcesDataSource extends DataSource {
       throw new AuthenticationError();
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
     const slug = slugify(name);
     const resource = {
       name,
       slug,
       link,
-      createdBy: uid,
+      createdBy: userId,
     };
 
     const { isValid, message } = validateResource(resource);

@@ -246,7 +246,7 @@ describe('MongoTopicsDataSource', () => {
       beforeEach(() => {
         userId = '123123';
 
-        mongoTopicsDataSource.user = { uid: userId };
+        mongoTopicsDataSource.user = { id: userId };
       });
 
       it('should throw topic validation error if topic is invalid', async () => {
@@ -346,7 +346,7 @@ describe('MongoTopicsDataSource', () => {
       beforeEach(() => {
         userId = '123123';
 
-        mongoTopicsDataSource.user = { uid: userId };
+        mongoTopicsDataSource.user = { id: userId };
       });
 
       it('should throw error if query fails', async () => {

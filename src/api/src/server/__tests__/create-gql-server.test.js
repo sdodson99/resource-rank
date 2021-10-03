@@ -2,18 +2,22 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { createGQLServer } = require('../create-gql-server');
 const createReadOnlyModeHandler = require('../../middleware/handle-read-only-mode');
+const {
+  Authenticator,
+} = require('../../features/authentication/authenticator');
 
 jest.mock('express');
 jest.mock('apollo-server-express');
 jest.mock('../../middleware/handle-read-only-mode');
+jest.mock('../../features/authentication/authenticator');
 
 describe('createGQLServer', () => {
   let mockApp;
   let mockApolloServer;
 
   let readOnlyModeDataSource;
-  let userDecoder;
   let featureFlagsDataSource;
+  let mockAuthenticate;
 
   beforeEach(() => {
     mockApp = {
@@ -27,21 +31,23 @@ describe('createGQLServer', () => {
     ApolloServer.mockReturnValue(mockApolloServer);
 
     readOnlyModeDataSource = {};
-    userDecoder = {
-      getUserFromRequest: jest.fn(),
-    };
     featureFlagsDataSource = {};
+
+    mockAuthenticate = jest.fn();
+    Authenticator.mockReturnValue({
+      authenticate: mockAuthenticate,
+    });
   });
 
   afterEach(() => {
     createReadOnlyModeHandler.mockReset();
     ApolloServer.mockReset();
+    Authenticator.mockReset();
   });
 
   it('should create ApolloServer w/ Express', () => {
     const app = createGQLServer({
       readOnlyModeDataSource,
-      userDecoder,
       featureFlagsDataSource,
     });
 
@@ -59,7 +65,6 @@ describe('createGQLServer', () => {
 
     createGQLServer({
       readOnlyModeDataSource,
-      userDecoder,
       featureFlagsDataSource,
     });
 
@@ -68,13 +73,12 @@ describe('createGQLServer', () => {
 
   it('should create ApolloServer with context that authenticates users', async () => {
     const expectedUser = {
-      name: 'name',
+      id: '123',
     };
-    userDecoder.getUserFromRequest.mockReturnValue(expectedUser);
+    mockAuthenticate.mockReturnValue(expectedUser);
 
     createGQLServer({
       readOnlyModeDataSource,
-      userDecoder,
       featureFlagsDataSource,
     });
     const contextFunction = ApolloServer.mock.calls[0][0].context;
@@ -86,7 +90,6 @@ describe('createGQLServer', () => {
   it('should create ApolloServer with data sources', () => {
     createGQLServer({
       readOnlyModeDataSource,
-      userDecoder,
       featureFlagsDataSource,
     });
     const dataSourcesFunction = ApolloServer.mock.calls[0][0].dataSources;

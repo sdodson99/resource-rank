@@ -131,12 +131,12 @@ class MongoTopicsDataSource extends DataSource {
       throw new AuthenticationError();
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
     const slug = slugify(name);
     const topic = {
       name,
       slug,
-      createdBy: uid,
+      createdBy: userId,
     };
 
     const { isValid, message } = validateTopic(topic);
@@ -192,10 +192,10 @@ class MongoTopicsDataSource extends DataSource {
       );
     }
 
-    const { uid } = this.user;
+    const { id: userId } = this.user;
     const topicResource = {
       resource: resourceId,
-      createdBy: uid,
+      createdBy: userId,
     };
 
     const { nModified } = await this.topicModel.updateOne(

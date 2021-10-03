@@ -9,20 +9,22 @@ const TopicResourcesDataSource = require('../data-sources/topic-resources/topic-
 const {
   UsersDataSource,
 } = require('../features/users/graphql/users-data-source');
+const { Authenticator } = require('../features/authentication/authenticator');
 
 exports.createGQLServer = ({
   readOnlyModeDataSource,
-  userDecoder,
   featureFlagsDataSource,
   firebaseApp,
 }) => {
   const app = express();
 
+  const authenticator = new Authenticator(firebaseApp);
+
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-      const user = await userDecoder.getUserFromRequest(req);
+      const user = await authenticator.authenticate(req);
 
       return {
         user,
