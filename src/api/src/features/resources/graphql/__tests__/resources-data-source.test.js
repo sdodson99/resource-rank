@@ -1,31 +1,43 @@
-const MongoResourcesDataSource = require('../mongo-resources-data-source');
+const { ResourcesDataSource } = require('../resources-data-source');
 const { AuthenticationError } = require('apollo-server');
-const { Resource } = require('../../../mongoose/models/resource');
-const slugify = require('../../../services/slugify');
-const validateResource = require('../../../validators/resource');
+const { ResourceModel } = require('../../mongoose/resource-model');
+const slugify = require('../../../../services/slugify');
+const validateResource = require('../../../../validators/resource');
 const { when } = require('jest-when');
+const {
+  createResourceByIdDataLoader,
+} = require('../resource-by-id-data-loader');
 
-jest.mock('../../../mongoose/models/resource');
-jest.mock('../../../services/slugify');
-jest.mock('../../../validators/resource');
+jest.mock('../../mongoose/resource-model');
+jest.mock('../../../../services/slugify');
+jest.mock('../../../../validators/resource');
+jest.mock('../resource-by-id-data-loader');
 
-describe('MongoResourcesDataSource', () => {
-  let mongoResourcesDataSource;
+describe('ResourcesDataSource', () => {
+  let resourcesDataSource;
+
+  let mockResourceByIdDataLoader;
 
   beforeEach(() => {
-    mongoResourcesDataSource = new MongoResourcesDataSource();
+    mockResourceByIdDataLoader = {
+      load: jest.fn(),
+    };
+    createResourceByIdDataLoader.mockReturnValue(mockResourceByIdDataLoader);
+
+    resourcesDataSource = new ResourcesDataSource();
   });
 
   afterEach(() => {
-    Resource.mockReset();
-    Resource.find.mockReset();
-    Resource.paginate.mockReset();
-    Resource.findOne.mockReset();
-    Resource.exists.mockReset();
-    Resource.create.mockReset();
+    ResourceModel.mockReset();
+    ResourceModel.find.mockReset();
+    ResourceModel.paginate.mockReset();
+    ResourceModel.findOne.mockReset();
+    ResourceModel.exists.mockReset();
+    ResourceModel.create.mockReset();
 
     slugify.mockReset();
     validateResource.mockReset();
+    createResourceByIdDataLoader.mockReset();
   });
 
   describe('initialize', () => {
@@ -33,9 +45,9 @@ describe('MongoResourcesDataSource', () => {
       const expected = { name: 'some-user' };
       const config = { context: { user: expected } };
 
-      mongoResourcesDataSource.initialize(config);
+      resourcesDataSource.initialize(config);
 
-      const actual = mongoResourcesDataSource.user;
+      const actual = resourcesDataSource.user;
       expect(actual).toBe(expected);
     });
   });
@@ -45,28 +57,34 @@ describe('MongoResourcesDataSource', () => {
 
     it('should return resource if resource found', async () => {
       const expected = { _id: resourceId };
-      Resource.find.mockReturnValue([expected]);
+      when(mockResourceByIdDataLoader.load)
+        .calledWith(resourceId)
+        .mockReturnValue(expected);
 
-      const actual = await mongoResourcesDataSource.getById(resourceId);
+      const actual = await resourcesDataSource.getById(resourceId);
 
       expect(actual).toBe(expected);
     });
 
     it('should return null if resource not found', async () => {
-      Resource.find.mockReturnValue([]);
+      when(mockResourceByIdDataLoader.load)
+        .calledWith(resourceId)
+        .mockReturnValue(null);
 
-      const actual = await mongoResourcesDataSource.getById(resourceId);
+      const actual = await resourcesDataSource.getById(resourceId);
 
       expect(actual).toBeNull();
     });
 
     it('should throw if resource query fails', async () => {
-      Resource.find.mockImplementation(() => {
-        throw new Error();
-      });
+      when(mockResourceByIdDataLoader.load)
+        .calledWith(resourceId)
+        .mockImplementation(() => {
+          throw new Error();
+        });
 
       await expect(async () => {
-        await mongoResourcesDataSource.getById(resourceId);
+        await resourcesDataSource.getById(resourceId);
       }).rejects.toThrow();
     });
   });
@@ -76,28 +94,28 @@ describe('MongoResourcesDataSource', () => {
 
     it('should return resource if resource slug found', async () => {
       const expected = { slug };
-      Resource.findOne.mockReturnValue(expected);
+      ResourceModel.findOne.mockReturnValue(expected);
 
-      const actual = await mongoResourcesDataSource.getBySlug(slug);
+      const actual = await resourcesDataSource.getBySlug(slug);
 
       expect(actual).toBe(expected);
     });
 
     it('should return null if resource slug not found', async () => {
-      Resource.findOne.mockReturnValue(null);
+      ResourceModel.findOne.mockReturnValue(null);
 
-      const actual = await mongoResourcesDataSource.getBySlug(slug);
+      const actual = await resourcesDataSource.getBySlug(slug);
 
       expect(actual).toBeNull();
     });
 
     it('should throw if resource slug query fails', async () => {
-      Resource.findOne.mockImplementation(() => {
+      ResourceModel.findOne.mockImplementation(() => {
         throw new Error();
       });
 
       await expect(async () => {
-        await mongoResourcesDataSource.getBySlug(slug);
+        await resourcesDataSource.getBySlug(slug);
       }).rejects.toThrow();
     });
   });
@@ -120,7 +138,7 @@ describe('MongoResourcesDataSource', () => {
         items: [{ id: '123' }, { id: '456' }],
         totalCount: 1,
       };
-      when(Resource.paginate)
+      when(ResourceModel.paginate)
         .calledWith(
           {
             _id: { $nin: excludeIds },
@@ -138,7 +156,7 @@ describe('MongoResourcesDataSource', () => {
           total: 1,
         });
 
-      const actual = await mongoResourcesDataSource.search(query, {
+      const actual = await resourcesDataSource.search(query, {
         offset,
         limit,
         excludeIds,
@@ -152,7 +170,7 @@ describe('MongoResourcesDataSource', () => {
         items: [{ id: '123' }, { id: '456' }],
         totalCount: 1,
       };
-      when(Resource.paginate)
+      when(ResourceModel.paginate)
         .calledWith(
           {
             _id: { $nin: [] },
@@ -170,18 +188,18 @@ describe('MongoResourcesDataSource', () => {
           total: 1,
         });
 
-      const actual = await mongoResourcesDataSource.search();
+      const actual = await resourcesDataSource.search();
 
       expect(actual).toEqual(expected);
     });
 
     it('should throw if query fails', async () => {
-      Resource.paginate.mockImplementation(() => {
+      ResourceModel.paginate.mockImplementation(() => {
         throw new Error();
       });
 
       await expect(async () => {
-        await mongoResourcesDataSource.search(query);
+        await resourcesDataSource.search(query);
       }).rejects.toThrow();
     });
   });
@@ -192,7 +210,7 @@ describe('MongoResourcesDataSource', () => {
 
     it('should return resources if successful', async () => {
       const expected = [{ _id: '123' }];
-      when(Resource.find)
+      when(ResourceModel.find)
         .calledWith({
           _id: { $in: ids },
           name: { $regex: search, $options: 'i' },
@@ -200,14 +218,14 @@ describe('MongoResourcesDataSource', () => {
         })
         .mockReturnValue(expected);
 
-      const actual = await mongoResourcesDataSource.getByIds(ids, search);
+      const actual = await resourcesDataSource.getByIds(ids, search);
 
       expect(actual).toBe(expected);
     });
 
     it('should return resources for default search when no search provided', async () => {
       const expected = [{ _id: '123' }];
-      when(Resource.find)
+      when(ResourceModel.find)
         .calledWith({
           _id: { $in: ids },
           name: { $regex: '', $options: 'i' },
@@ -215,18 +233,18 @@ describe('MongoResourcesDataSource', () => {
         })
         .mockReturnValue(expected);
 
-      const actual = await mongoResourcesDataSource.getByIds(ids);
+      const actual = await resourcesDataSource.getByIds(ids);
 
       expect(actual).toBe(expected);
     });
 
     it('should throw if query fails', async () => {
-      Resource.find.mockImplementation(() => {
+      ResourceModel.find.mockImplementation(() => {
         throw new Error();
       });
 
       await expect(async () => {
-        await mongoResourcesDataSource.getByIds(ids, search);
+        await resourcesDataSource.getByIds(ids, search);
       }).rejects.toThrow();
     });
   });
@@ -236,27 +254,27 @@ describe('MongoResourcesDataSource', () => {
 
     it('should return result if successful', async () => {
       const expected = true;
-      Resource.exists.mockReturnValue(expected);
+      ResourceModel.exists.mockReturnValue(expected);
 
-      const actual = await mongoResourcesDataSource.nameExists(name);
+      const actual = await resourcesDataSource.nameExists(name);
 
       expect(actual).toBe(expected);
     });
 
     it('should throw if request fails', async () => {
-      Resource.exists.mockImplementation(() => {
+      ResourceModel.exists.mockImplementation(() => {
         throw new Error();
       });
 
       await expect(async () => {
-        await mongoResourcesDataSource.nameExists(name);
+        await resourcesDataSource.nameExists(name);
       }).rejects.toThrow();
     });
 
     it('should call exists if successful', async () => {
-      await mongoResourcesDataSource.nameExists(name);
+      await resourcesDataSource.nameExists(name);
 
-      expect(Resource.exists.mock.calls[0][0]).toEqual({ name });
+      expect(ResourceModel.exists.mock.calls[0][0]).toEqual({ name });
     });
   });
 
@@ -268,7 +286,7 @@ describe('MongoResourcesDataSource', () => {
     describe('with unauthenticated user', () => {
       it('should throw authentication error', async () => {
         await expect(async () => {
-          await mongoResourcesDataSource.create(name, link);
+          await resourcesDataSource.create(name, link);
         }).rejects.toThrow(AuthenticationError);
       });
     });
@@ -277,7 +295,7 @@ describe('MongoResourcesDataSource', () => {
       const userId = 'user123';
 
       beforeEach(() => {
-        mongoResourcesDataSource.user = { id: userId };
+        resourcesDataSource.user = { id: userId };
       });
 
       it('should throw resource validation error if resource is invalid', async () => {
@@ -289,7 +307,7 @@ describe('MongoResourcesDataSource', () => {
         });
 
         try {
-          await mongoResourcesDataSource.create(name);
+          await resourcesDataSource.create(name);
 
           fail();
         } catch (error) {
@@ -300,31 +318,31 @@ describe('MongoResourcesDataSource', () => {
 
       it('should throw resource exists error if name exists', async () => {
         validateResource.mockReturnValue({ isValid: true });
-        Resource.exists.mockReturnValue(true);
+        ResourceModel.exists.mockReturnValue(true);
 
         await expect(async () => {
-          await mongoResourcesDataSource.create(name, link);
+          await resourcesDataSource.create(name, link);
         }).rejects.toThrow('Resource already exists.');
       });
 
       it('should throw resource slug exists error if slug already exists', async () => {
         validateResource.mockReturnValue({ isValid: true });
-        Resource.exists.mockReturnValueOnce(false);
-        Resource.exists.mockReturnValueOnce(true);
+        ResourceModel.exists.mockReturnValueOnce(false);
+        ResourceModel.exists.mockReturnValueOnce(true);
 
         await expect(async () => {
-          await mongoResourcesDataSource.create(name, link);
+          await resourcesDataSource.create(name, link);
         }).rejects.toThrow('Resource slug already exists.');
       });
 
       it('should throw if request fails', async () => {
         validateResource.mockReturnValue({ isValid: true });
-        Resource.create.mockImplementation(() => {
+        ResourceModel.create.mockImplementation(() => {
           throw new Error();
         });
 
         await expect(async () => {
-          await mongoResourcesDataSource.create(name, link);
+          await resourcesDataSource.create(name, link);
         }).rejects.toThrow();
       });
 
@@ -332,9 +350,9 @@ describe('MongoResourcesDataSource', () => {
         validateResource.mockReturnValue({ isValid: true });
         slugify.mockReturnValue(slug);
         const expected = { name, slug, link };
-        Resource.create.mockReturnValue(expected);
+        ResourceModel.create.mockReturnValue(expected);
 
-        const actual = await mongoResourcesDataSource.create(name, link);
+        const actual = await resourcesDataSource.create(name, link);
 
         expect(actual).toBe(expected);
       });
@@ -344,9 +362,9 @@ describe('MongoResourcesDataSource', () => {
         slugify.mockReturnValue(slug);
         const expected = { name, slug, link, createdBy: userId };
 
-        await mongoResourcesDataSource.create(name, link);
+        await resourcesDataSource.create(name, link);
 
-        expect(Resource.create.mock.calls[0][0]).toEqual(expected);
+        expect(ResourceModel.create.mock.calls[0][0]).toEqual(expected);
       });
     });
   });

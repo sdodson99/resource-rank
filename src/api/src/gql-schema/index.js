@@ -7,7 +7,7 @@ const {
 const {
   typeDefs: resourcesTypeDefs,
   resolvers: resourcesResolvers,
-} = require('./resources');
+} = require('../features/resources/graphql/resources-schema');
 const {
   typeDefs: topicResourcesTypeDefs,
   resolvers: topicResourcesResolvers,

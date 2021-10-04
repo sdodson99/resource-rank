@@ -1,15 +1,17 @@
 const { DataSource } = require('apollo-datasource');
-const DataLoader = require('dataloader');
-const { Resource } = require('../../mongoose/models/resource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
-const slugify = require('../../services/slugify');
-const validateResource = require('../../validators/resource');
-const logger = require('../../monitoring/logger');
+const slugify = require('../../../services/slugify');
+const validateResource = require('../../../validators/resource');
+const logger = require('../../../monitoring/logger');
+const { ResourceModel } = require('../mongoose/resource-model');
+const {
+  createResourceByIdDataLoader,
+} = require('./resource-by-id-data-loader');
 
 /**
  * Data source for resources from a Mongo database.
  */
-class MongoResourcesDataSource extends DataSource {
+class ResourcesDataSource extends DataSource {
   /**
    * Initialize with Resource model.
    */
@@ -17,21 +19,8 @@ class MongoResourcesDataSource extends DataSource {
     super();
 
     this.user = null;
-    this.resourceModel = Resource;
-
-    this.resourceDataLoader = new DataLoader(async (resourceIds) => {
-      const resources = await this.resourceModel.find({
-        _id: { $in: resourceIds },
-        slug: { $ne: null },
-      });
-
-      const resourceMap = {};
-      resources.forEach((r) => {
-        resourceMap[r._id] = r;
-      });
-
-      return resourceIds.map((id) => resourceMap[id]);
-    });
+    this.resourceModel = ResourceModel;
+    this.resourceDataLoader = createResourceByIdDataLoader();
   }
 
   /**
@@ -182,4 +171,4 @@ class MongoResourcesDataSource extends DataSource {
   }
 }
 
-module.exports = MongoResourcesDataSource;
+exports.ResourcesDataSource = ResourcesDataSource;
