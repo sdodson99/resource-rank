@@ -2,7 +2,7 @@ const { https, config } = require('firebase-functions');
 const firebaseAdmin = require('firebase-admin');
 const { createGQLServer } = require('../server/create-gql-server');
 const openMongoConnection = require('../mongoose/open-connection');
-const ReadOnlyModeDataSource = require('../data-sources/read-only-mode/read-only-mode-data-source');
+const ReadOnlyModeDataSource = require('../features/feature-flags/read-only-mode/read-only-mode-data-source');
 const {
   GetAllFeatureFlagsQuery,
 } = require('../features/feature-flags/queries/get-all-feature-flags-query');
@@ -18,15 +18,15 @@ const getAllFeatureFlagsQuery = new GetAllFeatureFlagsQuery(
   app,
   FEATURE_FLAGS_DATABASE_PATH
 );
-const isFeatureFlagEnabledQuery = new FeatureFlagEnabledQuery(
+const featureFlagEnabledQuery = new FeatureFlagEnabledQuery(
   getAllFeatureFlagsQuery
 );
 const featureFlagsDataSource = new FeatureFlagsDataSource(
   getAllFeatureFlagsQuery,
-  isFeatureFlagEnabledQuery
+  featureFlagEnabledQuery
 );
 const readOnlyModeDataSource = new ReadOnlyModeDataSource(
-  isFeatureFlagEnabledQuery
+  featureFlagEnabledQuery
 );
 
 const connectionString = config().mongo.connection_string;

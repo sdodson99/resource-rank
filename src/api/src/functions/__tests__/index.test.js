@@ -8,7 +8,9 @@ jest.mock('firebase-functions');
 jest.mock('firebase-admin');
 jest.mock('../../server/create-gql-server');
 jest.mock('../../mongoose/open-connection');
-jest.mock('../../data-sources/read-only-mode/read-only-mode-data-source');
+jest.mock(
+  '../../features/feature-flags/read-only-mode/read-only-mode-data-source'
+);
 jest.mock('../../features/feature-flags/queries/get-all-feature-flags-query');
 jest.mock('../../features/feature-flags/queries/feature-flag-enabled-query');
 jest.mock('../../features/feature-flags/graphql/feature-flags-data-source');
