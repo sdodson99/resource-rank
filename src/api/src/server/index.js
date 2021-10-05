@@ -1,7 +1,7 @@
 const { https, config } = require('firebase-functions');
 const firebaseAdmin = require('firebase-admin');
-const { createGQLServer } = require('../server/create-gql-server');
-const { openMongoConnection } = require('../server/open-mongo-connection');
+const { createGQLServer } = require('./create-gql-server');
+const { openMongoConnection } = require('./open-mongo-connection');
 const ReadOnlyModeDataSource = require('../features/feature-flags/read-only-mode/read-only-mode-data-source');
 const {
   GetAllFeatureFlagsQuery,

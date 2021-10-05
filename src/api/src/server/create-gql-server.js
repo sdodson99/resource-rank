@@ -6,7 +6,7 @@ const {
   ResourcesDataSource,
 } = require('../features/resources/graphql/resources-data-source');
 const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
-const createReadOnlyModeHandler = require('../middleware/handle-read-only-mode');
+const createReadOnlyModeHandler = require('./middleware/handle-read-only-mode');
 const TopicResourcesDataSource = require('../data-sources/topic-resources/topic-resources-data-source');
 const {
   UsersDataSource,

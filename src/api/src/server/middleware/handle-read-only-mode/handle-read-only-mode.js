@@ -1,4 +1,4 @@
-const logger = require('../../monitoring/logger');
+const logger = require('../../../monitoring/logger');
 const isMutation = require('./is-mutation');
 
 /**

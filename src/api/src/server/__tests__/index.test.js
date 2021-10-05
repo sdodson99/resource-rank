@@ -1,13 +1,13 @@
 const { https, config } = require('firebase-functions');
 const firebaseAdmin = require('firebase-admin');
-const { createGQLServer } = require('../../server/create-gql-server');
-const { openMongoConnection } = require('../../server/open-mongo-connection');
+const { createGQLServer } = require('../create-gql-server');
+const { openMongoConnection } = require('../open-mongo-connection');
 const { when } = require('jest-when');
 
 jest.mock('firebase-functions');
 jest.mock('firebase-admin');
-jest.mock('../../server/create-gql-server');
-jest.mock('../../server/open-mongo-connection');
+jest.mock('../create-gql-server');
+jest.mock('../open-mongo-connection');
 jest.mock(
   '../../features/feature-flags/read-only-mode/read-only-mode-data-source'
 );

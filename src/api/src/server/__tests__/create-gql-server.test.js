@@ -1,14 +1,14 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { createGQLServer } = require('../create-gql-server');
-const createReadOnlyModeHandler = require('../../middleware/handle-read-only-mode');
+const createReadOnlyModeHandler = require('../middleware/handle-read-only-mode');
 const {
   Authenticator,
 } = require('../../features/authentication/authenticator');
 
 jest.mock('express');
 jest.mock('apollo-server-express');
-jest.mock('../../middleware/handle-read-only-mode');
+jest.mock('../middleware/handle-read-only-mode');
 jest.mock('../../features/authentication/authenticator');
 
 describe('createGQLServer', () => {
