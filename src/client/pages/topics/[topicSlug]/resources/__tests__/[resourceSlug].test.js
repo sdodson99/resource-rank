@@ -113,6 +113,25 @@ describe('<TopicResourceDetails />', () => {
       expect(fullRatingStars.length).toBe(5);
     });
 
+    it('should show loading skeleton while rating loading', () => {
+      useRating.mockReturnValue({
+        isLoading: true,
+      });
+      render(withApp(TopicResourceDetails, props));
+
+      const loadingSkeleton = screen.getByTestId('RatingLoadSkeleton');
+
+      expect(loadingSkeleton).toBeInTheDocument();
+    });
+
+    it('should show rating login prompt if user not logged in', () => {
+      render(withApp(TopicResourceDetails, props, { mock: 'unauthenticated' }));
+
+      const loginPrompt = screen.getByText('You must login to add a rating.');
+
+      expect(loginPrompt).toBeInTheDocument();
+    });
+
     describe('on submit rating', () => {
       function renderAndSubmit() {
         render(withApp(TopicResourceDetails, props));
@@ -199,16 +218,6 @@ describe('<TopicResourceDetails />', () => {
 
       const page = renderer
         .create(withApp(TopicResourceDetails, props))
-        .toJSON();
-
-      expect(page).toMatchSnapshot();
-    });
-
-    it('should render correctly when not logged in', () => {
-      const page = renderer
-        .create(
-          withApp(TopicResourceDetails, props, { mock: 'unauthenticated' })
-        )
         .toJSON();
 
       expect(page).toMatchSnapshot();

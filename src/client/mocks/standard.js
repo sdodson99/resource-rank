@@ -4,7 +4,7 @@ import createTopicMutation from '@/graphql/mutations/create-topic-mutation';
 import createTopicResourceMutation from '@/graphql/mutations/create-topic-resource-mutation';
 import updateRatingMutation from '@/graphql/mutations/update-rating-mutation';
 import availableTopicResourcesQuery from '@/graphql/queries/available-topic-resources-query';
-import readOnlyModeEnabledQuery from '@/graphql/queries/read-only-mode-enabled-query';
+import featureFlagsQuery from '@/graphql/queries/feature-flags-query';
 import topicBySlugQuery from '@/graphql/queries/topic-by-slug-query';
 import topicResourceBySlugQuery from '@/graphql/queries/topic-resource-by-slug-query';
 import topicResourcesQuery from '@/graphql/queries/topic-resources-query';
@@ -180,8 +180,8 @@ export default {
   [updateRatingMutation]: () => ({
     updateRating: true,
   }),
-  [readOnlyModeEnabledQuery]: () => ({
-    readOnlyModeEnabled: false,
+  [featureFlagsQuery]: () => ({
+    featureFlags: [],
   }),
   authState: {
     isLoggedIn: true,

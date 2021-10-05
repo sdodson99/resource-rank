@@ -8,7 +8,8 @@ export default function useRating(topicId, resourceId, isLoggedIn) {
     execute: executeRatingQuery,
     data: ratingData,
     error,
-    isLoading,
+    isLoading: isQueryLoading,
+    isInitialized,
   } = useTopicResourceUserRatingQuery(topicId, resourceId);
 
   useEffect(async () => {
@@ -23,6 +24,8 @@ export default function useRating(topicId, resourceId, isLoggedIn) {
     const rating = ratingData?.userRating;
     setRating(rating);
   }, [ratingData]);
+
+  const isLoading = isQueryLoading || !isInitialized;
 
   return {
     rating,

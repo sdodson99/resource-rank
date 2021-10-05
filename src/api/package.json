@@ -2,7 +2,7 @@
   "name": "res-rank-api",
   "version": "1.0.0",
   "description": "A GraphQL API for ResRank data.",
-  "main": "src/functions/index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "dev": "firebase emulators:start --only functions,database,auth --inspect-functions 9228",
     "lint:eslint": "eslint \"src/**/*.js\"",
@@ -13,7 +13,8 @@
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "deploy": "firebase deploy --only functions"

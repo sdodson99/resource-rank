@@ -48,6 +48,7 @@ describe('<AddTopicResource />', () => {
         },
         error: null,
         isLoading: false,
+        isInitialized: true,
         searchVariables: { search: 'search' },
         currentSearchVariables: { search: null, limit: 10 },
         debounceProcessSearch: jest.fn(),
@@ -115,6 +116,18 @@ describe('<AddTopicResource />', () => {
         );
         expect(availableResourceListingItems.length).toBe(2);
       });
+    });
+
+    it('should show loading when topic resources initializing', () => {
+      useAvailableTopicResourceSearch.mockReturnValue({
+        ...mockAvailableTopicResourceSearch,
+        isInitialized: false,
+      });
+      render(withApp(Page, props));
+
+      const loadingDisplay = screen.getByTestId('SkeletonListing');
+
+      expect(loadingDisplay).toBeInTheDocument();
     });
 
     describe('onAddResource', () => {

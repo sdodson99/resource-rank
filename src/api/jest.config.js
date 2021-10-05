@@ -10,4 +10,5 @@ module.exports = {
       statements: 75,
     },
   },
+  setupFilesAfterEnv: ['<rootDir>/src/test-utils/setup/index.js'],
 };

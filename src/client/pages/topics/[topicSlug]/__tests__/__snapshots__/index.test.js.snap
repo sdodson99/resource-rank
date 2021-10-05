@@ -143,7 +143,7 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -184,26 +184,13 @@ exports[`<TopicDetails /> page should render correctly 1`] = `
                     className="LoadingErrorEmptyDataLayout"
                     data-testid="LoadingErrorEmptyDataLayout"
                   >
-                    <div
-                      className="text-center"
-                    >
-                      <div
-                        className="LoadingSpinner"
-                        data-testid="LoadingSpinner"
-                      >
-                        <svg
-                          fill="none"
-                          height={50}
-                          viewBox="0 0 100 100"
-                          width={50}
-                          xmlns="http://www.w3.org/2000/svg"
+                    <div>
+                      <div>
+                        <div
+                          className="text-center sm:text-left"
                         >
-                          <path
-                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
-                            stroke="#292929"
-                            strokeWidth="10"
-                          />
-                        </svg>
+                          No topic resources matching 'currentSearch' have been added.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -469,7 +456,7 @@ exports[`<TopicDetails /> page should render correctly when topic verified 1`] =
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -522,26 +509,13 @@ exports[`<TopicDetails /> page should render correctly when topic verified 1`] =
                     className="LoadingErrorEmptyDataLayout"
                     data-testid="LoadingErrorEmptyDataLayout"
                   >
-                    <div
-                      className="text-center"
-                    >
-                      <div
-                        className="LoadingSpinner"
-                        data-testid="LoadingSpinner"
-                      >
-                        <svg
-                          fill="none"
-                          height={50}
-                          viewBox="0 0 100 100"
-                          width={50}
-                          xmlns="http://www.w3.org/2000/svg"
+                    <div>
+                      <div>
+                        <div
+                          className="text-center sm:text-left"
                         >
-                          <path
-                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
-                            stroke="#292929"
-                            strokeWidth="10"
-                          />
-                        </svg>
+                          No topic resources matching 'currentSearch' have been added.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -773,7 +747,7 @@ exports[`<TopicDetails /> page should render correctly with data 1`] = `
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -1494,7 +1468,7 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
                 </div>
               </div>
               <div
-                className="mt-2 text-xs text-gray-800 font-thin"
+                className="mt-2 text-xs text-gray-800 italic"
               >
                 Created by 
                 creator
@@ -1547,26 +1521,13 @@ exports[`<TopicDetails /> page should render correctly with no data and no curre
                     className="LoadingErrorEmptyDataLayout"
                     data-testid="LoadingErrorEmptyDataLayout"
                   >
-                    <div
-                      className="text-center"
-                    >
-                      <div
-                        className="LoadingSpinner"
-                        data-testid="LoadingSpinner"
-                      >
-                        <svg
-                          fill="none"
-                          height={50}
-                          viewBox="0 0 100 100"
-                          width={50}
-                          xmlns="http://www.w3.org/2000/svg"
+                    <div>
+                      <div>
+                        <div
+                          className="text-center sm:text-left"
                         >
-                          <path
-                            d="M95 50C95 59.6293 91.9111 69.0047 86.1874 76.7483C80.4636 84.4919 72.4069 90.1952 63.2012 93.0201C53.9956 95.845 44.1265 95.6424 35.0445 92.4421C25.9625 89.2419 18.1466 83.2127 12.7454 75.2408C7.34427 67.2689 4.64275 57.7746 5.03791 48.1534C5.43306 38.5321 8.90405 29.2914 14.9407 21.7892C20.9774 14.287 29.2615 8.91914 38.5753 6.47442C47.8891 4.0297 57.7416 4.6371 66.6846 8.20736"
-                            stroke="#292929"
-                            strokeWidth="10"
-                          />
-                        </svg>
+                          No topic resources have been added.
+                        </div>
                       </div>
                     </div>
                   </div>

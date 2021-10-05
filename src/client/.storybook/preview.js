@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-import { MockProvider } from '../hooks/use-mock-context';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,9 +13,7 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <div className="p-5" style={{ fontFamily: 'Kanit, sans-serif' }}>
-      <MockProvider>
-        <Story />
-      </MockProvider>
+      <Story />
     </div>
   ),
 ];

@@ -14,6 +14,7 @@ on:
 
 env:
   CLIENT_PATH: 'src/client'
+  PLAYWRIGHT_BROWSERS_PATH: '/Users/runner/work/playwright'
 
 jobs:
   build:
@@ -42,7 +43,7 @@ jobs:
         working-directory: ${{ env.CLIENT_PATH }}
 
       - name: 'Install E2E Browsers'
-        run: 'npx playwright install'
+        run: 'npm install playwright-chromium@1.14.0'
 
       - name: 'E2E'
         run: 'npm run e2e:ci'

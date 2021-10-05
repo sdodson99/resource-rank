@@ -5,9 +5,9 @@ import useAuthenticationState from '@/hooks/use-authentication-context';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import { useRouter } from 'next/router';
 import TopicListing from '@/components/TopicListing/TopicListing';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import useTopicSearch from '@/hooks/topics/use-topic-search';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -20,6 +20,7 @@ export default function Topics() {
     data: topicsData,
     error: topicsError,
     isLoading: isLoadingTopics,
+    isInitialized: isTopicsInitialized,
     searchVariables: { search },
     currentSearchVariables: { search: currentSearch, limit },
     debounceProcessSearch,
@@ -46,6 +47,7 @@ export default function Topics() {
   const totalTopicsCount = topicsData?.topics?.totalCount;
   const topicsPageCount = Math.ceil(totalTopicsCount / limit);
   const hasTopics = topics?.length > 0;
+  const showLoading = isLoadingTopics || !isTopicsInitialized;
 
   const breadcrumbs = [
     {
@@ -85,12 +87,8 @@ export default function Topics() {
 
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingTopics}
-              loadingDisplay={
-                <div className="text-center">
-                  <LoadingSpinner />
-                </div>
-              }
+              isLoading={showLoading}
+              loadingDisplay={<SkeletonListing />}
               hasError={!!topicsError}
               errorDisplay={
                 <div className="text-center sm:text-left error-text">

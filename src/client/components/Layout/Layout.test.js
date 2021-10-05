@@ -1,27 +1,29 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Layout from './Layout';
-import useReadOnlyModeEnabledQuery from '../../hooks/queries/use-read-only-mode-enabled-query';
-import { useRouter } from 'next/router';
 import withApp from '@/test-utils/with-app';
-import { createRenderer } from 'react-test-renderer/shallow';
+import useFeatureFlagsContext from '@/hooks/use-feature-flags-context';
+import renderer from 'react-test-renderer';
+import { when } from 'jest-when';
 
-jest.mock('../../hooks/queries/use-read-only-mode-enabled-query');
-jest.mock('next/router');
+jest.mock('@/hooks/use-feature-flags-context', () => ({
+  ...jest.requireActual('@/hooks/use-feature-flags-context'),
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 describe('<Layout />', () => {
-  beforeEach(() => {
-    useReadOnlyModeEnabledQuery.mockReturnValue(true);
+  let mockIsFeatureFlagEnabled;
 
-    useRouter.mockReturnValue({
-      route: '/',
+  beforeEach(() => {
+    mockIsFeatureFlagEnabled = jest.fn();
+    useFeatureFlagsContext.mockReturnValue({
+      isEnabled: mockIsFeatureFlagEnabled,
     });
   });
 
   afterEach(() => {
-    useReadOnlyModeEnabledQuery.mockReset();
-    useRouter.mockReset();
+    useFeatureFlagsContext.mockReset();
   });
 
   it('should mount', () => {
@@ -32,35 +34,37 @@ describe('<Layout />', () => {
     expect(layout).toBeInTheDocument();
   });
 
-  describe('with read only mode enabled', () => {
-    beforeEach(() => {
-      useReadOnlyModeEnabledQuery.mockReturnValue(true);
-    });
+  it('should render correctly', () => {
+    const component = renderer
+      .create(withApp(Layout, { children: 'Hello world.' }))
+      .toJSON();
 
-    afterEach(() => {
-      useReadOnlyModeEnabledQuery.mockReset();
-    });
-
-    it('should render correctly', () => {
-      const page = createRenderer().render(<Layout />);
-
-      expect(page).toMatchSnapshot();
-    });
+    expect(component).toMatchSnapshot();
   });
 
-  describe('with read only mode disabled', () => {
-    beforeEach(() => {
-      useReadOnlyModeEnabledQuery.mockReturnValue(false);
-    });
+  it('should show read-only mode alert if read only mode enabled', () => {
+    when(mockIsFeatureFlagEnabled)
+      .calledWith('read_only_mode')
+      .mockReturnValue(true);
+    render(withApp(Layout));
 
-    afterEach(() => {
-      useReadOnlyModeEnabledQuery.mockReset();
-    });
+    const readOnlyModeAlert = screen.getByText(
+      'Application is in read-only mode.'
+    );
 
-    it('should render correctly', () => {
-      const page = createRenderer().render(<Layout />);
+    expect(readOnlyModeAlert).toBeInTheDocument();
+  });
 
-      expect(page).toMatchSnapshot();
-    });
+  it('should not show read-only mode alert if read only mode disabled', () => {
+    when(mockIsFeatureFlagEnabled)
+      .calledWith('read_only_mode')
+      .mockReturnValue(false);
+    render(withApp(Layout));
+
+    const readOnlyModeAlert = screen.queryByText(
+      'Application is in read-only mode.'
+    );
+
+    expect(readOnlyModeAlert).toBeNull();
   });
 });

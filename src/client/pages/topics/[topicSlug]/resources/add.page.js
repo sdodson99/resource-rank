@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import AvailableResourceListing from '@/components/AvailableResourceListing/AvailableResourceListing';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
@@ -11,6 +10,7 @@ import useAvailableTopicResourceSearch from '@/hooks/topics/use-available-topic-
 import useTopicResourceCreator from '@/hooks/topics/use-topic-resource-creator';
 import withAuthentication from '@/components/WithAuthentication/WithAuthentication';
 import useNavigate from '@/hooks/use-navigate';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -22,6 +22,7 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
     data: resourcesData,
     error: resourcesError,
     isLoading: isLoadingResources,
+    isInitialized: isResourcesInitialized,
     searchVariables: { search },
     currentSearchVariables: { search: currentSearch, limit },
     debounceProcessSearch,
@@ -118,15 +119,16 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
   const getSearchDisplay = () => {
     if (!currentSearch) {
-      return 'No resources have been created.';
+      return 'No resources are available to add.';
     }
 
-    return `No resources matching '${currentSearch}' have been created.`;
+    return `No resources matching '${currentSearch}' are available to add.`;
   };
 
   const totalResourcesCount = resourcesData?.availableResources?.totalCount;
   const resourcesPageCount = Math.ceil(totalResourcesCount / limit);
   const hasResources = resources?.length > 0;
+  const showLoading = isLoadingResources || !isResourcesInitialized;
 
   const breadcrumbs = [
     {
@@ -173,12 +175,8 @@ const AddTopicResource = ({ topicId, topicName, topicSlug }) => {
 
         <div className="mt-8">
           <LoadingErrorEmptyDataLayout
-            isLoading={isLoadingResources}
-            loadingDisplay={
-              <div className="text-center">
-                <LoadingSpinner />
-              </div>
-            }
+            isLoading={showLoading}
+            loadingDisplay={<SkeletonListing />}
             hasError={!!resourcesError}
             errorDisplay={
               <div className="text-center sm:text-left error-text">

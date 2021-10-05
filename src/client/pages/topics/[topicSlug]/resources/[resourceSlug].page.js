@@ -4,7 +4,6 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import RatingStarGroup from '@/components/RatingStars/RatingStarGroup/RatingStarGroup';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import { NextSeo } from 'next-seo';
 import getTopicResourceBySlug from '@/services/topic-resources/graphql-topic-resource-by-slug-service';
 import useRatingSubmitter from '@/hooks/ratings/use-rating-submitter';
@@ -13,6 +12,7 @@ import RatingForm from '@/components/RatingForm/RatingForm';
 import ResourceDetails from '@/components/ResourceDetails/ResourceDetails';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
+import Skeleton from 'react-loading-skeleton';
 
 const TopicResourceDetails = ({
   topicId,
@@ -27,7 +27,8 @@ const TopicResourceDetails = ({
     topicResource?.ratingList?.count
   );
 
-  const { isLoggedIn } = useAuthenticationContext();
+  const { isLoggedIn, initialized: isAuthInitialized } =
+    useAuthenticationContext();
   const {
     rating,
     isLoading: isLoadingRating,
@@ -61,6 +62,14 @@ const TopicResourceDetails = ({
     } catch (error) {
       setSubmitRatingError(error);
     }
+  };
+
+  const getRatingPrompt = () => {
+    if (existingRating) {
+      return 'You have rated this topic resource. Feel free to update your rating at any time.';
+    }
+
+    return 'You have not rated this topic resource.';
   };
 
   const topicName = topicResource?.topic?.name;
@@ -119,7 +128,7 @@ const TopicResourceDetails = ({
                 </div>
               )}
             </div>
-            <div className="mt-2 text-xs text-gray-800 font-thin">
+            <div className="mt-2 text-xs text-gray-800 italic">
               Created by {resourceCreatedBy}
             </div>
           </div>
@@ -141,31 +150,49 @@ const TopicResourceDetails = ({
           <hr className="mt-3" />
 
           <div className="mt-6">
-            {!isLoggedIn && <div>You must login to add a rating.</div>}
+            {!isAuthInitialized && (
+              <div data-testid="AuthInitSkeleton">
+                <Skeleton height={100} />
+              </div>
+            )}
 
-            {isLoggedIn && (
-              <LoadingErrorEmptyDataLayout
-                isLoading={isLoadingRating}
-                loadingDisplay={
-                  <div className="text-center">
-                    <LoadingSpinner />
-                  </div>
-                }
-                hasError={!!ratingError}
-                errorDisplay={
-                  <div className="error-text">
-                    Failed to load your rating for this topic resource.
-                  </div>
-                }
-                dataDisplay={
-                  <RatingForm
-                    onSubmit={submitRating}
-                    isSubmittingRating={isSubmittingRating}
-                    error={submitRatingError}
-                    existingRating={existingRating?.value}
+            {isAuthInitialized && (
+              <div>
+                {!isLoggedIn && <div>You must login to add a rating.</div>}
+
+                {isLoggedIn && (
+                  <LoadingErrorEmptyDataLayout
+                    isLoading={isLoadingRating}
+                    loadingDisplay={
+                      <div data-testid="RatingLoadSkeleton">
+                        <Skeleton height={100} />
+                      </div>
+                    }
+                    hasError={!!ratingError}
+                    errorDisplay={
+                      <div className="error-text">
+                        Failed to load your rating for this topic resource.
+                      </div>
+                    }
+                    dataDisplay={
+                      <div>
+                        <div className="font-thin text-sm">
+                          {getRatingPrompt()}
+                        </div>
+
+                        <div className="mt-6">
+                          <RatingForm
+                            onSubmit={submitRating}
+                            isSubmittingRating={isSubmittingRating}
+                            error={submitRatingError}
+                            existingRating={existingRating?.value}
+                          />
+                        </div>
+                      </div>
+                    }
                   />
-                }
-              />
+                )}
+              </div>
             )}
           </div>
         </div>

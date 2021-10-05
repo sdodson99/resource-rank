@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
+exports[`<Layout /> should render correctly 1`] = `
 <div
   className="Layout"
   data-testid="Layout"
@@ -8,29 +8,147 @@ exports[`<Layout /> with read only mode disabled should render correctly 1`] = `
   <div
     className="Page"
   >
-    <Header />
-    <div />
+    <header
+      className="Header"
+      data-testid="Header"
+    >
+      <div
+        className="content-container"
+      >
+        <div
+          className="sm:flex items-center text-center sm:text-left"
+        >
+          <div
+            className="flex-grow flex justify-center sm:justify-start"
+          >
+            <a
+              href="/?mock=standard"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
+              <img
+                alt="Resource Rank Logo"
+                height="50"
+                src="/img/logo.svg"
+                width="50"
+              />
+            </a>
+          </div>
+          <div
+            className="NavItem NavLink ActiveNavLink"
+            data-testid="ActiveLink"
+          >
+            Home
+          </div>
+          <div
+            className="NavItem"
+            data-testid="TopicsNavItem"
+          >
+            <div
+              className="NavLink"
+              data-testid="ActiveLink"
+            >
+              <a
+                className=""
+                href="/topics?mock=standard"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                Topics
+              </a>
+            </div>
+          </div>
+          <div
+            className="NavItem"
+          >
+            <button
+              className="btn btn-primary"
+              data-testid="LoadingButton"
+              onClick={[Function]}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div>
+      Hello world.
+    </div>
   </div>
-  <Footer />
-</div>
-`;
-
-exports[`<Layout /> with read only mode enabled should render correctly 1`] = `
-<div
-  className="Layout"
-  data-testid="Layout"
->
-  <div
-    className="Page"
+  <footer
+    className="Footer"
+    data-testid="Footer"
   >
     <div
-      className="Alert"
+      className="content-container"
     >
-      Application is in read-only mode.
+      <div
+        className="sm:flex text-center sm:text-left"
+      >
+        <div
+          className="sm:order-2 sm:ml-10"
+        >
+          <h1
+            className="text-4xl"
+          >
+            Our Mission
+          </h1>
+          <p
+            className="py-3"
+          >
+            is to 
+            <strong>
+              simplify
+            </strong>
+             your learning journey. Learning can be 
+            <strong>
+              difficult
+            </strong>
+            , especially when starting. There are
+             
+            <strong>
+              millions
+            </strong>
+             of educational courses, videos, and books
+             
+            <strong>
+              scattered
+            </strong>
+             across the Internet.
+          </p>
+          <p
+            className="py-3"
+          >
+            Resource Rank’s goal is to 
+            <strong>
+              consolidate
+            </strong>
+             all of these resources so that you can 
+            <strong>
+              quickly
+            </strong>
+             find the
+             
+            <strong>
+              best
+            </strong>
+             resources for what you are learning.
+          </p>
+        </div>
+        <div
+          className="sm:order-1 mt-10 sm:mt-0 flex items-start justify-center sm:justify-start"
+        >
+          <img
+            alt="Resource Rank Logo"
+            className="max-w-none"
+            height="75"
+            src="/img/logo.svg"
+            width="75"
+          />
+        </div>
+      </div>
     </div>
-    <Header />
-    <div />
-  </div>
-  <Footer />
+  </footer>
 </div>
 `;

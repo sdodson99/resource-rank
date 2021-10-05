@@ -19,8 +19,9 @@ describe('<TopicDetails />', () => {
     beforeEach(() => {
       mockTopicResourceSearch = {
         data: {},
-        error: new Error(),
-        isLoading: true,
+        error: null,
+        isLoading: false,
+        isInitialized: true,
         searchVariables: { resourceSearch: 'search' },
         currentSearchVariables: { resourceSearch: 'currentSearch', limit: 10 },
         debounceProcessSearch: jest.fn(),
@@ -83,6 +84,18 @@ describe('<TopicDetails />', () => {
       expect(page).toMatchSnapshot();
     });
 
+    it('should show loading when topic resources initializing', () => {
+      useTopicResourceSearch.mockReturnValue({
+        ...mockTopicResourceSearch,
+        isInitialized: false,
+      });
+      render(withApp(TopicDetails, props));
+
+      const loadingDisplay = screen.getByTestId('SkeletonListing');
+
+      expect(loadingDisplay).toBeInTheDocument();
+    });
+
     it('should render correctly with data', () => {
       useTopicResourceSearch.mockReturnValue({
         ...mockTopicResourceSearch,
@@ -110,8 +123,6 @@ describe('<TopicDetails />', () => {
             ],
           },
         },
-        error: null,
-        isLoading: false,
       });
 
       const page = renderer.create(withApp(TopicDetails, props)).toJSON();
@@ -141,6 +152,7 @@ describe('<TopicDetails />', () => {
       useTopicResourceSearch.mockReturnValue({
         ...mockTopicResourceSearch,
         currentSearchVariables: {},
+        isLoading: false,
       });
 
       const page = renderer.create(withApp(TopicDetails, props)).toJSON();

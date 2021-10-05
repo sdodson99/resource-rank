@@ -4,13 +4,13 @@ import BreadcrumbLayout from '@/components/BreadcrumbLayout/BreadcrumbLayout';
 import LoadingErrorEmptyDataLayout from '@/components/LoadingErrorEmptyDataLayout/LoadingErrorEmptyDataLayout';
 import useAuthenticationContext from '@/hooks/use-authentication-context';
 import TopicResourceListing from '@/components/TopicResourceListing/TopicResourceListing';
-import LoadingSpinner from '@/components/LoadingSpinner/LoadingSpinner';
 import getTopicBySlug from '@/services/topics/graphql-topic-by-slug-service';
 import { NextSeo } from 'next-seo';
 import useTopicResourceSearch from '@/hooks/topics/use-topic-resource-search';
 import PageHeaderButton from '@/components/PageHeaderButton/PageHeaderButton';
 import VerifiedIcon from '@/components/VerifiedIcon/VerifiedIcon';
 import InfoAlert from '@/components/Alerts/InfoAlert/InfoAlert';
+import SkeletonListing from '@/components/SkeletonListing/SkeletonListing';
 
 const DEFAULT_SEARCH_LIMIT = 10;
 
@@ -28,6 +28,7 @@ const TopicDetails = ({
     data: topicResourcesData,
     error: topicResourcesError,
     isLoading: isLoadingTopicResources,
+    isInitialized: isTopicResourcesInitialized,
     searchVariables: { resourceSearch: search },
     currentSearchVariables: { resourceSearch: currentSearch, limit },
     debounceProcessSearch,
@@ -63,6 +64,7 @@ const TopicDetails = ({
     topicResourcesData?.topicResources?.totalCount;
   const topicResourcesPageCount = Math.ceil(totalTopicResourcesCount / limit);
   const hasTopicResources = topicResources.length > 0;
+  const showLoading = isLoadingTopicResources || !isTopicResourcesInitialized;
 
   const topicLink = `/topics/${topicSlug}`;
   const breadcrumbs = [
@@ -105,7 +107,7 @@ const TopicDetails = ({
           )}
         </div>
 
-        <div className="mt-2 text-xs text-gray-800 font-thin">
+        <div className="mt-2 text-xs text-gray-800 italic">
           Created by {topicCreator}
         </div>
 
@@ -131,12 +133,8 @@ const TopicDetails = ({
 
           <div className="mt-8">
             <LoadingErrorEmptyDataLayout
-              isLoading={isLoadingTopicResources}
-              loadingDisplay={
-                <div className="text-center">
-                  <LoadingSpinner />
-                </div>
-              }
+              isLoading={showLoading}
+              loadingDisplay={<SkeletonListing />}
               hasError={!!topicResourcesError}
               errorDisplay={
                 <div className="text-center sm:text-left error-text">
