@@ -1,4 +1,4 @@
-const slugify = require('../');
+const slugify = require('..');
 const slug = require('slugify');
 
 jest.mock('slugify');

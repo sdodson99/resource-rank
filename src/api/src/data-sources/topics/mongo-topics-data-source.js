@@ -2,7 +2,7 @@ const { DataSource } = require('apollo-datasource');
 const { TopicModel } = require('../../features/topics/mongoose/topic-model');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
-const slugify = require('../../services/slugify');
+const slugify = require('../../features/common/slugify');
 const validateTopic = require('../../validators/topic');
 const logger = require('../../monitoring/logger');
 

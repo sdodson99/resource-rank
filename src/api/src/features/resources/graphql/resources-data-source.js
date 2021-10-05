@@ -1,6 +1,6 @@
 const { DataSource } = require('apollo-datasource');
 const { AuthenticationError, ApolloError } = require('apollo-server');
-const slugify = require('../../../services/slugify');
+const slugify = require('../../common/slugify');
 const validateResource = require('../../../validators/resource');
 const logger = require('../../../monitoring/logger');
 const { ResourceModel } = require('../mongoose/resource-model');

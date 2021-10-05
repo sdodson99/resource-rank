@@ -1,12 +1,12 @@
 const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
 const { TopicModel } = require('../../../features/topics/mongoose/topic-model');
-const slugify = require('../../../services/slugify');
+const slugify = require('../../../features/common/slugify');
 const validateTopic = require('../../../validators/topic');
 const { when } = require('jest-when');
 
 jest.mock('../../../features/topics/mongoose/topic-model');
-jest.mock('../../../services/slugify');
+jest.mock('../../../features/common/slugify');
 jest.mock('../../../validators/topic');
 
 describe('MongoTopicsDataSource', () => {
