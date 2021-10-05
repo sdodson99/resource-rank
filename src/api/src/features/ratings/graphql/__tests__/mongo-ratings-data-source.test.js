@@ -1,10 +1,8 @@
 const MongoRatingsDataSource = require('../mongo-ratings-data-source');
-const {
-  RatingModel,
-} = require('../../../features/ratings/mongoose/rating-model');
+const { RatingModel } = require('../../mongoose/rating-model');
 const { AuthenticationError } = require('apollo-server');
 
-jest.mock('../../../features/ratings/mongoose/rating-model');
+jest.mock('../../mongoose/rating-model');
 
 describe('MongoRatingsDataSource', () => {
   let mongoRatingsDataSource;

@@ -1,9 +1,9 @@
 const validateTopic = require('..');
-const hasAlphaNumericCharacter = require('../../alpha-numeric');
-const isProfane = require('../../profanity');
+const hasAlphaNumericCharacter = require('../../../common/validators/alpha-numeric');
+const isProfane = require('../../../common/validators/profanity');
 
-jest.mock('../../profanity');
-jest.mock('../../alpha-numeric');
+jest.mock('../../../common/validators/profanity');
+jest.mock('../../../common/validators/alpha-numeric');
 
 describe('validateTopic', () => {
   afterEach(() => {

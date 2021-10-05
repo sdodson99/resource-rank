@@ -1,9 +1,9 @@
-const hasAlphaNumericCharacter = require('../alpha-numeric');
-const isProfane = require('../profanity/index');
+const hasAlphaNumericCharacter = require('../../common/validators/alpha-numeric');
+const isProfane = require('../../common/validators/profanity/index');
 const {
   createInvalidResult,
   createValidResult,
-} = require('../validation-result');
+} = require('../../common/validators/validation-result');
 const { isURL } = require('validator');
 
 const ResourceErrorCode = {

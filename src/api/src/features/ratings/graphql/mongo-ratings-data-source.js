@@ -1,8 +1,8 @@
 const { DataSource } = require('apollo-datasource');
-const { RatingModel } = require('../../features/ratings/mongoose/rating-model');
+const { RatingModel } = require('../mongoose/rating-model');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
-const RatingsMap = require('./ratings-map');
+const RatingsMap = require('../rating-map');
 
 /**
  * Data source for ratings from a Mongo database.

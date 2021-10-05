@@ -1,7 +1,7 @@
 /**
  * Data structure to handle mapping of topic resource ids to ratings.
  */
-class RatingsMap {
+class RatingMap {
   /**
    * Initialize map.
    */
@@ -46,4 +46,4 @@ class RatingsMap {
   }
 }
 
-module.exports = RatingsMap;
+module.exports = RatingMap;

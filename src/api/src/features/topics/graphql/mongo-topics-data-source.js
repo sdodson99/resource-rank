@@ -1,10 +1,10 @@
 const { DataSource } = require('apollo-datasource');
-const { TopicModel } = require('../../features/topics/mongoose/topic-model');
+const { TopicModel } = require('../mongoose/topic-model');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
-const slugify = require('../../features/common/slugify');
-const validateTopic = require('../../validators/topic');
-const logger = require('../../monitoring/logger');
+const slugify = require('../../common/slugify');
+const validateTopic = require('../validators');
+const logger = require('../../../monitoring/logger');
 
 /**
  * Data source for topics from a Mongo database.

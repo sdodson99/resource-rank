@@ -1,5 +1,5 @@
 const { ApolloError } = require('apollo-server-express');
-const logger = require('../../monitoring/logger');
+const logger = require('../../../monitoring/logger');
 
 /**
  * Data source for topic resources.

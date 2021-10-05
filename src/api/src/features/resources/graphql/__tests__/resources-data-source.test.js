@@ -2,7 +2,7 @@ const { ResourcesDataSource } = require('../resources-data-source');
 const { AuthenticationError } = require('apollo-server');
 const { ResourceModel } = require('../../mongoose/resource-model');
 const slugify = require('../../../common/slugify');
-const validateResource = require('../../../../validators/resource');
+const validateResource = require('../../validators');
 const { when } = require('jest-when');
 const {
   createResourceByIdDataLoader,
@@ -10,7 +10,7 @@ const {
 
 jest.mock('../../mongoose/resource-model');
 jest.mock('../../../common/slugify');
-jest.mock('../../../../validators/resource');
+jest.mock('../../validators');
 jest.mock('../resource-by-id-data-loader');
 
 describe('ResourcesDataSource', () => {

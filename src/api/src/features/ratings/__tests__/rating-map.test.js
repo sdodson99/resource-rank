@@ -1,13 +1,13 @@
-const RatingsMap = require('../ratings-map');
+const RatingMap = require('../rating-map');
 
-describe('RatingsMap', () => {
-  let ratingsMap;
+describe('RatingMap', () => {
+  let ratingMap;
 
   let topicId;
   let resourceId;
 
   beforeEach(() => {
-    ratingsMap = new RatingsMap();
+    ratingMap = new RatingMap();
 
     topicId = 'topic123';
     resourceId = 'resource123';
@@ -19,15 +19,15 @@ describe('RatingsMap', () => {
       resource: resourceId,
       value: 5,
     };
-    ratingsMap.addRating(rating);
+    ratingMap.addRating(rating);
 
-    const ratings = ratingsMap.getRatings(topicId, resourceId);
+    const ratings = ratingMap.getRatings(topicId, resourceId);
 
     expect(ratings).toContain(rating);
   });
 
   it('should return empty topic resource ratings when no topic resource ratings added', () => {
-    const ratings = ratingsMap.getRatings(topicId, resourceId);
+    const ratings = ratingMap.getRatings(topicId, resourceId);
 
     expect(ratings).toHaveLength(0);
   });
@@ -43,10 +43,10 @@ describe('RatingsMap', () => {
       resource: resourceId,
       value: 1,
     };
-    ratingsMap.addRating(rating1);
-    ratingsMap.addRating(rating2);
+    ratingMap.addRating(rating1);
+    ratingMap.addRating(rating2);
 
-    const ratings = ratingsMap.getRatings(topicId, resourceId);
+    const ratings = ratingMap.getRatings(topicId, resourceId);
 
     expect(ratings).toContain(rating1);
     expect(ratings).toContain(rating2);

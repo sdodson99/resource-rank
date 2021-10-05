@@ -1,13 +1,13 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./gql-schema');
-const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
+const MongoTopicsDataSource = require('../features/topics/graphql/mongo-topics-data-source');
 const {
   ResourcesDataSource,
 } = require('../features/resources/graphql/resources-data-source');
-const MongoRatingsDataSource = require('../data-sources/ratings/mongo-ratings-data-source');
+const MongoRatingsDataSource = require('../features/ratings/graphql/mongo-ratings-data-source');
 const createReadOnlyModeHandler = require('./middleware/handle-read-only-mode');
-const TopicResourcesDataSource = require('../data-sources/topic-resources/topic-resources-data-source');
+const TopicResourcesDataSource = require('../features/topic-resources/graphql/topic-resources-data-source');
 const {
   UsersDataSource,
 } = require('../features/users/graphql/users-data-source');
