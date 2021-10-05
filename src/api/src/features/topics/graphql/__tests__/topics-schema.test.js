@@ -1,5 +1,5 @@
 const { when } = require('jest-when');
-const { resolvers } = require('../topics');
+const { resolvers } = require('../topics-schema');
 
 describe('topics resolvers', () => {
   let topicsDataSource;

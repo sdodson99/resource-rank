@@ -1,6 +1,6 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('../gql-schema/index');
+const { typeDefs, resolvers } = require('./gql-schema');
 const MongoTopicsDataSource = require('../data-sources/topics/mongo-topics-data-source');
 const {
   ResourcesDataSource,

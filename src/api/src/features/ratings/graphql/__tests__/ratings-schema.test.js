@@ -1,5 +1,5 @@
 const { when } = require('jest-when');
-const { resolvers } = require('../ratings');
+const { resolvers } = require('../ratings-schema');
 
 describe('ratings resolvers', () => {
   let topicId;

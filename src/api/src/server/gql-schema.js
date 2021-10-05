@@ -1,9 +1,11 @@
 const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge');
-const { typeDefs: commonTypeDefs } = require('./common');
+const {
+  typeDefs: commonTypeDefs,
+} = require('../features/common/graphql/common-schema');
 const {
   typeDefs: topicsTypeDefs,
   resolvers: topicsResolvers,
-} = require('./topics');
+} = require('../features/topics/graphql/topics-schema');
 const {
   typeDefs: resourcesTypeDefs,
   resolvers: resourcesResolvers,
@@ -11,11 +13,11 @@ const {
 const {
   typeDefs: topicResourcesTypeDefs,
   resolvers: topicResourcesResolvers,
-} = require('./topic-resources');
+} = require('../features/topic-resources/graphql/topic-resources-schema');
 const {
   typeDefs: ratingsTypeDefs,
   resolvers: ratingsResolvers,
-} = require('./ratings');
+} = require('../features/ratings/graphql/ratings-schema');
 const {
   typeDefs: userTypeDefs,
 } = require('../features/users/graphql/users-schema');
