@@ -1,11 +1,11 @@
 const MongoTopicsDataSource = require('../mongo-topics-data-source');
 const { AuthenticationError } = require('apollo-server');
-const { Topic } = require('../../../mongoose/models/topic');
+const { TopicModel } = require('../../../features/topics/mongoose/topic-model');
 const slugify = require('../../../services/slugify');
 const validateTopic = require('../../../validators/topic');
 const { when } = require('jest-when');
 
-jest.mock('../../../mongoose/models/topic');
+jest.mock('../../../features/topics/mongoose/topic-model');
 jest.mock('../../../services/slugify');
 jest.mock('../../../validators/topic');
 
@@ -17,13 +17,13 @@ describe('MongoTopicsDataSource', () => {
   });
 
   afterEach(() => {
-    Topic.mockReset();
-    Topic.find.mockReset();
-    Topic.findOne.mockReset();
-    Topic.exists.mockReset();
-    Topic.create.mockReset();
-    Topic.updateOne.mockReset();
-    Topic.paginate.mockReset();
+    TopicModel.mockReset();
+    TopicModel.find.mockReset();
+    TopicModel.findOne.mockReset();
+    TopicModel.exists.mockReset();
+    TopicModel.create.mockReset();
+    TopicModel.updateOne.mockReset();
+    TopicModel.paginate.mockReset();
 
     slugify.mockReset();
     validateTopic.mockReset();
@@ -50,7 +50,7 @@ describe('MongoTopicsDataSource', () => {
 
     it('should return topic if topic ID found', async () => {
       const expected = { _id: topicId, name: 'test' };
-      Topic.find.mockReturnValue([expected]);
+      TopicModel.find.mockReturnValue([expected]);
 
       const actual = await mongoTopicsDataSource.getById(topicId);
 
@@ -58,7 +58,7 @@ describe('MongoTopicsDataSource', () => {
     });
 
     it('should return null if topic ID not found', async () => {
-      Topic.find.mockReturnValue([]);
+      TopicModel.find.mockReturnValue([]);
 
       const actual = await mongoTopicsDataSource.getById(topicId);
 
@@ -66,7 +66,7 @@ describe('MongoTopicsDataSource', () => {
     });
 
     it('should throw if topic query fails', async () => {
-      Topic.find.mockImplementation(() => {
+      TopicModel.find.mockImplementation(() => {
         throw new Error();
       });
 
@@ -85,7 +85,7 @@ describe('MongoTopicsDataSource', () => {
 
     it('should return topic if topic slug found', async () => {
       const expected = { name: 'Topic Name', slug };
-      Topic.findOne.mockReturnValue(expected);
+      TopicModel.findOne.mockReturnValue(expected);
 
       const actual = await mongoTopicsDataSource.getBySlug(slug);
 
@@ -93,7 +93,7 @@ describe('MongoTopicsDataSource', () => {
     });
 
     it('should return null if topic slug not found', async () => {
-      Topic.findOne.mockReturnValue(null);
+      TopicModel.findOne.mockReturnValue(null);
 
       const actual = await mongoTopicsDataSource.getBySlug(slug);
 
@@ -101,7 +101,7 @@ describe('MongoTopicsDataSource', () => {
     });
 
     it('should throw if topic query fails', async () => {
-      Topic.findOne.mockImplementation(() => {
+      TopicModel.findOne.mockImplementation(() => {
         throw new Error();
       });
 
@@ -127,7 +127,7 @@ describe('MongoTopicsDataSource', () => {
         items: [{ id: '123' }, { id: '456' }],
         totalCount: 1,
       };
-      when(Topic.paginate)
+      when(TopicModel.paginate)
         .calledWith(
           {
             name: { $regex: query, $options: 'i' },
@@ -157,7 +157,7 @@ describe('MongoTopicsDataSource', () => {
         items: [{ id: '123' }, { id: '456' }],
         totalCount: 1,
       };
-      when(Topic.paginate)
+      when(TopicModel.paginate)
         .calledWith(
           {
             name: { $regex: '', $options: 'i' },
@@ -180,7 +180,7 @@ describe('MongoTopicsDataSource', () => {
     });
 
     it('should throw if query fails', async () => {
-      Topic.paginate.mockImplementation(() => {
+      TopicModel.paginate.mockImplementation(() => {
         throw new Error();
       });
 
@@ -199,7 +199,7 @@ describe('MongoTopicsDataSource', () => {
 
     it('should return result if name query succeeds', async () => {
       const expected = true;
-      Topic.exists.mockReturnValue(expected);
+      TopicModel.exists.mockReturnValue(expected);
 
       const actual = await mongoTopicsDataSource.nameExists(name);
 
@@ -209,11 +209,11 @@ describe('MongoTopicsDataSource', () => {
     it('should call topic model exists with name', async () => {
       await mongoTopicsDataSource.nameExists(name);
 
-      expect(Topic.exists.mock.calls[0][0]).toEqual({ name });
+      expect(TopicModel.exists.mock.calls[0][0]).toEqual({ name });
     });
 
     it('should throw if name query fails', async () => {
-      Topic.exists.mockImplementation(() => {
+      TopicModel.exists.mockImplementation(() => {
         throw new Error();
       });
 
@@ -269,7 +269,7 @@ describe('MongoTopicsDataSource', () => {
 
       it('should throw topic exists error if name already exists', async () => {
         validateTopic.mockReturnValue({ isValid: true });
-        Topic.exists.mockReturnValue(true);
+        TopicModel.exists.mockReturnValue(true);
 
         await expect(async () => {
           await mongoTopicsDataSource.create(name);
@@ -278,8 +278,8 @@ describe('MongoTopicsDataSource', () => {
 
       it('should throw topic slug exists error if slug already exists', async () => {
         validateTopic.mockReturnValue({ isValid: true });
-        Topic.exists.mockReturnValueOnce(false);
-        Topic.exists.mockReturnValueOnce(true);
+        TopicModel.exists.mockReturnValueOnce(false);
+        TopicModel.exists.mockReturnValueOnce(true);
 
         await expect(async () => {
           await mongoTopicsDataSource.create(name);
@@ -288,7 +288,7 @@ describe('MongoTopicsDataSource', () => {
 
       it('should throw error if topic creation fails', async () => {
         validateTopic.mockReturnValue({ isValid: true });
-        Topic.create.mockImplementation(() => {
+        TopicModel.create.mockImplementation(() => {
           throw new Error();
         });
 
@@ -303,7 +303,7 @@ describe('MongoTopicsDataSource', () => {
 
         await mongoTopicsDataSource.create(name);
 
-        expect(Topic.create.mock.calls[0][0]).toEqual({
+        expect(TopicModel.create.mock.calls[0][0]).toEqual({
           name,
           slug,
           createdBy: userId,
@@ -314,7 +314,7 @@ describe('MongoTopicsDataSource', () => {
         validateTopic.mockReturnValue({ isValid: true });
         slugify.mockReturnValue(slug);
         const expected = { name, slug, createdBy: userId };
-        Topic.create.mockReturnValue(expected);
+        TopicModel.create.mockReturnValue(expected);
 
         const actual = await mongoTopicsDataSource.create(name);
 
@@ -350,7 +350,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should throw error if query fails', async () => {
-        Topic.find.mockImplementation(() => {
+        TopicModel.find.mockImplementation(() => {
           throw new Error();
         });
 
@@ -360,7 +360,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should throw topic not found error if topic not found', async () => {
-        Topic.find.mockReturnValue([]);
+        TopicModel.find.mockReturnValue([]);
 
         await expect(async () => {
           await mongoTopicsDataSource.addResource(topicId, resourceId);
@@ -368,7 +368,7 @@ describe('MongoTopicsDataSource', () => {
       });
 
       it('should throw topic resource exists error if topic already has resource', async () => {
-        Topic.find.mockReturnValue([
+        TopicModel.find.mockReturnValue([
           {
             _id: topicId,
             resources: [{ resource: resourceId }],
@@ -382,7 +382,7 @@ describe('MongoTopicsDataSource', () => {
 
       describe('and with topic resource not already existing', () => {
         beforeEach(() => {
-          Topic.find.mockReturnValue([
+          TopicModel.find.mockReturnValue([
             {
               _id: topicId,
               resources: [{ resource: 'other-resource-id' }],
@@ -395,18 +395,20 @@ describe('MongoTopicsDataSource', () => {
             resource: resourceId,
             createdBy: userId,
           };
-          Topic.updateOne.mockReturnValue({ nModified: 1 });
+          TopicModel.updateOne.mockReturnValue({ nModified: 1 });
 
           await mongoTopicsDataSource.addResource(topicId, resourceId);
 
-          expect(Topic.updateOne.mock.calls[0][0]).toEqual({ _id: topicId });
-          expect(Topic.updateOne.mock.calls[0][1]).toEqual({
+          expect(TopicModel.updateOne.mock.calls[0][0]).toEqual({
+            _id: topicId,
+          });
+          expect(TopicModel.updateOne.mock.calls[0][1]).toEqual({
             $addToSet: { resources: expectedTopicResource },
           });
         });
 
         it('should return truthy if update successful', async () => {
-          Topic.updateOne.mockReturnValue({ nModified: 1 });
+          TopicModel.updateOne.mockReturnValue({ nModified: 1 });
 
           const success = await mongoTopicsDataSource.addResource(
             topicId,
@@ -417,7 +419,7 @@ describe('MongoTopicsDataSource', () => {
         });
 
         it('should return falsy if update unsuccessful', async () => {
-          Topic.updateOne.mockReturnValue({ nModified: 0 });
+          TopicModel.updateOne.mockReturnValue({ nModified: 0 });
 
           const success = await mongoTopicsDataSource.addResource(
             topicId,

@@ -5,7 +5,7 @@ const logger = require('../monitoring/logger');
  * Open a MongoDB connection.
  * @param {string} connectionString The MongoDB connection string.
  */
-async function connect(connectionString) {
+async function openMongoConnection(connectionString) {
   try {
     await mongoose.connect(connectionString, {
       useNewUrlParser: true,
@@ -19,4 +19,4 @@ async function connect(connectionString) {
   }
 }
 
-module.exports = connect;
+exports.openMongoConnection = openMongoConnection;

@@ -29,4 +29,3 @@ resourceSchema.plugin(mongoosePaginate);
 const ResourceModel = model('Resource', resourceSchema);
 
 exports.ResourceModel = ResourceModel;
-exports.resourceSchema = resourceSchema;

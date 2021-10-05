@@ -19,9 +19,6 @@ const ratingSchema = new Schema({
   },
 });
 
-const Rating = model('Rating', ratingSchema);
+const RatingModel = model('Rating', ratingSchema);
 
-module.exports = {
-  ratingSchema,
-  Rating,
-};
+exports.RatingModel = RatingModel;

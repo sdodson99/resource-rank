@@ -1,5 +1,5 @@
 const { DataSource } = require('apollo-datasource');
-const { Rating } = require('../../mongoose/models/rating');
+const { RatingModel } = require('../../features/ratings/mongoose/rating-model');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
 const RatingsMap = require('./ratings-map');
@@ -15,7 +15,7 @@ class MongoRatingsDataSource extends DataSource {
     super();
 
     this.user = null;
-    this.ratingModel = Rating;
+    this.ratingModel = RatingModel;
 
     this.topicResourceRatingsDataLoader = new DataLoader(
       async (topicResourceIds) => {

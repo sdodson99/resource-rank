@@ -1,8 +1,10 @@
 const MongoRatingsDataSource = require('../mongo-ratings-data-source');
-const { Rating } = require('../../../mongoose/models/rating');
+const {
+  RatingModel,
+} = require('../../../features/ratings/mongoose/rating-model');
 const { AuthenticationError } = require('apollo-server');
 
-jest.mock('../../../mongoose/models/rating');
+jest.mock('../../../features/ratings/mongoose/rating-model');
 
 describe('MongoRatingsDataSource', () => {
   let mongoRatingsDataSource;
@@ -14,11 +16,11 @@ describe('MongoRatingsDataSource', () => {
   let invalidRating;
 
   beforeEach(() => {
-    Rating.mockClear();
-    Rating.find.mockClear();
-    Rating.findOne.mockClear();
-    Rating.create.mockClear();
-    Rating.updateOne.mockClear();
+    RatingModel.mockClear();
+    RatingModel.find.mockClear();
+    RatingModel.findOne.mockClear();
+    RatingModel.create.mockClear();
+    RatingModel.updateOne.mockClear();
 
     mongoRatingsDataSource = new MongoRatingsDataSource();
 
@@ -62,7 +64,7 @@ describe('MongoRatingsDataSource', () => {
           rating: 1,
         },
       ];
-      Rating.find.mockReturnValue([...expected, ...other]);
+      RatingModel.find.mockReturnValue([...expected, ...other]);
 
       const actual = await mongoRatingsDataSource.getAllForTopicResource(
         topicId,
@@ -80,7 +82,7 @@ describe('MongoRatingsDataSource', () => {
           rating: 1,
         },
       ];
-      Rating.find.mockReturnValue(other);
+      RatingModel.find.mockReturnValue(other);
 
       const actual = await mongoRatingsDataSource.getAllForTopicResource(
         topicId,
@@ -91,7 +93,7 @@ describe('MongoRatingsDataSource', () => {
     });
 
     it('should throw error if query fails', async () => {
-      Rating.find.mockImplementation(() => {
+      RatingModel.find.mockImplementation(() => {
         throw new Error();
       });
 
@@ -142,7 +144,7 @@ describe('MongoRatingsDataSource', () => {
           },
         ],
       ];
-      Rating.find.mockReturnValue([
+      RatingModel.find.mockReturnValue([
         {
           topic: 't1',
           resource: 'r1',
@@ -168,7 +170,7 @@ describe('MongoRatingsDataSource', () => {
     });
 
     it('should throw error if query fails', async () => {
-      Rating.find.mockImplementation(() => {
+      RatingModel.find.mockImplementation(() => {
         throw new Error();
       });
 
@@ -215,7 +217,7 @@ describe('MongoRatingsDataSource', () => {
     describe('getUserRatingForTopicResource', () => {
       it('should return rating', async () => {
         const expected = { value: 5 };
-        Rating.findOne.mockReturnValue(expected);
+        RatingModel.findOne.mockReturnValue(expected);
 
         const actual = await mongoRatingsDataSource.getUserRatingForTopicResource(
           topicId,
@@ -231,7 +233,7 @@ describe('MongoRatingsDataSource', () => {
           resourceId
         );
 
-        expect(Rating.findOne.mock.calls[0][0]).toEqual({
+        expect(RatingModel.findOne.mock.calls[0][0]).toEqual({
           topic: topicId,
           resource: resourceId,
           createdBy: userId,
@@ -239,7 +241,7 @@ describe('MongoRatingsDataSource', () => {
       });
 
       it('should throw if query fails', async () => {
-        Rating.findOne.mockImplementation(() => {
+        RatingModel.findOne.mockImplementation(() => {
           throw new Error();
         });
 
@@ -265,7 +267,7 @@ describe('MongoRatingsDataSource', () => {
 
       describe('with existing rating', () => {
         it('should throw rating already exists error', async () => {
-          Rating.findOne.mockReturnValue({ value: 5 });
+          RatingModel.findOne.mockReturnValue({ value: 5 });
 
           await expect(async () => {
             await mongoRatingsDataSource.create(
@@ -281,12 +283,12 @@ describe('MongoRatingsDataSource', () => {
 
       describe('with non-existing rating', () => {
         beforeEach(() => {
-          Rating.findOne.mockReturnValue(null);
+          RatingModel.findOne.mockReturnValue(null);
         });
 
         it('should return created rating', async () => {
           const expected = { value: validRating };
-          Rating.create.mockReturnValue(expected);
+          RatingModel.create.mockReturnValue(expected);
 
           const actual = await mongoRatingsDataSource.create(
             topicId,
@@ -300,7 +302,7 @@ describe('MongoRatingsDataSource', () => {
         it('should call create with new rating', async () => {
           await mongoRatingsDataSource.create(topicId, resourceId, validRating);
 
-          expect(Rating.create.mock.calls[0][0]).toEqual({
+          expect(RatingModel.create.mock.calls[0][0]).toEqual({
             value: validRating,
             topic: topicId,
             resource: resourceId,
@@ -309,7 +311,7 @@ describe('MongoRatingsDataSource', () => {
         });
 
         it('should throw error if create fails', async () => {
-          Rating.create.mockImplementation(() => {
+          RatingModel.create.mockImplementation(() => {
             throw new Error();
           });
 
@@ -332,7 +334,7 @@ describe('MongoRatingsDataSource', () => {
       });
 
       it('should return true if updated record count equal to 1', async () => {
-        Rating.updateOne.mockReturnValue({ ok: 1 });
+        RatingModel.updateOne.mockReturnValue({ ok: 1 });
 
         const result = await mongoRatingsDataSource.update(
           ratingId,
@@ -343,7 +345,7 @@ describe('MongoRatingsDataSource', () => {
       });
 
       it('should return false if updated record count equal to 0', async () => {
-        Rating.updateOne.mockReturnValue({ ok: 0 });
+        RatingModel.updateOne.mockReturnValue({ ok: 0 });
 
         const result = await mongoRatingsDataSource.update(
           ratingId,
@@ -354,28 +356,28 @@ describe('MongoRatingsDataSource', () => {
       });
 
       it('should call update for user rating', async () => {
-        Rating.updateOne.mockReturnValue({ ok: 1 });
+        RatingModel.updateOne.mockReturnValue({ ok: 1 });
 
         await mongoRatingsDataSource.update(ratingId, validRating);
 
-        expect(Rating.updateOne.mock.calls[0][0]).toEqual({
+        expect(RatingModel.updateOne.mock.calls[0][0]).toEqual({
           _id: ratingId,
           createdBy: userId,
         });
       });
 
       it('should call update with value', async () => {
-        Rating.updateOne.mockReturnValue({ ok: 1 });
+        RatingModel.updateOne.mockReturnValue({ ok: 1 });
 
         await mongoRatingsDataSource.update(ratingId, validRating);
 
-        expect(Rating.updateOne.mock.calls[0][1]).toEqual({
+        expect(RatingModel.updateOne.mock.calls[0][1]).toEqual({
           value: validRating,
         });
       });
 
       it('should throw if update request fails', async () => {
-        Rating.updateOne.mockImplementation(() => {
+        RatingModel.updateOne.mockImplementation(() => {
           throw new Error();
         });
 

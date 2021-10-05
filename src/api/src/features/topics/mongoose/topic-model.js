@@ -40,9 +40,6 @@ const topicSchema = new Schema({
 
 topicSchema.plugin(mongoosePaginate);
 
-const Topic = model('Topic', topicSchema);
+const TopicModel = model('Topic', topicSchema);
 
-module.exports = {
-  topicSchema,
-  Topic,
-};
+exports.TopicModel = TopicModel;

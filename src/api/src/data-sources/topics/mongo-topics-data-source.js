@@ -1,5 +1,5 @@
 const { DataSource } = require('apollo-datasource');
-const { Topic } = require('../../mongoose/models/topic');
+const { TopicModel } = require('../../features/topics/mongoose/topic-model');
 const { ApolloError, AuthenticationError } = require('apollo-server');
 const DataLoader = require('dataloader');
 const slugify = require('../../services/slugify');
@@ -17,7 +17,7 @@ class MongoTopicsDataSource extends DataSource {
     super();
 
     this.user = null;
-    this.topicModel = Topic;
+    this.topicModel = TopicModel;
 
     this.topicDataLoader = new DataLoader(async (topicIds) => {
       const topics = await this.topicModel.find({

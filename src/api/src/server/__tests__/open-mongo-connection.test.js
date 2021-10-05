@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const connect = require('../open-connection');
+const { openMongoConnection } = require('../open-mongo-connection');
 
 jest.mock('mongoose');
 
-describe('connect', () => {
+describe('openMongoConnection', () => {
   let connectionString;
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('connect', () => {
   });
 
   it('should open Mongoose connection', async () => {
-    await connect(connectionString);
+    await openMongoConnection(connectionString);
 
     expect(mongoose.connect).toBeCalledWith(connectionString, {
       useNewUrlParser: true,
@@ -29,7 +29,7 @@ describe('connect', () => {
     });
 
     await expect(async () => {
-      await connect(connectionString);
+      await openMongoConnection(connectionString);
     }).rejects.toThrow();
   });
 });
