@@ -34,7 +34,12 @@ class TopicResourcesDataSource {
       );
     }
 
+    const topicId = topic.id;
+    const resourceId = resource.id;
+
     return {
+      topicId,
+      resourceId,
       topic,
       resource,
     };
@@ -75,6 +80,8 @@ class TopicResourcesDataSource {
     );
 
     const topicResources = filteredResources.map((r) => ({
+      topicId: topic.id,
+      resourceId: r.id,
       resource: r,
       topic,
       createdBy: r.createdBy,

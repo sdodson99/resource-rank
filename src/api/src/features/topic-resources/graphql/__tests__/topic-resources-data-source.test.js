@@ -45,6 +45,8 @@ describe('TopicResourcesDataSource', () => {
 
     it('should return topic resource', async () => {
       const expected = {
+        topicId: '123',
+        resourceId: '456',
         topic: {
           id: '123',
           slug: topicSlug,
@@ -113,6 +115,8 @@ describe('TopicResourcesDataSource', () => {
           {
             averageRating: 0,
             createdBy: undefined,
+            topicId,
+            resourceId: 'resource456',
             resource: {
               id: 'resource456',
             },
